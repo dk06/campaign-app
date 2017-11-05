@@ -5,7 +5,7 @@ app.service('shareBaseUrl', function ($window) {
             var params = {};
                 params.token = $window.localStorage.accessToken;
                 params.userId = $window.localStorage.userId;
-                params.BaseUrl = 'http://localhost:8081/api/';
+                params.BaseUrl = window.location.origin + /api/;
             return params;
         }
     };
