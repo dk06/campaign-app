@@ -44,11 +44,38 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             return promise;
         };
 
-    this.getCustomNewSegment = function () {
+    this.getDemographic = function () {
+        params.acess = shareBaseUrl.BaseUrl();
+        params = params;
+        var promise = $http.get(params.acess.BaseUrl + 'getDemographic', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
+    this.getTechnology = function () {
+        params.acess = shareBaseUrl.BaseUrl();
+        params = params;
+        var promise = $http.get(params.acess.BaseUrl + 'getTechnology', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
+    this.getBehaviour = function () {
         params.acess = shareBaseUrl.BaseUrl();
         params = params;
         params.segment_id = 1;
-        var promise = $http.get(params.acess.BaseUrl + 'getCustomNewSegmentsForm', {params} ).then(function(response) {
+        var promise = $http.get(params.acess.BaseUrl + 'getBehaviour', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
+    this.getLocation = function () {
+        params.acess = shareBaseUrl.BaseUrl();
+        params = params;
+        var promise = $http.get(params.acess.BaseUrl + 'getlocation', {params} ).then(function(response) {
                 return response.data;
             });
             return promise;

@@ -112,14 +112,14 @@ router.get('/getCustomSegmentsFields',function(req,res,next){
                     data : rows,
                     code: 500,
                     status: false,
-                    message: "API Not Successful"});
+                    message: "API Successful"});
         }
     });
 });
 
-router.get('/getCustomNewSegmentsForm', function(req,res,next){
+router.get('/getDemographic', function(req,res,next){
     var ageGroupParam = 'ageGroup';
-    apiControllerRequest.getCustomNewSegmentsForm(ageGroupParam, function(err, rows){
+    apiControllerRequest.getCustomFormData(ageGroupParam, function(err, rows){
         if(!rows[0])
         {
             res.json({
@@ -132,7 +132,7 @@ router.get('/getCustomNewSegmentsForm', function(req,res,next){
         {
             var ageGroupData = rows[0]
             var genderParam = 'gender';
-            apiControllerRequest.getCustomNewSegmentsForm(genderParam, function(err, rows){
+            apiControllerRequest.getCustomFormData(genderParam, function(err, rows){
                 if(!rows[0])
                 {
                     res.json({
@@ -145,7 +145,7 @@ router.get('/getCustomNewSegmentsForm', function(req,res,next){
                 {
                     var genderData = rows[0]
                     var languageParam = 'language';
-                     apiControllerRequest.getCustomNewSegmentsForm(languageParam, function(err,rows){
+                     apiControllerRequest.getCustomFormData(languageParam, function(err,rows){
                         if(!rows[0])
                         {
                             res.json({
@@ -169,9 +169,206 @@ router.get('/getCustomNewSegmentsForm', function(req,res,next){
                         }
                     });
                 }
-            })
+            });
         }
-    })
+    });
 });
+
+router.get('/getTechnology', function(req,res,next){
+    var deviceTypeParam = 'deviceType';
+    apiControllerRequest.getCustomFormData(deviceTypeParam, function(err, rows){
+        if(!rows[0])
+        {
+            res.json({
+                    data : [],
+                    code: 500,
+                    status: false,
+                    message: "API Not Successful"});
+        }
+        else
+        {
+            var deviceTypeData = rows[0]
+            
+            var deviceModelParam = 'deviceModelName';
+            apiControllerRequest.getCustomFormData(deviceModelParam, function(err, rows){
+                if(!rows[0])
+                {
+                    res.json({
+                        data : [],
+                        code: 500,
+                        status: false,
+                        message: "API Not Successful"});
+                }
+                else
+                {
+                    var deviceModelData = rows[0];
+                    var operatingSystemParam = 'operatingSystem';
+                    apiControllerRequest.getCustomFormData(operatingSystemParam, function(err, rows){
+                        if(!rows[0])
+                        {
+                            res.json({
+                                data : [],
+                                code: 500,
+                                status: false,
+                                message: "API Not Successful"});
+                        }
+                        else
+                        {
+                            var operatingSystemData = rows[0];
+                            var operatingSystemVersionParam = 'operatingSystemVersion';
+                            apiControllerRequest.getCustomFormData(operatingSystemVersionParam, function(err, rows){
+                                if(!rows[0])
+                                {
+                                    res.json({
+                                        data : [],
+                                        code: 500,
+                                        status: false,
+                                        message: "API Not Successful"});
+                                }
+                                else
+                                {
+                                    var operatingSystemVersionData = rows[0];
+                                    var browserParam = 'browser';
+                                    apiControllerRequest.getCustomFormData(browserParam, function(err, rows){
+                                        if(!rows[0])
+                                        {
+                                            res.json({
+                                                data : [],
+                                                code: 500,
+                                                status: false,
+                                                message: "API Not Successful"});
+                                        }
+                                        else
+                                        {
+                                            var browserData = rows[0];
+                                            var browserVersionParam = 'browserVersion';                
+                                            apiControllerRequest.getCustomFormData(browserVersionParam, function(err, rows){
+                                                if(!rows[0])
+                                                {
+                                                    res.json({
+                                                        data : [],
+                                                        code: 500,
+                                                        status: false,
+                                                        message: "API Not Successful"});
+                                                }
+                                                else
+                                                {
+                                                    var browserVersionData = rows[0];
+                                                    var screenResolutonParam = 'screenResoluton';
+                                                    apiControllerRequest.getCustomFormData(screenResolutonParam, function(err, rows){
+                                                        if(!rows[0])
+                                                        {
+                                                            res.json({
+                                                                data : [],
+                                                                code: 500,
+                                                                status: false,
+                                                                message: "API Not Successful"});
+                                                        }
+                                                        else
+                                                        {
+                                                            var jsnData = {
+                                                                        deviceType : deviceTypeData,
+                                                                        deviceMode : deviceModelData,
+                                                                        operatingSystem : operatingSystemData,
+                                                                        operatingSystemVersion : operatingSystemVersionData,
+                                                                        browser: browserData,
+                                                                        browserVersion : browserVersionData,
+                                                                        screenResoluton : rows[0]
+                                                                    }
+                                                                    res.json({
+                                                                            data : jsnData,
+                                                                            code: 200,
+                                                                            status: "Success",
+                                                                            message: "API Successful"});                    
+                                                        }
+                                                    });               
+                                                }
+                                            });
+                                        }
+                                    });                   
+                                }
+                            });                    
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+router.get('/getlocation', function(req,res,next){
+    var countryParam = 'country';
+    apiControllerRequest.getCustomFormData(countryParam, function(err, rows){
+        if(!rows[0])
+        {
+            res.json({
+                    data : [],
+                    code: 500,
+                    status: false,
+                    message: "API Not Successful"});
+        }
+        else
+        {
+            var countryData = rows[0]
+            
+            var stateParam = 'state';
+            apiControllerRequest.getCustomFormData(stateParam, function(err, rows){
+                if(!rows[0])
+                {
+                    res.json({
+                        data : [],
+                        code: 500,
+                        status: false,
+                        message: "API Not Successful"});
+                }
+                else
+                {
+                    var stateData = rows[0];
+                    var cityParam = 'city';
+                     apiControllerRequest.getCustomFormData(cityParam, function(err, rows){
+                        if(!rows[0])
+                        {
+                            res.json({
+                                data : [],
+                                code: 500,
+                                status: false,
+                                message: "API Not Successful"});
+                        }
+                        else
+                        {
+                            var cityData = rows[0];
+                            var zipcodeParam = 'zipcode';
+                            apiControllerRequest.getCustomFormData(zipcodeParam, function(err, rows){
+                                if(!rows[0])
+                                {
+                                    res.json({
+                                        data : [],
+                                        code: 500,
+                                        status: false,
+                                        message: "API Not Successful"});
+                                }
+                                else
+                                {
+                                    var jsnData = {
+                                            country : countryData,
+                                            state : stateData,
+                                            city : cityData,
+                                            zipcode : rows[0]
+                                        }
+                                        res.json({
+                                                data : jsnData,
+                                                code: 200,
+                                                status: "Success",
+                                                message: "API Successful"});                    
+                                }
+                            });               
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
 
 module.exports = router;

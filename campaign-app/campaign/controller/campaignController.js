@@ -1,5 +1,5 @@
 
-app.controller('CampaignController',['$scope','campaignFactory','campaignChanelFactory','audienceFactory', function($scope, campaignFactory, campaignChanelFactory, audienceFactory ) {
+app.controller('CampaignController',['$scope','campaignFactory','campaignChanelFactory','audienceFactory','$window', function($scope, campaignFactory, campaignChanelFactory, audienceFactory, $window ) {
 
     $scope.headingTitle = 'App Start';
 	
@@ -57,13 +57,32 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.newSegementCreate = function(segment){
         $scope.audienceSegementSection = false;
         $scope.newSegementCreateForm = true;
-    }
+        $scope.getDemographic();
+        $scope.advanceActive = true;
+    };
+
     $scope.savedAudience = function(segment){
-        return audienceFactory.postAudienceSegement(segment).then(function(response, status){
-            alert('SuccessFully Add..');
-            $scope.newSegementCreateForm = false;
-            $scope.audienceSegementSection = true;
-        })
+        // return audienceFactory.postAudienceSegement(segment).then(function(response, status){
+        //     alert('SuccessFully Add..');
+        //     $scope.newSegementCreateForm = false;
+        //     $scope.audienceSegementSection = true;
+        // })
+
+        if ($window.confirm("can you creata new chanel?")) 
+        {
+            $scope.advanceActive = true;   
+        } else {
+            $scope.Message = "You clicked NO.";
+            if ($window.confirm("can you creata new segement?")) 
+            {
+                $scope.advanceActive = false;
+                $scope.Message = "You clicked YES.";
+            }
+            else
+            {
+                $scope.Message = "You clicked NO.";
+            }
+        }
     };
 
     $scope.editAudienceSegement = function(chenel){
@@ -77,10 +96,64 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
             $scope.customFormFields = response;
         });
     };
+    
 
-    $scope.getCustomNewSegments = function(){
-        return audienceFactory.getCustomNewSegments().then(function(response, status){
+    $scope.getCustomFormFieldsData = function(filterDate){
+        switch(filterDate){
+            case 'Demographics' :
+                $scope.getDemographic();
+                break;
+            case 'Technology' :
+                $scope.getTechnology();
+                break;
+            case 'Behaviour/Audience Segment' :
+                $scope.getBehaviour();
+                break;
+            case 'Location sidebar' :
+                $scope.getLocation();
+                break;
+            }
+    };
+
+    $scope.getDemographic = function(){        
+        $scope.technology = false;
+        $scope.loaction = false;
+        $scope.Behaviour = false;
+        return audienceFactory.getDemographic().then(function(response, status){
+            $scope.demographic = true;
             $scope.customSegementForm = response;
+        });
+    };
+
+    $scope.getTechnology = function(){
+        $scope.demographic = false;       
+        $scope.loaction = false;
+        $scope.behaviour = false;
+        return audienceFactory.getTechnology().then(function(response,status){
+            $scope.technology = true;
+            $scope.technologyData = response;
+        });
+    };
+
+    $scope.getBehaviour = function(){
+        $scope.demographic = false;       
+        $scope.loaction = false;
+        $scope.technology = false;
+        // return audienceFactory.getBehaviour().then(function(response,status){
+        //     $scope.behaviour = true;
+            
+        // });
+        $scope.behaviour = true;
+        $scope.behaviourData = 'No data';
+    };
+
+    $scope.getLocation = function(){ 
+        $scope.behaviour = false;
+        $scope.technology = false;
+        $scope.demographic = false;
+        return audienceFactory.getLocation().then(function(response,status){
+            $scope.loaction = true;
+            $scope.locationData = response;
         });
     };
 

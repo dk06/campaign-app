@@ -59,7 +59,7 @@ var APIsData={
             return dbConnect.query("select * from custom_new_segments_form", callback)
             dbConnect.end();
         },
-        getCustomNewSegmentsForm: function(paramsData, callback){
+        getCustomFormData: function(paramsData, callback){
             return dbConnect.query("call get_custom_new_segments_form(?)",paramsData, callback);
             dbConnect.end();
         },

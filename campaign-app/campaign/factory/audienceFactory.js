@@ -37,14 +37,14 @@
 	    	});
 	    };
 
-	    dataFactory.getCustomNewSegments = function(params){
+	    dataFactory.getDemographic = function(params){
 	    	var customNewSegments = {
 
 				ageGroup : [],
 				gender : [],
 				language : []
 			}
-        return audienceService.getCustomNewSegment(params).then(function(response, status){
+        return audienceService.getDemographic(params).then(function(response, status){
             	angular.forEach( response.data.ageGroup, function(value, key){
 					if (value.custom_seg_ref_id == 1) {
 						customNewSegments.ageGroup.push({
@@ -71,6 +71,24 @@
 				});
 			    return customNewSegments;
 			});
+	    };
+
+	    dataFactory.getTechnology = function(){
+	    	return audienceService.getTechnology().then(function(response, status){
+	    		return response.data;
+	    	});
+	    };
+
+	    dataFactory.getBehaviour = function(){
+	    	return audienceService.getBehaviour().then(function(response, status){
+	    		return response.data;
+	    	});
+	    };
+
+	    dataFactory.getLocation = function(){
+	    	return audienceService.getLocation().then(function(response, status){
+	    		return response.data;
+	    	});
 	    };
 		
 		return dataFactory;

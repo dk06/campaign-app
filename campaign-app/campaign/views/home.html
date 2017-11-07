@@ -174,64 +174,140 @@
         <h5>Create New Segement</h5>
     </div>
     <br>
-    <div class="panel container-height contain-page" ng-init="getCustomNewSegments()">
-    <div class="col-sm-4">
-        <h5>Available Audience Dashboard</h5>
-        <hr>
-        <!-- <form>
-            <label>Segement Name</label>
-            <input type="text" class="form-control" name="" ng-model=segment.segement_name>
-            <label>Segement Type</label>
-            <input type="text" class="form-control" name="" ng-model=segment.segment_form_data>
-        </form> -->
-        <table>
-          <tbody>
-            <tr ng-repeat="customField in customFormFields">
-              <td><a href="#" ng-click="">{{customField.custom_segments_field}}</a></td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-    <div class="col-sm-8">
-      <h5>Total Targetable Available</h5>
-        <hr>
-        <label>Age</label>
-        <input type="checkbox" name="">{{customSegementForm.ageGroup[0].age}}
-         <input type="checkbox" name="">{{customSegementForm.ageGroup[1].age}}
-          <input type="checkbox" name="">{{customSegementForm.ageGroup[2].age}}
-           <input type="checkbox" name="">{{customSegementForm.ageGroup[3].age}}
-            <input type="checkbox" name="">{{customSegementForm.ageGroup[4].age}}
-             <input type="checkbox" name="">{{customSegementForm.ageGroup[5].age}}
-              <input type="checkbox" name="">{{customSegementForm.ageGroup[6].age}}
-        <br>
-        <label>Gender</label>
-        <input type="checkbox" name="">{{customSegementForm.gender[0].gender}}
-         <input type="checkbox" name="">{{customSegementForm.gender[1].gender}}
-          <input type="checkbox" name="">{{customSegementForm.gender[2].gender}}
-        <br>
-        <label>Language</label>
-        <select>
-          <option>Select</option>
-          <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option>
-        </select>
-        <br>
-        <label>Category</label>
-        <select>
-          <option>Select</option>
-          <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option>
-        </select>
-        <br>
-        <label>Loaction</label>
-        <select>
-          <option>Select</option>
-          <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option>
-        </select>
-    </div>
+        <div class="panel container-height contain-page">
+            <div class="col-sm-4">
+                <h5>Available Audience Dashboard</h5>
+                <table class="table">
+                  <tbody>
+                    <tr ng-repeat="customField in customFormFields">
+                      <td><a href="#" ng-click="getCustomFormFieldsData(customField.custom_segments_field)">{{customField.custom_segments_field}}</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+                
+                <div ng-if="advanceActive">
+                  <hr>
+                    <label>Advance</label>
+                    <table class="table">
+                    <tbody>
+                      <tr>
+                          <td>Condestion</td>                         
+                      </tr>
+                    </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
+                          <tr>                          
+                              <td>Sequence</td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+       
+        <div class="col-sm-8">
+            <div ng-if="demographic">            
+              <h5>Total Targetable Available</h5>
+                <hr>
+                <label>Age</label>
+                <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[0].age}}
+                 <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[1].age}}
+                  <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[2].age}}
+                   <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[3].age}}
+                    <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[4].age}}
+                     <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[5].age}}
+                      <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[6].age}}
+                <br>
+                <label>Gender</label>
+                <input type="radio" name="radio2" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[0].gender}}
+                 <input type="radio" name="radio2" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[1].gender}}
+                  <input type="radio" name="radio2" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[2].gender}}
+                <br>
+                <label>Language</label>
+                <select class="form-control">
+                  <option>Select</option>
+                  <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option>
+                </select>
+                <br>
+                <label>Category</label>
+                <select class="form-control">
+                  <option>Select</option>
+                  <!-- <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option> -->
+                </select>
+                <br>
+                <label>Loaction</label>
+                <select class="form-control">
+                  <option>Select</option>
+                  <!-- <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option> -->
+                </select>
+            </div>        
+
+            <div ng-if="technology">
+              <label>Technology</label>
+              <hr>
+              <input type="text" class="form-control" name="" value="Operating System" placeholder="Operating System">
+              <br>
+              <input type="text" name="" class="form-control" value="Operating System Version" placeholder="Operating System Version">
+              <br>
+              <input type="text" name="" class="form-control" value="Browser" placeholder="Browser">
+              <br>
+              <input type="text" name="" class="form-control" value="Browser Version" placeholder="Browser Version">
+              <br>
+              <input type="text" name="" class="form-control" value="Screen Resoluton" placeholder="Screen Resoluton">
+              <br>
+                <label>Devioce Type</label>
+                <select class="form-control">
+                    <option>Select Device</option>
+                    <option ng-repeat="deviceType in technologyData.deviceType">{{deviceType.device_type}}</option>
+                </select>
+                <br>
+                <label>Devioce Model</label>
+                <select class="form-control">
+                    <option>Select Device</option>
+                    <option ng-repeat="model in technologyData.deviceMode">{{model.device_brand_name}}</option>
+                </select>
+            </div>
+
+            <div ng-if="loaction">
+              <label>loaction</label>
+              <hr>
+                <label>Country</label>
+                <select class="form-control">
+                    <option>Select</option>
+                    <option ng-repeat="lang in locationData.country">{{lang.country_names}}</option>
+                </select>
+                <br>
+                <label>State</label>
+                <select class="form-control">
+                    <option>Select</option>
+                    <option ng-repeat="lang in locationData.state">{{lang.state_names}}</option>
+                </select>
+                <br>
+                <label>City</label>
+                <select class="form-control">
+                    <option>Select</option>
+                    <option ng-repeat="lang in locationData.city">{{lang.city_names}}</option>
+                </select>
+                <br>
+                <label>Zip Code</label>
+                <select class="form-control">
+                    <option>Select</option>
+                    <option ng-repeat="lang in locationData.zipcode">{{lang.zipe_code}}</option>
+                </select>
+            </div>
+
+            <div ng-if="behaviour">
+              <label>Behaviour</label>
+              <hr>
+                {{behaviourData}}
+            </div>
+        </div>
+     </div>
     <hr>
     <div>
         <button class="btn btn-default" type="button" ng-click="audienceCancel()">Cancel</button>
-        <button class="btn btn-primary" type="button" ng-click="savedAudience(segment)">Save Audience</button> 
-    </div>
+        <button class="btn btn-primary" type="button" ng-click="savedAudience()">Save Audience</button> 
+    </div>    
 </div>
 </div>
       <div  ng-if="campaignActivate">
