@@ -296,7 +296,7 @@ router.get('/getTechnology', function(req,res,next){
     });
 });
 
-router.get('/getlocation', function(req,res,next){
+router.get('/getLocation', function(req,res,next){
     var countryParam = 'country';
     apiControllerRequest.getCustomFormData(countryParam, function(err, rows){
         if(!rows[0])

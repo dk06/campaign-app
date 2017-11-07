@@ -75,7 +75,7 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
     this.getLocation = function () {
         params.acess = shareBaseUrl.BaseUrl();
         params = params;
-        var promise = $http.get(params.acess.BaseUrl + 'getlocation', {params} ).then(function(response) {
+        var promise = $http.get(params.acess.BaseUrl + 'getLocation', {params} ).then(function(response) {
                 return response.data;
             });
             return promise;
