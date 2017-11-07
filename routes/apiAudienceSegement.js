@@ -118,7 +118,7 @@ router.get('/getCustomSegmentsFields',function(req,res,next){
 });
 
 router.get('/getCustomNewSegmentsForm', function(req,res,next){
-    var ageGroupParam = 1;
+    var ageGroupParam = 'ageGroup';
     apiControllerRequest.getCustomNewSegmentsForm(ageGroupParam, function(err, rows){
         if(!rows[0])
         {
@@ -131,7 +131,7 @@ router.get('/getCustomNewSegmentsForm', function(req,res,next){
         else
         {
             var ageGroupData = rows[0]
-            var genderParam = 2;
+            var genderParam = 'gender';
             apiControllerRequest.getCustomNewSegmentsForm(genderParam, function(err, rows){
                 if(!rows[0])
                 {
@@ -144,7 +144,7 @@ router.get('/getCustomNewSegmentsForm', function(req,res,next){
                 else
                 {
                     var genderData = rows[0]
-                    var languageParam = 3;
+                    var languageParam = 'language';
                      apiControllerRequest.getCustomNewSegmentsForm(languageParam, function(err,rows){
                         if(!rows[0])
                         {
