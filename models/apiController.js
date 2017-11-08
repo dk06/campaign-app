@@ -15,6 +15,12 @@ var APIsData={
             return dbConnect.query("select * from channel",callback);
             dbConnect.end();
         },
+
+        getChannelID:function(paramsData, callback){
+            return dbConnect.query("select * from channel where channel_name= ?",[paramsData] ,callback);
+            dbConnect.end();
+        },
+
         postChannel: function(paramsData, callback){
             return dbConnect.query("insert into channel set?", paramsData, callback);
             dbConnect.end();
@@ -31,8 +37,8 @@ var APIsData={
 
 
         // cpmpaign audience segement section start
-        getAudienceSegementData:function(callback){
-            return dbConnect.query("select * from new_segement",callback);
+        getAudienceSegementData:function(paramsData, callback){
+            return dbConnect.query("select * from new_segement where channel_id=?",[paramsData], callback);
             dbConnect.end();
         },
         getAudienceSegementById:function(id, callback){

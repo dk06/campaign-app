@@ -97,7 +97,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="chenel in campaignChenel">
-                  <td>{{chenel.channel_name}}</td>
+                  <td><a href="#" ng-click="selectChanel(chenel.channel_id)">{{chenel.channel_name}}</a></td>
                   <td>{{chenel.create_date}}</td>
                   <td>{{chenel.update_date}}</td>
                   <td>{{chenel.status}}</td>
@@ -116,25 +116,7 @@
     </div>
 </div>
 
-<div  ng-if="newCampaignChanelSection">
-    <div class="panel contain-page">
-        <h5>2 Add marketing Chaneles to your campaign</h5>
-    </div>
-    <br>
-    <div class="panel container-height contain-page" style="padding-top: 10px;">
-        <h4 class="pull-left">Compaign Chanel</h4>
-          <form>
-              <label>Chanel Name</label>
-              <input type="text" name="chenelName" ng-model="chenel.channel_name">
-          </form>
-        
-        <div class="col-xs-offset-5" style="padding-top: 20px">
-            <button type="button" class="btn btn-primary" ng-click="createNewCampaignChanel(chenel)">Continue</button>
-        </div>
-    </div>
-</div>
-
-<div  ng-if="audienceSegementSection" ng-init="getAudienceSegement()">
+<div  ng-if="audienceSegementSection">
     <div class="panel contain-page">
         <h5>3 Select Your Campaign Target Audience</h5>
     </div>
@@ -169,59 +151,60 @@
         </div>
     </div>
 </div>
+
 <div ng-if="newSegementCreateForm">
   <div class="panel panel-heading" ng-init="getCustomSegmentsFields()">
         <h5>Create New Segement</h5>
     </div>
     <br>
         <div class="panel container-height contain-page">
+
             <div class="col-sm-4">
+              <input type="text" ng-model="channel.segementName" placeholder="Enter Segement Name">
                 <h5>Available Audience Dashboard</h5>
-                <table class="table">
+                <hr>
+                <ul style="list-style-type:none">
+                    <li><a href="#" ng-click="getCustomFormFieldsData('Demographics')">{{customFormFields[0].custom_segments_field}}</a></li>
+                    <hr>
+                    <li><a href="#" ng-click="getCustomFormFieldsData('Technology')">{{customFormFields[1].custom_segments_field}}</a></li>
+                    <hr>
+                    <li><a href="#" ng-click="getCustomFormFieldsData('Location sidebar')">{{customFormFields[2].custom_segments_field}}</a></li>
+                    <hr>
+                    <li ng-if="advanceActive"><a href="#" ng-click="getCustomFormFieldsData('Create New Channel')">{{customFormFields[3].custom_segments_field}}</a></li>
+
+                </ul>
+               <!--  <table class="table">
                   <tbody>
-                    <tr ng-repeat="customField in customFormFields">
-                      <td><a href="#" ng-click="getCustomFormFieldsData(customField.custom_segments_field)">{{customField.custom_segments_field}}</a></td>
+                    <tr>
+                      <td><a href="#" ng-click="getCustomFormFieldsData(customField.custom_segments_field)">{{customFormFields[0].custom_segments_field}}</a></td>
+                      <br>
+                      <td><a href="#" ng-click="getCustomFormFieldsData(customField.custom_segments_field)">{{customFormFields[1].custom_segments_field}}</a></td>
+                      <br>
+                      <td><a href="#" ng-click="getCustomFormFieldsData(customField.custom_segments_field)">{{customFormFields[2].custom_segments_field}}</a></td>
+                      <br>
+                      <td ng-if="advanceActive"><a href="#" ng-click="getCustomFormFieldsData(customField.custom_segments_field)">{{customFormFields[3].custom_segments_field}}</a></td>
                     </tr>
                   </tbody>
-                </table>
-                
-                <div ng-if="advanceActive">
-                  <hr>
-                    <label>Advance</label>
-                    <table class="table">
-                    <tbody>
-                      <tr>
-                          <td>Condestion</td>                         
-                      </tr>
-                    </tbody>
-                    </table>
-                    <table class="table">
-                        <tbody>
-                          <tr>                          
-                              <td>Sequence</td>
-                          </tr>
-                        </tbody>
-                    </table>
-                </div>
+                </table> -->
             </div>
        
         <div class="col-sm-8">
-            <div ng-if="demographic">            
+            <div ng-show="demographic">            
               <h5>Total Targetable Available</h5>
                 <hr>
                 <label>Age</label>
-                <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[0].age}}
-                 <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[1].age}}
-                  <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[2].age}}
-                   <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[3].age}}
-                    <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[4].age}}
-                     <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[5].age}}
-                      <input type="radio" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[6].age}}
+                <input type="radio" ng-model="channel.age" ng-value="customSegementForm.ageGroup[0].age_id" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[0].age}}
+                 <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[1].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[1].age}}
+                  <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[2].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[2].age}}
+                   <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[3].age_id" ng-model="channel.age" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[3].age}}
+                    <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[4].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[4].age}}
+                     <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[5].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[5].age}}
+                      <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[6].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[6].age}}
                 <br>
                 <label>Gender</label>
-                <input type="radio" name="radio2" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[0].gender}}
-                 <input type="radio" name="radio2" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[1].gender}}
-                  <input type="radio" name="radio2" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[2].gender}}
+                <input type="radio" name="radio2" ng-model="channel.gender" ng-value="customSegementForm.gender[0].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[0].gender}}
+                 <input type="radio" name="radio2" ng-model="channel.gender" ng-value="customSegementForm.gender[1].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[1].gender}}
+                  <input type="radio" name="radio2" ng-model="channel.gender" ng-value="customSegementForm.gender[2].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[2].gender}}
                 <br>
                 <label>Language</label>
                 <select class="form-control">
@@ -242,18 +225,18 @@
                 </select>
             </div>        
 
-            <div ng-if="technology">
+            <div ng-show="technology">
               <label>Technology</label>
               <hr>
-              <input type="text" class="form-control" name="" value="Operating System" placeholder="Operating System">
+              <input type="text" class="form-control" name="" ng-model="channel.operatingSystem" placeholder="Operating System">
               <br>
-              <input type="text" name="" class="form-control" value="Operating System Version" placeholder="Operating System Version">
+              <input type="text" name="" ng-model="channel.operatingSystemVersion" class="form-control" placeholder="Operating System Version">
               <br>
-              <input type="text" name="" class="form-control" value="Browser" placeholder="Browser">
+              <input type="text" name="" class="form-control" ng-model="channel.browser" placeholder="Browser">
               <br>
-              <input type="text" name="" class="form-control" value="Browser Version" placeholder="Browser Version">
+              <input type="text" name="" class="form-control"  ng-model="channel.browserVersion" placeholder="Browser Version">
               <br>
-              <input type="text" name="" class="form-control" value="Screen Resoluton" placeholder="Screen Resoluton">
+              <input type="text" name="" class="form-control"  ng-model="channel.resoluton" placeholder="Screen Resoluton">
               <br>
                 <label>Devioce Type</label>
                 <select class="form-control">
@@ -296,18 +279,54 @@
                 </select>
             </div>
 
-            <div ng-if="behaviour">
-              <label>Behaviour</label>
+            <div ng-show="newChanele">
+              <h4>Compaign Chanel</h4>
               <hr>
-                {{behaviourData}}
+                  <!-- <div class="panel contain-page">
+                      <h5>2 Add marketing Chaneles to your campaign</h5>
+                  </div>
+                  <br> -->
+                  <div>                      
+                        <form>
+                            <label>Adver Type</label>
+                            <input type="text" class="form-control" ng-model="channel.adverType">
+
+                            <label>Start Date</label>
+                            <input type="text" id="startDateId"  class="form-control" ng-model="channel.startDate">
+
+                            <label>End Date</label>
+                            <input type="text" id="endDateId" class="form-control" ng-model="channel.endDate">
+
+                            <label>KPI</label>
+                            <input type="text" class="form-control" ng-model="channel.KPI">
+
+                            <label>Target</label>
+                            <input type="text" class="form-control" ng-model="channel.target">
+
+                            <label>Bid Min/Max</label>
+                            <input type="text" class="form-control" ng-model="channel.bidMinMax">
+
+                            <label>Channel Budget</label>
+                            <input type="text" class="form-control" ng-model="channel.channelBudget">
+
+                            <label>Channel Status</label>
+                            
+                        </form>                      
+                      
+                  </div>
             </div>
         </div>
+        <hr>
+          <div>
+              
+              <!-- <button class="btn btn-primary" type="button" ng-click="savedAudience()">Save Audience</button>  -->
+              <div class="col-xs-offset-5" style="padding-top: 20px">
+                    <button class="btn btn-default" type="button" ng-click="audienceCancel()">Cancel</button>
+                    <button type="button" class="btn btn-primary" ng-click="createNewCampaignChanel(channel)">Continue</button>
+                </div>
+          </div>
      </div>
-    <hr>
-    <div>
-        <button class="btn btn-default" type="button" ng-click="audienceCancel()">Cancel</button>
-        <button class="btn btn-primary" type="button" ng-click="savedAudience()">Save Audience</button> 
-    </div>    
+        
 </div>
 </div>
       <div  ng-if="campaignActivate">
@@ -326,5 +345,12 @@
 </div>
 
 
-    
- 
+<!-- <input type="text"  id="kkd" /> 
+<script type="text/javascript">
+$(function() {
+  $('#kkd').daterangepicker({
+                singleDatePicker: true,
+        showDropdowns: true
+            });
+});
+</script> -->

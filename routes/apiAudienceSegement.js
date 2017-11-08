@@ -3,7 +3,7 @@ var router = express.Router();
 var apiControllerRequest = require('../models/apiController');
 
 router.get('/getAudienceSegement', function(req,res){
-    apiControllerRequest.getAudienceSegementData(function(err,rows){
+    apiControllerRequest.getAudienceSegementData(req.query.channel_id, function(err,rows){
         if(!rows[0])
         {
         res.json({

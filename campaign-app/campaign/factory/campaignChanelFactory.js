@@ -6,11 +6,11 @@
 				return response.data;
 			})
 		};
-		dataFactory.postCampaignChanel= function(chenel){
-			if(chenel){
+		dataFactory.postCampaignChanel= function(channel){
+			if(channel){
 				var date = $filter('date')(new Date(), 'dd/MM/yyyy');
 		        var params = {
-		            channel_name : chenel.channel_name,
+		            channelData : channel,
 		            create_date : date,
 		            update_date : date,
 		            status : 1
@@ -20,6 +20,7 @@
 			})
 			}
 		};
+
 		dataFactory.editCampaignChenel = function(params){
         return campaignChanelService.editCampaignChenel(params).then(function(response, status){
             	return response.data;

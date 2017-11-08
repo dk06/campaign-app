@@ -1,16 +1,17 @@
  app.factory('audienceFactory',['audienceService','$filter', function(audienceService, $filter){
 	var dataFactory = {};
 
-		dataFactory.getAudienceSegement= function(){
-			return audienceService.getAudienceSegement().then(function(response) {
+		dataFactory.getAudienceSegement= function(chanelId){			
+			return audienceService.getAudienceSegement(chanelId).then(function(response) {
 				return response.data;
 			})
 		};
 		dataFactory.postAudienceSegement = function(segment){
 			var date = $filter('date')(new Date(), 'dd/MM/yyyy');
 			var params = {
-		            segement_name : segment.segement_name,
-		            segment_form_data : segment.segment_form_data,
+		            segement_name : segment.segmentData.segementName,
+		            segment_form_data : segment.segmentData.segment_form_data,
+		            channel_id : segment.chanelId,
 		            create_date : date,
 		            update_date : date,
 		            status : 1

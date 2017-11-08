@@ -26,9 +26,9 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     //audienc segement section start
 
 
-    $scope.getAudienceSegement = function(){
-        return audienceFactory.getAudienceSegement().then(function(response, status){
-            $scope.audienceSegementData = response;
+    $scope.getAudienceSegement = function(chanelId){
+        return audienceFactory.getAudienceSegement(chanelId).then(function(response, status){
+            $scope.audienceSegementData = response;            
         })
     };
 
@@ -57,22 +57,23 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.newSegementCreate = function(segment){
         $scope.audienceSegementSection = false;
         $scope.newSegementCreateForm = true;
-        $scope.getDemographic();
-        $scope.advanceActive = true;
+        $scope.advanceActive = false;      
     };
 
-    $scope.savedAudience = function(segment){
-        // return audienceFactory.postAudienceSegement(segment).then(function(response, status){
-        //     alert('SuccessFully Add..');
-        //     $scope.newSegementCreateForm = false;
-        //     $scope.audienceSegementSection = true;
-        // })
-
-        if ($window.confirm("can you creata new chanel?")) 
-        {
-            $scope.advanceActive = true;   
-        } else {
-            $scope.Message = "You clicked NO.";
+    $scope.savedAudience = function(segment, chanelId){
+        if($scope.chanelId){
+            var chanelId = $scope.chanelId;
+        }else{
+            var chanelId = chanelId;
+        }
+        var params = {};
+        params.segmentData = segment;
+        params.chanelId = chanelId;
+        return audienceFactory.postAudienceSegement(params).then(function(response, status){
+            alert('SuccessFully Add..');
+            $scope.newSegementCreateForm = false;
+            $scope.audienceSegementSection = true;
+            $scope.audienceSegementData = response.data;
             if ($window.confirm("can you creata new segement?")) 
             {
                 $scope.advanceActive = false;
@@ -80,9 +81,11 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
             }
             else
             {
-                $scope.Message = "You clicked NO.";
+                $scope.campaignChanelSection = true;
+                $scope.newSegementCreateForm = false;
+                $scope.audienceSegementSection = false;
             }
-        }
+        });
     };
 
     $scope.editAudienceSegement = function(chenel){
@@ -94,6 +97,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.getCustomSegmentsFields = function(){
         return audienceFactory.getCustomSegmentsFields().then(function(response, status){
             $scope.customFormFields = response;
+            $scope.getDemographic();
         });
     };
     
@@ -106,8 +110,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
             case 'Technology' :
                 $scope.getTechnology();
                 break;
-            case 'Behaviour/Audience Segment' :
-                $scope.getBehaviour();
+            case 'Create New Channel' :
+                $scope.createNewChannelForm();
                 break;
             case 'Location sidebar' :
                 $scope.getLocation();
@@ -118,7 +122,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.getDemographic = function(){        
         $scope.technology = false;
         $scope.loaction = false;
-        $scope.Behaviour = false;
+        $scope.newChanele = false;
         return audienceFactory.getDemographic().then(function(response, status){
             $scope.demographic = true;
             $scope.customSegementForm = response;
@@ -128,33 +132,28 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.getTechnology = function(){
         $scope.demographic = false;       
         $scope.loaction = false;
-        $scope.behaviour = false;
+        $scope.newChanele = false;
         return audienceFactory.getTechnology().then(function(response,status){
             $scope.technology = true;
             $scope.technologyData = response;
         });
-    };
-
-    $scope.getBehaviour = function(){
-        $scope.demographic = false;       
-        $scope.loaction = false;
-        $scope.technology = false;
-        // return audienceFactory.getBehaviour().then(function(response,status){
-        //     $scope.behaviour = true;
-            
-        // });
-        $scope.behaviour = true;
-        $scope.behaviourData = 'No data';
-    };
+    };    
 
     $scope.getLocation = function(){ 
-        $scope.behaviour = false;
+        $scope.newChanele = false;
         $scope.technology = false;
         $scope.demographic = false;
         return audienceFactory.getLocation().then(function(response,status){
             $scope.loaction = true;
             $scope.locationData = response;
         });
+    };
+
+    $scope.createNewChannelForm = function(){
+        $scope.newChanele = true;
+        $scope.technology = false;
+        $scope.demographic = false;
+        $scope.loaction = false;
     };
 
     $scope.deleteAudienceSegement = function(chenel){
@@ -164,7 +163,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     };
 
     $scope.audienceCancel = function(){
-        $scope.audienceSegementSection = true;
+        $scope.audienceSegementSection = false;
+        $scope.campaignChanelSection = true;
         $scope.newSegementCreateForm = false;
     };
 
@@ -184,32 +184,81 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     };
 
     $scope.newChanel = function(){
+        $scope.chanelId = '';
         $scope.campaignChanelSection =false;
-        $scope.newCampaignChanelSection = true;
+        //$scope.newCampaignChanelSection = true;
+        $scope.newSegementCreateForm = true;
+        $scope.advanceActive = true;
+
+    };
+
+    $scope.selectChanel = function(chanelId){
+        $scope.chanelId = chanelId;
     };
 
     $scope.savedCampaignChanel = function(){
-        document.getElementById("setConfigureChanel").style.background = "#b0e2e5";
-        document.getElementById("setTargetAudience").style.color = "#5e92e5";
-        $scope.campaignChanelSection = false;
-        $scope.audienceSegementSection = true;        
+        if($scope.chanelId){
+            document.getElementById("setConfigureChanel").style.background = "#b0e2e5";
+            document.getElementById("setTargetAudience").style.color = "#5e92e5";
+            $scope.campaignChanelSection = false;
+            $scope.audienceSegementSection = true;       
+            $scope.getAudienceSegement($scope.chanelId); 
+       }else{
+            alert('Select channel');
+       }
+                
     };
 
-    $scope.createNewCampaignChanel = function(chenel){        
-        return campaignChanelFactory.postCampaignChanel(chenel).then(function(response, status) {
-            $scope.campaignChanelSection = true;
-            $scope.newCampaignChanelSection = false;
-        });
+    $scope.createNewCampaignChanel = function(ChannelObj){ 
+        if ($scope.advanceActive) {
+        //     if($scope.chanelId){            
+        //     params.chanelId = $scope.chanelId;
+        //     params.Channel = ChannelObj;
+        // }    
+            return campaignChanelFactory.postCampaignChanel(ChannelObj).then(function(response, status) {
+                $scope.campaignChanelSection = false;
+                $scope.newCampaignChanelSection = false;
+                $scope.newSegementCreateForm = false;
+                 if ( $window.confirm("can you creata new segement?")) 
+                    {
+                        $scope.newSegementCreateForm = true;
+                        $scope.advanceActive = false;
+                        $scope.demographic = true;
+                        $scope.technology = false;
+                        $scope.loaction = false;
+                        $scope.newChanele = false;
+                        $scope.chanelId = response;
+                        $scope.channel = { 
+                            segementName : '',
+                             adverType : ''
+                         };
+                    } else {
+                        $scope.Message = "You clicked NO.";
+                        if ($window.confirm("can you creata new chanel?")) 
+                        {
+                            $scope.advanceActive = true;
+                            $scope.Message = "You clicked YES.";
+                        }
+                        else
+                        {
+                            $scope.campaignChanelSection = true;
+                            $scope.newSegementCreateForm = false;
+                        }
+                    }
+            });
+        } else{
+            $scope.savedAudience(ChannelObj, $scope.chanelId);
+        }
     };
 
-    $scope.editCampaignChenel = function(chenel){
-        return campaignChanelFactory.editCampaignChenel(chenel).then(function(response, status){
+    $scope.editCampaignChenel = function(Channel){
+        return campaignChanelFactory.editCampaignChenel(Channel).then(function(response, status){
             $scope.getCompaignChanel();
         });
     };
 
-    $scope.deleteCampaignChenel = function(chenel){
-        return campaignChanelFactory.deleteCampaignChenel(chenel).then(function(response,status){
+    $scope.deleteCampaignChenel = function(Channel){
+        return campaignChanelFactory.deleteCampaignChenel(Channel).then(function(response,status){
             $scope.getCampaignChanel();
         });
     };
