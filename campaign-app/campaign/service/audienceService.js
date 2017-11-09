@@ -13,6 +13,7 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
     this.postAudienceSegement = function (params) {
         params.acess = shareBaseUrl.BaseUrl();
         params = params;
+        params.userId = params.acess.userId;
         var promise = $http.post(params.acess.BaseUrl + 'audienceSegement', {params} ).then(function(response) {
                 return response;
             });

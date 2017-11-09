@@ -91,9 +91,14 @@
         <table class="table">
             <thead>
                 <tr>
-                  <th>Chanel Name</th>                 
+                  <th>Chanel Name</th>
+                  <th>Adver Type</th>                
                   <th>Start Date</th>
                   <th>End Date</th>
+                  <th>KPI</th>
+                  <th>Target</th>
+                  <th>Bid Min/Max</th>
+                  <th>Channel Budget</th>
                   <th>Status</th>
                   <th>Edit</th>
                   <th>Update</th>
@@ -102,8 +107,13 @@
             <tbody>
               <tr ng-repeat="chenel in campaignChenel">
                   <td><a href="#" ng-click="selectChanel(chenel.channel_id)">{{chenel.channel_name}}</a></td>
+                  <td>{{chenel.adverType}}</td>                  
                   <td>{{chenel.create_date}}</td>
                   <td>{{chenel.update_date}}</td>
+                  <td>{{chenel.kpi}}</td>
+                  <td>{{chenel.target}}</td>
+                  <td>{{chenel.bid_min}}/{{chenel.bid_Max}}</td>
+                  <td>{{chenel.channel_Budget}}</td>
                   <td>{{chenel.status}}</td>
                   <td>
                       <button ng-click="editCampaignChenel(chenel)">Edit</button>
@@ -295,6 +305,9 @@
 
                   <div>                      
                         <form>
+                            <label>Channel Name</label>
+                            <input type="text" class="form-control" ng-model="channel.channelName">
+
                             <label>Adver Type</label>
                             <input type="text" class="form-control" ng-model="channel.adverType">
 
@@ -306,7 +319,7 @@
                             <input type="text" class="form-control" name="startDate" id="daterange" />
 
                             <label>KPI</label>
-                            <input type="text" class="form-control" ng-model="channel.KPI">
+                            <input type="text" class="form-control" ng-model="channel.kpi">
 
                             <label>Target</label>
                             <input type="text" class="form-control" ng-model="channel.target">

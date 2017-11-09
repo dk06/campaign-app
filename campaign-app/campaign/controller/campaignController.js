@@ -72,11 +72,12 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
         return audienceFactory.postAudienceSegement(params).then(function(response, status){
             alert('SuccessFully Add..');
             $scope.newSegementCreateForm = false;
-            $scope.audienceSegementSection = true;
+            $scope.audienceSegementSection = false;
             $scope.audienceSegementData = response.data;
             if ($window.confirm("can you creata new segement?")) 
             {
                 $scope.advanceActive = false;
+                $scope.newSegementCreateForm = true;
                 $scope.Message = "You clicked YES.";
             }
             else

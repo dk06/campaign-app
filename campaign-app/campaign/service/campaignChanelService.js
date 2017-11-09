@@ -12,6 +12,7 @@ app.service('campaignChanelService', function ($rootScope, $http, shareBaseUrl,$
     this.postCampaignChanel = function (params) {
         params.acess = shareBaseUrl.BaseUrl();
         params = params;
+        params.userId = params.acess.userId;
         var promise = $http.post(params.acess.BaseUrl + 'addNewChannel', {params} ).then(function(response) {
                 return response;
             });

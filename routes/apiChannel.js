@@ -20,9 +20,15 @@ router.get('/getCampaignChannel', function(req,res){
 });
 router.post('/addNewChannel', function(req,res){
     var channelId = {}
-    if (req.body.params.channelData.adverType) {
+    if (req.body.params.channelData.channelName) {
         var channel ={
-            channel_name : req.body.params.channelData.adverType,
+            channel_name : req.body.params.channelData.channelName,
+            adverType : req.body.params.channelData.adverType,
+            kpi : req.body.params.channelData.kpi,
+            target : req.body.params.channelData.target,
+            bid_min : req.body.params.channelData.bidMinMax,
+            bid_Max : req.body.params.channelData.bidMinMax,
+            channel_Budget : req.body.params.channelData.channelBudget,
             create_date : req.body.params.create_date,
             update_date : req.body.params.update_date,
             user_id : req.body.params.userId,
@@ -36,7 +42,7 @@ router.post('/addNewChannel', function(req,res){
             else
             {
             //res.json(rows);
-                apiControllerRequest.getChannelID(req.body.params.channelData.adverType , function(err,rows){
+                apiControllerRequest.getChannelID(req.body.params.channelData.channelName , function(err,rows){
                     if(err)
                     {
                     res.json(err);

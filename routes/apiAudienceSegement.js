@@ -42,6 +42,7 @@ router.post('/audienceSegement',function(req,res,next){
         segment_form_data : req.body.params.segment_form_data,
         create_date : req.body.params.create_date,
         update_date : req.body.params.update_date,
+        channel_id : req.body.params.channel_id,
         status : req.body.params.status
     }
     apiControllerRequest.insertAudienceSegementData(segement,function(err,rows){
