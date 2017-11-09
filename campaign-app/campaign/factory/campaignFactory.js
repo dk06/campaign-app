@@ -30,7 +30,7 @@
 			})
 		};
 
-                dataFactory.getDemographic = function(params){
+        dataFactory.getDemographic = function(params){
             var customNewSegments = {
 
                 ageGroup : [],

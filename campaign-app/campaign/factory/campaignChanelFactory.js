@@ -9,10 +9,12 @@
 		dataFactory.postCampaignChanel= function(channel){
 			if(channel){
 				var date = $filter('date')(new Date(), 'dd/MM/yyyy');
+				var datadate = document.getElementById("daterange").value;
+				var dateRangeArray = datadate.split('-');
 		        var params = {
 		            channelData : channel,
-		            create_date : date,
-		            update_date : date,
+		            create_date : dateRangeArray[0],
+		            update_date : dateRangeArray[1],
 		            status : 1
 		        }
 			return campaignChanelService.postCampaignChanel(params).then(function(response) {

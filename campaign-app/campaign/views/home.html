@@ -1,4 +1,5 @@
 <div >
+
 <div>
     <button id="setObject" type="button" class="btn btn-default" style="width: 160px;" ng-click="slideChange()">1 Set Object</button>
       <span class="glyphicon glyphicon-arrow-right"></span>    
@@ -10,6 +11,9 @@
 </div>
 
 <br>
+
+
+
 <div ng-if="campaignSection" ng-init="getCategories()">
     <div class="panel contain-page">
         <h5>1 Chose Your Campaign Object</h5>
@@ -283,16 +287,23 @@
                       <h5>2 Add marketing Chaneles to your campaign</h5>
                   </div>
                   <br> -->
+                        <script type="text/javascript">
+                            $(function() {
+                                 $('#daterange').daterangepicker();
+                            });
+                        </script>
+
                   <div>                      
                         <form>
                             <label>Adver Type</label>
                             <input type="text" class="form-control" ng-model="channel.adverType">
 
-                            <label>Start Date</label>
-                            <input type="text" id="startDateId"  class="form-control" ng-model="channel.startDate">
+                            <label>Date Select</label>
+                            <!-- <input type="text" id="startDateId"  class="form-control" ng-model="channel.startDate">
 
                             <label>End Date</label>
-                            <input type="text" id="endDateId" class="form-control" ng-model="channel.endDate">
+                            <input type="text" id="endDateId" class="form-control" ng-model="channel.endDate"> -->
+                            <input type="text" class="form-control" name="startDate" id="daterange" />
 
                             <label>KPI</label>
                             <input type="text" class="form-control" ng-model="channel.KPI">
@@ -339,15 +350,7 @@
               </div>
           </div>
       </div>
+
 </div>
 
 
-<!-- <input type="text"  id="kkd" /> 
-<script type="text/javascript">
-$(function() {
-  $('#kkd').daterangepicker({
-                singleDatePicker: true,
-        showDropdowns: true
-            });
-});
-</script> -->
