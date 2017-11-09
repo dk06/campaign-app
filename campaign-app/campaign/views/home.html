@@ -206,10 +206,9 @@
                  <input type="radio" name="radio2" ng-model="channel.gender" ng-value="customSegementForm.gender[1].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[1].gender}}
                   <input type="radio" name="radio2" ng-model="channel.gender" ng-value="customSegementForm.gender[2].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[2].gender}}
                 <br>
-                <label>Language</label>
-                <select class="form-control">
-                  <option>Select</option>
-                  <option ng-repeat="lang in customSegementForm.language">{{lang.language}}</option>
+                <label>Language</label>                
+                <select class="form-control" ng-options="lang as lang.language for lang in customSegementForm.language" ng-model="language">
+                   <option value="" disabled selected>Select Language</option>
                 </select>
                 <br>
                 <label>Category</label>
@@ -255,27 +254,25 @@
               <label>loaction</label>
               <hr>
                 <label>Country</label>
-                <select class="form-control">
-                    <option>Select</option>
-                    <option ng-repeat="lang in locationData.country">{{lang.country_names}}</option>
-                </select>
+                <select class="form-control" ng-options="county.country_codes as county.country_names for county in countyData" 
+                        ng-model="county" ng-change="getState(county)">
+                          <option value="" disabled selected>Select Country</option>
+                        </select>
                 <br>
                 <label>State</label>
-                <select class="form-control">
-                    <option>Select</option>
-                    <option ng-repeat="lang in locationData.state">{{lang.state_names}}</option>
-                </select>
+                <select class="form-control" ng-options="state.state_code as state.state_names for state in stateData" 
+                        ng-model="state" ng-change="getCity(state)">
+                           <option value="" disabled selected>Select State</option>
+                        </select>
                 <br>
                 <label>City</label>
-                <select class="form-control">
-                    <option>Select</option>
-                    <option ng-repeat="lang in locationData.city">{{lang.city_names}}</option>
+                <select class="form-control" ng-options="city as city.city_names for city in cityData" ng-model="city" ng-change="getZipCode(city)">
+                   <option value="" disabled selected>Select City</option>
                 </select>
                 <br>
                 <label>Zip Code</label>
-                <select class="form-control">
-                    <option>Select</option>
-                    <option ng-repeat="lang in locationData.zipcode">{{lang.zipe_code}}</option>
+                <select class="form-control" ng-options="zipCode as zipCode.zipCode_names for zipCode in zipCodeData" ng-model="zipCode">
+                   <option value="" disabled selected>Select Zip Code</option>
                 </select>
             </div>
 

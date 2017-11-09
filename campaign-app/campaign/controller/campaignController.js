@@ -114,7 +114,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
                 $scope.createNewChannelForm();
                 break;
             case 'Location sidebar' :
-                $scope.getLocation();
+                $scope.getCountry();
                 break;
             }
     };
@@ -123,7 +123,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
         $scope.technology = false;
         $scope.loaction = false;
         $scope.newChanele = false;
-        return audienceFactory.getDemographic().then(function(response, status){
+        return campaignFactory.getDemographic().then(function(response, status){
             $scope.demographic = true;
             $scope.customSegementForm = response;
         });
@@ -133,20 +133,36 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
         $scope.demographic = false;       
         $scope.loaction = false;
         $scope.newChanele = false;
-        return audienceFactory.getTechnology().then(function(response,status){
+        return campaignFactory.getTechnology().then(function(response,status){
             $scope.technology = true;
             $scope.technologyData = response;
         });
     };    
 
-    $scope.getLocation = function(){ 
+    $scope.getCountry = function(){ 
         $scope.newChanele = false;
         $scope.technology = false;
         $scope.demographic = false;
-        return audienceFactory.getLocation().then(function(response,status){
+        return campaignFactory.getCountry().then(function(response,status){
             $scope.loaction = true;
-            $scope.locationData = response;
+            $scope.countyData = response;
         });
+    };
+
+    $scope.getState = function(countyCode){        
+        return campaignFactory.getState(countyCode).then(function(response,status){
+            $scope.stateData = response;
+        });
+    };
+
+    $scope.getCity = function(stateCode){        
+        return campaignFactory.getCity(stateCode).then(function(response,status){
+            $scope.cityData = response;
+        });
+    };
+
+    $scope.getZipCode = function(countyCode){        
+        
     };
 
     $scope.createNewChannelForm = function(){

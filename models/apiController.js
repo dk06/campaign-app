@@ -70,6 +70,10 @@ var APIsData={
             dbConnect.end();
         },
 
+        getLoactionSection: function(paramsData, callback){
+            return dbConnect.query("call get_loaction_section(?, ?)",[paramsData.param, paramsData.param_code], callback);
+            dbConnect.end();
+        },
         // cpmpaign audience segement section end
 };
 module.exports= APIsData;
