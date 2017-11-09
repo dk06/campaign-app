@@ -45,6 +45,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
         $scope.audienceSegementSection = false;
         $scope.campaignActivate = false;
         $scope.campaignName = '';
+        $scope.chanelId = '';
         document.getElementById("setObject").removeAttribute("style");
         document.getElementById("setTargetAudience").removeAttribute("style");
         document.getElementById("setConfigureChanel").removeAttribute("style");
