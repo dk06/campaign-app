@@ -4,10 +4,12 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.headingTitle = 'App Start';
 	init();
     function init() {
-        return campaignFactory.getCategories().then(function(response, status) {
-            document.getElementById("setObject").style.color = "#5e92e5";
-            $scope.obj = response;
-        });
+        if ($window.localStorage.accessToken) {
+            return campaignFactory.getCategories().then(function(response, status) {
+                document.getElementById("setObject").style.color = "#5e92e5";
+                $scope.obj = response;
+            });
+        }
     };
 
     $scope.campaignSection = true;
