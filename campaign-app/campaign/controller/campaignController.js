@@ -2,16 +2,18 @@
 app.controller('CampaignController',['$scope','campaignFactory','campaignChanelFactory','audienceFactory','$window', function($scope, campaignFactory, campaignChanelFactory, audienceFactory, $window ) {
 
     $scope.headingTitle = 'App Start';
-	
-    $scope.campaignSection = true;
-    $scope.audienceSegementSection = false;
-    $scope.campaignActivate = false;
-    $scope.getCategories = function () {
+	init();
+    function init() {
         return campaignFactory.getCategories().then(function(response, status) {
             document.getElementById("setObject").style.color = "#5e92e5";
             $scope.obj = response;
         });
     };
+
+    $scope.campaignSection = true;
+    $scope.audienceSegementSection = false;
+    $scope.campaignActivate = false;
+    
     $scope.campaignSelectValid = false;
     $scope.selectCampaign = function(data){
         $scope.campaignName = data;
