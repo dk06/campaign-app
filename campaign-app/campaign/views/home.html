@@ -143,20 +143,30 @@
                 <tr>
                   <th>Segement Name</th>
                   <th>Segement Type</th>
+                  <th>Add Spend on Segement</th>
+                  <th>Date Segement Created</th>
+                  <th>Segement Last Refresh</th>
+                  <th>Total Profile Count</th>
+                  <th>Segement Status</th>
                 </tr>
             </thead>
             <tbody>
               <tr ng-repeat="segementData in audienceSegementData">
-                <td>
-                    <input type="checkbox" class="custom-control-input">  {{segementData.segement_name}}
-                </td>
-                <td>{{segementData.segment_form_data}}</td>
-                <td>
-                    <button ng-click="editAudienceSegement(segementData)">Edit</button>
-                </td>
-                <td>
-                    <button ng-click="deleteAudienceSegement(segementData)">Delete</button>
-                </td>
+                  <td>
+                      <input type="checkbox" class="custom-control-input">  {{segementData.segement_name}}
+                  </td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>{{segementData.create_date}}</td>
+                  <td>{{segementData.update_date}}</td>
+                  <td>-</td>
+                  <td>{{segementData.status}}</td>
+                  <td>
+                      <button ng-click="editAudienceSegement(segementData)">Edit</button>
+                  </td>
+                  <td>
+                      <button ng-click="deleteAudienceSegement(segementData)">Delete</button>
+                  </td>
               </tr>
             </tbody>
         </table>
@@ -173,8 +183,7 @@
     <br>
         <div class="panel container-height contain-page">
 
-            <div class="col-sm-4">
-              <input type="text" ng-model="channel.segementName" placeholder="Enter Segement Name">
+            <div class="col-sm-4">              
                 <h5>Available Audience Dashboard</h5>
                 <hr>
                 <ul style="list-style-type:none">
@@ -206,6 +215,11 @@
             <div ng-show="demographic">            
               <h5>Total Targetable Available</h5>
                 <hr>
+                <label>Segement Name</label>
+                <input type="text" class="form-control" ng-model="channel.segementName" placeholder="Enter Segement Name">
+                <label>Segement Type</label>
+                <input type="text" class="form-control" ng-model="channel.segementType" placeholder="Enter Segement Type">
+                <br>
                 <label>Age</label>
                 <input type="radio" ng-model="channel.age" ng-value="customSegementForm.ageGroup[0].age_id" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[0].age}}
                  <input type="radio" name="radio1" ng-model="channel.age" ng-value="customSegementForm.ageGroup[1].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[1].age}}
