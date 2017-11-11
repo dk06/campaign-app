@@ -7,7 +7,9 @@ app.controller('LoginController',['$scope','$rootScope','loginService', '$window
 
                 $window.localStorage['accessToken']= response.data.accessToken;
                 $window.localStorage['userId'] = response.data.user_id;
-                $rootScope.currentUser = response.data;
+                $window.localStorage['email_id'] = response.data.email_id;
+                $scope.currentUser = response.data.email_id;
+                $rootScope.pageActive = true;
         	}else{
         		alert('Invalid id..');
         	}
@@ -16,7 +18,7 @@ app.controller('LoginController',['$scope','$rootScope','loginService', '$window
     $rootScope.logout = function(){
         $window.localStorage.clear();
         $location.path("/login");
-        $rootScope.currentUser = false;
+        $rootScope.pageActive = false;
     };
 
 }]);
