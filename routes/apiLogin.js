@@ -9,24 +9,37 @@ router.post('/login', function(req,res){
         apiControllerRequest.userLogin(req.body.params, function(err,rows){
             if(err)
             {
-                res.json(err);
+            res.json({
+                data : [],
+                code: 500,
+                status: false,
+                message: "API Not Successful"});
             }
             else
             {
-                var user = rows[0];
-                //RowDataPacket
-                 var token = jwt.sign(user.email_id, config.tokenSecret);
+                if (rows.length) {
+                    var user = rows[0];
+                    //RowDataPacket
+                     var token = jwt.sign(user.email_id, config.tokenSecret);
 
-                 var result = {
-                    email_id : user.email_id,
-                    user_id : user.user_id,
-                    accessToken : token
-                 }
-                res.json({
-                        data : result,
+                     var result = {
+                        email_id : user.email_id,
+                        user_id : user.user_id,
+                        accessToken : token
+                     }
+                    res.json({
+                            data : result,
+                            code: 200,
+                            status: true,
+                            message: "API Successful"});
+                }
+                else{
+                    res.json({
+                        data : [],
                         code: 200,
-                        status: "Success",
+                        status: false,
                         message: "API Successful"});
+                }
             }
         })
     }

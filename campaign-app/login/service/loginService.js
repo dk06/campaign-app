@@ -1,7 +1,9 @@
-app.service('loginService', function ($rootScope, $http, BaseURL) {
-	
+app.service('loginService', function ($rootScope, $http, shareBaseUrl) {
+	var url = {};
     this.userLogin = function (params) {
-        var promise = $http.post(BaseURL + 'login' ,  {params}).then(function(response) {
+    	params.acess = shareBaseUrl.BaseUrl();
+    	params = params;
+        var promise = $http.post(params.acess.BaseUrl + 'login' ,  {params}).then(function(response) {
                 return response.data;
             });
             return promise;

@@ -5,7 +5,7 @@ var APIsData={
             return dbConnect.query("select * from user_login where email_id=? and password=?",[paramsData.email_id, paramsData.password], callback);
             dbConnect.end();
         },
-        getCompaign:function(callback){
+        getCampaign:function(callback){
             return dbConnect.query("select * from master_compaign_objective left join objective on master_compaign_objective.obj_Id = objective.objective_id",callback);
             dbConnect.end();
         },
@@ -15,6 +15,12 @@ var APIsData={
             return dbConnect.query("select * from channel",callback);
             dbConnect.end();
         },
+
+        getChannelID:function(paramsData, callback){
+            return dbConnect.query("select * from channel where channel_name= ?",[paramsData] ,callback);
+            dbConnect.end();
+        },
+
         postChannel: function(paramsData, callback){
             return dbConnect.query("insert into channel set?", paramsData, callback);
             dbConnect.end();
@@ -31,8 +37,8 @@ var APIsData={
 
 
         // cpmpaign audience segement section start
-        getAudienceSegementData:function(callback){
-            return dbConnect.query("select * from new_segement",callback);
+        getAudienceSegementData:function(paramsData, callback){
+            return dbConnect.query("select * from new_segement where channel_id=?",[paramsData], callback);
             dbConnect.end();
         },
         getAudienceSegementById:function(id, callback){
@@ -51,11 +57,23 @@ var APIsData={
             return dbConnect.query("update new_segement set ? where seg_id=?",[paramsData , paramsData.seg_id], callback);
             dbConnect.end();
         },
-        addNewCompaign: function(paramsData, callback){
+        addNewCampaign: function(paramsData, callback){
             return dbConnect.query("insert into campaign set? ", paramsData, callback)
             dbConnect.end();
         },
+        getCustomSegmentsFields: function(callback){
+            return dbConnect.query("select * from custom_new_segments_form", callback)
+            dbConnect.end();
+        },
+        getCustomFormData: function(paramsData, callback){
+            return dbConnect.query("call get_custom_new_segments_form(?)",paramsData, callback);
+            dbConnect.end();
+        },
 
+        getLoactionSection: function(paramsData, callback){
+            return dbConnect.query("call get_loaction_section(?, ?)",[paramsData.param, paramsData.param_code], callback);
+            dbConnect.end();
+        },
         // cpmpaign audience segement section end
 };
 module.exports= APIsData;

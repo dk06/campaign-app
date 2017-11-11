@@ -29,9 +29,15 @@ app.use(function (req, res, next) {
           return next();
       }
 
-    var token = req.query.token || req.body.params.token;
+    var token = req.query.token || req.body.params.acess.token;
     
     if (token) {
+      if (req.query.token) {
+        delete req.query.token;
+      }
+      else if(req.body.params.acess.token){
+        delete req.body.params.acess;
+      }
         next();
     } else {
         return res.json({
@@ -45,7 +51,7 @@ app.use(function (req, res, next) {
 
 //app.use('/', require('./routes/index'));
 app.use('/api', require('./routes/apiLogin'));
-app.use('/api', require('./routes/apiCompaign'));
+app.use('/api', require('./routes/apiCampaign'));
 app.use('/api', require('./routes/apiAudienceSegement'));
 app.use('/api', require('./routes/apiChannel'));
 

@@ -6,12 +6,19 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Test Demo</title>
-        <link rel="icon" type="image/png" href="favicon.png"/>
+        <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
         <link href="stylesheets/style.css" rel="stylesheet">
         <link href="scripts/css/custom.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="scripts/css/daterangepicker.css" />
+
+        
+       <!--  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
+
+        <!-- Include Date Range Picker -->
+        
     </head>
     <body>
-      
+          <script src="scripts/jquery.min.js"></script>
           <script src="scripts/angular.min.js"></script>
           <script src="scripts/angular-strap.js"></script>
           <script src="scripts/angular-strap.tpl.js"></script>
@@ -20,47 +27,70 @@
           <script src="scripts/angular-route.js"></script>
           <script src="scripts/angular-cookies.js"></script>
           <script src="scripts/moment.min.js"></script>
+          <script src="scripts/daterangepicker.js"></script>
+        
 
           <script src="app.js"></script>
-          <script src="compaign/controller/compaignController.js"></script>
-          <script src="compaign/controller/compaignChanelController.js"></script>
-          <script src="compaign/factory/compaignFactory.js"></script>
-          <script src="compaign/factory/compaignChanelFactory.js"></script>
-          <script src="compaign/service/compaignService.js"></script>
-          <script src="compaign/service/compaignChanelService.js"></script>
+          <script src="shared/shareBaseUrl.js"></script>
+          <script src="campaign/controller/campaignController.js"></script>
+          <script src="campaign/controller/campaignChanelController.js"></script>
+          <script src="campaign/factory/campaignFactory.js"></script>
+          <script src="campaign/factory/campaignChanelFactory.js"></script>
+          <script src="campaign/service/campaignService.js"></script>
+          <script src="campaign/service/campaignChanelService.js"></script>
           <script src="login/controller/loginController.js"></script>
           <script src="login/service/loginService.js"></script>
-          <script src="compaign/factory/audienceFactory.js"></script>
-          <script src="compaign/service/audienceService.js"></script>
+          <script src="campaign/factory/audienceFactory.js"></script>
+          <script src="campaign/service/audienceService.js"></script>
 
-          <div class="navbar navbar-static-top" role="navigation" bs-navbar>
-              <div class="navbar-header">
-                <a class="navbar-brand" href="/">      
-                  <strong>Deepak</strong></a>
-              </div>
-              <ul class="nav navbar-nav">
-                <li data-match-route="/$"><a href="/">Home</a></li>
-                <li data-match-route="/add"><a href="/add">Add</a></li>
-              </ul>
-              <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-                <li data-match-route="/login"><a href="/login">Login</a></li>
-              </ul>
-              <ul class="nav navbar-nav pull-right" ng-if="currentUser">
-                <li class="navbar-text" ng-bind="currentUser.email_id"></li>
-                <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
-              </ul>
+          <div ng-if="currentUser">
+              <div class="navbar navbar-static-top" role="navigation" bs-navbar>
+                    <div class="navbar-header">
+                     <a class="navbar-brand" href="#" style="background-color: #66797a;">      
+                        <strong style="color: #ffffff;">Campaign</strong></a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                      <li data-match-route="/$"><a href="#">Home</a></li>
+                      <li data-match-route="/$"><a href="#">Add</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
+                      <li data-match-route="/login"><a href="/login">Login</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav pull-right" ng-if="currentUser">
+                      <li class="navbar-text" ng-bind="currentUser.email_id"></li>
+                      <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </div>
+
+
+                <div class="container-fluid">    
+                    <div class="row content">
+                        <div class="col-sm-2 sidenav pull-left">
+                            <p><a href="#">Overview</a></p>
+                            <p><a href="#">Chanel</a></p>
+                            <p><a href="#">Audience</a></p>
+                        </div>
+                        <div class="col-sm-10 text-left" style="padding-top: 10px;"> 
+                            <div ng-view></div>
+                        </div>
+                    </div>
+                </div>
           </div>
-          <div class="container-fluid">    
-              <div class="row content">
-                  <div class="col-sm-2 sidenav pull-left">
-                      <p><a href="#">Overview</a></p>
-                      <p><a href="#">Chanel</a></p>
-                      <p><a href="#">Audience</a></p>
-                  </div>
-                  <div class="col-sm-10 text-left" style="padding-top: 10px;"> 
-                      <div ng-view></div>
-                  </div>
-              </div>
+
+          <div ng-if="!currentUser">
+            <div class="navbar navbar-static-top" role="navigation" bs-navbar>
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#" style="background-color: #66797a;">      
+                        <strong style="color: #ffffff;">Campaign</strong></a>
+                    </div>
+                    <!-- <ul class="nav navbar-nav">
+                      <li data-match-route="/$"><a href="/">Home</a></li>
+                      <li data-match-route="/add"><a href="/add">Add</a></li>
+                    </ul> -->
+                    
+                </div>
+                <div ng-view></div>
+                </div>
           </div>
     </body>
 </html>
