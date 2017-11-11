@@ -283,25 +283,26 @@
               <hr>
                 <label>Country</label>
                 <select class="form-control" ng-options="county.country_codes as county.country_names for county in countyData" 
-                        ng-model="county" ng-change="getState(county)">
+                        ng-model="channel.county" ng-change="getState(county)">
                           <option value="" disabled selected>Select Country</option>
                         </select>
                 <br>
                 <label>State</label>
                 <select class="form-control" ng-options="state.state_code as state.state_names for state in stateData" 
-                        ng-model="state" ng-change="getCity(state)">
+                        ng-model="channel.state" ng-change="getCity(state)">
                            <option value="" disabled selected>Select State</option>
                         </select>
                 <br>
                 <label>City</label>
-                <select class="form-control" ng-options="city as city.city_names for city in cityData" ng-model="city" ng-change="getZipCode(city)">
+                <select class="form-control" ng-options="city as city.city_names for city in cityData" ng-model="channel.city" ng-change="getZipCode(city)">
                    <option value="" disabled selected>Select City</option>
                 </select>
                 <br>
                 <label>Zip Code</label>
-                <select class="form-control" ng-options="zipCode as zipCode.zipCode_names for zipCode in zipCodeData" ng-model="zipCode">
+                <!-- <select class="form-control" ng-options="zipCode as zipCode.zipCode_names for zipCode in zipCodeData" ng-model="zipCode">
                    <option value="" disabled selected>Select Zip Code</option>
-                </select>
+                </select> -->
+                <input type="text" class="form-control" ng-model="channel.zipCode">
             </div>
 
             <div ng-show="newChanele">
@@ -345,6 +346,11 @@
                             <input type="text" class="form-control" ng-model="channel.channelBudget">
 
                             <label>Channel Status</label>
+                            <select class="form-control" ng-model="channel.channelStatus">
+                               <option>Active</option>
+                               <option>Rejected</option>
+                               <option>Paused</option>
+                            </select>
                             
                         </form>                      
                       

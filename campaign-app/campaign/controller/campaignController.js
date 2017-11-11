@@ -1,5 +1,5 @@
 
-app.controller('CampaignController',['$scope','campaignFactory','campaignChanelFactory','audienceFactory','$window', function($scope, campaignFactory, campaignChanelFactory, audienceFactory, $window ) {
+app.controller('CampaignController',['$scope','campaignFactory','campaignChanelFactory','audienceFactory','$window','$timeout', function($scope, campaignFactory, campaignChanelFactory, audienceFactory, $window, $timeout ) {
 
     $scope.headingTitle = 'App Start';
 	init();
@@ -15,7 +15,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.campaignSection = true;
     $scope.audienceSegementSection = false;
     $scope.campaignActivate = false;
-    
+    $scope.channel = {};
     $scope.campaignSelectValid = false;
     $scope.selectCampaign = function(data){
         $scope.campaignName = data;
@@ -264,10 +264,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
                         $scope.loaction = false;
                         $scope.newChanele = false;
                         $scope.chanelId = response;
-                        $scope.channel = { 
-                            segementName : '',
-                             adverType : ''
-                         };
+                        $scope.channel = {}
                     } 
                     else {
                         $scope.Message = "You clicked NO.";
