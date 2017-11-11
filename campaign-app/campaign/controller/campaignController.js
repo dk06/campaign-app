@@ -85,12 +85,26 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
                 $scope.newSegementCreateForm = true;
                 $scope.Message = "You clicked YES.";
             }
-            else
-            {
-                $scope.campaignChanelSection = true;
-                $scope.newSegementCreateForm = false;
-                $scope.audienceSegementSection = false;
-            }
+            // else
+            // {
+            //     $scope.campaignChanelSection = true;
+            //     $scope.newSegementCreateForm = false;
+            //     $scope.audienceSegementSection = false;
+            // }
+             else {
+                        $scope.Message = "You clicked NO.";
+                        if ($window.confirm("can you creata new chanel?")) 
+                        {
+                            $scope.advanceActive = true;
+                            $scope.Message = "You clicked YES.";
+                        }
+                        else
+                        {
+                            $scope.campaignChanelSection = true;
+                            $scope.newSegementCreateForm = false;
+                            $scope.audienceSegementSection = false;
+                        }
+                    }
         });
     };
 
@@ -254,7 +268,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
                             segementName : '',
                              adverType : ''
                          };
-                    } else {
+                    } 
+                    else {
                         $scope.Message = "You clicked NO.";
                         if ($window.confirm("can you creata new chanel?")) 
                         {
