@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
+var config = require('./configuration/appConfig').config;
 
 var app = express();
 
@@ -32,13 +33,26 @@ app.use(function (req, res, next) {
     var token = req.query.token || req.body.params.acess.token;
     
     if (token) {
-      if (req.query.token) {
-        delete req.query.token;
-      }
-      else if(req.body.params.acess.token){
-        delete req.body.params.acess;
-      }
-        next();
+
+       jwt.verify(token, config.tokenSecret, function (err, decoded) {
+          if (err) {
+              return res.json({
+                      data : [],
+                      status: false,
+                      errorCode: 401,
+                      message: 'Invalid access token.'
+                    });
+          } else {
+              if (req.query.token)
+              {
+                  delete req.query.token;
+              }
+               else if(req.body.params.acess.token){
+                 delete req.body.params.acess;
+              }
+              next();
+          }
+      });
     } else {
         return res.json({
           data : [],

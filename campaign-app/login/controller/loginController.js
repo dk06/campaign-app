@@ -15,7 +15,7 @@ app.controller('LoginController',['$scope','$rootScope','loginService', '$window
         	}
         });
 	};
-    $rootScope.logout = function(){
+    $rootScope.currentUserlogout = function(){
         $window.localStorage.clear();
         $location.path("/login");
         $rootScope.pageActive = false;
