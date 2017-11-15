@@ -2,8 +2,15 @@ var dbConnect = require('../models/dbconnection'); //reference of dbconnection.j
 
 var APIsData={
         userLogin: function(paramsData, callback){
-            return dbConnect.query("select * from user_login where email_id=? and password=?",[paramsData.email_id, paramsData.password], callback);
-            dbConnect.end();
+            dbConnect.query("select * from user_login where email_id=? and password=?",[paramsData.email_id, paramsData.password], function(err, results) {
+                if(err) { 
+                   console.log(err); 
+                   callback(true); 
+                   return; 
+                }
+                callback(false, results);
+            //dbConnect.end();
+        });
         },
         getCampaign:function(callback){
             return dbConnect.query("select * from master_compaign_objective left join objective on master_compaign_objective.obj_Id = objective.objective_id",callback);
@@ -63,16 +70,16 @@ var APIsData={
         },
         getCustomSegmentsFields: function(callback){
             return dbConnect.query("select * from custom_new_segments_form", callback)
-            dbConnect.end();
+            //dbConnect.end();
         },
         getCustomFormData: function(paramsData, callback){
             return dbConnect.query("call get_custom_new_segments_form(?)",paramsData, callback);
-            dbConnect.end();
+            //dbConnect.end();
         },
 
         getLoactionSection: function(paramsData, callback){
             return dbConnect.query("call get_loaction_section(?, ?)",[paramsData.param, paramsData.param_code], callback);
-            dbConnect.end();
+            //dbConnect.end();
         },
         // cpmpaign audience segement section end
 };

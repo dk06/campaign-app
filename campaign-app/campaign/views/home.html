@@ -283,13 +283,13 @@
               <hr>
                 <label>Country</label>
                 <select class="form-control" ng-options="county.country_codes as county.country_names for county in countyData" 
-                        ng-model="channel.county" ng-change="getState(county)">
+                        ng-model="channel.county" ng-change="getState(channel.county)">
                           <option value="" disabled selected>Select Country</option>
                         </select>
                 <br>
                 <label>State</label>
                 <select class="form-control" ng-options="state.state_code as state.state_names for state in stateData" 
-                        ng-model="channel.state" ng-change="getCity(state)">
+                        ng-model="channel.state" ng-change="getCity(channel.state)">
                            <option value="" disabled selected>Select State</option>
                         </select>
                 <br>
