@@ -29,7 +29,7 @@
                 </head>
                 <tbody>
                   <tr ng-repeat="data in obj.awarnes">
-                    <td style="cursor: pointer" ng-click="selectCampaign(data.awarnes, data.id)" ng-class="{selected : data.awarnes === campaignName}">{{data.awarnes}}</td>
+                    <td style="cursor: pointer" ng-click="selectCampaign(data.awarnes, data.id)" ng-class="{selected : data.awarnes === campaignObject}">{{data.awarnes}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -43,7 +43,7 @@
                 </head>
                 <tbody>
                   <tr ng-repeat="data in obj.consdrition">
-                    <td style="cursor: pointer" ng-click="selectCampaign(data.consdrition, data.id)" ng-class="{selected : data.consdrition === campaignName}">{{data.consdrition}}</td>
+                    <td style="cursor: pointer" ng-click="selectCampaign(data.consdrition, data.id)" ng-class="{selected : data.consdrition === campaignObject}">{{data.consdrition}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -58,7 +58,7 @@
                 </head>
                 <tbody>
                   <tr ng-repeat="data in obj.converstion">
-                    <td style="cursor: pointer" ng-click="selectCampaign(data.converstion, data.id)" ng-class="{selected : data.converstion === campaignName}">{{data.converstion}}</td>
+                    <td style="cursor: pointer" ng-click="selectCampaign(data.converstion, data.id)" ng-class="{selected : data.converstion === campaignObject}">{{data.converstion}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -66,13 +66,13 @@
         </div>
         <div class="col-xs-offset-3">
             <div class="col-sm-7">
-                <h3 class="text-center">{{campaignName}}</h3>
+                <h3 class="text-center">{{campaignObject}}</h3>
                 <div class="col-sm-6">
                     <label class="pull-right">Campaign Name: </label>
                 </div>
                 <div class="col-sm-6" style="padding-left: 0px;">
                     <input type="text" name="" class="form-control" ng-model="campaign" placeholder="Give a name your company"><br>
-                    <button type="button" class="btn btn-primary pull-left" ng-show="campaignSelectValid && campaign" ng-click="campaignCreate()">Continue</button>
+                    <button type="button" class="btn btn-primary pull-left" ng-show="campaignSelectValid && campaign" ng-click="campaignCreate(campaign)">Continue</button>
                     <button type="button" class="btn btn-primary pull-left" ng-hide="campaignSelectValid && campaign">Continue</button>
                 </div>
             
@@ -157,7 +157,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="chenel in campaignChenel">
-                  <td><a href="#" ng-click="selectChannel(chenel.channel_id)">{{chenel.channel_name}}</a></td>
+                  <td><a href="#" ng-click="selectChannel(chenel)">{{chenel.channel_name}}</a></td>
                   <td>{{chenel.adverType}}</td>                  
                   <td>{{chenel.create_date}}</td>
                   <td>{{chenel.update_date}}</td>
@@ -205,7 +205,7 @@
             <tbody>
               <tr ng-repeat="segementData in audienceSegementData">
                   <td>
-                      <input type="checkbox" class="custom-control-input">  {{segementData.segement_name}}
+                      <input type="checkbox" class="custom-control-input" ng-click="selectAudienceSeg(segementData.seg_id, segementData.segement_name)">{{segementData.segement_name}}
                   </td>
                   <td>-</td>
                   <td>-</td>
@@ -222,7 +222,7 @@
               </tr>
             </tbody>
         </table>
-        <div class="col-xs-offset-5" style="padding-top: 20px">
+        <div class="col-xs-offset-5" style="padding-top: 20px">            
             <button type="button" class="btn btn-primary" ng-click="savedAudienceSegement()">Continue</button>
         </div>
     </div>
@@ -411,23 +411,89 @@
                     <button type="button" class="btn btn-primary" ng-click="createNewCampaignChanel(channel)">Continue</button>
                 </div>
           </div>
-     </div>
-        
+     </div>        
 </div>
-</div>
-      <div  ng-if="campaignActivate">
-          <div class="panel contain-page">
-              <h5>Campaign Activated</h5>
+
+<div ng-if="reviewAndActiveCampaign" ng-init="finalCampaignList()">
+    <div class="panel contain-page">
+        <h5>Review and Active Campaign</h5>
+    </div>
+    <div class="col-sm-6 panel container-height contain-page">
+          <div class="panel-heading">
+              <h5 class="pull-left">Campaign Object</h5>
+              <button class="btn btn-primary pull-right" ng-click="editClick('Campaign')">Edit</button>
           </div>
           <br>
-          <div class="panel container-height contain-page">
-              <div class="col-xs-offset-5">
-                  <h3>Congratulation</h3>
-                  <button type="button" class="btn btn-primary" ng-click="backToDashboard()">Back to Dashboard</button>
-                      <button type="button" class="btn btn-default" ng-click="createNewCompaign()">Create New Campaign</button>
-              </div>
+          <hr>
+          Campaign Name
+          <input type="text" ng-model="channelData.campaignName">
+          <br>
+          Campaign Object
+          <input type="text" ng-model="channelData.campaignObject">
+
+          <br>
+          <div class="panel-heading">
+              <h5 class="pull-left">Audience Segement</h5>
+            <button class="btn btn-primary pull-right" ng-click="editClick('Audience')">Edit</button>
           </div>
-      </div>
+          <br>
+          <hr>
+
+          Selected Segement
+          <input type="text" ng-model="channelData.segementName">
+          <br>
+          Estimated Audience
+          <input type="text" ng-model="channelData.audienceName">
+
+          <br>
+          <div class="panel-heading">
+              <h5 class="pull-left">Channel</h5>
+              <button class="btn btn-primary pull-right" ng-click="editClick('Channel')">Edit</button>
+          </div>
+          <br>
+          <hr>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>KPI</th>
+                      <th>Target</th>
+                      <th>Channel Budget</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>{{channelData.channel.channel_name}}</td>
+                      <td>{{channelData.channel.kpi}}</td>
+                      <td>{{channelData.channel.target}}</td>
+                      <td>{{channelData.channel.channel_Budget}}</td>
+                  </tr>
+              </tbody>
+          </table>
+    </div>
+    <div class="col-sm-6 panel container-height contain-page">
+
+    </div>
+    <div class="panel contain-page">
+      <br>
+        <button type="button" class="btn btn-default" ng-click="createNewCompaign()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="activeCamapign()">Active</button>
+    </div>
+</div>
+
+<div  ng-if="campaignActivate">
+    <div class="panel contain-page">
+        <h5>Campaign Activated</h5>
+    </div>
+    <br>
+    <div class="panel container-height contain-page">
+        <div class="col-xs-offset-5">
+            <h3>Congratulation</h3>
+            <button type="button" class="btn btn-primary" ng-click="backToDashboard()">Back to Dashboard</button>
+                <button type="button" class="btn btn-default" ng-click="createNewCompaign()">Create New Campaign</button>
+        </div>
+    </div>
+</div>
 
 </div>
 
