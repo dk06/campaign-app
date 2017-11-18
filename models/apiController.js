@@ -2,6 +2,7 @@ var dbConnect = require('../models/dbconnection'); //reference of dbconnection.j
 
 var APIsData={
         userLogin: function(paramsData, callback){
+            dbConnect.connect();
             dbConnect.query("select * from user_login where email_id=? and password=?",[paramsData.email_id, paramsData.password], function(err, results) {
                 if(err) { 
                    console.log(err); 
@@ -13,6 +14,7 @@ var APIsData={
         });
         },
         getCampaign:function(callback){
+            dbConnect.connect();
             return dbConnect.query("select * from master_compaign_objective left join objective on master_compaign_objective.obj_Id = objective.objective_id",callback);
             dbConnect.end();
         },
@@ -20,6 +22,11 @@ var APIsData={
         // cpmpaign chanel section start
         getChannel:function(callback){
             return dbConnect.query("select * from channel",callback);
+            dbConnect.end();
+        },
+
+        getChannelTypeList:function(callback){
+            return dbConnect.query("select * from channel_type_list",callback);
             dbConnect.end();
         },
 

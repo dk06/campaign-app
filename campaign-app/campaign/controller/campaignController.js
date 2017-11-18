@@ -8,7 +8,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
             return campaignFactory.getCategories().then(function(response, status) {
                 document.getElementById("setObject").style.color = "#5e92e5";
                 $scope.obj = response;
-            });
+            });            
         }
     };
 
@@ -17,14 +17,28 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
     $scope.campaignActivate = false;
     $scope.channel = {};
     $scope.campaignSelectValid = false;
-    $scope.selectCampaign = function(data){
-        $scope.campaignName = data;
+    $scope.selectCampaign = function(name, id){
+        $scope.campaignName = name;
+        $scope.campaignId = id;
         $scope.campaignSelectValid = true;
     };
     $scope.campaignCreate = function(){
         document.getElementById("setObject").style.background = "#b0e2e5";        
         $scope.campaignSection = false;
         $scope.campaignChanelSection =true;
+    };
+
+    $scope.getChannelType = function(){                
+        return campaignChanelFactory.getChannelType().then(function(response, status) {
+            $scope.channelType = response;
+        });
+    };
+
+    $scope.addNewChannel = function(channelName){
+        return campaignChanelFactory.getChannelData($scope.campaignId, channelName).then(function(response, status) {
+            $scope.channelType = response;
+            $scope.getCampaignChanel();
+        });
     };
 
     //audienc segement section start

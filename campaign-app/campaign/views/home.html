@@ -29,7 +29,7 @@
                 </head>
                 <tbody>
                   <tr ng-repeat="data in obj.awarnes">
-                    <td style="cursor: pointer" ng-click="selectCampaign(data.awarnes)" ng-class="{selected : data.awarnes === campaignName}">{{data.awarnes}}</td>
+                    <td style="cursor: pointer" ng-click="selectCampaign(data.awarnes, data.id)" ng-class="{selected : data.awarnes === campaignName}">{{data.awarnes}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -43,7 +43,7 @@
                 </head>
                 <tbody>
                   <tr ng-repeat="data in obj.consdrition">
-                    <td style="cursor: pointer" ng-click="selectCampaign(data.consdrition)" ng-class="{selected : data.consdrition === campaignName}">{{data.consdrition}}</td>
+                    <td style="cursor: pointer" ng-click="selectCampaign(data.consdrition, data.id)" ng-class="{selected : data.consdrition === campaignName}">{{data.consdrition}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -58,7 +58,7 @@
                 </head>
                 <tbody>
                   <tr ng-repeat="data in obj.converstion">
-                    <td style="cursor: pointer" ng-click="selectCampaign(data.converstion)" ng-class="{selected : data.converstion === campaignName}">{{data.converstion}}</td>
+                    <td style="cursor: pointer" ng-click="selectCampaign(data.converstion, data.id)" ng-class="{selected : data.converstion === campaignName}">{{data.converstion}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -87,7 +87,30 @@
     <br>
     <div class="panel container-height contain-page" style="padding-top: 10px;">
         <h4 class="pull-left">Campaign Chanel</h4>
-        <button type="button" class="btn btn-primary pull-right" ng-click="newChanel()">Add Chanel</button>
+        <!-- <button type="button" class="btn btn-primary pull-right" ng-click="newChanel()">Add Chanel</button> -->
+        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" ng-click="getChannelType()">Add Chanel</button>
+
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add Channel</h4>
+                </div>
+                <div class="modal-body">
+                  <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
+                        ng-model="channel.channelName">
+                          <option value="" disabled selected>Select Channel</option>
+                        </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewChannel(channel.channelName)">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         <table class="table">
             <thead>
                 <tr>
@@ -305,57 +328,50 @@
                 <input type="text" class="form-control" ng-model="channel.zipCode">
             </div>
 
-            <div ng-show="newChanele">
-              <h4>Compaign Chanel</h4>
-              <hr>
-                  <!-- <div class="panel contain-page">
-                      <h5>2 Add marketing Chaneles to your campaign</h5>
-                  </div>
-                  <br> -->
-                        <script type="text/javascript">
-                            $(function() {
-                                 $('#daterange').daterangepicker();
-                            });
-                        </script>
+            <!-- <div ng-show="newChanele">
+                <h4>Compaign Chanel</h4>
+                <hr>
+                <script type="text/javascript">
+                    $(function() {
+                         $('#daterange').daterangepicker();
+                    });
+                </script>
+                <div>                      
+                    <form>
+                        <label>Channel Name</label>
+                        <input type="text" class="form-control" ng-model="channel.channelName">
 
-                  <div>                      
-                        <form>
-                            <label>Channel Name</label>
-                            <input type="text" class="form-control" ng-model="channel.channelName">
+                        <label>Adver Type</label>
+                        <input type="text" class="form-control" ng-model="channel.adverType">
 
-                            <label>Adver Type</label>
-                            <input type="text" class="form-control" ng-model="channel.adverType">
+                        <label>Date Select</label>
+                        <input type="text" id="startDateId"  class="form-control" ng-model="channel.startDate">
 
-                            <label>Date Select</label>
-                            <!-- <input type="text" id="startDateId"  class="form-control" ng-model="channel.startDate">
+                        <label>End Date</label>
+                        <input type="text" id="endDateId" class="form-control" ng-model="channel.endDate">
+                        <input type="text" class="form-control" name="startDate" id="daterange" />
 
-                            <label>End Date</label>
-                            <input type="text" id="endDateId" class="form-control" ng-model="channel.endDate"> -->
-                            <input type="text" class="form-control" name="startDate" id="daterange" />
+                        <label>KPI</label>
+                        <input type="text" class="form-control" ng-model="channel.kpi">
 
-                            <label>KPI</label>
-                            <input type="text" class="form-control" ng-model="channel.kpi">
+                        <label>Target</label>
+                        <input type="text" class="form-control" ng-model="channel.target">
 
-                            <label>Target</label>
-                            <input type="text" class="form-control" ng-model="channel.target">
+                        <label>Bid Min/Max</label>
+                        <input type="text" class="form-control" ng-model="channel.bidMinMax">
 
-                            <label>Bid Min/Max</label>
-                            <input type="text" class="form-control" ng-model="channel.bidMinMax">
+                        <label>Channel Budget</label>
+                        <input type="text" class="form-control" ng-model="channel.channelBudget">
 
-                            <label>Channel Budget</label>
-                            <input type="text" class="form-control" ng-model="channel.channelBudget">
-
-                            <label>Channel Status</label>
-                            <select class="form-control" ng-model="channel.channelStatus">
-                               <option>Active</option>
-                               <option>Rejected</option>
-                               <option>Paused</option>
-                            </select>
-                            
-                        </form>                      
-                      
-                  </div>
-            </div>
+                        <label>Channel Status</label>
+                        <select class="form-control" ng-model="channel.channelStatus">
+                           <option>Active</option>
+                           <option>Rejected</option>
+                           <option>Paused</option>
+                        </select>
+                    </form>
+                </div>
+            </div> -->
         </div>
         <hr>
           <div>

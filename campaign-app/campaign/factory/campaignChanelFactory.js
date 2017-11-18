@@ -6,6 +6,19 @@
 				return response.data;
 			})
 		};
+
+		dataFactory.getChannelType= function(){			 
+			return campaignChanelService.getChannelType().then(function(response) {
+				return response.data;
+			})
+		};
+
+		dataFactory.getChannelData= function(campaignId, channelName){			 
+			return campaignChanelService.getChannelData(campaignId, channelName).then(function(response) {
+				return response.data;
+			})
+		};
+
 		dataFactory.postCampaignChanel= function(channel){
 			if(channel){
 				var date = $filter('date')(new Date(), 'dd/MM/yyyy');

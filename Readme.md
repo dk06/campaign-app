@@ -6,6 +6,7 @@ Make sure you have installed.
 ## Build & development
 * npm install
 * npm install node-mysql
+* npm i node-rest-client //for other side api access
 
 ## Run
 * node app.js

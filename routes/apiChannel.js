@@ -1,6 +1,75 @@
 var express = require('express');
+var Client = require('node-rest-client').Client;
+ 
+var client = new Client();
+
 var router = express.Router();
 var apiControllerRequest = require('../models/apiController');
+
+router.get('/getChannelTypeList', function(req,res){
+    apiControllerRequest.getChannelTypeList(function(err,rows){
+        if(err)
+        {
+        res.json(err);
+        }
+        else
+        {
+        res.json({
+            data : rows,
+            code: 200,
+            status: "Success",
+            message: "API Successful"});
+        }
+    })
+});
+
+
+
+router.get('/getChannelData', function(req, res){
+    
+    //client.get("http://205.147.101.67:8080/dashboardAPIv2/report/2/facebook/fwefwf", function (data, response) {
+    client.get(req.query.cuberootBaseUrl+ '/' + req.query.campaignId + '/' + req.query.channelName+ '/fwefwf', function (rows, err) {
+        if(!rows)
+            {
+            res.json({
+                data : [],
+                code: 500,
+                status: false,
+                message: "API Not Successful"});
+            }
+            else
+            {            
+                var channel ={
+                        channel_name : req.query.channelName,
+                        adverType : rows.advertType,
+                        kpi : rows.kPI,
+                        target : rows.target,
+                        bid_min : rows.bidmin,
+                        bid_Max : rows.bidmax,
+                        channel_Budget : rows.channelBudget,
+                        create_date : rows.startDate,
+                        update_date : rows.endDate,
+                        user_id : req.query.userId,
+                        status : rows.channelStatus
+                    }
+                apiControllerRequest.postChannel(channel, function(err,rows){
+                    if(err)
+                    {
+                    res.json(err);
+                    }
+                    else
+                    {
+                    res.json({
+                        data : rows,
+                        code: 200,
+                        status: "Success",
+                        message: "API Successful"});
+                    }
+                });
+            }
+    });
+});
+
 
 router.get('/getCampaignChannel', function(req,res){
     apiControllerRequest.getChannel(function(err,rows){
