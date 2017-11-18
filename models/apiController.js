@@ -21,7 +21,7 @@ var APIsData={
 
         // cpmpaign chanel section start
         getChannel:function(callback){
-            return dbConnect.query("select * from channel",callback);
+            return dbConnect.query("select * from channel order by channel_id asc",callback);
             dbConnect.end();
         },
 
