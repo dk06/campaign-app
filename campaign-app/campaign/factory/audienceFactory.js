@@ -8,15 +8,15 @@
 		};
 		dataFactory.postAudienceSegement = function(segment){
 			//curent date
-			//var date = $filter('date')(new Date(), 'dd/MM/yyyy');
-			var datadate = document.getElementById("daterange").value;
-			var dateRangeArray = datadate.split('-');			
+			var date = $filter('date')(new Date(), 'dd/MM/yyyy');
+			// var datadate = document.getElementById("daterange").value;
+			// var dateRangeArray = datadate.split('-');			
 			var params = {
 		            segement_name : segment.segmentData.segementName,
 		            segment_form_data : segment.segmentData.segment_form_data,
 		            channel_id : segment.chanelId,
-		            create_date : dateRangeArray[0],
-		            update_date : dateRangeArray[1],
+		            create_date : date,
+		            update_date : date,
 		            status : 1
 		        }
 			return audienceService.postAudienceSegement(params).then(function(response) {

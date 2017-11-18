@@ -13,8 +13,8 @@
 			})
 		};
 
-		dataFactory.getChannelData= function(campaignId, channelName){			 
-			return campaignChanelService.getChannelData(campaignId, channelName).then(function(response) {
+		dataFactory.getChannelData= function(params){			 
+			return campaignChanelService.getChannelData(params).then(function(response) {
 				return response.data;
 			})
 		};

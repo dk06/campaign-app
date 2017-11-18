@@ -34,9 +34,21 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
         });
     };
 
-    $scope.addNewChannel = function(channelName){
-        return campaignChanelFactory.getChannelData($scope.campaignId, channelName).then(function(response, status) {
+    $scope.editSelectChennelId = function(chanelId){
+        $scope.editChanelId = chanelId;
+        $scope.getChannelType();
+    };
+
+    $scope.addNewChannel = function(channel){
+        var params = {
+            campaignId : $scope.campaignId, 
+            channelName : channel.channelName,
+            editChanelId : $scope.editChanelId,
+            channelAccessToken : channel.accessTocken
+        }
+        return campaignChanelFactory.getChannelData(params).then(function(response, status) {
             $scope.channelType = response;
+            alert('<script language="JavaScript"> var STD="101"; var ISD="102"; var pn="NS"; var cn="1";var tagparameters = "ReplaceValue" </script><script src="https://dcpub.cuberoot.co/dcode2/dmpbasedc.js"></script>');
             $scope.getCampaignChanel();
         });
     };
@@ -93,32 +105,34 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
             $scope.newSegementCreateForm = false;
             $scope.audienceSegementSection = false;
             $scope.audienceSegementData = response.data;
+            $scope.channel = {}
             if ($window.confirm("can you creata new segement?")) 
             {
                 $scope.advanceActive = false;
                 $scope.newSegementCreateForm = true;
-                $scope.Message = "You clicked YES.";
             }
-            // else
-            // {
-            //     $scope.campaignChanelSection = true;
-            //     $scope.newSegementCreateForm = false;
-            //     $scope.audienceSegementSection = false;
-            // }
-             else {
-                        $scope.Message = "You clicked NO.";
-                        if ($window.confirm("can you creata new chanel?")) 
-                        {
-                            $scope.advanceActive = true;
-                            $scope.Message = "You clicked YES.";
-                        }
-                        else
-                        {
-                            $scope.campaignChanelSection = true;
-                            $scope.newSegementCreateForm = false;
-                            $scope.audienceSegementSection = false;
-                        }
-                    }
+            else
+            {
+                $scope.campaignChanelSection = false;
+                $scope.newSegementCreateForm = false;
+                $scope.audienceSegementSection = true;
+            }
+
+
+             // else {
+             //            $scope.Message = "You clicked NO.";
+             //            if ($window.confirm("can you creata new chanel?")) 
+             //            {
+             //                $scope.advanceActive = true;
+             //                $scope.Message = "You clicked YES.";
+             //            }
+             //            else
+             //            {
+             //                $scope.campaignChanelSection = true;
+             //                $scope.newSegementCreateForm = false;
+             //                $scope.audienceSegementSection = false;
+             //            }
+             //        }
         });
     };
 
@@ -242,11 +256,11 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChanelF
 
     };
 
-    $scope.selectChanel = function(chanelId){
+    $scope.selectChannel = function(chanelId){
         $scope.chanelId = chanelId;
     };
 
-    $scope.savedCampaignChanel = function(){
+    $scope.savedCampaignChannel = function(){
         if($scope.chanelId){
             document.getElementById("setConfigureChanel").style.background = "#b0e2e5";
             document.getElementById("setTargetAudience").style.color = "#5e92e5";

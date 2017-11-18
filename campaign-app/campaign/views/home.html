@@ -89,7 +89,7 @@
         <h4 class="pull-left">Campaign Chanel</h4>
         <!-- <button type="button" class="btn btn-primary pull-right" ng-click="newChanel()">Add Chanel</button> -->
         <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal" ng-click="getChannelType()">Add Chanel</button>
-
+        <!--model open add channel-->
           <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-sm">
               <div class="modal-content">
@@ -99,12 +99,40 @@
                 </div>
                 <div class="modal-body">
                   <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
-                        ng-model="channel.channelName">
+                        ng-model="channel.channelName" required>
                           <option value="" disabled selected>Select Channel</option>
                         </select>
+                  <br>
+                  <input type="text" class="form-control" ng-model="channel.accessTocken" placeholder="Access tocken*" required>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addNewChannel(channel.channelName)">Add</button>
+                  <button type="button" class="btn btn-primary" ng-hide="channel.channelName && channel.accessTocken">Add</button>
+                  <button type="button" class="btn btn-primary" ng-show="channel.channelName && channel.accessTocken" data-dismiss="modal" ng-click="addNewChannel(channel.channelName)">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--model open edit-->
+          <div class="modal fade" id="editModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Update Channel</h4>
+                </div>
+                <div class="modal-body">
+                  <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
+                        ng-model="channel.channelName" required>
+                          <option value="" disabled selected>Select Channel</option>
+                        </select>
+                  <br>
+                  <input type="text" class="form-control" ng-model="channel.accessTocken" placeholder="Access tocken*" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" ng-hide="channel.channelName && channel.accessTocken">Update</button>
+                  <button type="button" class="btn btn-primary" ng-show="channel.channelName && channel.accessTocken" data-dismiss="modal" ng-click="addNewChannel(channel)">Update</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -129,7 +157,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="chenel in campaignChenel">
-                  <td><a href="#" ng-click="selectChanel(chenel.channel_id)">{{chenel.channel_name}}</a></td>
+                  <td><a href="#" ng-click="selectChannel(chenel.channel_id)">{{chenel.channel_name}}</a></td>
                   <td>{{chenel.adverType}}</td>                  
                   <td>{{chenel.create_date}}</td>
                   <td>{{chenel.update_date}}</td>
@@ -139,7 +167,8 @@
                   <td>{{chenel.channel_Budget}}</td>
                   <td>{{chenel.status}}</td>
                   <td>
-                      <button ng-click="editCampaignChenel(chenel)">Edit</button>
+                      <!-- <button  ng-click="editCampaignChenel(chenel)">Edit</button> -->
+                      <button type="button" data-toggle="modal" ng-click="editSelectChennelId(chenel.channel_id)" data-target="#editModal">Edit</button>
                   </td>
                   <td>
                       <button ng-click="deleteCampaignChenel(chenel)">Delete</button>
@@ -148,7 +177,7 @@
             </tbody>
         </table>
         <div class="col-xs-offset-5" style="padding-top: 20px">
-            <button type="button" class="btn btn-primary" ng-click="savedCampaignChanel()">Continue</button>
+            <button type="button" class="btn btn-primary" ng-click="savedCampaignChannel()">Continue</button>
         </div>
     </div>
 </div>

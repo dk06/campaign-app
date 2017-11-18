@@ -17,11 +17,12 @@ app.service('campaignChanelService', function ($rootScope, $http, shareBaseUrl,$
             return promise;
         };
 
-    this.getChannelData = function (campaignId, channelName) {        
+    this.getChannelData = function (paramsObj) {        
         params = shareBaseUrl.BaseUrl();
         params.cuberootBaseUrl = "http://205.147.101.67:8080/dashboardAPIv2/report/";
-        params.campaignId = campaignId;
-        params.channelName = channelName;
+        params.campaignId = paramsObj.campaignId;
+        params.channelName = paramsObj.channelName;
+        params.editChanelId = paramsObj.editChanelId;
         var promise = $http.get(params.BaseUrl + 'getChannelData', {params} ).then(function(response) {
                 return response.data;
             });

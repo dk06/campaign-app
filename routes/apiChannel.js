@@ -28,7 +28,7 @@ router.get('/getChannelTypeList', function(req,res){
 router.get('/getChannelData', function(req, res){
     
     //client.get("http://205.147.101.67:8080/dashboardAPIv2/report/2/facebook/fwefwf", function (data, response) {
-    client.get(req.query.cuberootBaseUrl+ '/' + req.query.campaignId + '/' + req.query.channelName+ '/fwefwf', function (rows, err) {
+    client.get(req.query.cuberootBaseUrl+ '/' + req.query.campaignId + '/' + req.query.channelName+ '/' + req.query.channelAccessToken, function (rows, err) {
         if(!rows)
             {
             res.json({
@@ -51,21 +51,61 @@ router.get('/getChannelData', function(req, res){
                         update_date : rows.endDate,
                         user_id : req.query.userId,
                         status : rows.channelStatus
-                    }
-                apiControllerRequest.postChannel(channel, function(err,rows){
-                    if(err)
-                    {
-                    res.json(err);
-                    }
-                    else
-                    {
-                    res.json({
-                        data : rows,
-                        code: 200,
-                        status: "Success",
-                        message: "API Successful"});
-                    }
-                });
+                    }                
+                if (!req.query.editChanelId) {
+                    apiControllerRequest.postChannel(channel, function(err,rows){
+                        if(err)
+                        {
+                        res.json(err);
+                        }
+                        else
+                        {
+                            // var channelData = rows;
+                           
+                            // //http://205.147.101.67:8080/dashboardAPIv2/report/dmp/611002
+                            // client.get(req.query.cuberootBaseUrl + '/dmp/' + req.query.campaignId , function (data, response) {
+                            //     var scriptData = data;
+                            // });
+                            // res.json({
+                            //     data : {channelData, scriptData},
+                            //     code: 200,
+                            //     status: "Success",
+                            //     message: "API Successful"});
+                            res.json({
+                                data : rows,
+                                code: 200,
+                                status: "Success",
+                                message: "API Successful"});
+                        }
+                    });
+                    
+                } else if (req.query.editChanelId) {
+                    apiControllerRequest.editChanel(channel, req.query.editChanelId, function(err, rows){
+                        if(err)
+                        {
+                        res.json(err);
+                        }
+                        else
+                        {
+                            // var channelData = rows;
+                           
+                            // //http://205.147.101.67:8080/dashboardAPIv2/report/dmp/611002
+                            // client.get(req.query.cuberootBaseUrl + '/dmp/' + req.query.campaignId , function (data, response) {
+                            //     var scriptData = data;
+                            //     res.json({
+                            //     data : {channelData, scriptData},
+                            //     code: 200,
+                            //     status: "Success",
+                            //     message: "API Successful"});
+                            // });
+                            res.json({
+                                data : rows,
+                                code: 200,
+                                status: "Success",
+                                message: "API Successful"});
+                        }
+                    });
+                }
             }
     });
 });
