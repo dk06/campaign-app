@@ -20,8 +20,8 @@ var APIsData={
         },
 
         // cpmpaign chanel section start
-        getChannel:function(callback){
-            return dbConnect.query("select * from channel order by channel_id asc",callback);
+        getChannel:function(paramsData, callback){
+            return dbConnect.query("select * from channel where user_id = ? order by channel_id asc",[paramsData], callback);
             dbConnect.end();
         },
 
@@ -39,8 +39,8 @@ var APIsData={
             return dbConnect.query("insert into channel set?", paramsData, callback);
             dbConnect.end();
         },
-        editChanel: function(paramsData, channel_id, callback){
-            return dbConnect.query("update channel set? where channel_id=?", [paramsData , channel_id], callback);
+        editChanel: function(paramsData, callback){
+            return dbConnect.query("update channel set? where channel_id=?", [paramsData , paramsData.channel_id], callback);
             dbConnect.end();
         },
         deleteChanel: function(paramsData, callback){

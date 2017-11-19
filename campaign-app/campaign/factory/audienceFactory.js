@@ -11,14 +11,12 @@
 			var date = $filter('date')(new Date(), 'dd/MM/yyyy');
 			// var datadate = document.getElementById("daterange").value;
 			// var dateRangeArray = datadate.split('-');			
-			var params = {
-		            segement_name : segment.segmentData.segementName,
-		            segment_form_data : segment.segmentData.segment_form_data,
-		            channel_id : segment.chanelId,
-		            create_date : date,
-		            update_date : date,
-		            status : 1
-		        }
+			var params = {}
+	            params.segementDatat = segment.segmentData;
+	            params.channel_id = segment.chanelId;
+	            params.create_date = date;
+	            params.update_date = date;
+	            params.status = true;
 			return audienceService.postAudienceSegement(params).then(function(response) {
 				return response;
 			})

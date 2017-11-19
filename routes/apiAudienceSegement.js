@@ -36,15 +36,13 @@ router.get('/getAudienceSegement', function(req,res){
 //     }
 // });
 router.post('/audienceSegement',function(req,res,next){
-    var segement ={
-        user_id : req.body.params.userId,
-        segement_name : req.body.params.segement_name,
-        segment_form_data : req.body.params.segment_form_data,
-        create_date : req.body.params.create_date,
-        update_date : req.body.params.update_date,
-        channel_id : req.body.params.channel_id,
-        status : req.body.params.status
-    }
+    var segement ={}        
+        segement = req.body.params.segementDatat;
+        segement.user_id = req.body.params.userId;
+        segement.channel_id = req.body.params.channel_id;
+        segement.city_type = req.body.params.segementDatat.city_type.city_names;
+        segement.create_date = req.body.params.create_date;
+        segement.update_date = req.body.params.update_date;
     apiControllerRequest.insertAudienceSegementData(segement,function(err,rows){
         if(err)
         {
@@ -60,12 +58,20 @@ router.post('/audienceSegement',function(req,res,next){
     });
 });
 router.post('/editAudienceSegement',function(req,res,next){
-    var audienceSegement ={
-        seg_id : req.body.params.seg_id,
-        segement_name : req.body.params.segement_name,
-        segment_form_data : req.body.params.segment_form_data
-    }
-    apiControllerRequest.updateAudienceSegementData(audienceSegement,function(err,rows){
+    var segement ={}        
+        segement = req.body.params.segementDatat;
+        segement.seg_id = req.body.params.seg_id,
+        segement.user_id = req.body.params.userId;
+        segement.channel_id = req.body.params.channel_id;
+        segement.city_type = req.body.params.segementDatat.city_type.city_names;
+        segement.create_date = req.body.params.create_date;
+        segement.update_date = req.body.params.update_date;
+    // var audienceSegement ={
+    //     seg_id : req.body.params.seg_id,
+    //     segement_name : req.body.params.segement_name,
+    //     segment_form_data : req.body.params.segment_form_data
+    // }
+    apiControllerRequest.updateAudienceSegementData(segement,function(err,rows){
         if(err)
         {
             res.json({

@@ -1,7 +1,7 @@
-app.controller('compaignChanelController',['$scope','$rootScope','compaignChanelFactory', function($scope, $rootScope, compaignChanelFactory) {
+app.controller('compaignChanelController',['$scope','$rootScope','campaignChannelFactory', function($scope, $rootScope, campaignChannelFactory) {
 
 	$scope.getCompaignChanel = function(params){
-        return compaignChanelFactory.getCompaignChanel(params).then(function(response, status) {
+        return campaignChannelFactory.getCompaignChanel(params).then(function(response, status) {
         	$scope.compaignChenel = response;
         });
 	};
@@ -17,7 +17,7 @@ app.controller('compaignChanelController',['$scope','$rootScope','compaignChanel
     };
 
     $scope.createNewCompaignChanel = function(chenel){        
-        return compaignChanelFactory.postCompaignChanel(chenel).then(function(response, status) {
+        return campaignChannelFactory.postCompaignChanel(chenel).then(function(response, status) {
             $scope.compaignChanelSection = true;
             $scope.newCompaignChanelSection = false;
         });
