@@ -36,6 +36,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $scope.campaignSection = false;
             $scope.campaignChanelSection =true;
         }else{
+            $scope.campaignName = campaign;
             $scope.campaignSection = false;
             $scope.reviewAndActiveCampaign = true;
         }
@@ -151,7 +152,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $scope.newSegementCreateForm = false;
             $scope.audienceSegementSection = false;
             //$scope.audienceSegementData = response.data;
-            $scope.getAudienceSegement();
+            $scope.getAudienceSegement($scope.chanelId);
             $scope.channel = {}
             if ($window.confirm("can you creata new segement?")) 
             {

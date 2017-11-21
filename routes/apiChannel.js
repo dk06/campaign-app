@@ -41,6 +41,7 @@ router.post('/addNewChannel', function(req,res){
     var channel ={
             channel_name : req.body.params.channelName,
             channelAccessToken : req.body.params.channelAccessToken,
+            scriptTag : req.body.params.scriptTag,
             adverType : req.body.params.channelData.advertType,
             kpi : req.body.params.channelData.kPI,
             target : req.body.params.channelData.target,
@@ -69,6 +70,7 @@ router.post('/editCampaignChannel', function(req,res){
             channel_name : req.body.params.channelName,
             channelAccessToken : req.body.params.channelAccessToken,
             channel_id : req.body.params.editChanelId,
+            scriptTag : req.body.params.scriptTag,
             adverType : req.body.params.channelData.advertType,
             kpi : req.body.params.channelData.kPI,
             target : req.body.params.channelData.target,

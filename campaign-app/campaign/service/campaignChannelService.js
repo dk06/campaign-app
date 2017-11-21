@@ -81,6 +81,7 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
             params.scriptTag = responseData.scriptTag.tag;
             params.channelName = responseData.channelName;
             params.channelAccessToken = responseData.channelAccessToken;
+            params.scriptTag = responseData.scriptTag.tag;
             var promise = $http.post(params.acess.BaseUrl + 'addNewChannel', {params} ).then(function(response) {
                     return response;
                 });
@@ -95,6 +96,7 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
             params.channelName = responseData.channelName;
             params.channelAccessToken = responseData.channelAccessToken;
             params.editChanelId = responseData.editChanelId;
+            params.scriptTag = responseData.scriptTag.tag;
             var promise = $http.post(params.acess.BaseUrl + 'editCampaignChannel', {params} ).then(function(response) {
                     return response;
                 });
