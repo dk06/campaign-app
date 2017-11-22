@@ -7,6 +7,12 @@
 			})
 		};
 
+		dataFactory.viewCampaignChanel= function(params){			 
+			return campaignChannelService.getViewChanel(params).then(function(response) {
+				return response.data;
+			})
+		};
+
 		dataFactory.getChannelType= function(){			 
 			return campaignChannelService.getChannelType().then(function(response) {
 				return response.data;

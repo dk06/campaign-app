@@ -25,6 +25,11 @@ var APIsData={
             dbConnect.end();
         },
 
+        getViewChannel:function(paramsData, callback){
+            return dbConnect.query("select * from channel where channel_id = ?",[paramsData], callback);
+            dbConnect.end();
+        },
+
         getChannelTypeList:function(callback){
             return dbConnect.query("select * from channel_type_list",callback);
             dbConnect.end();

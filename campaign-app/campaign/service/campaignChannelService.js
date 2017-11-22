@@ -9,6 +9,15 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
             return promise;
         };
 
+    this.getViewChanel = function (paramsObj) {
+        params = shareBaseUrl.BaseUrl();
+        params.id = paramsObj
+        var promise = $http.get(params.BaseUrl + 'getViewCampaignChannel', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
     this.getChannelType = function () {
         params = shareBaseUrl.BaseUrl();
         var promise = $http.get(params.BaseUrl + 'getChannelTypeList', {params} ).then(function(response) {

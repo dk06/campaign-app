@@ -37,6 +37,23 @@ router.get('/getCampaignChannel', function(req,res){
     })
 });
 
+router.get('/getViewCampaignChannel', function(req,res){
+    apiControllerRequest.getViewChannel(req.query.id, function(err,rows){
+        if(err)
+        {
+        res.json(err);
+        }
+        else
+        {
+        res.json({
+                data : rows,
+                code: 200,
+                status: "Success",
+                message: "API Successful"});
+        }
+    })
+});
+
 router.post('/addNewChannel', function(req,res){
     var channel ={
             channel_name : req.body.params.channelName,
