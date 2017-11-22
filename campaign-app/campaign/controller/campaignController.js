@@ -179,68 +179,59 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     };
 
     $scope.savedAudience = function(segment, chanelId){
-        if($scope.chanelId){
-            var chanelId = $scope.chanelId;
+         var count = Object.keys(segment).length;
+        if (count == 13) {
+            $scope.savedAudienceSegementFields(segment, chanelId);
         }else{
-            var chanelId = chanelId;
+            swal('All fields are Mandatory!');
         }
-        var params = {};
-        params.segmentData = segment;
-        params.chanelId = chanelId;
-        return audienceFactory.postAudienceSegement(params).then(function(response, status){
-            //alert('SuccessFully Add..');
-            $scope.newSegementCreateForm = false;
-            $scope.audienceSegementSection = false;
-            //$scope.audienceSegementData = response.data;            
-            $scope.channel = {}
-            swal({
-              title: 'Can you create new segement?',
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Create new segement!'
-            }).then(function (result) {
-              if (result.value) {
-                $('.audience-section').removeClass('content-active');
-                $('.database-marketplace-options').removeClass('content-showcase');
-                $('.set-audience-parameters').removeClass('content-active');
-                $('.create-audience-section').addClass('content-showcase');
-              }
-              else{
-                $('.create-audience-section').removeClass('content-active');
-                $('.audience-section').addClass('content-active');
-                $scope.getAudienceSegement($scope.chanelId);
-              }
-            })
-            // if ($window.confirm("can you creata new segement?")) 
-            // {
-            //     $scope.advanceActive = false;
-            //     $scope.newSegementCreateForm = true;
-            // }
-            // else
-            // {
-            //     $scope.campaignChanelSection = false;
-            //     $scope.newSegementCreateForm = false;
-            //     $scope.audienceSegementSection = true;
-            // }
+    };
 
+    $scope.savedAudienceSegementFields = function(segment, chanelId){
+         var count = Object.keys(segment).length;
+        if (count == 13) {
+            if($scope.chanelId){
+                var chanelId = $scope.chanelId;
+            }else{
+                var chanelId = chanelId;
+            }
+            var params = {};
+            params.segmentData = segment;
+            params.chanelId = chanelId;
+            return audienceFactory.postAudienceSegement(params).then(function(response, status){
+                //alert('SuccessFully Add..');
+                $scope.newSegementCreateForm = false;
+                $scope.audienceSegementSection = false;
+                //$scope.audienceSegementData = response.data;            
+                $scope.channel = {}
+                swal({
+                  title: 'Can you create new segement?',
+                  type: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Create new segement!'
+                }).then(function (result) {
+                  if (result.value) {
+                    $('.audience-section').removeClass('content-active');
+                    $('.database-marketplace-options').removeClass('content-showcase');
+                    $('.set-audience-parameters').removeClass('content-active');
+                    $('.create-audience-section').addClass('content-showcase');
+                  }
+                  else{
+                    $('.create-audience-section').removeClass('content-active');
+                    $('.audience-section').addClass('content-active');
+                    $scope.getAudienceSegement($scope.chanelId);
+                  }
+                })
+            });
+        }
+    };
 
-             // else {
-             //            $scope.Message = "You clicked NO.";
-             //            if ($window.confirm("can you creata new chanel?")) 
-             //            {
-             //                $scope.advanceActive = true;
-             //                $scope.Message = "You clicked YES.";
-             //            }
-             //            else
-             //            {
-             //                $scope.campaignChanelSection = true;
-             //                $scope.newSegementCreateForm = false;
-             //                $scope.audienceSegementSection = false;
-             //            }
-             //        }
-        });
+    $scope.cancelAudienceSegement = function(){
+        $('.create-audience-section').removeClass('content-active');
+        $('.audience-section').addClass('content-active');
+        $scope.getAudienceSegement($scope.chanelId);
     };
 
     $scope.editAudienceSegement = function(chenel){
@@ -526,6 +517,9 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $('ul.campaign-objective-options li').removeClass('active');
         $('.set-objective-block').addClass('active');
         $('.set-objective-block').removeClass('done');
+        $('.campaign-details').find('.material-icons').html('');
+        $('.campaign-details').find('.selected-campaign').html('');
+        $('.campaign-details').slideUp();
 
         // document.getElementById("setObject").removeAttribute("style");
         // document.getElementById("setTargetAudience").removeAttribute("style");
