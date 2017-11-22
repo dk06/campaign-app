@@ -35,7 +35,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             //document.getElementById("setObject").style.background = "#b0e2e5";        
             $scope.campaignSection = false;
             $scope.campaignChanelSection =true;
-            $scope.getCampaignChanel();
+            $scope.getCampaignChanel();            
         }else{
             $scope.campaignName = campaign;
             $scope.campaignSection = false;
@@ -70,7 +70,11 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         return campaignChannelFactory.getChannelData(params).then(function(response, status) {
             $scope.channelType = response;
             $scope.channel.accessTocken = '';
-            alert(response.scriptTag.tag);
+            //alert
+            swal({
+              title: 'Please copy this script',
+              text: response.scriptTag.tag});
+            //alert(response.scriptTag.tag);
             $scope.getCampaignChanel();
         });
     };
@@ -84,7 +88,10 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         }
         return campaignChannelFactory.getChannelData(params).then(function(response, status) {
             $scope.channelType = response;
-            alert(response.scriptTag.tag);
+            //alert(response.scriptTag.tag);
+            swal({
+              title: 'Please copy this script',
+              text: response.scriptTag.tag});
             $scope.getCampaignChanel();
         });
     };
@@ -113,12 +120,26 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     // };
 
     $scope.deleteCampaignChennel = function(Channel){
-        if ($window.confirm("are you confirm?")) 
-        {
+        swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+          if (result.value) {
             return campaignChannelFactory.deleteCampaignChennel(Channel).then(function(response,status){
+                swal(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
                 $scope.getCampaignChanel();
             });
-        }
+          }
+        })
     };
 
     //audienc segement section start
@@ -139,7 +160,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
                 $scope.reviewAndActiveCampaign = true;
                 $scope.finalCampaignList();
             }else{
-                alert('Select Audience Segement');
+                swal('Select Audience Segement');
+                //alert('Select Audience Segement');
             }
         }else{
             $scope.finalCampaignList();
@@ -169,20 +191,39 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             //alert('SuccessFully Add..');
             $scope.newSegementCreateForm = false;
             $scope.audienceSegementSection = false;
-            //$scope.audienceSegementData = response.data;
-            $scope.getAudienceSegement($scope.chanelId);
+            //$scope.audienceSegementData = response.data;            
             $scope.channel = {}
-            if ($window.confirm("can you creata new segement?")) 
-            {
-                $scope.advanceActive = false;
-                $scope.newSegementCreateForm = true;
-            }
-            else
-            {
-                $scope.campaignChanelSection = false;
-                $scope.newSegementCreateForm = false;
-                $scope.audienceSegementSection = true;
-            }
+            swal({
+              title: 'Can you create new segement?',
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Create new segement!'
+            }).then(function (result) {
+              if (result.value) {
+                $('.audience-section').removeClass('content-active');
+                $('.database-marketplace-options').removeClass('content-showcase');
+                $('.set-audience-parameters').removeClass('content-active');
+                $('.create-audience-section').addClass('content-showcase');
+              }
+              else{
+                $('.create-audience-section').removeClass('content-active');
+                $('.audience-section').addClass('content-active');
+                $scope.getAudienceSegement($scope.chanelId);
+              }
+            })
+            // if ($window.confirm("can you creata new segement?")) 
+            // {
+            //     $scope.advanceActive = false;
+            //     $scope.newSegementCreateForm = true;
+            // }
+            // else
+            // {
+            //     $scope.campaignChanelSection = false;
+            //     $scope.newSegementCreateForm = false;
+            //     $scope.audienceSegementSection = true;
+            // }
 
 
              // else {
@@ -287,12 +328,26 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     };
 
     $scope.deleteAudienceSegement = function(chenel){
-        if ($window.confirm("are you confirm?")) 
-        {
+        swal({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {
+          if (result.value) {            
             return audienceFactory.deleteAudienceSegement(chenel).then(function(response,status){
-                $scope.getAudienceSegement();
+                swal(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+                $scope.getAudienceSegement($scope.chanelId);
             });
-        }
+          }
+        })
     };
 
     $scope.audienceCancel = function(){
@@ -345,7 +400,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
                 $scope.audienceSegementSection = true;       
                 $scope.getAudienceSegement($scope.chanelId); 
            }else{
-                alert('Select channel');
+                //alert('Select channel');
+                swal('Select channel');
            }
        }else{
             $scope.campaignChanelSection = false;
