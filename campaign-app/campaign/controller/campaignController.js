@@ -6,7 +6,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     function init() {
         if ($window.localStorage.accessToken) {
             return campaignFactory.getCategories().then(function(response, status) {
-                document.getElementById("setObject").style.color = "#5e92e5";
+                //document.getElementById("setObject").style.color = "#5e92e5";
                 $scope.obj = response;
             });            
         }
@@ -32,9 +32,10 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     $scope.campaignCreate = function(campaign){
         if ($scope.channelData.campaignObject == '') {
             $scope.campaignName = campaign;
-            document.getElementById("setObject").style.background = "#b0e2e5";        
+            //document.getElementById("setObject").style.background = "#b0e2e5";        
             $scope.campaignSection = false;
             $scope.campaignChanelSection =true;
+            $scope.getCampaignChanel();
         }else{
             $scope.campaignName = campaign;
             $scope.campaignSection = false;
@@ -119,14 +120,16 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     $scope.savedAudienceSegement = function(){
         if ($scope.channelData.campaignName == '') {
             if ($scope.segementId) {
-                document.getElementById("setTargetAudience").style.background = "#b0e2e5";        
+                //document.getElementById("setTargetAudience").style.background = "#b0e2e5";        
                 $scope.audienceSegementSection = false;
                 $scope.campaignActivate = false;
                 $scope.reviewAndActiveCampaign = true
+                $scope.finalCampaignList();
             }else{
                 alert('Select Audience Segement');
             }
         }else{
+            $scope.finalCampaignList();
             $scope.audienceSegementSection = false;
             $scope.reviewAndActiveCampaign = true;
         }
@@ -289,9 +292,9 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     //compaign chanel section start
 
     $scope.getCampaignChanel = function(params){
-        document.getElementById("setConfigureChanel").style.color = "#5e92e5";
+        //document.getElementById("setConfigureChanel").style.color = "#5e92e5";
         return campaignChannelFactory.getCampaignChanel(params).then(function(response, status) {
-            $scope.campaignChenel = response;
+            $scope.campaignChennel = response;
         });
     };
 
@@ -318,8 +321,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     $scope.savedCampaignChannel = function(){
         if ($scope.channelData.channel == ''){
             if($scope.chanelId){
-                document.getElementById("setConfigureChanel").style.background = "#b0e2e5";
-                document.getElementById("setTargetAudience").style.color = "#5e92e5";
+                //document.getElementById("setConfigureChanel").style.background = "#b0e2e5";
+                //document.getElementById("setTargetAudience").style.color = "#5e92e5";
                 $scope.campaignChanelSection = false;
                 $scope.audienceSegementSection = true;       
                 $scope.getAudienceSegement($scope.chanelId); 
@@ -377,7 +380,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     $scope.finalCampaignList = function(){
         $scope.channelData = {
             campaignName: $scope.campaignName,
-            campaignObject:  $scope.campaignObject,
+            campaignObject:  document.getElementById('getCampaignObj').innerText,
             segementName: $scope.segementName,
             audienceName: '',
             channel : $scope.channelList

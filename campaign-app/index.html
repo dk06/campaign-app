@@ -2,19 +2,36 @@
 <html lang="en" ng-app="MyApp">
     <head>
         <base href="/">
-        <meta charset="utf-8">
+    <!--     <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Test Demo</title>
         <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
         <link href="stylesheets/style.css" rel="stylesheet">
-        <link href="scripts/css/custom.css" rel="stylesheet">
+        <link href="scripts/css/custom.css" rel="stylesheet"> -->
+        <!-- <link href="scripts/css/custom.css" rel="stylesheet"> -->
+         <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
         <link rel="stylesheet" type="text/css" href="scripts/css/daterangepicker.css" />
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>Campaign</title>
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="author" content="@AMANK" />
+        <link href="scripts/vendors/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="scripts/vendors/css/bootstrap-grid.min.css" rel="stylesheet" />
+        <link href="scripts/css/customs.css" rel="stylesheet" />
+        <link href="scripts/vendors/css/font-awesome.min.css" rel="stylesheet">
+        <link href='scripts/vendors/css/material-icons.css' rel='stylesheet' type='text/css'>
 
 
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <script src="scripts/vendors/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+      
 
         
        <!--  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
@@ -23,6 +40,7 @@
         
     </head>
     <body>
+
           <script src="scripts/jquery.min.js"></script>
           <script src="scripts/angular.min.js"></script>
           <script src="scripts/angular-strap.js"></script>
@@ -47,55 +65,72 @@
           <script src="login/service/loginService.js"></script>
           <script src="campaign/factory/audienceFactory.js"></script>
           <script src="campaign/service/audienceService.js"></script>
+        
 
           <div ng-if="pageActive">
-              <div class="navbar navbar-static-top" role="navigation" bs-navbar>
-                    <div class="navbar-header">
-                     <a class="navbar-brand" href="#" style="background-color: #66797a;">      
-                        <strong style="color: #ffffff;">Campaign</strong></a>
-                    </div>
-                    <ul class="nav navbar-nav">
-                      <li data-match-route="/$"><a href="#">Home</a></li>
-                      <li data-match-route="/$"><a href="#">Add</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-                      <li data-match-route="/login"><a href="/login">Login</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav pull-right" ng-if="currentUser" ng-controller="LoginController">
-                      <li class="navbar-text" ng-bind="currentUser"></li>
-                      <li><a href="javascript:void(0)" ng-click="currentUserlogout()">Logout</a></li>
-                    </ul>
-                </div>
-
-
-                <div class="container-fluid">    
-                    <div class="row content">
-                        <div class="col-sm-2 sidenav pull-left">
-                            <p><a href="#">Overview</a></p>
-                            <p><a href="#">Chanel</a></p>
-                            <p><a href="#">Audience</a></p>
-                        </div>
-                        <div class="col-sm-10 text-left" style="padding-top: 10px;"> 
-                            <div ng-view></div>
-                        </div>
-                    </div>
-                </div>
+              <nav class="navbar navbar-toggleable-md fixed-top bg-inverse navbar-fixed-top" id="header">
+                  <a class="navbar-brand" href="#">
+                      <img src="scripts/assets/img/cr_insights-logo.png" alt="_cuberoot" title="Cuberoot" />
+                  </a>                  
+                  <ul class="nav navbar-nav pull-right" ng-if="currentUser" ng-controller="LoginController">
+                      <li class="navbar-text" style="color: white" ng-bind="currentUser"></li>
+                      <li>
+                          <a href="javascript:void(0)" ng-click="currentUserlogout()">Logout</a>
+                      </li>
+                  </ul>
+              </nav>
+              <div class="row">
+                      <nav class="col-sm-3 col-md-2 hidden-xs-down sidebar">
+                              <ul class="nav nav-pills flex-column">
+                                  <li class="nav-item">
+                                      <a class="nav-link active" href="#">
+                                          <i class="material-icons">dashboard</i>
+                                          <span>Overview</span>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">
+                                          <i class="material-icons">share</i>
+                                          <span>Channels</span>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">
+                                          <i class="material-icons">face</i>
+                                          <span>Audience</span>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">
+                                          <i class="material-icons">group_work</i>
+                                          <span>Acquisitions</span>
+                                      </a>
+                                  </li>
+                                  <li class="nav-item">
+                                      <a class="nav-link" href="#">
+                                          <i class="material-icons">swap_horiz</i>
+                                          <span>Conversions</span>
+                                      </a>
+                                  </li>
+                              </ul>
+                          </nav>
+                          <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+                              <div ng-view></div>
+                          </div>
+                  </div>
           </div>
 
           <div ng-if="!pageActive">
-            <div class="navbar navbar-static-top" role="navigation" bs-navbar>
-                    <div class="navbar-header">
-                      <a class="navbar-brand" href="#" style="background-color: #66797a;">      
-                        <strong style="color: #ffffff;">Campaign</strong></a>
-                    </div>
-                    <!-- <ul class="nav navbar-nav">
-                      <li data-match-route="/$"><a href="/">Home</a></li>
-                      <li data-match-route="/add"><a href="/add">Add</a></li>
-                    </ul> -->
-                    
-                </div>
-                <div ng-view></div>
-                </div>
+              <div class="navbar navbar-static-top" role="navigation" bs-navbar>
+                  <nav class="navbar navbar-toggleable-md fixed-top bg-inverse navbar-fixed-top" id="header">
+                      <a class="navbar-brand" href="#">
+                          <img src="scripts/assets/img/cr_insights-logo.png" alt="_cuberoot" title="Cuberoot" />
+                      </a>
+                  </nav>
+              </div>
+              <div class="col-sm-5 offset-sm-3 col-md-4 offset-md-4 pt-3" style="padding-top: 40px;">
+                  <div ng-view></div>
+              </div>
           </div>
     </body>
 </html>

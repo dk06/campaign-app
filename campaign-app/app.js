@@ -9,7 +9,7 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
 		    controller: 'LoginController'
 		  })
 		  .when('/campaign', {
-		    templateUrl: 'campaign/views/home.html',
+		    templateUrl: 'campaign/views/dashboard.html',
 		    controller: 'CampaignController'
 		  })
 		  .otherwise({
