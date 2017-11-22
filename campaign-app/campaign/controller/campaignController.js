@@ -7,6 +7,22 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         if ($window.localStorage.accessToken) {
             return campaignFactory.getCategories().then(function(response, status) {
                 $scope.obj = response;
+
+                //Awareness section icons set
+                $scope.volume_up = response.awarnes[0].icons_tag;
+                $scope.accessibility = response.awarnes[1].icons_tag;
+
+                //Consideration section icons set
+                $scope.traffic = response.consdrition[0].icons_tag;
+                $scope.compare_arrows = response.consdrition[1].icons_tag;
+                $scope.get_app = response.consdrition[2].icons_tag;
+                $scope.videocam = response.consdrition[3].icons_tag;
+                $scope.filter_list = response.consdrition[4].icons_tag;
+
+                //Conversion section icons set
+                $scope.swap_horiz = response.converstion[0].icons_tag;
+                $scope.shopping_cart = response.converstion[1].icons_tag;
+                $scope.store_mall_directory = response.converstion[2].icons_tag;
             });            
         }
     };

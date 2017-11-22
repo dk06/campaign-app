@@ -12,17 +12,20 @@
         		if(value.objective_id == 1){
                     campaningData.awarnes.push({
                         'id': value.obj_id,
-                        'awarnes': value.sub_objective_name
+                        'awarnes': value.sub_objective_name,
+                        'icons_tag': value.icons_tag
                     })
                 } else if(value.objective_id == 2){
                     campaningData.consdrition.push({
                         'id': value.obj_id,
-                        'consdrition': value.sub_objective_name
+                        'consdrition': value.sub_objective_name,
+                        'icons_tag': value.icons_tag
                     })
                 } else if(value.objective_id == 3){
                     campaningData.converstion.push({
                         'id': value.obj_id,
-                        'converstion': value.sub_objective_name
+                        'converstion': value.sub_objective_name,
+                        'icons_tag': value.icons_tag
                     })
                 }
                 });
