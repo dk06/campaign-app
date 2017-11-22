@@ -1,0 +1,732 @@
+body {
+    background-color: #EEEDED;
+}
+body .container-fluid {
+    padding-top: 75px;
+}
+nav {
+    background: #273246;
+    border-radius: 0 !important;
+}
+nav a.profile-link {
+    float: right;
+    padding: 10px 25px;
+    color: #fff;
+}
+.title-content {
+    border-bottom: 1px solid #c2bdbd;
+    padding-bottom: 15px;
+}
+.content-showcase {
+    display: none;
+}
+.content-active {
+    display: block;
+}
+select {
+    padding-left: 5px;
+}
+.btn {
+    background: #263238;
+    color: #fff;
+    border: none;
+    width: 50%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+}
+.cancel-btn {
+    background: #fff;
+    color: #263238;
+    border: 1px solid #263238;
+}
+.left-align {
+    text-align: left;
+}
+.right-align {
+    text-align: right;
+}
+
+.progress-bar {
+    background-color: #2196F3;
+}
+div.tab {
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+div.tab .advanced-parameter-tabs {
+    margin-top: 50px;
+}
+div.tab .advanced-parameter-tabs p {
+    font-weight: bold;
+    padding-left: 15px;
+    border-bottom: 1px solid #000;
+}
+/* Style the buttons inside the tab */
+div.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+    padding-right: 5px;
+}
+
+div.tab button .material-icons {
+    float: right;
+    top: 0;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current "tab button" class */
+div.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    border-left: none;
+    height: 515px;
+    margin-bottom: 25px;
+}
+.tabcontent h4 {
+    margin-top: 2rem;
+    margin-bottom: 2px;
+}
+.tabcontent p {
+    font-size: 12px;
+    color: #9b9898;
+}
+.tabcontent .demographic-segmentation .material-icons {
+    font-size: 15px;
+    top: 2px !important;
+    cursor: pointer;
+}
+.tabcontent .demographic-segmentation input[type='checkbox'] {
+    margin-left: 8px;
+}
+.tabcontent .demographic-segmentation span.checkbox-label {
+    margin-left: 2px;
+    font-size: 13px;
+    position: relative;
+    bottom: 2px;
+}
+.tabcontent .demographic-segmentation .dropdown {
+    min-height: 30px;
+    border-radius: 5px;
+    width: 35%;
+    border: 1px solid #9f9c9c;
+    outline: none;
+}
+.tabcontent .demographic-segmentation input[type="text"] {
+    min-height: 30px;
+    border-radius: 5px;
+    width: 62%;
+    border: 1px solid #9f9c9c;
+    outline: none;
+    padding-left: 5px;
+}
+.tabcontent .demographic-segmentation .row {
+    margin-top: 22px;
+}
+.tabcontent .demographic-segmentation .continent-dd {
+    width: 62%;
+}
+.tabcontent .demographic-segmentation .location-input {
+    margin-top: 8px;
+    width: 98% !important;
+}
+.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+    background: #263238;
+}
+.sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+}
+.sidebar .material-icons {
+    padding-right: 15px;
+    position: relative;
+    top: 7px;
+}
+.sidebar .nav>li {
+    min-width: 215px;
+}
+.sidebar .nav>li>a {
+    color: #fff;
+    margin: 15px;
+    padding-top: 5px;
+}
+.sidebar .nav>li>a:focus, 
+.sidebar .nav>li>a:hover {
+    text-decoration: none;
+    background: #fff;
+    color: #263238;
+}
+main {
+    margin-bottom: 50px;
+}
+main .section-title-card .card-block {
+    border: 1px solid transparent;
+    padding: 20px;
+    font-weight: bold;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    background: #eeeded;
+}
+main .section-title-card .card-block .material-icons {
+    color: #fff;
+    float: right;
+    display: none;
+}
+main .section-title-card .card-block.active {
+    background: #fff;
+}
+main .section-title-card .card-block.done {
+    background: #273246;
+    color: #fff;
+}
+main .section-title-card .card-block.done .material-icons {
+    display: block;
+    color: darkorange;
+}
+main .content-card {
+    margin-top: 20px;
+    border: 1px solid transparent;
+    padding: 20px;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    background: #fff;
+}
+main .content-card .card-title {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+main .campaign-section-card h4 {
+    font-weight: bold;
+}
+main .campaign-section-card .campaign-objective-options {
+    list-style: none;
+    margin-top: 20px;
+}
+main .campaign-section-card .campaign-objective-options li {
+    margin-top: 20px;
+    cursor: pointer;
+}
+main .campaign-section-card .campaign-objective-options li.active {
+    background: #273246;
+    color: #fff;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    width: 80%;
+    margin-left: -20px;
+    padding-left: 20px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+}
+main .campaign-section-card .campaign-objective-options li.active .material-icons {
+    color: #fff;
+}
+main .campaign-section-card .campaign-objective-options .material-icons {
+    position: relative;
+    top: 7px;
+    color: #79797a;
+    margin-right: 10px;
+}
+main .campaign-section-card .campaign-details {
+    text-align: center;
+    padding: 35px;
+    display: none;
+}
+main .campaign-section-card .campaign-details .material-icons {
+    font-size: 50px;
+    position: relative;
+    top: 18px;
+    color: rgba(0, 0, 0, 0.87);
+}
+main .campaign-section-card .campaign-details .selected-campaign {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.87);
+}
+main .campaign-section-card .campaign-details p {
+    padding-top: 25px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+main .campaign-section-card .campaign-details .campaign-name-input {
+    width: 100%;
+    border-bottom: 2px solid #000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+main .campaign-section-card .campaign-details .campaign-name-input:focus {
+    outline: none;
+}
+@media (max-width: 468px) {
+    main .campaign-section-card .campaign-details .create-campaign-btn {
+        width: 100%;
+    }
+}
+
+main .audience-section-card table {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 35px;
+}
+main .audience-section-card table thead {
+    font-weight: bold;
+    border-bottom: 1px solid #737373;
+}
+main .audience-section-card table td {
+    padding: 15px 10px;
+}
+main .audience-section-card table td.check-active .check-active-icon {
+    color: darkorange;
+    visibility: hidden;
+}
+main .audience-section-card table td.check-active .check-active-icon.active {
+    visibility: visible;
+}
+main .audience-section-card table td.segment-name {
+    cursor: pointer;
+}
+main .audience-section-card table td.segment-name.active {
+    font-weight: bold;
+}
+main .audience-section-card table td:nth-child(2):hover {
+    font-weight: bold;
+}
+main .audience-section-card table td:nth-child(3),
+main .audience-section-card table td:nth-child(4),
+main .audience-section-card table td:nth-child(5),
+main .audience-section-card table td:nth-child(6),
+main .audience-section-card table td:nth-child(7),
+main .audience-section-card table td:nth-child(9) {
+    text-align: right;
+}
+main .audience-section-card table td:nth-child(8) {
+    text-align: center;
+}
+main .audience-section-card table tr {
+    border-bottom: 1px solid #737373;   
+}
+main .audience-section-card table tr:last-child {
+    border-bottom: none;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 24px;
+    margin-bottom: 0;
+}
+
+.switch input {
+    display:none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: #10d431;
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #10d431;
+}
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+.slider.round {
+    border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+    cursor: pointer;
+}
+.tooltip .material-icons {
+    font-weight: bold;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: #f7f7f7;
+    border: 1px solid transparent;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 120%;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    box-shadow: 0px 2px 5px 0px rgba(38,50,56,1);
+    text-align: left;
+    padding: 15px;
+    font-size: 14px;
+    list-style: none;
+}
+.tooltip .tooltiptext>li {
+    color: #000;
+    margin-bottom: 5px;
+}
+.tooltip .tooltiptext a {
+    color: #000;
+}
+.tooltip .tooltiptext a .material-icons {
+    font-size: 20px;
+    position: relative;
+    top: 4px;
+    padding-right: 8px;
+}
+.tooltip .tooltiptext a:hover {
+    text-decoration: none;
+    color: #737373;
+}
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 12%;
+    left: 101%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #f7f7f7;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+main .audience-section-card .select-audience-btn {
+    float: right;
+}
+main .create-segment-card .target-label {
+    margin-bottom: 0;
+}
+main .create-segment-card .targetted-audience {
+    margin-bottom: 0;
+    margin-top: 8px;
+    text-align: right;
+}
+main .create-segment-card .col-4.right-section {
+    border-left: 1px solid #c2bdbd;
+    padding-left: 25px;
+}
+main .create-segment-card .material-icons {
+    position: relative;
+    top: 7px;
+}
+main .create-segment-card .left-section .content-card {
+    padding-top: 10px;
+    cursor: pointer;
+}
+main .create-segment-card .section-icon.deactive {
+    display: none;
+}
+main .create-segment-card .check-active-icon {
+    color: darkorange;
+    display: none;
+}
+main .create-segment-card .check-active-icon.active {
+    display: inline-block;
+}
+main .create-segment-card .audience-available.active {
+    background: #273246;
+    color: #fff;
+}
+main .create-segment-card .targetted-audience-progress  {
+    margin-top: 15px;
+}
+main .create-segment-card .targetted-audience-progress .col-8 {
+    padding-bottom: 10px;
+}
+main .create-segment-card .targetted-audience-progress .right-align {
+    margin-top: 8px;
+}
+main .create-segment-card button.cancel-audience-group-btn,
+main .create-segment-card button.continue-audience-group-btn {
+    margin-top: 25px;
+    width: 65%;
+    margin-bottom: 15px;
+}
+main .create-segment-card hr {
+    margin-bottom: 0px;
+    border-top: 1px solid #c2bdbd;
+}
+main .create-segment-card .set-audience-parameters .col-4 {
+    padding-right: 0;
+}
+main .create-segment-card .set-audience-parameters .col-8 {
+    padding-left: 0;
+}
+main .create-segment-card .set-audience-parameters .button-rows input {
+    width: 100%;
+    border-bottom: 2px solid #000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+main .create-segment-card .set-audience-parameters .button-rows button {
+    width: 100%;
+}
+main .campaign-channels-card .add-channel-dd {
+    min-height: 34px;
+    width: 45%;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 5px;
+    outline: none;
+    border: 1.5px solid #9f9c9c;
+}
+main .campaign-channels-card .campaign-channels-table {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+main .campaign-channels-card .campaign-channels-table thead {
+    font-weight: bold;
+}
+main .campaign-channels-card .campaign-channels-table tr {
+    border-bottom: 1px solid #737373;
+}
+main .campaign-channels-card .campaign-channels-table td {
+    padding: 15px 10px;
+    text-align: right;
+}
+main .campaign-channels-card .campaign-channels-table td:nth-child(2) {
+    text-align: left;
+}
+main .campaign-channels-card .campaign-channels-table td:nth-child(1),
+main .campaign-channels-card .campaign-channels-table td:nth-child(10) {
+    text-align: center;
+}
+main .campaign-channels-card .budget-row {
+    border-bottom: 1px solid #737373;
+    padding-bottom: 20px;
+}
+main .campaign-channels-card .continue-marketing-channel-btn {
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 35%;
+}
+
+
+
+.switch-3-toggle {
+    width: 100%;
+    border: 1px solid #737373;
+    border-radius: 5px;
+    background: lightgrey;
+    margin: 0 auto;
+    position: relative;
+    left: 10px;
+}
+.switch-3-toggle input {
+    position: absolute;
+    left: 0;
+    opacity: 0;
+}
+.switch-3-toggle label {
+    font-weight: normal;
+    width: 33.33%;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    display: block;
+    float: left;
+    padding: 10px;
+    margin: 0;
+    font-weight: bold;
+    font-size: 10px;
+    cursor: pointer;
+}
+.switch-3-toggle .active-check-label.selected {
+    background: #0cb729;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.switch-3-toggle .paused-check-label.selected {
+    background: #737373;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.switch-3-toggle .reject-check-label.selected {
+    background: #be2828;
+    color: #fff;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+main .activate-campaign-section .campaign-review-card .title-content {
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+main .activate-campaign-section .campaign-review-card h5 {
+    font-weight: bold;
+}
+main .activate-campaign-section .campaign-review-card .objective-review-labels,
+main .activate-campaign-section .campaign-review-card .audience-review-labels {
+    text-align: right;
+}
+main .activate-campaign-section .campaign-review-card p {
+    margin-bottom: 30px;
+    margin-top: 5px;
+}
+main .activate-campaign-section .campaign-review-card input {
+    margin-bottom: 20px;
+    padding-left: 5px;
+    min-height: 30px;
+    border-radius: 5px;
+    border: 1px solid #737373;
+    width: 75%;
+}
+main .activate-campaign-section .campaign-review-card .edit-link {
+    position: relative;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+main .activate-campaign-section .campaign-review-card .edit-link:hover {
+    text-decoration: none;
+}
+main .activate-campaign-section .campaign-review-card .edit-link .material-icons {
+    font-size: 16px;
+    cursor: pointer;
+}
+main .activate-campaign-section .campaign-review-card table {
+    width: 100%;
+}
+main .activate-campaign-section .campaign-review-card table thead {
+    font-weight: bold;
+}
+main .activate-campaign-section .campaign-review-card table tr {
+    border-bottom: 1px solid #737373;
+}
+main .activate-campaign-section .campaign-review-card table td {
+    padding: 15px 10px;
+    text-align: right;
+}
+main .activate-campaign-section .campaign-review-card table td:first-child {
+    text-align: left;
+}
+main .activate-campaign-section .campaign-review-card .budget-review {
+    margin-bottom: 0;
+}
+main .activate-campaign-section .kpi-review-card {
+    height: 582px;
+}
+main .activate-campaign-section .kpi-review-card h5 {
+    font-weight: bold;
+}
+main .activate-campaign-section .kpi-review-card .info-text {
+    font-size: 12px;
+    color: #9b9898;
+    margin-bottom: 25px;
+}
+main .activate-campaign-section .kpi-review-card .objective-review-labels {
+    text-align: right;
+}
+main .activate-campaign-section .kpi-review-card .objective-review-labels p {
+    margin-bottom: 28px;
+    margin-top: 6px;
+}
+main .activate-campaign-section .kpi-review-card select,
+main .activate-campaign-section .kpi-review-card input {
+    width: 95%;
+    margin-bottom: 20px;
+    min-height: 30px;
+    border-radius: 5px;
+    border: 1px solid #737373;
+    outline: none;
+}
+main .activate-campaign-section .kpi-review-card input {
+    padding-left: 5px;
+}
+main .activated-campaign-section .activated-info-card  {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+main .activated-campaign-section .activated-info-card {
+    text-align: center;
+}
+main .activated-campaign-section .activated-info-card .heading {
+    font-size: 40px;
+}
+main .activated-campaign-section .activated-info-card .heading .material-icons {
+    font-size: 45px;
+    position: relative;
+    top: 5px;
+}
+main .activated-campaign-section .activated-info-card .campaign-activation-info {
+    font-size: 18px;
+    color: grey;
+    width: 60%;
+    margin: 0 auto;
+    text-align: justify;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+    
