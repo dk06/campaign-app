@@ -21,20 +21,8 @@ router.get('/getAudienceSegement', function(req,res){
             message: "API Successful"});
         }
     })
-})
-// router.get('/:id?',function(req,res,next){
-//     if(req.params.id){
-//         apiControllerRequest.getAudienceSegementById(req.body.params.id,function(err,rows){
-//         if(err)
-//         {
-//             res.json(err);
-//         }
-//         else{
-//             res.json(rows);
-//         }
-//         });
-//     }
-// });
+});
+
 router.post('/audienceSegement',function(req,res,next){
     var segement ={}        
         segement = req.body.params.segementDatat;
@@ -57,6 +45,7 @@ router.post('/audienceSegement',function(req,res,next){
         }
     });
 });
+
 router.post('/editAudienceSegement',function(req,res,next){
     var segement ={}        
         segement = req.body.params.segementDatat;
@@ -66,11 +55,7 @@ router.post('/editAudienceSegement',function(req,res,next){
         segement.city_type = req.body.params.segementDatat.city_type.city_names;
         segement.create_date = req.body.params.create_date;
         segement.update_date = req.body.params.update_date;
-    // var audienceSegement ={
-    //     seg_id : req.body.params.seg_id,
-    //     segement_name : req.body.params.segement_name,
-    //     segment_form_data : req.body.params.segment_form_data
-    // }
+
     apiControllerRequest.updateAudienceSegementData(segement,function(err,rows){
         if(err)
         {
@@ -86,6 +71,7 @@ router.post('/editAudienceSegement',function(req,res,next){
         }
     });
 });
+
 router.post('/deleteAudienceSegement',function(req,res,next){
     apiControllerRequest.deleteAudienceSegementData(req.body.params.seg_id,function(err,rows){
         if(err)

@@ -113,16 +113,7 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
         };
 
     //end channel section
-
-    // this.postCampaignChanel = function (paramsObj) {
-    //     params.acess = shareBaseUrl.BaseUrl();
-    //     params = paramsObj;
-    //     params.userId = params.acess.userId;
-    //     var promise = $http.post(params.acess.BaseUrl + 'addNewChannel', {paramsObj} ).then(function(response) {
-    //             return response;
-    //         });
-    //         return promise;
-    //     };
+    
     this.editCampaignChennel = function(paramsObj){
         params.acess = shareBaseUrl.BaseUrl();
         params = params;
