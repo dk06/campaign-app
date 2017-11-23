@@ -3,13 +3,13 @@ app.controller('LoginController',['$scope','$rootScope','loginService', '$window
 	$scope.userLogin = function(user){
         return loginService.userLogin(user).then(function(response, status) {
         	if (response.status) {
+                $rootScope.pageActive = true;
                 $location.path("/campaign");
 
                 $window.localStorage['accessToken']= response.data.accessToken;
                 $window.localStorage['userId'] = response.data.user_id;
                 $window.localStorage['email_id'] = response.data.email_id;
                 $scope.currentUser = response.data.email_id;
-                $rootScope.pageActive = true;
         	}else{
         		alert('Invalid id..');
         	}
