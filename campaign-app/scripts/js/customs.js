@@ -115,6 +115,8 @@ $(document).ready(function(){
     $('.create-audience-btn').click(function () {
         $('.audience-section').removeClass('content-active');
         $('.create-audience-section').addClass('content-active');
+        $('.database-marketplace-options').addClass('content-showcase');
+        $('.set-audience-parameters').addClass('content-active');
     })
 
     $('.continue-audience-group-btn').click(function () {
