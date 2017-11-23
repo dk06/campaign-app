@@ -30,8 +30,16 @@ app.use(function (req, res, next) {
           return next();
       }
 
-    var token = req.query.token || req.body.params.acess.token;
+    // if (req.body.params == undefined) {
+    //   res.statusCode = 404;
+    //   res.setHeader('Content-Type', 'text/plain');
+    //   res.end('Cannot ' + req.method + ' ' + req.url);
+    //   //res.redirect('/');
+    //   res.json({ message: 'hooray! welcome to our api!' }); 
+      
+    // }
     
+    var token = req.query.token || req.body.params.acess.token;
     if (token) {
 
        jwt.verify(token, config.tokenSecret, function (err, decoded) {
@@ -79,12 +87,14 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  res.redirect('/');
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+
 });
 
 var port = process.env.PORT || 8081;
