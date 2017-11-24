@@ -10,7 +10,7 @@ router.post('/login', function(req,res){
             if(err)
             {
             res.json({
-                data : [],
+                data : rows,
                 code: 500,
                 status: false,
                 message: "API Not Successful"});

@@ -7,7 +7,11 @@ router.get('/getCampaign', function(req,res){
     apiControllerRequest.getCampaign(function(err,rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {
@@ -23,7 +27,11 @@ router.post('/addNewCampaign', function(req,res){
     apiControllerRequest.addNewCampaign(function(err,rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {

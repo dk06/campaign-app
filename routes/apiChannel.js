@@ -7,7 +7,11 @@ router.get('/getChannelTypeList', function(req,res){
     apiControllerRequest.getChannelTypeList(function(err,rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {
@@ -24,7 +28,11 @@ router.get('/getCampaignChannel', function(req,res){
     apiControllerRequest.getChannel(req.query.userId, function(err,rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {
@@ -41,7 +49,11 @@ router.get('/getViewCampaignChannel', function(req,res){
     apiControllerRequest.getViewChannel(req.query.id, function(err,rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {
@@ -73,7 +85,11 @@ router.post('/addNewChannel', function(req,res){
     apiControllerRequest.postChannel(channel, function(err, rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {
@@ -102,7 +118,11 @@ router.post('/editCampaignChannel', function(req,res){
     apiControllerRequest.editChanel(channel, function(err, rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {
@@ -116,7 +136,11 @@ router.post('/deleteCampaignChannel',function(req,res){
     apiControllerRequest.deleteChanel(req.body.params ,function(err, rows){
         if(err)
         {
-        res.json(err);
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
         }
         else
         {

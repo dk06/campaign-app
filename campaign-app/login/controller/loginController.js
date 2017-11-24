@@ -10,9 +10,11 @@ app.controller('LoginController',['$scope','$rootScope','loginService', '$window
                 $window.localStorage['userId'] = response.data.user_id;
                 $window.localStorage['email_id'] = response.data.email_id;
                 $scope.currentUser = response.data.email_id;
+        	}else if(response.code == 500){
+        		swal('Connection error');
         	}else{
-        		alert('Invalid id..');
-        	}
+                swal('Invalid id & password..');
+            }
         });
 	};
     $rootScope.currentUserlogout = function(){

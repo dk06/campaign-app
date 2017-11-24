@@ -6,7 +6,7 @@ var APIsData={
             dbConnect.query("select * from user_login where email_id=? and password=?",[paramsData.email_id, paramsData.password], function(err, results) {
                 if(err) { 
                    console.log(err); 
-                   callback(true); 
+                   callback(true, err); 
                    return; 
                 }
                 callback(false, results);
