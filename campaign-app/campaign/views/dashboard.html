@@ -245,20 +245,12 @@
                                     <td>Target</td>
                                     <td>Bid Min/Max</td>
                                     <td>Channel Budget</td>
-                                    <td>Channel Status</td>
+                                    <!-- <td>Channel Status</td> -->
                                     <td>Actions</td>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="chennel in campaignChennel">
                                         <td style="cursor: pointer" ng-click="selectChannel(chennel)"><i class="material-icons">face</i></td>
-                                        <!-- <td>Facebook News Feed</td>
-                                        <td>FB NF</td>
-                                        <td>DD/MM/YYYY</td>
-                                        <td>DD/MM/YYYY</td>
-                                        <td>Reach</td>
-                                        <td>5,000,000</td>
-                                        <td>10/35</td>
-                                        <td>435,062</td> -->
                                         <td>{{chennel.channel_name}}</td>
                                         <td>{{chennel.adverType}}</td>                  
                                         <td>{{chennel.create_date}}</td>
@@ -267,7 +259,7 @@
                                         <td>{{chennel.target}}</td>
                                         <td>{{chennel.bid_min}}/{{chennel.bid_Max}}</td>
                                         <td>{{chennel.channel_Budget}}</td>
-                                        <td>
+                                        <!-- <td>
                                             <div class="row">
                                                 <div class="switch-3-toggle">
                                                     <input id="active-check" name="state-d" type="radio">
@@ -280,7 +272,7 @@
                                                     <label if="chennel.status == false" class="check-label reject-check-label" for="reject-check" onclick="">Rejected</label>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <div class="tooltip">
                                                 <i class="material-icons">toc</i>
@@ -363,30 +355,24 @@
                                         <td>Date Degment Created</td>
                                         <td>Segment Last Refreshed</td>
                                         <td>Total Profile Count</td>
-                                        <td>Segment Status</td>
+                                        <!-- <td>Segment Status</td> -->
                                         <td>Actions</td>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="segementData in audienceSegementData">
                                             <td class="check-active"><i class="material-icons check-active-icon active">check_circle</i></td>
                                             <td class="segment-name active" ng-click="selectAudienceSeg(segementData)">{{segementData.segement_name}}</td>
-                                            <!-- <td>Existing</td>
-                                            <td>62,472</td>
-                                            <td>DD/MM/YYYY</td>
-                                            <td>DD/MM/YYYY</td>
-                                            <td>435,062</td> -->
                                             <td>-</td>
                                             <td>-</td>
                                             <td>{{segementData.create_date}}</td>
                                             <td>{{segementData.update_date}}</td>
                                             <td>-</td>
-                                            <!-- <td>{{segementData.status}}</td> -->
-                                            <td>
+                                            <!-- <td>
                                                 <label class="switch">
                                                     <input type="checkbox" checked>
                                                     <span class="slider round"></span>
                                                 </label>
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <div class="tooltip">
                                                     <i class="material-icons">toc</i>
@@ -739,7 +725,7 @@
                             </div>
                         </div>
                         <div class="col-4 right-section">
-                            <div class="row title-content">
+                            <!-- <div class="row title-content">
                                 <div class="col-8">
                                     <h4 class="target-label">Total Targetable Audience</h4>
                                 </div>
@@ -838,7 +824,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </section>
