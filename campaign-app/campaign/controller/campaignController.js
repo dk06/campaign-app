@@ -1,5 +1,5 @@
 
-app.controller('CampaignController',['$scope','campaignFactory','campaignChannelFactory','audienceFactory','$window','$timeout', '$http', function($scope, campaignFactory, campaignChannelFactory, audienceFactory, $window, $timeout, $http ) {
+app.controller('CampaignController',['$scope','campaignFactory','campaignChannelFactory','audienceFactory','$window','$timeout', function($scope, campaignFactory, campaignChannelFactory, audienceFactory, $window, $timeout ) {
 
     $scope.headingTitle = 'App Start';
 	init();
@@ -44,9 +44,6 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $scope.campaignObject = name;
         $scope.campaignId = id;
         $scope.campaignSelectValid = true;
-       var promise = $http.get('http://205.147.101.67:8080/marketingv1/getChannelCampaignId?channel_type=facebook&access_token=aaasssdff' ).then(function(response) {
-                return response.data;
-            });
     };
     $scope.campaignCreate = function(campaign){
         if ($scope.channelData.campaignObject == '') {
