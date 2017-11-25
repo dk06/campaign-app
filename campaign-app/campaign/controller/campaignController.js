@@ -26,6 +26,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             });            
         }
     };
+     
     $scope.channelData = {
             campaignName: '',
             campaignObject:  '',
@@ -353,12 +354,10 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $scope.campaignChennel = response;
         });
     };
-
     $scope.newChanel = function(){
         $scope.chanelId = '';
         $scope.advanceActive = true;
     };
-
     $scope.selectChannel = function(channel){
         $scope.chanelId = channel.channel_id;
         $scope.channelList = channel;
