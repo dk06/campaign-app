@@ -1,4 +1,4 @@
-app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,$window) {
+app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,cuberootService ,$window) {
     var params = {};
     
     this.getChanel = function () {
@@ -42,22 +42,28 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
         responseData.channelAccessToken = paramsObj.channelAccessToken;
         responseData.editChanelId = paramsObj.editChanelId;
         //http://205.147.101.67:8080/marketingv1/getChannelCampaignId?channel_type=facebook&access_token=aaasssdff
-        var promise = $http.get(params.cuberootBaseUrl + 'getChannelCampaignId', { params: {channel_type : paramsObj.channelName, access_token : paramsObj.channelAccessToken }} ).then(function(response) {
-                responseData.campaignId = response.data;
-                if (response.data.campaignId != null) {
-                    return getdmpTag().then(function(response){
-                        responseData.scriptTag = response;
-                            return getCampaignChannelDetails(paramsObj).then(function(response){
-                                responseData.campaignChannelData = response;
-                                return responseData;
-                        });                
-                    });
-                }else{
-                    return responseData;
-                }
+        // var promise = $http.get(params.cuberootBaseUrl + 'getChannelCampaignId', { params: {channel_type : paramsObj.channelName, access_token : paramsObj.channelAccessToken }} ).then(function(response) {
+        //         responseData.campaignId = response.data;
+        //         if (response.data.campaignId != null) {
+        //             return getdmpTag().then(function(response){
+        //                 responseData.scriptTag = response;
+        //                     return getCampaignChannelDetails(paramsObj).then(function(response){
+        //                         responseData.campaignChannelData = response;
+        //                         return responseData;
+        //                 });                
+        //             });
+        //         }else{
+        //             return responseData;
+        //         }
                 
-            });
+        //     });
+        //     return promise;
+
+        var promise = cuberootService.async().then(function(response) { //2. so you can use .then()
+                return response;
+              });
             return promise;
+        
         };
 
         //http://205.147.101.67:8080/marketingv1/getdmpTag?campaign_id=61001
