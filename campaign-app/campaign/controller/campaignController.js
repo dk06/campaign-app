@@ -176,7 +176,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.savedAudience = function(segment, chanelId){
          var count = Object.keys(segment).length;
-        if (count == 13) {
+        if (count >= 13) {
             $scope.savedAudienceSegementFields(segment, chanelId);
         }else{
             swal('All fields are Mandatory!');
@@ -210,8 +210,9 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
                   if (result.value) {
                     $('.audience-section').removeClass('content-active');
                     $('.database-marketplace-options').removeClass('content-showcase');
-                    $('.set-audience-parameters').removeClass('content-active');
-                    $('.create-audience-section').addClass('content-showcase');
+                    $('.set-audience-parameters').addClass('content-active');
+                    document.getElementById("defaultOpen").click();
+                    //$('.create-audience-section').addClass('content-showcase');
                   }
                   else{
                     $('.create-audience-section').removeClass('content-active');
