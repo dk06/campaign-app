@@ -17,6 +17,23 @@
 
 <body>
     <div class="wrapper">
+        <div class="overlay">
+            <div class="popup">
+                <i class="material-icons overlay-close-icon">cancel</i><br /><br />
+                <div class="channel-modal-content">
+                    <p>Select your New Channel</p>
+                    <select class="new-channel-select">
+                        <option value="select-channel">-- Add New Channel --</option>
+                        <option value="google-adword">Google Adword</option>
+                        <option value="google-display">Google Display</option>
+                        <option value="fb-rhs">Facebook RHS</option>
+                        <option value="fb-news-feed">Facebook News Feed</option>
+                        <option value="banners">Banners</option>
+                    </select><br /><br />
+                    <button class="select-channel-btn">Continue</button>
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-toggleable-md fixed-top bg-inverse navbar-fixed-top" id="header">
             <a class="navbar-brand" href="#">
                 <img src="./assets/img/cr_insights-logo.png" alt="_cuberoot" title="Cuberoot" />
@@ -951,14 +968,7 @@
                                             <h4>Campaign Channels</h4>
                                         </div>
                                         <div class="col-6 right-align">
-                                            <select class="add-channel-dd">
-                                                <option value="add-new-channel">-- Add New Channel --</option>
-                                                <option value="google-adword">Google Adword</option>
-                                                <option value="google-display">Google Display</option>
-                                                <option value="fb-rhs">Facebook RHS</option>
-                                                <option value="fb-news-feed">Facebook News Feed</option>
-                                                <option value="banners">Banners</option>
-                                            </select>
+                                            <button class="select-channel-overlay-btn">Select New Channel</button>
                                         </div>
                                     </div>
                                     <div class="row">

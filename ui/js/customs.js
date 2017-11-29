@@ -96,4 +96,12 @@ $(document).ready(function(){
         $('.create-audience-section').removeClass('content-active');
         $('.audience-section').addClass('content-active');
     })
+
+    $('.select-channel-overlay-btn').click(function () {
+        $('.overlay').css('display', 'block');
+    })
+
+    $('.overlay-close-icon').click(function () {
+        $('.overlay').css('display', 'none');
+    })
 });
