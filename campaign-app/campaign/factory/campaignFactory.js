@@ -74,6 +74,11 @@
                 return response.data;
             });
         };      
+        dataFactory.getDeviceModel = function(deviceType){
+            return campaignService.getDeviceModel(deviceType).then(function(response, status){
+                return response.data;
+            });
+        };
 
         dataFactory.getCountry = function(){
             return campaignService.getCountry().then(function(response, status){

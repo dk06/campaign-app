@@ -28,9 +28,10 @@ router.post('/audienceSegement',function(req,res,next){
         segement = req.body.params.segementDatat;
         segement.user_id = req.body.params.userId;
         segement.channel_id = req.body.params.channel_id;
-        segement.city_type = req.body.params.segementDatat.city_type.city_names;
+        //segement.city_type = req.body.params.segementDatat.city_names;
         segement.create_date = req.body.params.create_date;
         segement.update_date = req.body.params.update_date;
+        segement.device_model = req.body.params.segementDatat.Model;
     apiControllerRequest.insertAudienceSegementData(segement,function(err,rows){
         if(err)
         {
@@ -52,7 +53,7 @@ router.post('/editAudienceSegement',function(req,res,next){
         segement.seg_id = req.body.params.seg_id,
         segement.user_id = req.body.params.userId;
         segement.channel_id = req.body.params.channel_id;
-        segement.city_type = req.body.params.segementDatat.city_type.city_names;
+        segement.city_type = req.body.params.segementDatat.city_names;
         segement.create_date = req.body.params.create_date;
         segement.update_date = req.body.params.update_date;
 
@@ -103,8 +104,29 @@ router.get('/getCustomSegmentsFields',function(req,res,next){
         {
             res.json({
                     data : rows,
+                    code: 200,
+                    status: true,
+                    message: "API Successful"});
+        }
+    });
+});
+
+router.get('/getDeviceModel',function(req,res,next){
+    apiControllerRequest.getDeviceModel(function(err,rows){
+        if(!rows[0])
+        {
+            res.json({
+                    data : [],
                     code: 500,
                     status: false,
+                    message: "API Not Successful"});
+        }
+        else
+        {
+            res.json({
+                    data : rows,
+                    code: 200,
+                    status: true,
                     message: "API Successful"});
         }
     });

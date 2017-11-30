@@ -127,6 +127,13 @@ var APIsData={
                 connection.release();
             });
         },
+
+        getDeviceModel : function(callback){
+            dbConnect.getConnection(function(err, connection){
+                connection.query("select * from device_namev", callback);
+                connection.release();
+            });
+        },
         // cpmpaign audience segement section release
 };
 module.exports= APIsData;1

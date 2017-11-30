@@ -28,6 +28,15 @@ app.service('campaignService', function ($rootScope, $http, shareBaseUrl,$window
             return promise;
         };
 
+    this.getDeviceModel = function () {
+        params.acess = shareBaseUrl.BaseUrl();
+        params = params;
+        var promise = $http.get(params.acess.BaseUrl + 'getDeviceModel', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
     this.getCountry = function () {
         params.acess = shareBaseUrl.BaseUrl();
         params = params;

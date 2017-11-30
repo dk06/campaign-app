@@ -176,7 +176,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.savedAudience = function(segment, chanelId){
          var count = Object.keys(segment).length;
-        if (count >= 13) {
+        if (count >= 19) {
             $scope.savedAudienceSegementFields(segment, chanelId);
         }else{
             swal('All fields are Mandatory!');
@@ -185,7 +185,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.savedAudienceSegementFields = function(segment, chanelId){
          var count = Object.keys(segment).length;
-        if (count == 13) {
+        if (count >= 19) {
             if($scope.chanelId){
                 var chanelId = $scope.chanelId;
             }else{
@@ -278,6 +278,19 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $scope.technology = true;
             $scope.technologyData = response;
         });
+    };
+   
+    $scope.getDeviceModel = function(deviceType){
+        if (deviceType == 'Mobile') {
+            $scope.deviceSelect = 'Mobile';
+            return campaignFactory.getDeviceModel().then(function(response,status){
+                $scope.devioceModel = response;
+            });
+        }else{
+            $scope.deviceSelect = '';
+            $scope.channel.Model = '';
+        }
+
     };
 
     $scope.getCountry = function(){
