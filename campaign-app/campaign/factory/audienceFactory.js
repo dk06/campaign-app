@@ -14,6 +14,7 @@
 			var params = {}
 	            params.segementDatat = segment.segmentData;
 	            params.channel_id = segment.chanelId;
+	            params.segment_type = segment.segment_type;
 	            params.create_date = date;
 	            params.update_date = date;
 	            params.status = true;

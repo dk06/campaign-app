@@ -129,7 +129,7 @@
             </section>
 
             <!-- ********************** CONFIGURE CHANNELS SEGMENT CARD ************************* -->
-            <section class="configure-channels-section content-showcase">
+            <section class="configure-channels-section content-showcase" ng-init="getChannelType()">
                 <section class="card content-card heading-card">
                     <p class="card-title">2. Add Marketing Channels to your Campaign</p>
                 </section>
@@ -139,7 +139,12 @@
                             <h4>Campaign Channels</h4>
                         </div>
                         <div class="col-6 right-align">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getChannelType()">Add Channel</button>
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getChannelType()">Add Channel</button> -->
+                            
+                            
+                            <select class="add-channel-dd" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" ng-change="newTabeOpen(channel.channelName)" ng-model="channel.channelName" required>
+                                <option value="" disabled selected>Add New Channel</option>
+                            </select>
                         </div>
                     </div>
                     <!--model open add channel-->
@@ -148,19 +153,21 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Add Channel</h4>
+                              <h4 class="modal-title">Channel</h4>
                             </div>
                             <div class="modal-body">
-                              <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
+                              <!-- <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
                                     ng-model="channel.channelName" required>
                                       <option value="" disabled selected>Select Channel*</option>
-                                    </select>
-                              <br>
-                              <input type="text" class="form-control" ng-model="channel.accessTocken" placeholder="Access tocken*" required>
+                                    </select> -->
+                                <label>Channel Type :- </label>
+                                <input type="text" class="form-control" ng-model="SelectChannelName" readonly>
+                                <br>
+                                <input type="text" class="form-control" ng-model="channel.accessTocken" placeholder="Access tocken*" required>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" ng-hide="channel.channelName && channel.accessTocken">Add</button>
-                              <button type="button" class="btn btn-primary" ng-show="channel.channelName && channel.accessTocken" data-dismiss="modal" ng-click="addNewChannel(channel)">Add</button>
+                              <button type="button" class="btn btn-primary" ng-hide=" channel.accessTocken">Add</button>
+                              <button type="button" class="btn btn-primary" ng-show="channel.accessTocken" data-dismiss="modal" ng-click="addNewChannel(channel)">Add</button>
                               <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                             </div>
                           </div>
@@ -246,7 +253,7 @@
                                     <td>Bid Min/Max</td>
                                     <td>Channel Budget</td>
                                     <!-- <td>Channel Status</td> -->
-                                    <td>Actions</td>
+                                    <!-- <td>Actions</td> -->
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="chennel in campaignChennel">
@@ -273,7 +280,7 @@
                                                 </div>
                                             </div>
                                         </td> -->
-                                        <td>
+                                        <!-- <td>
                                             <div class="tooltip">
                                                 <i class="material-icons">toc</i>
                                                 <ul class="tooltiptext">
@@ -309,18 +316,18 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="row budget-row">
+                    <!-- <div class="row budget-row">
                         <div class="col-md-6"></div>
                         <div class="col-md-6 right-align">
                             <b>Allocated Budget: 4,000,000</b>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row button-row">
                         <button class="btn btn-primary continue-marketing-channel-btn" ng-click="savedCampaignChannel()" ng-show="chanelId">
                             Continue
@@ -356,13 +363,13 @@
                                         <td>Segment Last Refreshed</td>
                                         <td>Total Profile Count</td>
                                         <!-- <td>Segment Status</td> -->
-                                        <td>Actions</td>
+                                        <!-- <td>Actions</td> -->
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="segementData in audienceSegementData">
                                             <td class="check-active"><i class="material-icons check-active-icon active">check_circle</i></td>
                                             <td class="segment-name active" ng-click="selectAudienceSeg(segementData)">{{segementData.segement_name}}</td>
-                                            <td>-</td>
+                                            <td>{{segementData.segment_type}}</td>
                                             <td>-</td>
                                             <td>{{segementData.create_date}}</td>
                                             <td>{{segementData.update_date}}</td>
@@ -373,7 +380,7 @@
                                                     <span class="slider round"></span>
                                                 </label>
                                             </td> -->
-                                            <td>
+                                            <!-- <td>
                                                 <div class="tooltip">
                                                     <i class="material-icons">toc</i>
                                                     <ul class="tooltiptext">
@@ -409,7 +416,7 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -434,7 +441,7 @@
                 <section class="card content-card create-segment-card">
                     <div class="row">
                         <div class="col-8 left-section">
-                            <!-- <div class="database-marketplace-options">
+                            <div class="database-marketplace-options">
                                 <h4 class="title-content">Available Audience database</h4>
                                 <div class="row">
                                     <div class="col-md-4">
@@ -524,7 +531,7 @@
                                         <button class="btn btn-primary continue-audience-group-btn">Continue</button>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="set-audience-parameters content-showcase">
                                 <h4 class="title-content">Set Audience Targeting Parameters</h4>
                                     <div class="row">
@@ -595,7 +602,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label class="input-label" for="affinity">Affinity Category (reach)</label>
+                                                        <label class="input-label" for="affinity">Affinity Category</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
@@ -632,7 +639,7 @@
                                                         <input type="text" class="other-input" ng-model="channel.other_category">
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-4">
                                                         <label class="input-label" for="location">Location</label>
                                                         <i class="material-icons">help_outline</i>
@@ -653,7 +660,7 @@
                                                         </select>
                                                         <input type="text" class="location-input" ng-model="channel.loaction">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
@@ -674,10 +681,12 @@
                                                 <option value="" disabled selected>Select Type</option>
                                             </select>
                                             <br>
-                                            <label>Devioce Model</label>              
-                                            <select class="form-control" ng-options="model.Model as model.Model for model in devioceModel" ng-model="channel.Model" ng-disabled="deviceSelect != 'Mobile'">
-                                               <option value="" disabled selected>Select Model</option>
-                                            </select>
+                                            <div ng-hide="deviceSelect != 'Mobile'">
+                                                <label>Devioce Model</label>              
+                                                <select class="form-control" ng-options="model.Model as model.Model for model in devioceModel" ng-model="channel.Model" ng-disabled="deviceSelect != 'Mobile'">
+                                                   <option value="" disabled selected>Select Model</option>
+                                                </select>
+                                            </div>
                                         </div>
 
                                         <div id="TrafficSources" class="tabcontent">
@@ -862,7 +871,7 @@
                                 </div>
                             </div>
 
-                            <div class="audience-review-section">
+                            <!-- <div class="audience-review-section">
                                 <div class="title-content">
                                     <div class="row">
                                         <div class="col-6 left-align">
@@ -886,7 +895,7 @@
                                         <input type="text" ng-model="channelData.audienceName" disabled>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="channels-review-section">
                                 <div class="title-content">
@@ -920,9 +929,9 @@
                                                 </tr>
                                             </tbody>
                                         </table><br />
-                                        <p class="right-align budget-review">
+                                        <!-- <p class="right-align budget-review">
                                             <b>Allocated Budget: {{channelData.channel.channel_Budget}}</b>
-                                        </p>
+                                        </p> -->
                                     </div>
                                 </div>
                             </div>

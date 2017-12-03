@@ -101,7 +101,7 @@ div.tab button.active {
     padding: 0px 12px;
     border: 1px solid #ccc;
     border-left: none;
-    height: 515px;
+    min-height: 423px;
     margin-bottom: 25px;
 }
 .tabcontent h4 {
@@ -676,7 +676,7 @@ main .activate-campaign-section .campaign-review-card .budget-review {
     margin-bottom: 0;
 }
 main .activate-campaign-section .kpi-review-card {
-    height: 582px;
+    min-height: 416px;
 }
 main .activate-campaign-section .kpi-review-card h5 {
     font-weight: bold;

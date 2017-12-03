@@ -68,6 +68,34 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         });
     };
 
+    $scope.newTabeOpen = function(selectType){
+        $("#myModal").modal();
+        $scope.SelectChannelName = selectType;
+        switch(selectType){
+        case 'Facebook':
+            $window.open('https://www.facebook.com');
+            break;
+        case 'Adwords':
+            $window.open('https://www.adwords.com');
+            break;
+        case 'DBM':
+            $window.open('https://www.dbm.com');
+            break;
+        case 'Lightning':
+            $window.open('https://www.lightning.com');
+            break;
+        case 'Email':
+            $window.open('https://www.email.com');
+            break;
+        case 'SMS':
+            $window.open('https://www.sms.com');
+            break;
+        case 'WhatsApp':
+            $window.open('https://web.whatsapp.com');
+            break;
+        }
+    };
+
     $scope.editSelectChennelId = function(channel){
         $scope.editChanelId = channel.channel_id;
         $scope.channel.channelNameUpdate = channel.channel_name;
@@ -77,18 +105,19 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.addNewChannel = function(channel){
         var params = {
-            campaignId : $scope.campaignId, 
-            channelName : channel.channelName,
-            editChanelId : $scope.editChanelId,
-            channelAccessToken : channel.accessTocken
+            channelName : $scope.SelectChannelName,
+            channelAccessToken : channel.accessTocken,
+            editChanelId : $scope.editChanelId
         }
         return campaignChannelFactory.getChannelData(params).then(function(response, status) {
-            $scope.channelType = response;
-            $scope.channel.accessTocken = '';
+            //$scope.channelType = response;
+            //$scope.channel.accessTocken = '';
             //alert
-            swal({
-              title: 'Please copy this script',
-              text: response.scriptTag.tag});
+
+            // swal({
+            //   title: 'Please copy this script',
+            //   text: response.scriptTag.tag});
+
             //alert(response.scriptTag.tag);
             $scope.getCampaignChanel();
         });
@@ -194,6 +223,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             var params = {};
             params.segmentData = segment;
             params.chanelId = chanelId;
+            params.segment_type = $scope.selectChan;
             return audienceFactory.postAudienceSegement(params).then(function(response, status){
                 //alert('SuccessFully Add..');
                 $scope.newSegementCreateForm = false;
@@ -373,9 +403,18 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $scope.advanceActive = true;
     };
     $scope.selectChannel = function(channel){
-        $scope.chanelId = channel.channel_id;
-        $scope.channelList = channel;
-        $scope.selectChan = channel.channel_name;
+        swal({
+            title: 'Please copy this script',
+            text: channel.scriptTag,
+            confirmButtonColor: '#3085d6',            
+            confirmButtonText: 'Ok'
+        }).then(function (result) {
+          if (result.value) {
+            $scope.chanelId = channel.channel_id;
+            $scope.channelList = channel;
+            $scope.selectChan = channel.channel_name;
+          }
+        });        
     };
 
     $scope.selectAudienceSeg = function(segement){

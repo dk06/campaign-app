@@ -28,6 +28,7 @@ router.post('/audienceSegement',function(req,res,next){
         segement = req.body.params.segementDatat;
         segement.user_id = req.body.params.userId;
         segement.channel_id = req.body.params.channel_id;
+        segement.segment_type = req.body.params.segment_type;
         //segement.city_type = req.body.params.segementDatat.city_names;
         segement.create_date = req.body.params.create_date;
         segement.update_date = req.body.params.update_date;
