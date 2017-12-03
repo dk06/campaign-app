@@ -38,7 +38,9 @@
 
                 ageGroup : [],
                 gender : [],
-                language : []
+                language : [],
+                affinityCategory : [],
+                marketSegment : []
             }
         return campaignService.getDemographic(params).then(function(response, status){
                 angular.forEach( response.data.ageGroup, function(value, key){
@@ -64,6 +66,18 @@
                             'language' : value.language
                         })
                     }
+                });
+                angular.forEach(response.data.affinityCategory , function(value, key){
+                    customNewSegments.affinityCategory.push({
+                            'Seg_category_id' : value.category_id,
+                            'category_name' : value.category_name
+                        })
+                });
+                angular.forEach(response.data.marketSegment , function(value, key){
+                    customNewSegments.marketSegment.push({
+                            'Seg_category_id' : value.category_id,
+                            'seg_category_name' : value.category_name
+                        })
                 });
                 return customNewSegments;
             });

@@ -590,10 +590,6 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <!-- <select class="dropdown language-dd">
-                                                            <option value="containsins">contains</option>
-                                                            <option value="is/are">is/are not</option>
-                                                        </select> -->
                                                         <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language">
                                                            <option value="" disabled selected>Language</option>
                                                         </select>
@@ -606,9 +602,12 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown affinity-dd">
+                                                        <!-- <select class="dropdown affinity-dd">
                                                             <option value="containsins">contains</option>
                                                             <option value="is/are">is/are not</option>
+                                                        </select> -->
+                                                        <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.category_name">
+                                                           <option value="" disabled selected>Affinity Category</option>
                                                         </select>
                                                         <input type="text" class="affinity-input" ng-model="channel.affinity_catagery">
                                                     </div>
@@ -619,9 +618,12 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown segment-dd">
+                                                        <!-- <select class="dropdown segment-dd">
                                                             <option value="containsins">contains</option>
                                                             <option value="is/are">is/are not</option>
+                                                        </select> -->
+                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.seg_category_name">
+                                                           <option value="" disabled selected>Segment</option>
                                                         </select>
                                                         <input type="text" class="segment-input" ng-model="channel.market_segment">
                                                     </div>

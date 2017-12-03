@@ -79,16 +79,49 @@ router.get('/getDemographic', function(req,res,next){
                         }
                         else
                         {
-                            var jsnData = {
-                                ageGroup : ageGroupData,
-                                gender : genderData,
-                                language : rows[0]
-                            }
-                            res.json({
-                                data : jsnData,
-                                code: 200,
-                                status: "Success",
-                                message: "API Successful"});
+                            var languageData = rows[0]
+                            var AffinityCategoryParam = 'AffinityCategory';
+                            apiControllerRequest.getCustomFormData(AffinityCategoryParam, function(err,rows){
+                                if(!rows[0])
+                                {
+                                    res.json({
+                                            data : [],
+                                            code: 500,
+                                            status: false,
+                                            message: "API Not Successful"});
+                                }
+                                else
+                                {
+                                    var affinityCategoryData = rows[0]
+                                    var MarketSegmentParam = 'MarketSegment';
+                                     apiControllerRequest.getCustomFormData(MarketSegmentParam, function(err,rows){
+                                        if(!rows[0])
+                                        {
+                                            res.json({
+                                                    data : [],
+                                                    code: 500,
+                                                    status: false,
+                                                    message: "API Not Successful"});
+                                        }
+                                        else
+                                        {
+                                            var jsnData = {
+                                                ageGroup : ageGroupData,
+                                                gender : genderData,
+                                                language : languageData,
+                                                affinityCategory : affinityCategoryData,
+                                                marketSegment : rows[0]
+
+                                            }
+                                            res.json({
+                                                data : jsnData,
+                                                code: 200,
+                                                status: "Success",
+                                                message: "API Successful"});
+                                        }
+                                    });
+                                }
+                            });
                         }
                     });
                 }
