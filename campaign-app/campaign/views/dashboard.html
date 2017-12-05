@@ -163,11 +163,11 @@
                                 <label>Channel Type :- </label>
                                 <input type="text" class="form-control" ng-model="SelectChannelName" readonly>
                                 <br>
-                                <input type="text" class="form-control" ng-model="channel.accessTocken" placeholder="Access tocken*" required>
+                                <input type="text" class="form-control" ng-model="accessTocken" placeholder="Access tocken*" required>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" ng-hide=" channel.accessTocken">Add</button>
-                              <button type="button" class="btn btn-primary" ng-show="channel.accessTocken" data-dismiss="modal" ng-click="addNewChannel(channel)">Add</button>
+                              <button type="button" class="btn btn-primary" ng-hide=" accessTocken">Add</button>
+                              <button type="button" class="btn btn-primary" ng-show="accessTocken" data-dismiss="modal" ng-click="addNewChannel(accessTocken)">Add</button>
                               <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                             </div>
                           </div>
@@ -248,8 +248,6 @@
                                     <td>Advert type</td>
                                     <td>Start Date</td>
                                     <td>End Date</td>
-                                    <td>KPI</td>
-                                    <td>Target</td>
                                     <td>Bid Min/Max</td>
                                     <td>Channel Budget</td>
                                     <!-- <td>Channel Status</td> -->
@@ -258,14 +256,22 @@
                                 <tbody>
                                     <tr ng-repeat="chennel in campaignChennel">
                                         <td style="cursor: pointer" ng-click="selectChannel(chennel)"><i class="material-icons">face</i></td>
-                                        <td>{{chennel.channel_name}}</td>
+                                        <!-- <td>{{chennel.channel_name}}</td>
                                         <td>{{chennel.adverType}}</td>                  
                                         <td>{{chennel.create_date}}</td>
                                         <td>{{chennel.update_date}}</td>
                                         <td>{{chennel.kpi}}</td>
                                         <td>{{chennel.target}}</td>
                                         <td>{{chennel.bid_min}}/{{chennel.bid_Max}}</td>
-                                        <td>{{chennel.channel_Budget}}</td>
+                                        <td>{{chennel.channel_Budget}}</td> -->
+
+                                        <td>{{channelName}}</td>
+                                        <td>{{chennel.advertType}}</td>                  
+                                        <td>{{chennel.startDate}}</td>
+                                        <td>{{chennel.endDate}}</td>
+                                        <td>{{chennel.bidmin}}/{{chennel.bidmax}}</td>
+                                        <td>{{chennel.channelBudget}}</td>
+
                                         <!-- <td>
                                             <div class="row">
                                                 <div class="switch-3-toggle">

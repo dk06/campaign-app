@@ -2,6 +2,7 @@
 app.controller('CampaignController',['$scope','campaignFactory','campaignChannelFactory','audienceFactory','$window','$timeout', function($scope, campaignFactory, campaignChannelFactory, audienceFactory, $window, $timeout ) {
 
     $scope.headingTitle = 'App Start';
+    $scope.SelectChannelName = '';
 	init();
     function init() {
         if ($window.localStorage.accessToken) {
@@ -50,7 +51,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $scope.campaignName = campaign;    
             $scope.campaignSection = false;
             $scope.campaignChanelSection =true;
-            $scope.getCampaignChanel();
+            //$scope.getCampaignChanel();
         }else{
             $scope.campaignName = campaign;
             $scope.campaignSection = false;
@@ -70,22 +71,22 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.createNewChannel = function(selectType){
         swal({
-          title: 'Are you sure?',
-          text: "Can You add new Channel!",
-          type: 'warning',
+          title: 'Link '+ selectType + ' with Cuberoot account ',
+          //text: "Can You add new Channel!",
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
           cancelButtonColor: '#d33',
           confirmButtonText: 'Yes'
         }).then(function (result) {
           if (result.value) {
+            $scope.SelectChannelName = '';
+            $scope.accessTocken = '';
             $scope.newTabeOpen(selectType);
           }
         })
     };
 
     $scope.newTabeOpen = function(selectType){
-        $("#myModal").modal();
         $scope.SelectChannelName = selectType;
         switch(selectType){
         case 'Facebook':
@@ -110,6 +111,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $window.open('https://web.whatsapp.com');
             break;
         }
+        $("#myModal").modal();
     };
 
     $scope.editSelectChennelId = function(channel){
@@ -119,23 +121,18 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $scope.getChannelType();
     };
 
-    $scope.addNewChannel = function(channel){
+    $scope.addNewChannel = function(accessTocken){
         var params = {
             channelName : $scope.SelectChannelName,
-            channelAccessToken : channel.accessTocken,
+            channelAccessToken : accessTocken,
             editChanelId : $scope.editChanelId
         }
+        $scope.accessTocken = accessTocken;
         return campaignChannelFactory.getChannelData(params).then(function(response, status) {
-            //$scope.channelType = response;
-            //$scope.channel.accessTocken = '';
-            //alert
-
-            // swal({
-            //   title: 'Please copy this script',
-            //   text: response.scriptTag.tag});
-
-            //alert(response.scriptTag.tag);
-            $scope.getCampaignChanel();
+            $scope.campaignChennel = [response.campaignChannelData];
+            $scope.channelName = $scope.SelectChannelName;
+            $scope.scriptTag = response.scriptTag;
+            //$scope.getCampaignChanel();
         });
     };
 
@@ -419,14 +416,15 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $scope.advanceActive = true;
     };
     $scope.selectChannel = function(channel){
+        $scope.channelScriptTag = $scope.scriptTag;
         swal({
             title: 'Please copy this script',
-            text: channel.scriptTag,
+            text: $scope.channelScriptTag.tag,
             confirmButtonColor: '#3085d6',            
             confirmButtonText: 'Ok'
         }).then(function (result) {
           if (result.value) {
-            $scope.chanelId = channel.channel_id;
+            //$scope.chanelId = channel.channel_id;
             $scope.channelList = channel;
             $scope.selectChan = channel.channel_name;
           }
@@ -437,11 +435,14 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $scope.segementId = segement.seg_id;
         $scope.segementName = segement.segement_name;
     };
+    
 
     $scope.savedCampaignChannel = function(){
         if ($scope.channelData.channel == ''){
-            if($scope.chanelId){
-                $scope.getAudienceSegement($scope.chanelId); 
+            if($scope.channelList){
+                if (!$scope.chanelId) {
+                    $scope.newChaneleCreate();
+                }
            }else{
                 //alert('Select channel');
                 swal('Select channel');
@@ -455,6 +456,36 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $('.activate-campaign-block').addClass('active');
        }   
     };
+
+    $scope.newChaneleCreate = function(){
+        var channel = {}
+            channel = $scope.channelList;
+            channel.channelAccessToken = $scope.accessTocken;
+            channel.channelName = $scope.SelectChannelName;
+            channel.scriptTag = $scope.channelScriptTag.tag;
+        return campaignChannelFactory.savedChannel(channel).then(function(response, status) {
+            $scope.chanelId = response[0].channel_id;
+            $scope.getAudienceSegement($scope.chanelId);
+        });
+    };
+
+    // $scope.savedCampaignChannel = function(){
+    //     if ($scope.channelData.channel == ''){
+    //         if($scope.chanelId){
+    //             $scope.getAudienceSegement($scope.chanelId); 
+    //        }else{
+    //             //alert('Select channel');
+    //             swal('Select channel');
+    //        }
+    //    }else{
+    //         $scope.finalCampaignList();
+    //         $('.configure-channels-block').removeClass('active');
+    //         $('.configure-channels-section').removeClass('content-active');
+    //         $('.audience-section').removeClass('content-active');
+    //         $('.activate-campaign-section').addClass('content-active');
+    //         $('.activate-campaign-block').addClass('active');
+    //    }   
+    // };
 
     $scope.createNewCampaignChanel = function(ChannelObj){ 
         if ($scope.advanceActive) {

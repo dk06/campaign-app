@@ -67,19 +67,35 @@ router.get('/getViewCampaignChannel', function(req,res){
 });
 
 router.post('/addNewChannel', function(req,res){
+    // var channel ={
+    //         channel_name : req.body.params.channelName,
+    //         channelAccessToken : req.body.params.channelAccessToken,
+    //         scriptTag : req.body.params.scriptTag,
+    //         adverType : req.body.params.channelData.advertType,
+    //         kpi : req.body.params.channelData.kPI,
+    //         target : req.body.params.channelData.target,
+    //         bid_min : req.body.params.channelData.bidmin,
+    //         bid_Max : req.body.params.channelData.bidmax,
+    //         channel_Budget : req.body.params.channelData.channelBudget,
+    //         create_date : req.body.params.channelData.startDate,
+    //         update_date : req.body.params.channelData.endDate,
+    //         status : req.body.params.channelData.channelStatus,            
+    //         user_id : req.body.params.userId
+    //     }
+
     var channel ={
             channel_name : req.body.params.channelName,
             channelAccessToken : req.body.params.channelAccessToken,
             scriptTag : req.body.params.scriptTag,
-            adverType : req.body.params.channelData.advertType,
-            kpi : req.body.params.channelData.kPI,
-            target : req.body.params.channelData.target,
-            bid_min : req.body.params.channelData.bidmin,
-            bid_Max : req.body.params.channelData.bidmax,
-            channel_Budget : req.body.params.channelData.channelBudget,
-            create_date : req.body.params.channelData.startDate,
-            update_date : req.body.params.channelData.endDate,
-            status : req.body.params.channelData.channelStatus,            
+            adverType : req.body.params.advertType,
+            // kpi : req.body.params.kPI,
+            // target : req.body.params.target,
+            bid_min : req.body.params.bidmin,
+            bid_Max : req.body.params.bidmax,
+            channel_Budget : req.body.params.channelBudget,
+            create_date : req.body.params.startDate,
+            update_date : req.body.params.endDate,
+            status : req.body.params.channelStatus,            
             user_id : req.body.params.userId
         }
     apiControllerRequest.postChannel(channel, function(err, rows){
@@ -93,7 +109,24 @@ router.post('/addNewChannel', function(req,res){
         }
         else
         {
-        res.json(rows);
+            apiControllerRequest.getChannelId(req.body.params.channelAccessToken, function(err,rows){
+                if(err)
+                {
+                res.json({
+                    data : [],
+                    code: 500,
+                    status: false,
+                    message: "API Not Successful"});
+                }
+                else
+                {
+                res.json({
+                        data : rows,
+                        code: 200,
+                        status: "Success",
+                        message: "API Successful"});
+                }
+            })
         }
     });
 });

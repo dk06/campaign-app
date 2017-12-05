@@ -25,6 +25,13 @@
 			})
 		};
 
+		dataFactory.savedChannel= function(params){		 
+			return campaignChannelService.savedChannel(params).then(function(response) {
+				return response.data;
+			})
+		};
+
+
 	    dataFactory.deleteCampaignChennel = function(params){
 	        return campaignChannelService.deleteCampaignChennel(params).then(function(response,status){
 	            return response.data;

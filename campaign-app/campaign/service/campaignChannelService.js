@@ -69,16 +69,17 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
 
         getCampaignChannelDetails = function(paramsObj) {
             return $http.get(params.cuberootBaseUrl + 'campaignChannelDetails', {params : {campaign_id : responseData.campaignId, channel_type : paramsObj.channelName, access_token : paramsObj.channelAccessToken }} ).then(function(response) {
-                var channelList = response.data
-                if (responseData.editChanelId) {
-                    return chennelDetailsUpdate(response.data).then(function(response){
-                        return channelList;
-                    });
-                }else{
-                    return chennelDetailsSave(response.data).then(function(response){
-                        return channelList;
-                    });
-                }                
+                return response.data;
+                // var channelList = response.data
+                // if (responseData.editChanelId) {
+                //     return chennelDetailsUpdate(response.data).then(function(response){
+                //         return channelList;
+                //     });
+                // }else{
+                //     return chennelDetailsSave(response.data).then(function(response){
+                //         return channelList;
+                //     });
+                // }                
             });
 
         };
@@ -113,6 +114,16 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
         };
 
     //end channel section
+
+    this.savedChannel = function(paramsObj){
+        params = paramsObj;
+        params.acess = shareBaseUrl.BaseUrl();
+        params.userId = params.acess.userId;          
+        var promise = $http.post(params.acess.BaseUrl + 'addNewChannel', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
     
     this.editCampaignChennel = function(paramsObj){
         params.acess = shareBaseUrl.BaseUrl();

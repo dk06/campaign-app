@@ -56,6 +56,14 @@ var APIsData={
                 connection.release();
             });
         },
+
+        getChannelId: function(paramsData, callback){
+            dbConnect.getConnection(function(err, connection){
+                connection.query("select * from channel where channelAccessToken= ?",[paramsData] ,callback);
+                connection.release();
+            });
+        },
+        
         editChanel: function(paramsData, callback){
             dbConnect.getConnection(function(err, connection){
                 connection.query("update channel set? where channel_id=?", [paramsData , paramsData.channel_id], callback);
