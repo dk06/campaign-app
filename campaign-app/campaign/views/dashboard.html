@@ -142,7 +142,7 @@
                             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getChannelType()">Add Channel</button> -->
                             
                             
-                            <select class="add-channel-dd" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" ng-change="createNewChannel(channel.channelName)" ng-model="channel.channelName" required>
+                            <select class="add-channel-dd" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" ng-change="createNewChannel(channel.segment_type)" ng-model="channel.segment_type" required>
                                 <option value="" disabled selected>Add New Channel</option>
                             </select>
                         </div>
@@ -626,10 +626,10 @@
                                                             <option value="containsins">contains</option>
                                                             <option value="is/are">is/are not</option>
                                                         </select> -->
-                                                        <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.category_name">
+                                                        <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.affinity_catagery">
                                                            <option value="" disabled selected>Affinity Category</option>
                                                         </select>
-                                                        <input type="text" class="affinity-input" ng-model="channel.category_name">
+                                                        <input type="text" class="affinity-input" ng-model="channel.affinity_catagery">
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords'">
@@ -638,10 +638,10 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">               
-                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.seg_category_name">
+                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment">
                                                            <option value="" disabled selected>Segment</option>
                                                         </select>
-                                                        <input type="text" class="segment-input" ng-model="channel.seg_category_name">
+                                                        <input type="text" class="segment-input" ng-model="channel.market_segment">
                                                     </div>
                                                 </div>
 
@@ -651,10 +651,10 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.seg_category_name">
+                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment">
                                                            <option value="" disabled selected>Segment</option>
                                                         </select>
-                                                        <input type="text" class="segment-input" ng-model="channel.seg_category_name">
+                                                        <input type="text" class="segment-input" ng-model="channel.market_segment">
                                                     </div>
                                                 </div>
 

@@ -428,7 +428,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
           if (result.value) {
             //$scope.chanelId = channel.channel_id;
             $scope.channelList = channel;
-            $scope.selectChan = channel.channel_name;
+            $scope.selectChan = $scope.SelectChannelName;
           }
         });        
     };
