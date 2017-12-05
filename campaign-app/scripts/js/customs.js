@@ -129,4 +129,9 @@ $(document).ready(function(){
         $('.create-audience-section').removeClass('content-active');
         $('.audience-section').addClass('content-active');
     })
+
+    $('.overlay-close-icon').click(function () {
+        $('.overlay').css('display', 'none');
+    })
+   
 });

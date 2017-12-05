@@ -111,7 +111,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $window.open('https://web.whatsapp.com');
             break;
         }
-        $("#myModal").modal();
+        //$("#myModal").modal();
+        $('.overlay').css('display', 'block');
     };
 
     $scope.editSelectChennelId = function(channel){
@@ -122,6 +123,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     };
 
     $scope.addNewChannel = function(accessTocken){
+        $('.overlay').css('display', 'none');
         var params = {
             channelName : $scope.SelectChannelName,
             channelAccessToken : accessTocken,

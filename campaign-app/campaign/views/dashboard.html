@@ -148,18 +148,14 @@
                         </div>
                     </div>
                     <!--model open add channel-->
-                    <div class="modal fade" id="myModal" role="dialog">
+                    <!-- <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog modal-sm">
                           <div class="modal-content">
                             <div class="modal-header">
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                               <h4 class="modal-title">Channel</h4>
                             </div>
-                            <div class="modal-body">
-                              <!-- <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
-                                    ng-model="channel.channelName" required>
-                                      <option value="" disabled selected>Select Channel*</option>
-                                    </select> -->
+                            <div class="modal-body">                              
                                 <label>Channel Type :- </label>
                                 <input type="text" class="form-control" ng-model="SelectChannelName" readonly>
                                 <br>
@@ -168,11 +164,10 @@
                             <div class="modal-footer">
                               <button type="button" class="btn btn-primary" ng-hide=" accessTocken">Add</button>
                               <button type="button" class="btn btn-primary" ng-show="accessTocken" data-dismiss="modal" ng-click="addNewChannel(accessTocken)">Add</button>
-                              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                   <!--model open edit-->
                     <div class="modal fade" id="editModal" role="dialog">
@@ -238,6 +233,25 @@
                           </div>
                         </div>
                       </div>
+
+                    <!-- script tag Model open -->
+                    <div class="wrapper">
+                        <div class="overlay">
+                           <div class="popup">
+                                <i class="material-icons overlay-close-icon">cancel</i><br /><br />
+                                <div class="channel-modal-content">
+                                     <label>Channel Type :- </label>
+                                    <input type="text" class="form-control" ng-model="SelectChannelName" readonly>
+                                    <br>
+                                    <input type="text" class="form-control" ng-model="accessTocken" placeholder="Access tocken*">
+                                    <br>
+                                    
+                                    <button class="select-channel-btn" ng-hide="accessTocken">Continue</button>
+                                    <button class="select-channel-btn" ng-show="accessTocken" data-dismiss="modal" ng-click="addNewChannel(accessTocken)">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12">
@@ -335,10 +349,10 @@
                         </div>
                     </div> -->
                     <div class="row button-row">
-                        <button class="btn btn-primary continue-marketing-channel-btn" ng-click="savedCampaignChannel()" ng-show="chanelId">
+                        <button class="btn btn-primary continue-marketing-channel-btn" ng-click="savedCampaignChannel()" ng-show="channelScriptTag">
                             Continue
                         </button>
-                        <button class="btn btn-primary" style="text-align: center; margin: 0 auto; margin-top: 20px; width: 35%" ng-hide="chanelId" ng-click="savedCampaignChannel()">
+                        <button class="btn btn-primary" style="text-align: center; margin: 0 auto; margin-top: 20px; width: 35%" ng-hide="channelScriptTag" ng-click="savedCampaignChannel()">
                             Continue
                         </button>
                     </div>
