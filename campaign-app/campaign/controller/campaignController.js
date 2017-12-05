@@ -220,7 +220,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.savedAudience = function(segment, chanelId){
          var count = Object.keys(segment).length;
-        if (count >= 21) {
+        if (count >= 15) {
             $scope.savedAudienceSegementFields(segment, chanelId);
         }else{
             swal('All fields are Mandatory!');
@@ -229,7 +229,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.savedAudienceSegementFields = function(segment, chanelId){
          var count = Object.keys(segment).length;
-        if (count >= 21) {
+        if (count >= 15) {
             if($scope.chanelId){
                 var chanelId = $scope.chanelId;
             }else{
