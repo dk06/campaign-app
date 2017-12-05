@@ -39,6 +39,12 @@
 	    		return response.data;
 	    	});
 	    };
+
+	    dataFactory.getCustomReach = function(){
+	    	return audienceService.getCustomReach().then(function(response, status){
+	    		return response.data;
+	    	});
+	    };
 		
 		return dataFactory;
  }]);

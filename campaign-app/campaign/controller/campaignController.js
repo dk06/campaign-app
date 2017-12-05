@@ -584,6 +584,12 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $('.campaign-details').slideUp();
     };
 
+    $scope.getCustomReach = function(){
+        return audienceFactory.getCustomReach().then(function(response, status) {
+            $scope.getReach = parseInt(response[0].reach);
+        });
+    };
+
 
     $scope.slideChange = function(select){
 

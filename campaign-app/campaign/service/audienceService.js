@@ -45,4 +45,12 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             return promise;
         };
 
+    //http://205.147.101.67:8080/marketingv1/getReach?siteId=&gender=1&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=
+    this.getCustomReach = function(){
+        params = shareBaseUrl.BaseUrl();
+        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '', gender : '1', agegroup : '' , incomelevel : '', device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
+                return response.data;
+            });
+    }
+
 });
