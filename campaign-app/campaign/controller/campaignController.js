@@ -68,6 +68,22 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         });
     };
 
+    $scope.createNewChannel = function(selectType){
+        swal({
+          title: 'Are you sure?',
+          text: "Can You add new Channel!",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then(function (result) {
+          if (result.value) {
+            $scope.newTabeOpen(selectType);
+          }
+        })
+    };
+
     $scope.newTabeOpen = function(selectType){
         $("#myModal").modal();
         $scope.SelectChannelName = selectType;

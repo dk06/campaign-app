@@ -19,7 +19,7 @@
 			})
 		};
 
-		dataFactory.getChannelData= function(params){			 
+		dataFactory.getChannelData= function(params){		 
 			return campaignChannelService.getChannelData(params).then(function(response) {
 				return response;
 			})

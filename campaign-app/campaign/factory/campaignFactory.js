@@ -40,7 +40,8 @@
                 gender : [],
                 language : [],
                 affinityCategory : [],
-                marketSegment : []
+                marketSegment : [],
+                IAB : []
             }
         return campaignService.getDemographic(params).then(function(response, status){
                 angular.forEach( response.data.ageGroup, function(value, key){
@@ -77,6 +78,12 @@
                     customNewSegments.marketSegment.push({
                             'Seg_category_id' : value.category_id,
                             'seg_category_name' : value.category_name
+                        })
+                });
+                angular.forEach(response.data.IAB , function(value, key){
+                    customNewSegments.IAB.push({
+                            'seg_id' : value.seg_id,
+                            'category_name' : value.category_name
                         })
                 });
                 return customNewSegments;

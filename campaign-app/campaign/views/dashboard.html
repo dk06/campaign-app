@@ -142,7 +142,7 @@
                             <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="getChannelType()">Add Channel</button> -->
                             
                             
-                            <select class="add-channel-dd" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" ng-change="newTabeOpen(channel.channelName)" ng-model="channel.channelName" required>
+                            <select class="add-channel-dd" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" ng-change="createNewChannel(channel.channelName)" ng-model="channel.channelName" required>
                                 <option value="" disabled selected>Add New Channel</option>
                             </select>
                         </div>
@@ -593,7 +593,7 @@
                                                         <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language">
                                                            <option value="" disabled selected>Language</option>
                                                         </select>
-                                                        <input type="text" class="language-input" ng-model="channel.languageInput">
+                                                        <input type="text" class="language-input" ng-model="channel.language">
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -609,26 +609,50 @@
                                                         <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.category_name">
                                                            <option value="" disabled selected>Affinity Category</option>
                                                         </select>
-                                                        <input type="text" class="affinity-input" ng-model="channel.affinity_catagery">
+                                                        <input type="text" class="affinity-input" ng-model="channel.category_name">
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row" ng-show="selectChan === 'Adwords'">
+                                                    <div class="col-4">
+                                                        <label class="input-label" for="segment">In-market Segment</label>
+                                                        <i class="material-icons">help_outline</i>
+                                                    </div>
+                                                    <div class="col-8">               
+                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.seg_category_name">
+                                                           <option value="" disabled selected>Segment</option>
+                                                        </select>
+                                                        <input type="text" class="segment-input" ng-model="channel.seg_category_name">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" ng-show="selectChan === 'DBM'">
                                                     <div class="col-4">
                                                         <label class="input-label" for="segment">In-market Segment</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <!-- <select class="dropdown segment-dd">
-                                                            <option value="containsins">contains</option>
-                                                            <option value="is/are">is/are not</option>
-                                                        </select> -->
                                                         <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.seg_category_name">
                                                            <option value="" disabled selected>Segment</option>
                                                         </select>
-                                                        <input type="text" class="segment-input" ng-model="channel.market_segment">
+                                                        <input type="text" class="segment-input" ng-model="channel.seg_category_name">
                                                     </div>
                                                 </div>
-                                                <div class="row">
+
+                                                <div class="row" ng-show="selectChan == 'Lightning'">
+                                                    <div class="col-4">
+                                                        <label class="input-label" for="other">IAB</label>
+                                                        <i class="material-icons">help_outline</i>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <select class="dropdown language-dd" ng-options="iabInfo.category_name as iabInfo.category_name for iabInfo in customSegementForm.IAB" ng-model="channel.IAB">
+                                                           <option value="" disabled selected>IAB</option>
+                                                        </select>
+                                                        <input type="text" class="other-input" ng-model="channel.IAB">
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- <div class="row">
                                                     <div class="col-4">
                                                         <label class="input-label" for="other">Other Category</label>
                                                         <i class="material-icons">help_outline</i>
@@ -639,28 +663,6 @@
                                                             <option value="is/are">is/are not</option>
                                                         </select>
                                                         <input type="text" class="other-input" ng-model="channel.other_category">
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="row">
-                                                    <div class="col-4">
-                                                        <label class="input-label" for="location">Location</label>
-                                                        <i class="material-icons">help_outline</i>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <select class="dropdown continent-dd">
-                                                            <option value="select">-- Select Continent --</option>
-                                                            <option value="NA">North America</option>
-                                                            <option value="SA">South America</option>
-                                                            <option value="europe">Europe</option>
-                                                            <option value="africa">Africa</option>
-                                                            <option value="asia">Asia</option>
-                                                            <option value="australia">Australia</option>
-                                                        </select>
-                                                        <select class="dropdown location-dd">
-                                                            <option value="containsins">contains</option>
-                                                            <option value="is/are">is/are not</option>
-                                                        </select>
-                                                        <input type="text" class="location-input" ng-model="channel.loaction">
                                                     </div>
                                                 </div> -->
                                             </div>

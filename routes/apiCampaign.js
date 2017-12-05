@@ -105,19 +105,35 @@ router.get('/getDemographic', function(req,res,next){
                                         }
                                         else
                                         {
-                                            var jsnData = {
-                                                ageGroup : ageGroupData,
-                                                gender : genderData,
-                                                language : languageData,
-                                                affinityCategory : affinityCategoryData,
-                                                marketSegment : rows[0]
+                                            var marketSegmentData = rows[0]
+                                            var IABParam = 'IAB';
+                                             apiControllerRequest.getCustomFormData(IABParam, function(err,rows){
+                                                if(!rows[0])
+                                                {
+                                                    res.json({
+                                                            data : [],
+                                                            code: 500,
+                                                            status: false,
+                                                            message: "API Not Successful"});
+                                                }
+                                                else
+                                                {
+                                                    var jsnData = {
+                                                        ageGroup : ageGroupData,
+                                                        gender : genderData,
+                                                        language : languageData,
+                                                        affinityCategory : affinityCategoryData,
+                                                        marketSegment : marketSegmentData,
+                                                        IAB : rows[0]
 
-                                            }
-                                            res.json({
-                                                data : jsnData,
-                                                code: 200,
-                                                status: "Success",
-                                                message: "API Successful"});
+                                                    }
+                                                    res.json({
+                                                        data : jsnData,
+                                                        code: 200,
+                                                        status: "Success",
+                                                        message: "API Successful"});
+                                                }
+                                            });
                                         }
                                     });
                                 }
