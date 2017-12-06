@@ -40,10 +40,75 @@
 	    	});
 	    };
 
-	    dataFactory.getCustomReach = function(){
-	    	return audienceService.getCustomReach().then(function(response, status){
+	    dataFactory.getCustomReach = function(segementData){
+	    	return audienceService.getCustomReach(segementData).then(function(response, status){
 	    		return response.data;
 	    	});
+	    };
+
+	    dataFactory.getPrivateReach = function(){
+	    	return audienceService.getPrivateReach().then(function(response, status){
+	    		return response.data;
+	    	});
+	    };
+
+	    dataFactory.getPrivateAudienceMarketplaceList = function(){
+	    	return audienceService.getPrivateAudienceMarketplaceList().then(function(response, status){
+	    		return response;
+	    	});
+	    };
+
+	    dataFactory.getTargetingSummary = function(){
+	    	// return audienceService.getTargetingSummary().then(function(response, status){
+	    	// 	return response;
+	    	// });
+            var customNewSegments = {
+                ageGroup : [],
+                gender : [],
+                language : [],
+                affinityCategory : [],
+                marketSegment : [],
+                IAB : []
+            }
+        return campaignService.getDemographic(params).then(function(response, status){
+                angular.forEach( response.data.ageobj, function(value, key){
+                    customNewSegments.ageGroup.push({
+                        'age_id' : value.id,
+                        'age' : value.age
+                    })
+                });
+                angular.forEach(response.data.genderobj , function(value, key){
+                    customNewSegments.gender.push({
+                        'gender_id' : value.id,
+                        'gender' : value.gender
+                    })
+                });
+                // angular.forEach(response.data.locations , function(value, key){
+                //     customNewSegments.language.push({
+                //             'lag_id' : value.lag_id,
+                //             'language' : value.language
+                //         })
+                // });
+                // angular.forEach(response.data.affinityCategory , function(value, key){
+                //     customNewSegments.affinityCategory.push({
+                //             'Seg_category_id' : value.category_id,
+                //             'category_name' : value.category_name
+                //         })
+                // });
+                // angular.forEach(response.data.marketSegment , function(value, key){
+                //     customNewSegments.marketSegment.push({
+                //             'Seg_category_id' : value.category_id,
+                //             'seg_category_name' : value.category_name
+                //         })
+                // });
+                // angular.forEach(response.data.IAB , function(value, key){
+                //     customNewSegments.IAB.push({
+                //             'seg_id' : value.seg_id,
+                //             'category_name' : value.category_name
+                //         })
+                // });
+                return customNewSegments;
+            });
 	    };
 		
 		return dataFactory;

@@ -1,9 +1,23 @@
  app.factory('campaignChannelFactory',['campaignChannelService','$filter', function(campaignChannelService, $filter){
 	var dataFactory = {};
 
-		dataFactory.getCampaignChanel= function(){			 
+		dataFactory.getCampaignChanel= function(){
+		var channelList = []
 			return campaignChannelService.getChanel().then(function(response) {
-				return response.data;
+				angular.forEach( response.data, function(value, key){
+                    channelList.push({
+                    		'channelType' : value.channel_name,
+                            'advertType' : value.adverType,
+                            'startDate' : value.create_date,
+                            'endDate' : value.update_date,
+                            'bidmin' : value.bid_min,
+                            'bidmax' : value.bid_Max,
+                            'channelBudget' : value.channel_Budget,
+                            'scriptTag' :  value.scriptTag,
+                            'channel_id' : value.channel_id
+                        })
+                });
+				return channelList;
 			})
 		};
 

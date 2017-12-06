@@ -279,7 +279,7 @@
                                         <td>{{chennel.bid_min}}/{{chennel.bid_Max}}</td>
                                         <td>{{chennel.channel_Budget}}</td> -->
 
-                                        <td>{{channelName}}</td>
+                                        <td>{{chennel.channelType}}</td>
                                         <td>{{chennel.advertType}}</td>                  
                                         <td>{{chennel.startDate}}</td>
                                         <td>{{chennel.endDate}}</td>
@@ -463,17 +463,24 @@
                         <div class="col-8 left-section">
                             <div class="database-marketplace-options">
                                 <h4 class="title-content">Available Audience database</h4>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                <div class="row" ng-repeat="segementData in audienceSegementData">
+                                    <!-- <div class="col-md-4">
                                         <div class="card content-card audience-available">
                                             <i class="material-icons section-icon">face</i>
                                             <i class="material-icons check-active-icon">check_circle</i>
                                             My Existing Audience
                                         </div>
+                                    </div> -->
+                                    <div class="col-md-4">
+                                        <div class="card content-card audience-available">
+                                            <i class="material-icons section-icon">face</i>
+                                            <i class="material-icons check-active-icon">check_circle</i>
+                                            {{segementData.segement_name}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <!-- <div class="col-md-4">
                                         <div class="card content-card audience-available">
                                             <i class="material-icons section-icon">face</i>
                                             <i class="material-icons check-active-icon">check_circle</i>
@@ -493,11 +500,17 @@
                                             <i class="material-icons check-active-icon">check_circle</i>
                                             Google Adwords
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div><br /><br /><br />
                                 <h4 class="title-content">Private Audience Marketplace</h4>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                <div class="row" ng-init="getPrivateAudienceMarketplaceList()">
+                                    <div class="col-md-4" ng-repeat="privateFields in privateAudienceMarketplaceList">
+                                        <div class="card content-card audience-available">
+                                            <i class="material-icons section-icon">face</i>
+                                            <i class="material-icons check-active-icon">check_circle</i>{{privateFields.privatemarketplacename}}
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-4">
                                         <div class="card content-card audience-available">
                                             <i class="material-icons section-icon">face</i>
                                             <i class="material-icons check-active-icon">check_circle</i>
@@ -510,16 +523,9 @@
                                             <i class="material-icons check-active-icon">check_circle</i>
                                             Lorem Ipsum Audience
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card content-card audience-available">
-                                            <i class="material-icons section-icon">face</i>
-                                            <i class="material-icons check-active-icon">check_circle</i>
-                                            Lorem Ipsum Audience
-                                        </div>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="row">
+                               <!--  <div class="row">
                                     <div class="col-md-4">
                                         <div class="card content-card audience-available">
                                             <i class="material-icons section-icon">face</i>
@@ -541,7 +547,7 @@
                                             Lorem Ipsum Audience
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <hr />
                                 <div class="row">
                                     <div class="col-6 left-align">
@@ -584,13 +590,13 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-9">
-                                                        <input type="radio" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[0].age_id" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[0].age}}
-                                                         <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[1].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[1].age}}
-                                                          <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[2].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[2].age}}
-                                                           <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[3].age_id" ng-model="channel.age_type" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[3].age}}
-                                                            <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[4].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[4].age}}
-                                                             <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[5].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[5].age}}
-                                                              <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[6].age_id" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[6].age}}
+                                                        <input type="radio" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[0].age" name="radio1" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[0].age}}
+                                                         <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[1].age" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[1].age}}
+                                                          <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[2].age" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[2].age}}
+                                                           <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[3].age" ng-model="channel.age_type" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[3].age}}
+                                                            <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[4].age" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[4].age}}
+                                                             <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[5].age" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[5].age}}
+                                                              <input type="radio" name="radio1" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[6].age" id="customSegementForm.ageGroup[0].age">{{customSegementForm.ageGroup[6].age}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -599,9 +605,9 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-9">
-                                                        <input type="radio" name="radio2" ng-model="channel.gender_type" ng-value="customSegementForm.gender[0].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[0].gender}}
-                                                         <input type="radio" name="radio2" ng-model="channel.gender_type" ng-value="customSegementForm.gender[1].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[1].gender}}
-                                                          <input type="radio" name="radio2" ng-model="channel.gender_type" ng-value="customSegementForm.gender[2].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[2].gender}}
+                                                        <input type="radio" name="radio2" ng-model="channel.gender_type" ng-value="customSegementForm.gender[0].gender" id="customSegementForm.gender[2].gender">{{customSegementForm.gender[0].gender}}
+                                                         <input type="radio" name="radio2" ng-model="channel.gender_type" ng-value="customSegementForm.gender[1].gender" id="customSegementForm.gender[2].gender">{{customSegementForm.gender[1].gender}}
+                                                          <input type="radio" name="radio2" ng-model="channel.gender_type" ng-value="customSegementForm.gender[2].gender" id="customSegementForm.gender[2].gender">{{customSegementForm.gender[2].gender}}
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -610,8 +616,8 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language">
-                                                           <option value="" disabled selected>Language</option>
+                                                        <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language" size="1" multiple>
+                                                           <!-- <option value="" disabled selected>Language</option> -->
                                                         </select>
                                                         <input type="text" class="language-input" ng-model="channel.language">
                                                     </div>
@@ -626,8 +632,8 @@
                                                             <option value="containsins">contains</option>
                                                             <option value="is/are">is/are not</option>
                                                         </select> -->
-                                                        <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.affinity_catagery">
-                                                           <option value="" disabled selected>Affinity Category</option>
+                                                        <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.affinity_catagery" size="1" multiple>
+                                                           <!-- <option value="" disabled selected>Affinity Category</option> -->
                                                         </select>
                                                         <input type="text" class="affinity-input" ng-model="channel.affinity_catagery">
                                                     </div>
@@ -638,8 +644,8 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">               
-                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment">
-                                                           <option value="" disabled selected>Segment</option>
+                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment" size="1" multiple>
+                                                           <!-- <option value="" disabled selected>Segment</option> -->
                                                         </select>
                                                         <input type="text" class="segment-input" ng-model="channel.market_segment">
                                                     </div>
@@ -651,8 +657,8 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment">
-                                                           <option value="" disabled selected>Segment</option>
+                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment" size="1" multiple>
+                                                           <!-- <option value="" disabled selected>Segment</option> -->
                                                         </select>
                                                         <input type="text" class="segment-input" ng-model="channel.market_segment">
                                                     </div>
@@ -665,7 +671,7 @@
                                                     </div>
                                                     <div class="col-8">
                                                         <select class="dropdown language-dd" ng-options="iabInfo.category_name as iabInfo.category_name for iabInfo in customSegementForm.IAB" ng-model="channel.IAB">
-                                                           <option value="" disabled selected>IAB</option>
+                                                           <!-- <option value="" disabled selected>IAB</option> -->
                                                         </select>
                                                         <input type="text" class="other-input" ng-model="channel.IAB">
                                                     </div>
@@ -755,7 +761,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 right-section" ng-init="getCustomReach()">
+                        <div class="col-4 right-section">
                             <div class="row title-content">
                                 <div class="col-8">
                                     <h4 class="target-label">Total Targetable Audience</h4>
@@ -765,13 +771,13 @@
                                 </div>
                             </div>
                             <div class="targetted-audience-progress">
-                                <div class="row">
+                                <div class="row" ng-repeat="segementData in audienceSegementData">
                                     <div class="col-8 left-align">
                                         <i class="material-icons">face</i>
-                                        Cuberoot Audience
+                                        {{segementData.segement_name}}
                                     </div>
                                     <div class="col-4 right-align">
-                                        {{getReach}}
+                                        {{getReach | number}}
                                     </div>
                                     <div class="col-12">
                                         <div class="progress">
@@ -780,7 +786,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-8 left-align">
                                         <i class="material-icons">face</i>
                                         Private Audience Marketplace
@@ -839,18 +845,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
+                                </div> -->
+                                <div class="row" ng-repeat="privateFields in privateAudienceMarketplaceList">
                                     <div class="col-8 left-align">
                                         <i class="material-icons">face</i>
-                                        Google Adwords
+                                        {{privateFields.privatemarketplacename}}
                                     </div>
                                     <div class="col-4 right-align">
-                                        {{getReach}}
+                                        {{privateReach | number}}
                                     </div>
                                     <div class="col-12">
                                         <div class="progress">
-                                            <div class="progress-bar" style="width: {{getReach}}%">
+                                            <div class="progress-bar" style="width: {{privateReach}}%">
                                             </div>
                                         </div>
                                     </div>

@@ -1,5 +1,5 @@
 
-app.controller('CampaignController',['$scope','campaignFactory','campaignChannelFactory','audienceFactory','$window','$timeout', function($scope, campaignFactory, campaignChannelFactory, audienceFactory, $window, $timeout ) {
+app.controller('CampaignController',['$scope','$q','campaignFactory','campaignChannelFactory','audienceFactory','$window','$timeout', function($scope, $q, campaignFactory, campaignChannelFactory, audienceFactory, $window, $timeout ) {
 
     $scope.headingTitle = 'App Start';
     $scope.SelectChannelName = '';
@@ -24,7 +24,10 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
                 $scope.swap_horiz = response.converstion[0].icons_tag;
                 $scope.shopping_cart = response.converstion[1].icons_tag;
                 $scope.store_mall_directory = response.converstion[2].icons_tag;
-            });            
+            });
+            $scope.getCustomReach();
+            $scope.getPrivateAudienceMarketplaceList();
+            $scope.getTargetingSummary();           
         }
     };
      
@@ -51,7 +54,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
             $scope.campaignName = campaign;    
             $scope.campaignSection = false;
             $scope.campaignChanelSection =true;
-            //$scope.getCampaignChanel();
+            $scope.getCampaignChanel();
         }else{
             $scope.campaignName = campaign;
             $scope.campaignSection = false;
@@ -188,7 +191,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
 
     $scope.getAudienceSegement = function(chanelId){
         return audienceFactory.getAudienceSegement(chanelId).then(function(response, status){
-            $scope.audienceSegementData = response;            
+            $scope.audienceSegementData = response;
+            $scope.getCustomReach();
         })
     };
 
@@ -236,7 +240,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
                 var chanelId = chanelId;
             }
             var params = {};
-            params.segmentData = segment;
+            params.segmentData = segment;            
             params.chanelId = chanelId;
             params.segment_type = $scope.selectChan;
             return audienceFactory.postAudienceSegement(params).then(function(response, status){
@@ -255,7 +259,8 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
                   if (result.value) {
                     $('.audience-section').removeClass('content-active');
                     $('.database-marketplace-options').removeClass('content-showcase');
-                    $('.set-audience-parameters').addClass('content-active');
+                    $('.set-audience-parameters').removeClass('content-active');
+                    $('.create-audience-section').addClass('content-active');
                     document.getElementById("defaultOpen").click();
                     //$('.create-audience-section').addClass('content-showcase');
                   }
@@ -418,19 +423,34 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $scope.advanceActive = true;
     };
     $scope.selectChannel = function(channel){
-        $scope.channelScriptTag = $scope.scriptTag;
-        swal({
-            title: 'Please copy this script',
-            text: $scope.channelScriptTag.tag,
-            confirmButtonColor: '#3085d6',            
-            confirmButtonText: 'Ok'
-        }).then(function (result) {
-          if (result.value) {
-            //$scope.chanelId = channel.channel_id;
-            $scope.channelList = channel;
-            $scope.selectChan = $scope.SelectChannelName;
-          }
-        });        
+        if ($scope.scriptTag) {
+            $scope.channelScriptTag = $scope.scriptTag;
+            swal({
+                title: 'Please copy this script',
+                text: $scope.channelScriptTag.tag,
+                confirmButtonColor: '#3085d6',            
+                confirmButtonText: 'Ok'
+            }).then(function (result) {
+              if (result.value) {
+                //$scope.chanelId = channel.channel_id;
+                $scope.channelList = channel;
+                $scope.selectChan = $scope.SelectChannelName;
+              }
+            });
+        }else{
+            swal({
+                title: 'Please copy this script',
+                text: channel.scriptTag,
+                confirmButtonColor: '#3085d6',            
+                confirmButtonText: 'Ok'
+            }).then(function (result) {
+              if (result.value) {
+                $scope.chanelId = channel.channel_id;
+                $scope.channelList = channel;
+                $scope.selectChan = $scope.SelectChannelName;
+              }
+            });
+        }     
     };
 
     $scope.selectAudienceSeg = function(segement){
@@ -440,15 +460,23 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
     
 
     $scope.savedCampaignChannel = function(){
-        if ($scope.channelData.channel == ''){
-            if($scope.channelList){
+        if ($scope.channelData.channel == '')
+        {
+            if($scope.scriptTag && $scope.channelList)
+            {
                 if (!$scope.chanelId) {
-                    $scope.newChaneleCreate();
+                    $scope.newChannelCreate();
                 }
-           }else{
-                //alert('Select channel');
+            }
+            else if ($scope.chanelId) 
+            {
+                $scope.channelScriptTag = true;
+                $scope.getAudienceSegement($scope.chanelId);
+            }
+            else
+            {
                 swal('Select channel');
-           }
+            }
        }else{
             $scope.finalCampaignList();
             $('.configure-channels-block').removeClass('active');
@@ -459,7 +487,7 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
        }   
     };
 
-    $scope.newChaneleCreate = function(){
+    $scope.newChannelCreate = function(){
         var channel = {}
             channel = $scope.channelList;
             channel.channelAccessToken = $scope.accessTocken;
@@ -584,9 +612,48 @@ app.controller('CampaignController',['$scope','campaignFactory','campaignChannel
         $('.campaign-details').slideUp();
     };
 
-    $scope.getCustomReach = function(){
-        return audienceFactory.getCustomReach().then(function(response, status) {
-            $scope.getReach = parseInt(response[0].reach);
+    $scope.getCustomReach = function(segementData){
+        var reachData ={
+            segName : [],
+            reach : []
+        }
+        angular.forEach( $scope.audienceSegementData, function(value, key){
+            
+                return audienceFactory.getCustomReach(value).then(function(response, status) {
+                    reachData.reach.push(response[0].reach);
+                    reachData.segName.push( value.segement_name);
+                     $q.all([reachData.segName, reachData.reach]).then(function(results){
+                        $scope.combined = [];
+                        angular.forEach(results, function(result, key){
+                          $scope.combined.push(result);
+                        });
+                    });
+                    $scope.getReach = response[0].reach;
+                });
+            });
+        
+    };
+
+    $scope.getPrivateReach = function(){
+        var reach = []
+        angular.forEach( $scope.privateAudienceMarketplaceList, function(value, key){
+                return audienceFactory.getPrivateReach(value).then(function(response, status) {
+                    reach.push(response[0].reach);
+                    $scope.privateReach = response[0].reach;
+                });
+            });
+    };
+
+    $scope.getPrivateAudienceMarketplaceList = function(){
+        return audienceFactory.getPrivateAudienceMarketplaceList().then(function(response, status) {
+            $scope.privateAudienceMarketplaceList = [response];
+            $scope.getPrivateReach();
+        });
+    };
+
+    $scope.getTargetingSummary = function(){
+        return audienceFactory.getTargetingSummary().then(function(response, status) {
+            $scope.targetingSummary = response;
         });
     };
 

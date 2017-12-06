@@ -762,7 +762,7 @@ main .campaign-channels-card .select-channel-overlay-btn {
     padding: 20px;
     width: 40%;
     border: 1px solid #fff;
-    height: 32%;
+    height: auto;
     border-radius: 10px;
 }
 .wrapper .overlay .popup .overlay-close-icon {
