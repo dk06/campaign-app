@@ -25,9 +25,9 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 $scope.shopping_cart = response.converstion[1].icons_tag;
                 $scope.store_mall_directory = response.converstion[2].icons_tag;
             });
-            $scope.getCustomReach();
-            $scope.getPrivateAudienceMarketplaceList();
-            $scope.getTargetingSummary();           
+            // $scope.getCustomReach();
+            // $scope.getPrivateAudienceMarketplaceList();
+            // $scope.getTargetingSummary();           
         }
     };
      
@@ -339,6 +339,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         return audienceFactory.getCustomSegmentsFields().then(function(response, status){
             $scope.customFormFields = response;
             $scope.getDemographic();
+            $scope.getTargetingSummary();
         });
     };    
 
@@ -352,7 +353,11 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 }
                 break;
             case 'Technology' :
-                $scope.getTechnology();
+                if ($scope.privateSection) {
+                    $scope.getTargetingSummary();
+                }else{
+                    $scope.getTechnology();
+                }
                 break;
             case 'Create New Channel' :
                 $scope.createNewChannelForm();
@@ -678,7 +683,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.getPrivateReach = function(){
         var reach = []
-        angular.forEach( $scope.privateAudienceMarketplaceList, function(value, key){
+        angular.forEach( $scope.customSegementForm, function(value, key){
                 return audienceFactory.getPrivateReach(value).then(function(response, status) {
                     reach.push(response[0].reach);
                     $scope.privateReach = response[0].reach;
@@ -701,6 +706,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.getTargetingSummary = function(){
         return audienceFactory.getTargetingSummary().then(function(response, status) {
             $scope.customSegementForm = response;
+            $scope.technologyData = response.technologyData;
+            $scope.getPrivateReach();
         });
     };
 

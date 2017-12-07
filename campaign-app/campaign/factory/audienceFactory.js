@@ -52,8 +52,8 @@
 	    	});
 	    };
 
-	    dataFactory.getPrivateReach = function(){
-	    	return audienceService.getPrivateReach().then(function(response, status){
+	    dataFactory.getPrivateReach = function(privateData){
+	    	return audienceService.getPrivateReach(privateData).then(function(response, status){
 	    		return response.data;
 	    	});
 	    };
@@ -71,10 +71,12 @@
 	    	var customNewSegments = {
             ageGroup : [],
             gender : [],
+            incomeDetails : [],
             language : [],
             affinityCategory : [],
             marketSegment : [],
-            IAB : []
+            IAB : [],
+            technologyData : []
         }
             return audienceService.getTargetingSummary().then(function(response, status){
 	            angular.forEach( response.ageobj, function(value, key){                
@@ -87,6 +89,25 @@
                     customNewSegments.gender.push({
                         'gender_id' : value.id,
                         'gender' : value.gender
+                    })
+	            });
+	            angular.forEach(response.incomeobj , function(value, key){                
+                    customNewSegments.incomeDetails.push({
+                        'income_id' : value.id,
+                        'income_name' : value.income
+                    })
+	            });
+	            var category  = response.audiencesegmentobj[0];
+	            angular.forEach(category.subcategory , function(value, key){                
+                    customNewSegments.IAB.push({
+                        'category_Id' : value.id,
+                        'category_name' : value.subcategory
+                    })
+	            });
+	            angular.forEach(response.deviceObject , function(value, key){                
+                    customNewSegments.technologyData.push({
+                        'device_Id' : value.id,
+                        'device_type' : value.device_type
                     })
 	            });
 	            // angular.forEach(response.affinityCategory , function(value, key){

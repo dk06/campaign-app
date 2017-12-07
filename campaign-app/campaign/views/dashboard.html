@@ -653,19 +653,19 @@
                                                     </div>
                                                 </div>
 
-                                               <!--  <div class="row">
+                                                <div class="row">
                                                     <div class="col-4">
                                                         <label class="input-label" for="language">Income</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="income.income as income.income for income in customSegementForm.incomeDetails" ng-model="channel.income" size="1" multiple>
-                                                            
+                                                        <select class="dropdown language-dd" ng-options="incomeInfo.income_name as incomeInfo.income_name for incomeInfo in customSegementForm.incomeDetails" ng-model="channel.income" size="1" multiple>
+                                                            {{incomeInfo}}
                                                         </select>
                                                         <input type="text" class="language-input" ng-model="channel.income">
                                                     </div>
-                                                </div> -->
-                                                <div class="row">
+                                                </div>
+                                                <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
                                                     <div class="col-4">
                                                         <label class="input-label" for="affinity">Affinity Category</label>
                                                         <i class="material-icons">help_outline</i>
@@ -681,7 +681,7 @@
                                                         <input type="text" class="affinity-input" ng-model="channel.affinity_catagery">
                                                     </div>
                                                 </div>
-                                                <div class="row" ng-show="selectChan === 'Adwords'">
+                                                <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
                                                     <div class="col-4">
                                                         <label class="input-label" for="segment">In-market Segment</label>
                                                         <i class="material-icons">help_outline</i>
@@ -693,27 +693,14 @@
                                                         <input type="text" class="segment-input" ng-model="channel.market_segment">
                                                     </div>
                                                 </div>
-
-                                                <div class="row" ng-show="selectChan === 'DBM'">
-                                                    <div class="col-4">
-                                                        <label class="input-label" for="segment">In-market Segment</label>
-                                                        <i class="material-icons">help_outline</i>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment" size="1" multiple>
-                                                           <!-- <option value="" disabled selected>Segment</option> -->
-                                                        </select>
-                                                        <input type="text" class="segment-input" ng-model="channel.market_segment">
-                                                    </div>
-                                                </div>
-
+                                                
                                                 <div class="row" ng-show="selectChan == 'Lightning'">
                                                     <div class="col-4">
                                                         <label class="input-label" for="other">IAB</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="iabInfo.category_name as iabInfo.category_name for iabInfo in customSegementForm.IAB" ng-model="channel.IAB">
+                                                        <select class="dropdown language-dd" ng-options="iabInfo.category_name as iabInfo.category_name for iabInfo in customSegementForm.IAB" ng-model="channel.IAB" size="1" multiple>
                                                            <!-- <option value="" disabled selected>IAB</option> -->
                                                         </select>
                                                         <input type="text" class="other-input" ng-model="channel.IAB">
