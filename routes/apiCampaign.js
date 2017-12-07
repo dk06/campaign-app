@@ -118,20 +118,37 @@ router.get('/getDemographic', function(req,res,next){
                                                 }
                                                 else
                                                 {
-                                                    var jsnData = {
-                                                        ageGroup : ageGroupData,
-                                                        gender : genderData,
-                                                        language : languageData,
-                                                        affinityCategory : affinityCategoryData,
-                                                        marketSegment : marketSegmentData,
-                                                        IAB : rows[0]
+                                                    var IABData = rows[0]
+                                                    var incomeDetailsParam = 'incomeDetails';
+                                                     apiControllerRequest.getCustomFormData(incomeDetailsParam, function(err,rows){
+                                                        if(!rows[0])
+                                                        {
+                                                            res.json({
+                                                                    data : [],
+                                                                    code: 500,
+                                                                    status: false,
+                                                                    message: "API Not Successful"});
+                                                        }
+                                                        else
+                                                        {
+                                                            var jsnData = {
+                                                                ageGroup : ageGroupData,
+                                                                gender : genderData,
+                                                                language : languageData,
+                                                                affinityCategory : affinityCategoryData,
+                                                                marketSegment : marketSegmentData,
+                                                                IAB : IABData,
+                                                                incomeDetails : rows[0]
 
-                                                    }
-                                                    res.json({
-                                                        data : jsnData,
-                                                        code: 200,
-                                                        status: "Success",
-                                                        message: "API Successful"});
+
+                                                            }
+                                                            res.json({
+                                                                data : jsnData,
+                                                                code: 200,
+                                                                status: "Success",
+                                                                message: "API Successful"});
+                                                        }
+                                                    });
                                                 }
                                             });
                                         }

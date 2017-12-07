@@ -27,6 +27,18 @@
 			})
 		};
 
+		dataFactory.getCampaignNameAndId= function(CampaignNameAndId){			 
+			return campaignChannelService.getCampaignNameAndId(CampaignNameAndId).then(function(response) {
+				return response;
+			})
+		};
+
+		dataFactory.getChannelByID= function(CampaignNameAndId){
+			return campaignChannelService.getChannelByID(CampaignNameAndId).then(function(response) {
+				return response;
+			})
+		};
+
 		dataFactory.getChannelType= function(){			 
 			return campaignChannelService.getChannelType().then(function(response) {
 				return response.data;

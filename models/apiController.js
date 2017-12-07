@@ -80,12 +80,20 @@ var APIsData={
 
 
         // cpmpaign audience segement section start
-        getAudienceSegementData:function(paramsData, callback){
+        getAudienceSegementData:function(callback){
             dbConnect.getConnection(function(err, connection){
-                connection.query("select * from new_segement where channel_id=?",[paramsData], callback);
+                connection.query("select * from new_segement",callback);
                 connection.release();
             });
         },
+
+        updateSegementType:function(paramsData, callback){
+            dbConnect.getConnection(function(err, connection){
+                connection.query("update new_segement set ? where seg_id=?", [paramsData , paramsData.seg_id], callback);
+                connection.release();
+            });
+        },
+
         getAudienceSegementById:function(id, callback){
             dbConnect.getConnection(function(err, connection){
                 connection.query("select * from new_segement where seg_id=?",[id],callback);

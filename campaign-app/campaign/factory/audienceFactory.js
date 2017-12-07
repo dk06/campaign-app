@@ -1,8 +1,8 @@
  app.factory('audienceFactory',['audienceService','$filter', function(audienceService, $filter){
 	var dataFactory = {};
 
-		dataFactory.getAudienceSegement= function(chanelId){			
-			return audienceService.getAudienceSegement(chanelId).then(function(response) {
+		dataFactory.getAudienceSegement= function(){			
+			return audienceService.getAudienceSegement().then(function(response) {
 				return response.data;
 			})
 		};
@@ -40,8 +40,14 @@
 	    	});
 	    };
 
-	    dataFactory.getCustomReach = function(segementData){
-	    	return audienceService.getCustomReach(segementData).then(function(response, status){
+	    dataFactory.updateSegementType= function(updateSegment, segementId){			
+			return audienceService.updateSegementType(updateSegment, segementId).then(function(response) {
+				return response.data;
+			})
+		};
+
+	    dataFactory.getCustomReach = function(segment){
+	    	return audienceService.getCustomReach(segment).then(function(response, status){
 	    		return response.data;
 	    	});
 	    };
@@ -62,53 +68,47 @@
 	    	// return audienceService.getTargetingSummary().then(function(response, status){
 	    	// 	return response;
 	    	// });
-            var customNewSegments = {
-                ageGroup : [],
-                gender : [],
-                language : [],
-                affinityCategory : [],
-                marketSegment : [],
-                IAB : []
-            }
-        return campaignService.getDemographic(params).then(function(response, status){
-                angular.forEach( response.data.ageobj, function(value, key){
+	    	var customNewSegments = {
+            ageGroup : [],
+            gender : [],
+            language : [],
+            affinityCategory : [],
+            marketSegment : [],
+            IAB : []
+        }
+            return audienceService.getTargetingSummary().then(function(response, status){
+	            angular.forEach( response.ageobj, function(value, key){                
                     customNewSegments.ageGroup.push({
                         'age_id' : value.id,
                         'age' : value.age
                     })
-                });
-                angular.forEach(response.data.genderobj , function(value, key){
+	            });
+	            angular.forEach(response.genderobj , function(value, key){                
                     customNewSegments.gender.push({
                         'gender_id' : value.id,
                         'gender' : value.gender
                     })
-                });
-                // angular.forEach(response.data.locations , function(value, key){
-                //     customNewSegments.language.push({
-                //             'lag_id' : value.lag_id,
-                //             'language' : value.language
-                //         })
-                // });
-                // angular.forEach(response.data.affinityCategory , function(value, key){
-                //     customNewSegments.affinityCategory.push({
-                //             'Seg_category_id' : value.category_id,
-                //             'category_name' : value.category_name
-                //         })
-                // });
-                // angular.forEach(response.data.marketSegment , function(value, key){
-                //     customNewSegments.marketSegment.push({
-                //             'Seg_category_id' : value.category_id,
-                //             'seg_category_name' : value.category_name
-                //         })
-                // });
-                // angular.forEach(response.data.IAB , function(value, key){
-                //     customNewSegments.IAB.push({
-                //             'seg_id' : value.seg_id,
-                //             'category_name' : value.category_name
-                //         })
-                // });
-                return customNewSegments;
-            });
+	            });
+	            // angular.forEach(response.affinityCategory , function(value, key){
+             //        customNewSegments.affinityCategory.push({
+             //                'Seg_category_id' : value.category_id,
+             //                'category_name' : value.category_name
+             //            })
+             //    });
+             //    angular.forEach(response.marketSegment , function(value, key){
+             //        customNewSegments.marketSegment.push({
+             //                'Seg_category_id' : value.category_id,
+             //                'seg_category_name' : value.category_name
+             //            })
+             //    });
+             //    angular.forEach(response.IAB , function(value, key){
+             //        customNewSegments.IAB.push({
+             //                'seg_id' : value.seg_id,
+             //                'category_name' : value.category_name
+             //            })
+             //    });
+	    		return customNewSegments;
+	    	});
 	    };
 		
 		return dataFactory;

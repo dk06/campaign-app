@@ -1,9 +1,8 @@
 app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window) {
     var params = {};
     
-    this.getAudienceSegement = function (chanelId) {
+    this.getAudienceSegement = function () {
         params = shareBaseUrl.BaseUrl();
-        params.channel_id = chanelId;
         var promise = $http.get(params.BaseUrl + 'getAudienceSegement', {params} ).then(function(response) {
                 return response.data;
             });
@@ -50,10 +49,20 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             return promise;
         };
 
+    this.updateSegementType = function(updateSegment, segementId){
+        params.acess = shareBaseUrl.BaseUrl();
+        params.segment_type = updateSegment;
+        params.segementId = segementId;
+        var promise = $http.post(params.BaseUrl + 'updateSegementType', {params} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
     //http://205.147.101.67:8080/marketingv1/getReach?siteId=&gender=1&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=
     this.getCustomReach = function(segementData){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '', gender : '2', agegroup : '' , incomelevel : '', device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
+        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '', gender : '1', agegroup : '' , incomelevel : '', device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
                 return response.data;
             });
     };

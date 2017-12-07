@@ -3,7 +3,7 @@ var router = express.Router();
 var apiControllerRequest = require('../models/apiController');
 
 router.get('/getAudienceSegement', function(req,res){
-    apiControllerRequest.getAudienceSegementData(req.query.channel_id, function(err,rows){
+    apiControllerRequest.getAudienceSegementData(function(err,rows){
         if(!rows[0])
         {
         res.json({
@@ -63,6 +63,26 @@ router.post('/editAudienceSegement',function(req,res,next){
         segement.update_date = req.body.params.update_date;
 
     apiControllerRequest.updateAudienceSegementData(segement,function(err,rows){
+        if(err)
+        {
+            res.json({
+                    data : [],
+                    code: 500,
+                    status: false,
+                    message: "API Not Successful"});
+        }
+        else
+        {
+            res.json(rows);
+        }
+    });
+});
+
+router.post('/updateSegementType',function(req,res,next){
+    var updateSeg = {};
+        updateSeg.segment_type = req.body.params.segment_type;
+        updateSeg.seg_id = req.body.params.segementId;
+    apiControllerRequest.updateSegementType(updateSeg ,function(err,rows){
         if(err)
         {
             res.json({

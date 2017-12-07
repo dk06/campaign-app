@@ -113,6 +113,30 @@ app.service('campaignChannelService', function ($rootScope, $http, shareBaseUrl,
                 return promise;
         };
 
+    this.getCampaignNameAndId = function(paramsObj){        
+        params = shareBaseUrl.BaseUrl();  
+        var promise = $http.get(params.cuberootBaseUrl + 'getChannelCampaignId', { params: {channel_type : paramsObj.channelName, access_token : paramsObj.channelAccessToken }} ).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        };
+
+    this.getChannelByID = function(paramsObj){
+        var responseData = {                
+                scriptTag : '',
+                campaignChannelData : ''
+            }        
+        params = shareBaseUrl.BaseUrl();  
+        var promise = $http.get(params.cuberootBaseUrl + 'campaignChannelDetails', {params : {campaign_id : paramsObj.campaign_id, channel_type : paramsObj.channelName, access_token : paramsObj.channelAccessToken }} ).then(function(response) {
+                responseData.campaignChannelData = response.data;
+                return $http.get(params.cuberootBaseUrl + 'getdmpTag', {params : {campaign_id : paramsObj.campaign_id }} ).then(function(response) {
+                    responseData.scriptTag =  response.data;
+                    return  responseData;
+                });
+            });
+            return promise;
+        };
+
     //end channel section
 
     this.savedChannel = function(paramsObj){
