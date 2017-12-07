@@ -358,12 +358,13 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 }else{
                     $scope.getTechnology();
                 }
-                break;
-            case 'Create New Channel' :
-                $scope.createNewChannelForm();
-                break;
+                break;            
             case 'Location sidebar' :
-                $scope.getCountry();
+                if ($scope.privateSection) {
+                    $scope.getTargetingSummary();
+                }else{
+                    $scope.getCountry();
+                }
                 break;
             }
     };
@@ -391,9 +392,13 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.getDeviceModel = function(deviceType){
         if (deviceType == 'Mobile') {
             $scope.deviceSelect = 'Mobile';
-            return campaignFactory.getDeviceModel().then(function(response,status){
-                $scope.devioceModel = response;
-            });
+            if ($scope.privateSection) {
+                $scope.getTargetingSummary();
+            }else{
+                return campaignFactory.getDeviceModel().then(function(response,status){
+                    $scope.devioceModel = response;
+                });
+            }
         }else{
             $scope.deviceSelect = '';
             $scope.channel.Model = '';
@@ -707,6 +712,10 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         return audienceFactory.getTargetingSummary().then(function(response, status) {
             $scope.customSegementForm = response;
             $scope.technologyData = response.technologyData;
+            $scope.devioceModel = response.mobiledeviceobj;
+            $scope.countyData = [{'country_names' : response.locations[0].country_type}];
+            $scope.stateData = [{'state_names' : response.locations[0].state_type}];
+            $scope.cityData = [{'city_names' : response.locations[0].city_type}];
             $scope.getPrivateReach();
         });
     };

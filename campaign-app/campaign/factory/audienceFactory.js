@@ -68,67 +68,71 @@
 	    	// return audienceService.getTargetingSummary().then(function(response, status){
 	    	// 	return response;
 	    	// });
-	    	var customNewSegments = {
-            ageGroup : [],
-            gender : [],
-            incomeDetails : [],
-            language : [],
-            affinityCategory : [],
-            marketSegment : [],
-            IAB : [],
-            technologyData : []
-        }
+	    	var privateFormData = {
+	            ageGroup : [],
+	            gender : [],
+	            incomeDetails : [],
+	            language : [],
+	            affinityCategory : [],
+	            marketSegment : [],
+	            IAB : [],
+	            technologyData : [],
+	            locations : [],
+	            mobiledeviceobj : []
+	        }
             return audienceService.getTargetingSummary().then(function(response, status){
 	            angular.forEach( response.ageobj, function(value, key){                
-                    customNewSegments.ageGroup.push({
+                    privateFormData.ageGroup.push({
                         'age_id' : value.id,
                         'age' : value.age
                     })
 	            });
 	            angular.forEach(response.genderobj , function(value, key){                
-                    customNewSegments.gender.push({
+                    privateFormData.gender.push({
                         'gender_id' : value.id,
                         'gender' : value.gender
                     })
 	            });
 	            angular.forEach(response.incomeobj , function(value, key){                
-                    customNewSegments.incomeDetails.push({
+                    privateFormData.incomeDetails.push({
                         'income_id' : value.id,
                         'income_name' : value.income
                     })
 	            });
 	            var category  = response.audiencesegmentobj[0];
 	            angular.forEach(category.subcategory , function(value, key){                
-                    customNewSegments.IAB.push({
+                    privateFormData.IAB.push({
                         'category_Id' : value.id,
                         'category_name' : value.subcategory
                     })
 	            });
 	            angular.forEach(response.deviceObject , function(value, key){                
-                    customNewSegments.technologyData.push({
+                    privateFormData.technologyData.push({
                         'device_Id' : value.id,
                         'device_type' : value.device_type
                     })
 	            });
-	            // angular.forEach(response.affinityCategory , function(value, key){
-             //        customNewSegments.affinityCategory.push({
-             //                'Seg_category_id' : value.category_id,
-             //                'category_name' : value.category_name
-             //            })
-             //    });
-             //    angular.forEach(response.marketSegment , function(value, key){
-             //        customNewSegments.marketSegment.push({
-             //                'Seg_category_id' : value.category_id,
-             //                'seg_category_name' : value.category_name
-             //            })
-             //    });
-             //    angular.forEach(response.IAB , function(value, key){
-             //        customNewSegments.IAB.push({
-             //                'seg_id' : value.seg_id,
-             //                'category_name' : value.category_name
-             //            })
-             //    });
-	    		return customNewSegments;
+	            angular.forEach(response.mobiledeviceobj , function(value, key){                
+                    privateFormData.mobiledeviceobj.push({
+                        'model_Id' : value.id,
+                        'Model' : value.mobiledevicemodel
+                    })
+	            });
+	            angular.forEach(response.language , function(value, key){                
+                    privateFormData.language.push({
+                        'language_Id' : value.id,
+                        'language' : value.language
+                    })
+	            });
+	            angular.forEach(response.locations , function(value, key){                
+                    privateFormData.locations.push({
+                        'id' : value.id,
+                        'country_type': value.country,
+                        'state_type' : value.state,
+                        'city_type' : value.city
+                    })
+	            });
+	    		return privateFormData;
 	    	});
 	    };
 		
