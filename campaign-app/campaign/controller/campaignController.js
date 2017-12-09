@@ -339,7 +339,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         return audienceFactory.getCustomSegmentsFields().then(function(response, status){
             $scope.customFormFields = response;
             $scope.getDemographic();
-            $scope.getTargetingSummary();
+            //$scope.getTargetingSummary();
         });
     };    
 
@@ -709,16 +709,23 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     };
 
     $scope.getTargetingSummary = function(){
-        return audienceFactory.getTargetingSummary().then(function(response, status) {
+        var channel = $scope.channelList;
+        return audienceFactory.getTargetingSummary(channel).then(function(response, status) {
             $scope.customSegementForm = response;
             $scope.technologyData = response.technologyData;
             $scope.devioceModel = response.mobiledeviceobj;
-            $scope.countyData = [{'country_names' : response.locations[0].country_type}];
-            $scope.stateData = [{'state_names' : response.locations[0].state_type}];
-            $scope.cityData = [{'city_names' : response.locations[0].city_type}];
+            $scope.countyData = [{'country_names' : response.locations[0].country_names}];
+            $scope.stateData = response.locations;
+            $scope.cityData = response.locations;
             $scope.getPrivateReach();
         });
     };
+
+    // $scope.getChannelPortedCategories = function(portedCategories){
+    //     return audienceFactory.getChannelPortedCategories(portedCategories).then(function(response, status) {
+    //         $scope.customSegementForm
+    //     });
+    // };
 
     $scope.slideChange = function(select){
 

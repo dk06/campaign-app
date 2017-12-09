@@ -83,9 +83,25 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             });
     };
 
-    this.getTargetingSummary = function(){
+    this.getTargetingSummary = function(channel){
         params = shareBaseUrl.BaseUrl();
+        var responseData = {
+            TargetingSummary : '',
+            PortedCategories : ''
+        };
         return $http.get(params.cuberootBaseUrl + 'getTargetingSummary', {params: {siteId : '1'}}).then(function(response) {
+                responseData.TargetingSummary = response.data;
+
+                return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : channel.channelType, target_channel : channel.advertType,categoryType : 'market', categoryList : '80439' }}).then(function(response) {
+                    responseData.PortedCategories = response.data;
+                    return responseData
+                });
+            });
+    };
+    //http://205.147.101.67:8080/marketingv1/getChannelPortedCategories?source_channel=Adwords&target_channel=Lightning&categoryType=market&categoryList=80439
+    this.getChannelPortedCategories = function(portedCategories){
+        params = shareBaseUrl.BaseUrl();
+        return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : 'Adwords', target_channel : 'Lightning',categoryType : 'market', categoryList : '80439' }}).then(function(response) {
                 return response.data;
             });
     };

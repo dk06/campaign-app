@@ -64,7 +64,7 @@
 	    	});
 	    };
 
-	    dataFactory.getTargetingSummary = function(){
+	    dataFactory.getTargetingSummary = function(channel){
 	    	// return audienceService.getTargetingSummary().then(function(response, status){
 	    	// 	return response;
 	    	// });
@@ -80,59 +80,71 @@
 	            locations : [],
 	            mobiledeviceobj : []
 	        }
-            return audienceService.getTargetingSummary().then(function(response, status){
-	            angular.forEach( response.ageobj, function(value, key){                
+            return audienceService.getTargetingSummary(channel).then(function(response, status){
+	            angular.forEach( response.TargetingSummary.ageobj, function(value, key){                
                     privateFormData.ageGroup.push({
                         'age_id' : value.id,
                         'age' : value.age
                     })
 	            });
-	            angular.forEach(response.genderobj , function(value, key){                
+	            angular.forEach(response.TargetingSummary.genderobj , function(value, key){                
                     privateFormData.gender.push({
                         'gender_id' : value.id,
                         'gender' : value.gender
                     })
 	            });
-	            angular.forEach(response.incomeobj , function(value, key){                
+	            angular.forEach(response.TargetingSummary.incomeobj , function(value, key){                
                     privateFormData.incomeDetails.push({
                         'income_id' : value.id,
                         'income_name' : value.income
                     })
 	            });
-	            var category  = response.audiencesegmentobj[0];
-	            angular.forEach(category.subcategory , function(value, key){                
+	            var category  = response.PortedCategories;
+	            angular.forEach(category , function(value, key){                
                     privateFormData.IAB.push({
                         'category_Id' : value.id,
-                        'category_name' : value.subcategory
+                        'category_name' : value.segments
                     })
 	            });
-	            angular.forEach(response.deviceObject , function(value, key){                
+	            angular.forEach(response.TargetingSummary.deviceObject , function(value, key){                
                     privateFormData.technologyData.push({
                         'device_Id' : value.id,
                         'device_type' : value.device_type
                     })
 	            });
-	            angular.forEach(response.mobiledeviceobj , function(value, key){                
+	            angular.forEach(response.TargetingSummary.mobiledeviceobj , function(value, key){                
                     privateFormData.mobiledeviceobj.push({
                         'model_Id' : value.id,
                         'Model' : value.mobiledevicemodel
                     })
 	            });
-	            angular.forEach(response.language , function(value, key){                
+	            angular.forEach(response.TargetingSummary.language , function(value, key){                
                     privateFormData.language.push({
                         'language_Id' : value.id,
                         'language' : value.language
                     })
 	            });
-	            angular.forEach(response.locations , function(value, key){                
+	            angular.forEach(response.TargetingSummary.locations , function(value, key){                
                     privateFormData.locations.push({
-                        'id' : value.id,
-                        'country_type': value.country,
-                        'state_type' : value.state,
-                        'city_type' : value.city
+                        'country_names': value.country,
+                        'country_codes' : value.countryId,
+                        'state_names' : value.state,
+                        'state_code' : value.stateId,
+                        'city_names' : value.city,
+                        'cityId': value.cityId
                     })
 	            });
 	    		return privateFormData;
+	    	});
+	    };
+
+	    dataFactory.getChannelPortedCategories = function(portedCategories){
+	    	var PortedCategoriesData = {}
+	    	return audienceService.getChannelPortedCategories(portedCategories).then(function(response, status){
+	    		angular.forEach(response, function(value, key){
+	    			PortedCategoriesData.push({'segments' : value.segments});
+	    		});
+	    		return PortedCategoriesData;
 	    	});
 	    };
 		
