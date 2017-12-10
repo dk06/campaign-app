@@ -3,6 +3,12 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.headingTitle = 'App Start';
     $scope.SelectChannelName = '';
+    $scope.customSegementForm = {}
+    $scope.countySelect = 'Select County';
+    $scope.stateSelect = 'Select State';
+    $scope.citySelect = 'Select City';
+    $scope.deviceSelect = 'Select Device';
+    $scope.deviceModelSelect = 'Select Model';
 	init();
     function init() {
         if ($window.localStorage.accessToken) {
@@ -218,6 +224,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.getAudienceSegement = function(){
         return audienceFactory.getAudienceSegement().then(function(response, status){
             $scope.audienceSegementData = response;
+            $scope.segmentDataList = response;
             $scope.getCustomReach();
         })
     };
@@ -270,10 +277,66 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.advanceActive = false;      
     };
 
-    $scope.savedAudience = function(segment, chanelId){
-         var count = Object.keys(segment).length;
-        if (count >= 15) {
-            $scope.savedAudienceSegementFields(segment, chanelId);
+    $scope.ageGroup=[];
+    $scope.ageGroupChangedValue=function(item){
+        $scope.ageGroup.push(item);
+    };
+
+    $scope.genderGroup=[];
+    $scope.genderChangedValue=function(item){
+        $scope.genderGroup.push(item);
+    };
+
+    $scope.selectCountry = function(country, country_type){
+        $scope.countySelect = country;
+        $scope.country_type = country;
+        $scope.getState(country_type)
+    };
+
+    $scope.selectState = function(state, state_type){
+        $scope.stateSelect = state;
+        $scope.state_type = state;
+        $scope.getCity(state_type)
+    };
+
+    $scope.selectCity = function(city){
+        $scope.city_type = city;
+        $scope.citySelect = city;
+    };
+
+    $scope.selectDeviceType = function(device, deviceType){
+        $scope.deviceSelect = device;
+        $scope.device_type = device;
+        if (device == 'Mobile') {
+            $scope.getDeviceModel(deviceType);
+        }
+    };
+
+    $scope.selectDeviceModel = function(model){
+        $scope.deviceModelSelect = model;
+        $scope.Model = model;
+    };
+
+    $scope.savedAudience = function(segment){
+        var count = Object.keys(segment).length;
+        var age_apiRef = $scope.customSegementForm.ageGroup;
+        $scope.age_type = [];        
+         angular.forEach(age_apiRef, function(value, key){
+            if ($scope.ageGroup[key] == true) {
+                $scope.age_type.push({'age_type' : value.age});
+            }
+         });
+
+        var gender_apiRef = $scope.customSegementForm.gender;
+        $scope.gender_type = [];
+         angular.forEach(gender_apiRef, function(value, key){
+            if ($scope.genderGroup[key] == true) {
+                $scope.gender_type.push({'gender_type' : value.gender});
+            }
+         });
+
+        if (count >= 8 && $scope.country_type && $scope.state_type && $scope.city_type && $scope.device_type || $scope.Model) {
+            $scope.savedAudienceSegementFields(segment, $scope.chanelId);
         }else{
             swal('All fields are Mandatory!');
         }
@@ -281,17 +344,31 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.savedAudienceSegementFields = function(segment, chanelId){
          var count = Object.keys(segment).length;
-        if (count >= 15) {
+        if (count >= 8 && $scope.country_type && $scope.state_type && $scope.city_type && $scope.device_type || $scope.Model) {
             if($scope.chanelId){
                 var chanelId = $scope.chanelId;
             }else{
                 var chanelId = chanelId;
             }
-            var params = {};
-            params.segmentData = segment;            
-            params.chanelId = chanelId;
-            params.segment_type = $scope.selectChan;
-            return audienceFactory.postAudienceSegement(params).then(function(response, status){
+
+            var segmentData = {};
+                segmentData = segment;
+                //segmentData.chanelId = chanelId;
+                segmentData.segment_type = $scope.selectChan;
+                segmentData.income = JSON.stringify(segment.income);
+                segmentData.age_type = JSON.stringify($scope.age_type);
+                segmentData.gender_type = JSON.stringify($scope.gender_type);
+                segmentData.affinity_catagery = JSON.stringify(segment.affinity_catagery);
+                segmentData.language = JSON.stringify(segment.language);
+                segmentData.market_segment = JSON.stringify(segment.market_segment);
+                segmentData.IAB = JSON.stringify(segment.IAB);
+                segmentData.device_type = $scope.device_type;
+                segmentData.Model = $scope.Model;
+                segmentData.country_type = $scope.country_type;
+                segmentData.state_type = $scope.state_type;
+                segmentData.city_type = $scope.city_type;
+                $scope.segmentDataList = segmentData;
+            return audienceFactory.postAudienceSegement(segmentData).then(function(response, status){
                 //alert('SuccessFully Add..');
                 $scope.newSegementCreateForm = false;
                 $scope.audienceSegementSection = false;
@@ -310,12 +387,32 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $('.set-audience-parameters').removeClass('content-active');
                     $('.create-audience-section').addClass('content-active');
                     document.getElementById("defaultOpen").click();
+                    $scope.countySelect = 'Select County';
+                    $scope.stateSelect = 'Select State';
+                    $scope.citySelect = 'Select City';
+                    $scope.deviceSelect = 'Select Device';
+                    $scope.deviceModelSelect = 'Select Model';
+                    $scope.country_type = '';
+                    $scope.city_type = '';
+                    $scope.state_type = '';
+                    $scope.device_type = '';
+                    $scope.Model = '';
                     //$('.create-audience-section').addClass('content-showcase');
                   }
                   else{
                     $('.create-audience-section').removeClass('content-active');
                     $('.audience-section').addClass('content-active');
                     $scope.getAudienceSegement();
+                    $scope.countySelect = 'Select County';
+                    $scope.stateSelect = 'Select State';
+                    $scope.citySelect = 'Select City';
+                    $scope.deviceSelect = 'Select Device';
+                    $scope.deviceModelSelect = 'Select Model';
+                    $scope.country_type = '';
+                    $scope.city_type = '';
+                    $scope.state_type = '';
+                    $scope.device_type = '';
+                    $scope.Model = '';
                   }
                 })
             });
@@ -347,6 +444,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         switch(filterDate){
             case 'Demographics' :
                 if ($scope.privateSection) {
+                    $scope.getDemographic();
                     $scope.getTargetingSummary();
                 }else{
                     $scope.getDemographic();
@@ -354,6 +452,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 break;
             case 'Technology' :
                 if ($scope.privateSection) {
+                    $scope.getTechnology();
                     $scope.getTargetingSummary();
                 }else{
                     $scope.getTechnology();
@@ -361,6 +460,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 break;            
             case 'Location sidebar' :
                 if ($scope.privateSection) {
+                    $scope.getCountry();
                     $scope.getTargetingSummary();
                 }else{
                     $scope.getCountry();
@@ -376,6 +476,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         return campaignFactory.getDemographic().then(function(response, status){
             $scope.demographic = true;
             $scope.customSegementForm = response;
+            $scope.customSegem = response;
         });
     };
 
@@ -675,7 +776,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.getCustomReach = function(segementData){
         $scope.combined = [];
-        angular.forEach( $scope.audienceSegementData, function(value, key){
+        angular.forEach( $scope.segmentDataList, function(value, key){
             if (value.segment_type == 'Lightning') {
             audienceFactory.getCustomReach(value).then(function(response, status) {
                 $scope.combined.push({seg: value.segement_name, rea: response[0].reach});
@@ -711,13 +812,55 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.getTargetingSummary = function(){
         var channel = $scope.channelList;
         return audienceFactory.getTargetingSummary(channel).then(function(response, status) {
-            $scope.customSegementForm = response;
+            //$scope.customSegementForm = response;
+            $scope.channel = {
+                language : response.language[0].language,
+                income : response.incomeDetails[0].income
+
+            }
             $scope.technologyData = response.technologyData;
             $scope.devioceModel = response.mobiledeviceobj;
-            $scope.countyData = [{'country_names' : response.locations[0].country_names}];
+            
+            $scope.countySelect = response.locations[0].country_names;
+            // $timeout(function () {
+                    
+            //     }, 1000);
+            
             $scope.stateData = response.locations;
             $scope.cityData = response.locations;
+            $scope.api_responce = response;
             $scope.getPrivateReach();
+            var ageGroup = [];
+            var genderGroup = [];
+
+            $scope.ageGroup_ref = $scope.customSegem.ageGroup;
+
+            $scope.genderGroup_ref = $scope.customSegem.gender;
+
+            $scope.ageGroup_ref.map(function(e, index){  
+                for(let i =0 ; i < $scope.api_responce.ageGroup.length; i++){
+                    if($scope.api_responce.ageGroup[i].age == e.age){
+                        ageGroup[index] = true;
+                        break;
+                    }
+                }
+
+                ageGroup[index] = ageGroup[index] || false;
+            })
+
+            $scope.genderGroup_ref.map(function(e, index){  
+                for(let i =0 ; i < $scope.api_responce.gender.length; i++){
+                    if($scope.api_responce.gender[i].gender == e.gender){
+                        genderGroup[index] = true;
+                        break;
+                    }
+                }
+
+                genderGroup[index] = genderGroup[index] || false;
+            })
+
+           $scope.ageGroup = ageGroup;
+           $scope.genderGroup = genderGroup;
         });
     };
 

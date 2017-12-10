@@ -13,10 +13,12 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
         params.acess = shareBaseUrl.BaseUrl();
         params = params;
         params.segment_type = params.segment_type;
-        params.affinity_catagery = JSON.stringify(params.segementDatat.affinity_catagery);
-        params.language = JSON.stringify(params.segementDatat.language);
-        params.market_segment = JSON.stringify(params.segementDatat.market_segment);
-        params.IAB = JSON.stringify(params.segementDatat.IAB);
+        // params.age_type = JSON.stringify(params.segementDatat.age_type);
+        // params.gender_type = JSON.stringify(params.segementDatat.gender_type);
+        // params.affinity_catagery = JSON.stringify(params.segementDatat.affinity_catagery);
+        // params.language = JSON.stringify(params.segementDatat.language);
+        // params.market_segment = JSON.stringify(params.segementDatat.market_segment);
+        // params.IAB = JSON.stringify(params.segementDatat.IAB);
         params.userId = params.acess.userId;
         var promise = $http.post(params.acess.BaseUrl + 'audienceSegement', {params} ).then(function(response) {
                 return response;
@@ -92,7 +94,7 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
         return $http.get(params.cuberootBaseUrl + 'getTargetingSummary', {params: {siteId : '1'}}).then(function(response) {
                 responseData.TargetingSummary = response.data;
 
-                return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : channel.channelType, target_channel : channel.advertType,categoryType : 'market', categoryList : '80439' }}).then(function(response) {
+                return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : 'Adwords', target_channel : 'Lightning',categoryType : 'market', categoryList : '80439' }}).then(function(response) {
                     responseData.PortedCategories = response.data;
                     return responseData
                 });

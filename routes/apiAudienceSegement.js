@@ -28,15 +28,11 @@ router.post('/audienceSegement',function(req,res,next){
         segement = req.body.params.segementDatat;
         segement.user_id = req.body.params.userId;
         segement.channel_id = req.body.params.channel_id;
-        segement.affinity_catagery = req.body.params.affinity_catagery;
-        segement.language = req.body.params.language;
-        segement.market_segment = req.body.params.language;
-        segement.IAB = req.body.params.language;
         segement.segment_type = req.body.params.segment_type;
         //segement.city_type = req.body.params.segementDatat.city_names;
         segement.create_date = req.body.params.create_date;
         segement.update_date = req.body.params.update_date;
-        segement.device_model = req.body.params.segementDatat.Model;
+        //segement.device_model = req.body.params.segementDatat.Model;
     apiControllerRequest.insertAudienceSegementData(segement,function(err,rows){
         if(err)
         {

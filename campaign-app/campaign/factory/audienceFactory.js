@@ -12,7 +12,7 @@
 			// var datadate = document.getElementById("daterange").value;
 			// var dateRangeArray = datadate.split('-');			
 			var params = {}
-	            params.segementDatat = segment.segmentData;
+	            params.segementDatat = segment;
 	            params.channel_id = segment.chanelId;
 	            params.segment_type = segment.segment_type;
 	            params.create_date = date;

@@ -611,7 +611,12 @@
                                                         <label class="input-label" for="age">Age</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
-                                                    <div class="col-9">
+                                                    <div class="col-sm-9">
+                                                        <span ng-repeat="ageField in customSegementForm.ageGroup">
+                                                            <input type="checkbox" value="{{ageField.age}}" ng-model="ageGroup[$index]" ng-change="ageGroupChangedValue(ageGroup)" >{{ageField.age}}
+                                                        </span>
+                                                    </div>
+                                                    <!-- <div class="col-9">
 <input type="radio" ng-if="customSegementForm.ageGroup[0].age_id" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[0].age_id" name="radio1" id="customSegementForm.ageGroup[0].age_id">{{customSegementForm.ageGroup[0].age}}
 
 <input type="radio" name="radio1" ng-if="customSegementForm.ageGroup[1].age_id" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[1].age_id" id="customSegementForm.ageGroup[1].age_id">{{customSegementForm.ageGroup[1].age}}
@@ -625,20 +630,26 @@
 <input type="radio" name="radio1" ng-if="customSegementForm.ageGroup[5].age_id" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[5].age_id" id="customSegementForm.ageGroup[5].age_id">{{customSegementForm.ageGroup[5].age}}
 
 <input type="radio" name="radio1" ng-if="customSegementForm.ageGroup[6].age_id" ng-model="channel.age_type" ng-value="customSegementForm.ageGroup[6].age_id" id="customSegementForm.ageGroup[6].age_id">{{customSegementForm.ageGroup[6].age}}
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-3">
                                                         <label class="input-label" for="gender">Gender</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
-                                                    <div class="col-9">
+
+                                                    <div class="col-sm-9">
+                                                        <span ng-repeat="genderField in customSegementForm.gender">
+                                                            <input type="checkbox" value="{{genderField.gender}}" ng-model="genderGroup[$index]" ng-change="genderChangedValue(genderGroup)">{{genderField.gender}}
+                                                        </span>
+                                                    </div>
+                                                    <!-- <div class="col-9">
 <input type="radio" name="radio2" ng-if="customSegementForm.gender[0].gender_id" ng-model="channel.gender_type" ng-value="customSegementForm.gender[0].gender_id" id="customSegementForm.gender[0].gender_id">{{customSegementForm.gender[0].gender}}
 
 <input type="radio" name="radio2" ng-if="customSegementForm.gender[1].gender_id" ng-model="channel.gender_type" ng-value="customSegementForm.gender[1].gender_id" id="customSegementForm.gender[1].gender_id">{{customSegementForm.gender[1].gender}}
 
 <input type="radio" name="radio2" ng-if="customSegementForm.gender[2].gender_id" ng-model="channel.gender_type" ng-value="customSegementForm.gender[2].gender_id" id="customSegementForm.gender[2].gender_id">{{customSegementForm.gender[2].gender}}
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-4">
@@ -737,34 +748,84 @@
                                             <input type="text" name="" class="form-control"  ng-model="channel.screen_resulation" placeholder="Screen Resoluton">
                                             <br>
                                             <label>Device Type</label>
-                                            <select class="form-control" ng-options="deviceType.device_type as deviceType.device_type for deviceType in technologyData" ng-model="channel.device_type"                     ng-change="getDeviceModel(channel.device_type)">
+                                            <!-- <select class="form-control" ng-options="deviceType.device_type as deviceType.device_type for deviceType in technologyData" ng-model="channel.device_type"                     ng-change="getDeviceModel(channel.device_type)">
                                                 <option value="" disabled selected>Select Type</option>
-                                            </select>
+                                            </select> -->
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{deviceSelect}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul ng-repeat="deviceType in technologyData">
+                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li>
+            </ul>
+        </div>
+    </div>
                                             <br>
                                             <div ng-hide="deviceSelect != 'Mobile'">
                                                 <label>Devioce Model</label>              
-                                                <select class="form-control" ng-options="model.Model as model.Model for model in devioceModel" ng-model="channel.Model" ng-disabled="deviceSelect != 'Mobile'">
+                                                <!-- <select class="form-control" ng-options="model.Model as model.Model for model in devioceModel" ng-model="channel.Model" ng-disabled="deviceSelect != 'Mobile'">
                                                    <option value="" disabled selected>Select Model</option>
-                                                </select>
+                                                </select> -->
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{deviceModelSelect}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul ng-repeat="model in devioceModel">
+                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectDeviceModel(model.Model)">{{model.Model}}</a></li>
+            </ul>
+        </div>
+    </div>
                                             </div>
                                         </div>
 
                                         <div id="TrafficSources" class="tabcontent">
                                             <label>Country</label>
-                                            <select class="form-control" ng-options="county.country_codes as county.country_names for county in countyData" ng-model="channel.country_type"                     ng-change="getState(channel.country_type)">
+                                            <!-- <select class="form-control" ng-options="county.country_codes as county.country_names for county in countyData" ng-model="channel.country_type"                     ng-change="getState(channel.country_type)">
                                                 <option value="" disabled selected>Select Country</option>
-                                            </select>
+                                            </select> -->
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{countySelect}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul ng-repeat="county in countyData">
+                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectCountry(county.country_names, county.country_codes)">{{county.country_names}}</a></li>
+            </ul>
+        </div>
+    </div>
                                             <br>
                                             <label>State</label>
-                                            <select class="form-control" ng-options="state.state_code as state.state_names for state in stateData" 
+                                            <!-- <select class="form-control" ng-options="state.state_code as state.state_names for state in stateData" 
                                                     ng-model="channel.state_type" ng-change="getCity(channel.state_type)">
                                                 <option value="" disabled selected>Select State</option>
-                                            </select>
+                                            </select> -->
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{stateSelect}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul ng-repeat="state in stateData">
+                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectState(state.state_names, state.state_code)">{{state.state_names}}</a></li>
+            </ul>
+        </div>
+    </div>
                                             <br>
                                             <label>City</label>
-                                            <select class="form-control" ng-options="city.city_names as city.city_names for city in cityData" ng-model="channel.city_type">
+                                            <!-- <select class="form-control" ng-options="city.city_names as city.city_names for city in cityData" ng-model="channel.city_type">
                                                <option value="" disabled selected>Select City</option>
-                                            </select>
+                                            </select> -->
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{citySelect}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul ng-repeat="city in cityData">
+                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectCity(city.city_names)">{{city.city_names}}</a></li>
+            </ul>
+        </div>
+    </div>
                                             <br>
                                             <label>Zip Code</label>
                                             <input type="text" class="form-control" ng-model="channel.zipcode">
@@ -783,7 +844,7 @@
                                                 <button class="btn btn-primary cancel-btn" ng-click="cancelAudienceSegement()">Cancel</button>
                                             </div>
                                             <div class="col-6">
-                                                <button class="btn btn-primary" ng-click="createNewCampaignChanel(channel)">Continue</button>
+                                                <button class="btn btn-primary" ng-click="savedAudience(channel)">Continue</button>
                                             </div>
                                         </div>
                                     </div>
