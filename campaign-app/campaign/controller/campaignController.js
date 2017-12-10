@@ -322,10 +322,11 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.savedAudience = function(segment){
         var count = Object.keys(segment).length;
         var age_apiRef = $scope.customSegementForm.ageGroup;
-        $scope.age_type = [];        
+        $scope.age_type = [];
          angular.forEach(age_apiRef, function(value, key){
             if ($scope.ageGroup[key] == true) {
-                $scope.age_type.push({'age_type' : value.age});
+                
+                $scope.age_type = $scope.age_type + value.age_id + ',' ;
             }
          });
 
@@ -333,7 +334,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.gender_type = [];
          angular.forEach(gender_apiRef, function(value, key){
             if ($scope.genderGroup[key] == true) {
-                $scope.gender_type.push({'gender_type' : value.gender});
+                //$scope.gender_type.push({'gender_type' : value.gender});
+                $scope.gender_type = $scope.gender_type + value.gender_id + ','
             }
          });
 
