@@ -9,12 +9,14 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.citySelect = 'Select City';
     $scope.deviceSelect = 'Select Device';
     $scope.deviceModelSelect = 'Select Model';
+
 	init();
     function init() {
         if ($window.localStorage.accessToken) {
             return campaignFactory.getCategories().then(function(response, status) {
                 $scope.obj = response;
-
+                $scope.example20model = []; 
+                $scope.example20data = [ { id: 1, label: "David", age: 23 }, { id: 2, label: "Jhon", age: 24 }, { id: 3, label: "Danny", age: 26 } ]; $scope.example20settings = { searchField: 'age', enableSearch: true };
                 //Awareness section icons set
                 $scope.volume_up = response.awarnes[0].icons_tag;
                 $scope.accessibility = response.awarnes[1].icons_tag;

@@ -64,7 +64,7 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
     //http://205.147.101.67:8080/marketingv1/getReach?siteId=&gender=1&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=
     this.getCustomReach = function(segementData){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : segementData.gender_type, agegroup : segementData.age_type , incomelevel : '', device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
+        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : '1', agegroup : '1' , incomelevel : '', device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
                 return response.data;
             });
     };
