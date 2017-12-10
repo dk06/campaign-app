@@ -401,6 +401,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.state_type = '';
                     $scope.device_type = '';
                     $scope.Model = '';
+                    $scope.ageGroup = [];
+                    $scope. genderGroup = [];
                     //$('.create-audience-section').addClass('content-showcase');
                   }
                   else{
@@ -417,6 +419,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.state_type = '';
                     $scope.device_type = '';
                     $scope.Model = '';
+                    $scope.ageGroup = [];
+                    $scope. genderGroup = [];
                   }
                 })
             });
@@ -428,6 +432,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $('.create-audience-section').removeClass('content-active');
         $('.audience-section').addClass('content-active');
         $scope.getAudienceSegement();
+        $scope.ageGroup = [];
+        $scope. genderGroup = [];
     };
 
     $scope.editAudienceSegement = function(chenel){
