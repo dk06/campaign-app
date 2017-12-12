@@ -1,8 +1,16 @@
 <div class="container-fluid">
 <main>
     <!-- <div ng-dropdown-multiselect="" options="example9data" selected-model="example9model" extra-settings="example9settings"></div> -->
+   <!-- <h2>Select Baselines</h2>
+    <div ng-dropdown-multiselect="" 
+         options="resultsWithInfo" 
+         selected-model="selected_baselines"
+         extra-settings="selected_baseline_settings"
+         translation-texts="selected_baselines_customTexts"></div>
 
-    <div ng-dropdown-multiselect="" options="example14data" selected-model="example14model" checkboxes="true" extra-settings="example14settings"></div> <pre>Selected Model: {{example14model}} | json</pre>
+    {{ selected_baselines }}
+
+  </div> -->
     
     <div class="row">
         <section class="col-md-3">
@@ -661,10 +669,22 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language" size="1" multiple>
-                                                           <!-- <option value="" disabled selected>Language</option> -->
-                                                        </select>
-                                                        <input type="text" class="language-input" ng-model="channel.language">
+                                                        <!-- <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language" size="1" multiple>
+                                                        </select> -->
+<div class="dropdown dropdown-scroll">
+    <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{languageSelect}}</span>
+        <p class="pull-right"><span class="caret"></span></p>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation" ng-repeat='lang in customSegementForm.language'> 
+            <input type="checkbox" name="" ng-model="languageObj[$index]" ng-change="languageChangedValue(languageObj, languageObj[$index], lang.language)">{{lang.language}}
+        </li>
+    </ul>
+</div>
+
+
+    
+                                                        <input type="text" class="language-input" ng-model="language">
                                                     </div>
                                                 </div>
 
@@ -674,10 +694,20 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="incomeInfo.income_name as incomeInfo.income_name for incomeInfo in customSegementForm.incomeDetails" ng-model="channel.income" size="1" multiple>
+                                                        <!-- <select class="dropdown language-dd" ng-options="incomeInfo.income_name as incomeInfo.income_name for incomeInfo in customSegementForm.incomeDetails" ng-model="channel.income" size="1" multiple>
                                                             {{incomeInfo}}
-                                                        </select>
-                                                        <input type="text" class="language-input" ng-model="channel.income">
+                                                        </select> -->
+<div class="dropdown dropdown-scroll">
+    <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{incomeSelect}}</span>
+        <p class="pull-right"><span class="caret"></span></p>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">        
+        <li role="presentation" ng-repeat='incomeInfo in customSegementForm.incomeDetails'>
+            <input type="checkbox" name="" ng-model="incomeObj[$index]" ng-change="incomeChangedValue(incomeObj,incomeObj[$index], incomeInfo.income_name)">{{incomeInfo.income_name}}
+        </li>
+    </ul>
+</div>
+                                                        <input type="text" class="language-input" ng-model="income">
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
@@ -685,15 +715,27 @@
                                                         <label class="input-label" for="affinity">Affinity Category</label>
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
-                                                    <div class="col-8">
-                                                        <!-- <select class="dropdown affinity-dd">
-                                                            <option value="containsins">contains</option>
-                                                            <option value="is/are">is/are not</option>
+                                                    <div class="col-8">                                                        
+                                                        <!-- <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.affinity_catagery" size="1" multiple>
                                                         </select> -->
-                                                        <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.affinity_catagery" size="1" multiple>
-                                                           <!-- <option value="" disabled selected>Affinity Category</option> -->
-                                                        </select>
-                                                        <input type="text" class="affinity-input" ng-model="channel.affinity_catagery">
+
+<div class="dropdown dropdown-scroll">
+    <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{affinitySelect}}</span>
+        <p class="pull-right"><span class="caret"></span></p>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <div class="input-group input-group-sm search-control">                
+                <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+            </div>
+        </li>
+        <li role="presentation" ng-repeat='affinity in customSegementForm.affinityCategory | filter:query'>
+            <input type="checkbox" name="" ng-model="affinityObj[$index]" ng-change="affinityChangedValue(affinityObj,affinityObj[$index], affinity.category_name)">{{affinity.category_name}}
+        </li>
+    </ul>
+</div>
+
+                                                        <input type="text" class="affinity-input" ng-model="affinity_catagery">
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
@@ -702,10 +744,25 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">               
-                                                        <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment" size="1" multiple>
-                                                           <!-- <option value="" disabled selected>Segment</option> -->
-                                                        </select>
-                                                        <input type="text" class="segment-input" ng-model="channel.market_segment">
+                                                        <!-- <select class="dropdown language-dd" ng-options="market.seg_category_name as market.seg_category_name for market in customSegementForm.marketSegment" ng-model="channel.market_segment" size="1" multiple>
+                                                        </select> -->
+
+<div class="dropdown dropdown-scroll">
+    <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{marketSegmentSelect}}</span>
+        <p class="pull-right"><span class="caret"></span></p>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <div class="input-group input-group-sm search-control">                
+                <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+            </div>
+        </li>
+        <li role="presentation" ng-repeat='market in customSegementForm.marketSegment | filter:query'>
+            <input type="checkbox" name="" ng-model="marketSegmentObj[$index]" ng-change="marketSegmentChangedValue(marketSegmentObj,marketSegmentObj[$index], market.seg_category_name)">{{market.seg_category_name}}
+        </li>
+    </ul>
+</div>
+                                                        <input type="text" class="segment-input" ng-model="market_segment">
                                                     </div>
                                                 </div>
                                                 
@@ -715,10 +772,25 @@
                                                         <i class="material-icons">help_outline</i>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select class="dropdown language-dd" ng-options="iabInfo.category_name as iabInfo.category_name for iabInfo in customSegementForm.IAB" ng-model="channel.IAB" size="1" multiple>
-                                                           <!-- <option value="" disabled selected>IAB</option> -->
-                                                        </select>
-                                                        <input type="text" class="other-input" ng-model="channel.IAB">
+                                                        <!-- <select class="dropdown language-dd" ng-options="iabInfo.category_name as iabInfo.category_name for iabInfo in customSegementForm.IAB" ng-model="channel.IAB" size="1" multiple>
+                                                        </select> -->
+
+<div class="dropdown dropdown-scroll">
+    <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{IABSelect}}</span>
+        <p class="pull-right"><span class="caret"></span></p>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+            <div class="input-group input-group-sm search-control">                
+                <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+            </div>
+        </li>
+        <li role="presentation" ng-repeat='iabInfo in customSegementForm.IAB | filter:query'>
+            <input type="checkbox" name="" ng-model="IAB_Obj[$index]" ng-change="IABChangedValue(IAB_Obj, IAB_Obj[$index], iabInfo.category_name)">{{iabInfo.category_name}}
+        </li>
+    </ul>
+</div>
+                                                        <input type="text" class="other-input" ng-model="IAB">
                                                     </div>
                                                 </div>
 
@@ -760,8 +832,8 @@
             {{deviceSelect}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul ng-repeat="deviceType in technologyData">
-                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li>
+            <ul style="list-style-type:none" ng-repeat="deviceType in technologyData">
+                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li>
             </ul>
         </div>
     </div>
@@ -776,8 +848,8 @@
             {{deviceModelSelect}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul ng-repeat="model in devioceModel">
-                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectDeviceModel(model.Model)">{{model.Model}}</a></li>
+            <ul style="list-style-type:none" ng-repeat="model in devioceModel">
+                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceModel(model.Model)">{{model.Model}}</a></li>
             </ul>
         </div>
     </div>
@@ -794,8 +866,8 @@
             {{countySelect}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul ng-repeat="county in countyData">
-                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectCountry(county.country_names, county.country_codes)">{{county.country_names}}</a></li>
+            <ul style="list-style-type:none" ng-repeat="county in countyData">
+                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectCountry(county.country_names, county.country_codes)">{{county.country_names}}</a></li>
             </ul>
         </div>
     </div>
@@ -810,8 +882,8 @@
             {{stateSelect}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul ng-repeat="state in stateData">
-                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectState(state.state_names, state.state_code)">{{state.state_names}}</a></li>
+            <ul style="list-style-type:none" ng-repeat="state in stateData">
+                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectState(state.state_names, state.state_code)">{{state.state_names}}</a></li>
             </ul>
         </div>
     </div>
@@ -825,8 +897,8 @@
             {{citySelect}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul ng-repeat="city in cityData">
-                <li class="dropdown" style=""><a href="javascript:void(0)" ng-click="selectCity(city.city_names)">{{city.city_names}}</a></li>
+            <ul style="list-style-type:none" ng-repeat="city in cityData">
+                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectCity(city.city_names)">{{city.city_names}}</a></li>
             </ul>
         </div>
     </div>
