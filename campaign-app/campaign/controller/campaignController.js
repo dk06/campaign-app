@@ -360,8 +360,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 //segmentData.chanelId = chanelId;
                 segmentData.segment_type = $scope.selectChan;
                 segmentData.income = JSON.stringify(segment.income);
-                segmentData.age_type = JSON.stringify($scope.age_type);
-                segmentData.gender_type = JSON.stringify($scope.gender_type);
+                segmentData.age_type = $scope.age_type;
+                segmentData.gender_type = $scope.gender_type;
                 segmentData.affinity_catagery = JSON.stringify(segment.affinity_catagery);
                 segmentData.language = JSON.stringify(segment.language);
                 segmentData.market_segment = JSON.stringify(segment.market_segment);
