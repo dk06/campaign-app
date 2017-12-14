@@ -506,7 +506,7 @@
                                         </div>
                                     </div> -->
                                     <div class="col-md-4">
-                                        <div class="card content-card audience-available">
+                                        <div class="card content-card audience-available" ng-click="selectCustomSegement(segementData)">
                                             <i class="material-icons section-icon">face</i>
                                             <i class="material-icons check-active-icon">check_circle</i>
                                             {{segementData.segement_name}}
@@ -677,14 +677,14 @@
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation" ng-repeat='lang in customSegementForm.language'> 
-            <input type="checkbox" name="" ng-model="languageObj[$index]" ng-change="languageChangedValue(languageObj, languageObj[$index], lang.language)">{{lang.language}}
+            <input type="checkbox" name="" ng-model="languageObj[$index]" ng-change="languageChangedValue(languageObj, $index, languageObj[$index])">{{lang.language}}
         </li>
     </ul>
 </div>
 
 
     
-                                                        <input type="text" class="language-input" ng-model="language">
+                                                        <input type="text" class="language-input" ng-model="language_name">
                                                     </div>
                                                 </div>
 
@@ -703,7 +703,7 @@
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">        
         <li role="presentation" ng-repeat='incomeInfo in customSegementForm.incomeDetails'>
-            <input type="checkbox" name="" ng-model="incomeObj[$index]" ng-change="incomeChangedValue(incomeObj,incomeObj[$index], incomeInfo.income_name)">{{incomeInfo.income_name}}
+            <input type="checkbox" name="" ng-model="incomeObj[$index]" ng-change="incomeChangedValue(incomeObj, $index , incomeObj[$index])">{{incomeInfo.income_name}}
         </li>
     </ul>
 </div>
@@ -730,7 +730,7 @@
             </div>
         </li>
         <li role="presentation" ng-repeat='affinity in customSegementForm.affinityCategory | filter:query'>
-            <input type="checkbox" name="" ng-model="affinityObj[$index]" ng-change="affinityChangedValue(affinityObj,affinityObj[$index], affinity.category_name)">{{affinity.category_name}}
+            <input type="checkbox" name="" ng-model="affinityObj[$index]" ng-change="affinityChangedValue(affinityObj,$index, affinityObj[$index])">{{affinity.category_name}}
         </li>
     </ul>
 </div>
@@ -758,7 +758,7 @@
             </div>
         </li>
         <li role="presentation" ng-repeat='market in customSegementForm.marketSegment | filter:query'>
-            <input type="checkbox" name="" ng-model="marketSegmentObj[$index]" ng-change="marketSegmentChangedValue(marketSegmentObj,marketSegmentObj[$index], market.seg_category_name)">{{market.seg_category_name}}
+            <input type="checkbox" name="" ng-model="marketSegmentObj[$index]" ng-change="marketSegmentChangedValue(marketSegmentObj,$index,marketSegmentObj[$index])">{{market.seg_category_name}}
         </li>
     </ul>
 </div>
@@ -786,11 +786,11 @@
             </div>
         </li>
         <li role="presentation" ng-repeat='iabInfo in customSegementForm.IAB | filter:query'>
-            <input type="checkbox" name="" ng-model="IAB_Obj[$index]" ng-change="IABChangedValue(IAB_Obj, IAB_Obj[$index], iabInfo.category_name)">{{iabInfo.category_name}}
+            <input type="checkbox" name="" ng-model="IAB_Obj[$index]" ng-change="IABChangedValue(IAB_Obj,$index, IAB_Obj[$index])">{{iabInfo.category_name}}
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="other-input" ng-model="IAB">
+                                                        <input type="text" class="other-input" ng-model="IAB_Name">
                                                     </div>
                                                 </div>
 

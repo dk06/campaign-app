@@ -64,7 +64,13 @@
 	    	});
 	    };
 
-	    dataFactory.getTargetingSummary = function(channel){
+	    dataFactory.getCustomSegementChanges = function(segementList, seg_Id){
+	    	return audienceService.getCustomSegementChanges(segementList, seg_Id).then(function(response, status){
+	    		return response;
+	    	});
+	    };
+
+	    dataFactory.getTargetingSummary = function(channel, channel_type){
 	    	// return audienceService.getTargetingSummary().then(function(response, status){
 	    	// 	return response;
 	    	// });
@@ -80,7 +86,7 @@
 	            locations : [],
 	            mobiledeviceobj : []
 	        }
-            return audienceService.getTargetingSummary(channel).then(function(response, status){
+            return audienceService.getTargetingSummary(channel , channel_type).then(function(response, status){            	 
 	            angular.forEach( response.TargetingSummary.ageobj, function(value, key){                
                     privateFormData.ageGroup.push({
                         'age_id' : value.id,
@@ -102,8 +108,8 @@
 	            var category  = response.PortedCategories;
 	            angular.forEach(category , function(value, key){                
                     privateFormData.IAB.push({
-                        'category_Id' : value.id,
-                        'category_name' : value.segments
+                        'seg_id' : value.id,
+                        'category_name' : value.segments ? value.subcategory : value.subcategory
                     })
 	            });
 	            angular.forEach(response.TargetingSummary.deviceObject , function(value, key){                

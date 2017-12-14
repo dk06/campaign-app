@@ -85,7 +85,7 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             });
     };
 
-    this.getTargetingSummary = function(channel){
+    this.getTargetingSummary = function(channel, channel_type){
         params = shareBaseUrl.BaseUrl();
         var responseData = {
             TargetingSummary : '',
@@ -94,18 +94,26 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
         return $http.get(params.cuberootBaseUrl + 'getTargetingSummary', {params: {siteId : '1'}}).then(function(response) {
                 responseData.TargetingSummary = response.data;
 
-                return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : channel.channelType, target_channel : 'Lightning',categoryType : 'market', categoryList : '80439' }}).then(function(response) {
-                    responseData.PortedCategories = response.data;
-                    return responseData
-                });
+                if (channel_type != 'Lightning') {
+                    return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : channel_type, target_channel : 'Lightning',categoryType : 'market', categoryList : '80439' }}).then(function(response) {
+                        responseData.PortedCategories = response.data;
+                        return responseData;
+                    });
+                }else{
+                    angular.forEach(response.data.audiencesegmentobj, function(value, key){
+                        responseData.PortedCategories = value.subcategory;
+                    })
+                    
+                    return responseData;
+                }
             });
     };
     //http://205.147.101.67:8080/marketingv1/getChannelPortedCategories?source_channel=Adwords&target_channel=Lightning&categoryType=market&categoryList=80439
-    this.getChannelPortedCategories = function(portedCategories){
+    this.getCustomSegementChanges = function(segementList, seg_Id){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : 'Adwords', target_channel : 'Lightning',categoryType : 'market', categoryList : '80439' }}).then(function(response) {
-                return response.data;
-            });
+        return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : 'Lightning', target_channel : 'Adwords',categoryType : 'market', categoryList : seg_Id }}).then(function(response) {
+            return response.data;
+        });
     };
 
 });
