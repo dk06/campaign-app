@@ -671,11 +671,11 @@
                                                     <div class="col-8">
                                                         <!-- <select class="dropdown language-dd" ng-options="lang.language as lang.language for lang in customSegementForm.language" ng-model="channel.language" size="1" multiple>
                                                         </select> -->
-<div class="dropdown dropdown-scroll">
+<div class="dropdown">
     <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{languageSelect}}</span>
         <p class="pull-right"><span class="caret"></span></p>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation" ng-repeat='lang in customSegementForm.language'> 
             <input type="checkbox" name="" ng-model="languageObj[$index]" ng-change="languageChangedValue(languageObj, $index, languageObj[$index])">{{lang.language}}
         </li>
@@ -683,8 +683,9 @@
 </div>
 
 
+
     
-                                                        <input type="text" class="language-input" ng-model="language_name">
+                                                        <input type="text" class="language-input" ng-model="language_name" style="margin-top: 8px;">
                                                     </div>
                                                 </div>
 
@@ -697,17 +698,17 @@
                                                         <!-- <select class="dropdown language-dd" ng-options="incomeInfo.income_name as incomeInfo.income_name for incomeInfo in customSegementForm.incomeDetails" ng-model="channel.income" size="1" multiple>
                                                             {{incomeInfo}}
                                                         </select> -->
-<div class="dropdown dropdown-scroll">
+<div class="dropdown">
     <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{incomeSelect}}</span>
         <p class="pull-right"><span class="caret"></span></p>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">        
+    <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">        
         <li role="presentation" ng-repeat='incomeInfo in customSegementForm.incomeDetails'>
             <input type="checkbox" name="" ng-model="incomeObj[$index]" ng-change="incomeChangedValue(incomeObj, $index , incomeObj[$index])">{{incomeInfo.income_name}}
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="language-input" ng-model="income">
+                                                        <input type="text" class="language-input" ng-model="income" style="margin-top: 8px;">
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
@@ -719,11 +720,11 @@
                                                         <!-- <select class="dropdown language-dd" ng-options="affinity.category_name as affinity.category_name for affinity in customSegementForm.affinityCategory" ng-model="channel.affinity_catagery" size="1" multiple>
                                                         </select> -->
 
-<div class="dropdown dropdown-scroll">
+<div class="dropdown">
     <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{affinitySelect}}</span>
         <p class="pull-right"><span class="caret"></span></p>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
             <div class="input-group input-group-sm search-control">                
                 <input type="text" class="form-control" placeholder="Search" ng-model="query" />
@@ -735,7 +736,7 @@
     </ul>
 </div>
 
-                                                        <input type="text" class="affinity-input" ng-model="affinity_catagery">
+                                                        <input type="text" class="affinity-input" ng-model="affinity_catagery" style="margin-top: 8px;">
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
@@ -762,7 +763,7 @@
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="segment-input" ng-model="market_segment">
+                                                        <input type="text" class="segment-input" ng-model="market_segment" style="margin-top: 8px;">
                                                     </div>
                                                 </div>
                                                 
@@ -779,7 +780,7 @@
     <button class="form-control dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{IABSelect}}</span>
         <p class="pull-right"><span class="caret"></span></p>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu" size="3" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
             <div class="input-group input-group-sm search-control">                
                 <input type="text" class="form-control" placeholder="Search" ng-model="query" />
@@ -790,7 +791,7 @@
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="other-input" ng-model="IAB_Name">
+                                                        <input type="text" class="other-input" ng-model="IAB_Name" style="margin-top: 8px;">
                                                     </div>
                                                 </div>
 
@@ -831,7 +832,7 @@
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{deviceSelect}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
             <ul style="list-style-type:none" ng-repeat="deviceType in technologyData">
                 <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li>
             </ul>
@@ -865,7 +866,7 @@
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{countySelect}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
             <ul style="list-style-type:none" ng-repeat="county in countyData">
                 <li class="dropdown"><a href="javascript:void(0)" ng-click="selectCountry(county.country_names, county.country_codes)">{{county.country_names}}</a></li>
             </ul>
@@ -881,7 +882,7 @@
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{stateSelect}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
             <ul style="list-style-type:none" ng-repeat="state in stateData">
                 <li class="dropdown"><a href="javascript:void(0)" ng-click="selectState(state.state_names, state.state_code)">{{state.state_names}}</a></li>
             </ul>
@@ -896,7 +897,7 @@
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{citySelect}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
             <ul style="list-style-type:none" ng-repeat="city in cityData">
                 <li class="dropdown"><a href="javascript:void(0)" ng-click="selectCity(city.city_names)">{{city.city_names}}</a></li>
             </ul>
@@ -1237,3 +1238,11 @@
 <script src="scripts/vendors/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="scripts/vendors/js/tether.min.js" type="text/javascript"></script>
 <script src="scripts/js/customs.js"></script>
+<style type="text/css">
+    .scrollable-menu {
+    height: auto;
+    width: 100%;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+</style>

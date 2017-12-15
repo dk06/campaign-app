@@ -129,14 +129,14 @@ div.tab button.active {
 .tabcontent .demographic-segmentation .dropdown {
     min-height: 30px;
     border-radius: 5px;
-    width: 35%;
+    width: auto;
     border: 1px solid #9f9c9c;
     outline: none;
 }
 .tabcontent .demographic-segmentation input[type="text"] {
     min-height: 30px;
     border-radius: 5px;
-    width: 62%;
+    width: 100%;
     border: 1px solid #9f9c9c;
     outline: none;
     padding-left: 5px;
