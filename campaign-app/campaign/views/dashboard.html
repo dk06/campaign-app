@@ -685,7 +685,7 @@
 
 
     
-                                                        <input type="text" class="language-input" ng-model="language_name" style="margin-top: 8px;">
+                                                        <input type="text" class="language-input" ng-model="language_name" style="margin-top: 8px;" readonly>
                                                     </div>
                                                 </div>
 
@@ -708,7 +708,7 @@
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="language-input" ng-model="income_Type" style="margin-top: 8px;">
+                                                        <input type="text" class="language-input" ng-model="income_Type" style="margin-top: 8px;" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
@@ -736,7 +736,7 @@
     </ul>
 </div>
 
-                                                        <input type="text" class="affinity-input" ng-model="affinity_catagery_type" style="margin-top: 8px;">
+                                                        <input type="text" class="affinity-input" ng-model="affinity_catagery_type" style="margin-top: 8px;" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="row" ng-show="selectChan === 'Adwords' || selectChan === 'DBM'">
@@ -763,7 +763,7 @@
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="segment-input" ng-model="market_segment_type" style="margin-top: 8px;">
+                                                        <input type="text" class="segment-input" ng-model="market_segment_type" style="margin-top: 8px;" readonly>
                                                     </div>
                                                 </div>
                                                 
@@ -791,7 +791,7 @@
         </li>
     </ul>
 </div>
-                                                        <input type="text" class="other-input" ng-model="IAB_Name_type" style="margin-top: 8px;">
+                                                        <input type="text" class="other-input" ng-model="IAB_Name_type" style="margin-top: 8px;" readonly>
                                                     </div>
                                                 </div>
 
@@ -833,8 +833,11 @@
             {{deviceSelect}}
         </button>
         <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul style="list-style-type:none" ng-repeat="deviceType in technologyData">
-                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li>
+            <ul style="list-style-type:none">
+                <!-- <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li> -->
+                <li role="presentation" ng-repeat="deviceType in technologyData">
+                    <input type="checkbox" name="" ng-model="deviceObj[$index]" ng-change="deviceChangedValue(deviceObj, $index , deviceObj[$index], deviceType.device_type)">{{deviceType.device_type}}
+                </li>
             </ul>
         </div>
     </div>
@@ -848,9 +851,12 @@
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{deviceModelSelect}}
         </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul style="list-style-type:none" ng-repeat="model in devioceModel">
-                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceModel(model.Model)">{{model.Model}}</a></li>
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul style="list-style-type:none">
+                <!-- <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceModel(model.Model)">{{model.Model}}</a></li> -->
+                <li role="presentation" ng-repeat="model in devioceModel">
+                    <input type="checkbox" name="" ng-model="deviceModelObj[$index]" ng-change="deviceModelChangedValue(deviceModelObj, $index , deviceModelObj[$index])">{{model.Model}}
+                </li>
             </ul>
         </div>
     </div>
