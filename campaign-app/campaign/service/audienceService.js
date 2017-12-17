@@ -99,9 +99,9 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             });
     };
 
-    this.getChannelPortedCategories = function(channel, channel_type, categoryList){
+    this.getChannelPortedCategories = function(channel, channel_type, categoryList, categoryType){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : channel_type, target_channel : 'Lightning',categoryType : 'market', categoryList : categoryList }}).then(function(response) {
+        return $http.get(params.cuberootBaseUrl + 'getChannelPortedCategories', {params: {source_channel : channel_type, target_channel : 'Lightning',categoryType : categoryType, categoryList : categoryList }}).then(function(response) {
             return response;
         });
     };

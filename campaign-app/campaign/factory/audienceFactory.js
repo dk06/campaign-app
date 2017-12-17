@@ -156,7 +156,7 @@
 	    	});
 	    };
 
-	    dataFactory.getChannelPortedCategories = function(segementList, seg_Id, categoryType){
+	    dataFactory.getChannelPortedCategories = function(segementList, seg_Id, categoryType, categoryType){
 	    	return audienceService.getChannelPortedCategories(segementList, seg_Id, categoryType).then(function(response, status){
 	    		return response.data;
 	    	});

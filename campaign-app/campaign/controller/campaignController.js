@@ -1605,6 +1605,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             });
         });
 
+        var categoryType = 'market';
         return audienceFactory.getChannelPortedCategories(channel, channel_type, $scope.marketData).then(function(response, status) {
                 $scope.marketDataList = response;
             });
@@ -1622,7 +1623,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                $scope.affinityDataLlist = $scope.affinityDataLlist + value.id + ',';
             });
         });
-        return audienceFactory.getChannelPortedCategories(channel, channel_type, $scope.affinityDataLlist).then(function(response, status) {
+        var categoryType = 'affinity';
+        return audienceFactory.getChannelPortedCategories(channel, channel_type, $scope.affinityDataLlist, categoryType).then(function(response, status) {
                 $scope.affinityDataLlist = response;
             });
     };
