@@ -64,8 +64,8 @@
 	    	});
 	    };
 
-	    dataFactory.getCustomSegementChanges = function(segementList, seg_Id){
-	    	return audienceService.getCustomSegementChanges(segementList, seg_Id).then(function(response, status){
+	    dataFactory.getCustomSegementChanges = function(segementList, seg_Id, categoryType){
+	    	return audienceService.getCustomSegementChanges(segementList, seg_Id, categoryType).then(function(response, status){
 	    		return response;
 	    	});
 	    };
@@ -84,9 +84,11 @@
 	            IAB : [],
 	            technologyData : [],
 	            locations : [],
-	            mobiledeviceobj : []
+	            mobiledeviceobj : [],
+	            apiResponce : []
 	        }
             return audienceService.getTargetingSummary(channel , channel_type).then(function(response, status){            	 
+            	privateFormData.apiResponce = response.TargetingSummary;
 	            angular.forEach( response.TargetingSummary.ageobj, function(value, key){                
                     privateFormData.ageGroup.push({
                         'age_id' : value.id,
@@ -105,7 +107,7 @@
                         'income_name' : value.income
                     })
 	            });
-	            var category  = response.PortedCategories;
+	            var category  = response.PortedIABCategories;
 	            angular.forEach(category , function(value, key){                
                     privateFormData.IAB.push({
                         'seg_id' : value.id,
@@ -151,6 +153,12 @@
 	    			PortedCategoriesData.push({'segments' : value.segments});
 	    		});
 	    		return PortedCategoriesData;
+	    	});
+	    };
+
+	    dataFactory.getChannelPortedCategories = function(segementList, seg_Id, categoryType){
+	    	return audienceService.getChannelPortedCategories(segementList, seg_Id, categoryType).then(function(response, status){
+	    		return response.data;
 	    	});
 	    };
 		

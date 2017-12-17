@@ -863,56 +863,81 @@
                                             </div>
                                         </div>
 
-                                        <div id="TrafficSources" class="tabcontent">
-                                            <label>Country</label>
-                                            <!-- <select class="form-control" ng-options="county.country_codes as county.country_names for county in countyData" ng-model="channel.country_type"                     ng-change="getState(channel.country_type)">
-                                                <option value="" disabled selected>Select Country</option>
-                                            </select> -->
+    <div id="TrafficSources" class="tabcontent">
+    <label>Country</label>                                            
+    
     <div class="dropdown">
-        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{countySelect}}
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{countySelect}}</span>
+            <p class="pull-right"><span class="caret"></span></p>
         </button>
-        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul style="list-style-type:none" ng-repeat="county in countyData">
-                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectCountry(county.country_names, county.country_codes)">{{county.country_names}}</a></li>
+        <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation">
+                <div>
+                    <input type="checkbox" name="check" ng-model="checkboxCounty" value="All" ng-change="selectAllCountry(checkboxCounty)"><span>Select All</span>
+                </div>
+                <div class="input-group input-group-sm search-control">                
+                    <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+                </div>
+            </li>
+            <li role="presentation" ng-repeat="county in countyData | filter:query">
+                <input type="checkbox" id="deld" value="contryObj[$index]" name="" ng-model="contryObj[$index]" ng-change="selectCountry(county.country_codes, contryObj[$index], $index, contryObj)">{{county.country_names}}
+            </li>
+        </ul>
+    </div>
+    <div ng-show="stateSection">
+        <br>
+        <label>State</label>
+        <div class="dropdown">
+            <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{stateSelect}}</span>
+                <p class="pull-right"><span class="caret"></span></p>
+            </button>
+            <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation">
+                    <div>
+                        <input type="checkbox" name="check" value="All" ng-model="checkboxState" ng-click="selectAllState(checkboxState)"><span>Select All</span>
+                    </div>
+                    <div class="input-group input-group-sm search-control">                
+                        <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+                    </div>
+                </li>
+                <li role="presentation" ng-repeat="state in stateData | filter:query">
+                    <input type="checkbox" name="" ng-model="stateObj[$index]" ng-change="selectState(state.state_code, stateObj[$index],$index, stateObj)">{{state.state_names}}
+                </li>
             </ul>
         </div>
     </div>
-                                            <br>
-                                            <label>State</label>
-                                            <!-- <select class="form-control" ng-options="state.state_code as state.state_names for state in stateData" 
-                                                    ng-model="channel.state_type" ng-change="getCity(channel.state_type)">
-                                                <option value="" disabled selected>Select State</option>
-                                            </select> -->
-    <div class="dropdown">
-        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{stateSelect}}
-        </button>
-        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul style="list-style-type:none" ng-repeat="state in stateData">
-                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectState(state.state_names, state.state_code)">{{state.state_names}}</a></li>
+
+    <div ng-show="citySection">
+        <br>
+        <label>City</label>
+                                            
+        <div class="dropdown">
+            <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{citySelect}}</span>
+                <p class="pull-right"><span class="caret"></span></p>
+            </button>
+            <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation">
+                    <div>
+                        <input type="checkbox" name="check" value="All" ng-model="checkboxCity" ng-change="selectAllCity(checkboxCity)"><span>Select All</span>
+                    </div>
+                    <div class="input-group input-group-sm search-control">                
+                        <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+                    </div>
+                </li>
+                <li role="presentation" ng-repeat="city in cityData | filter:query">
+                    <input type="checkbox" name="" ng-model="cityObj[$index]" ng-change="selectCity(city.city_id, $index, cityObj)">{{city.city_names}}
+                </li>
             </ul>
         </div>
     </div>
-                                            <br>
-                                            <label>City</label>
-                                            <!-- <select class="form-control" ng-options="city.city_names as city.city_names for city in cityData" ng-model="channel.city_type">
-                                               <option value="" disabled selected>Select City</option>
-                                            </select> -->
-    <div class="dropdown">
-        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{citySelect}}
-        </button>
-        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
-            <ul style="list-style-type:none" ng-repeat="city in cityData">
-                <li class="dropdown"><a href="javascript:void(0)" ng-click="selectCity(city.city_names)">{{city.city_names}}</a></li>
-            </ul>
-        </div>
+
+    <div ng-show="zipSection">
+    
+        <br>
+        <label>Zip Code</label>
+        <input type="text" class="form-control" ng-model="channel.zipcode">
     </div>
-                                            <br>
-                                            <label>Zip Code</label>
-                                            <input type="text" class="form-control" ng-model="channel.zipcode">
-                                        </div>
+    </div>
                                     </div>
                                 </div>
                                 
