@@ -491,74 +491,103 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.citySection = true;
     $scope.zipSection = true;
 
-    var contryObj = [];
-    $scope.selectAllCountry = function(countryStatus){
+    $scope.selectLocationType = function(selectType){
+        $scope.LoactionType = selectType;
+        if (selectType == 'Inclusion') {
+            $scope.checkInclusion = true;
+            $scope.checkExclustion= false;
+        }else{
+            $scope.checkInclusion = false;
+            $scope.checkExclustion= true;
+        }
+    };
+
+    var countyObj = [];
+    $scope.selectAllCountry = function(countryStatus){ 
         $scope.country_api_ref = $scope.countyData;
+        $scope.countyCount = 0;
         if (countryStatus) {
+            $scope.countyType = 'All County';
+            $scope.stateType = '';
+            $scope.cityType = '';
             $scope.stateSection = false;
             $scope.citySection = false;
             $scope.zipSection = false;            
             $scope.country_api_ref.map(function(e, index){  
                 for(let i =0 ; i < $scope.country_api_ref.length; i++){
                     if($scope.country_api_ref[i].country_id == e.country_id){
-                        contryObj[index] = true;
+                        countyObj[index] = true;
                         $scope.location_type = 'Multipal Loaction';
                         break;
                     }
                 }
-                contryObj[index] = contryObj[index] || false;
+                countyObj[index] = countyObj[index] || false;
             });
         }else{
-            $scope.country_api_ref.map(function(e, index){  
-                contryObj[index] = false;
+                // $scope.countyType = 
+                // $scope.stateType = '';
+                // $scope.cityType = '';
+                countyDataEmpty();
+                $scope.country_api_ref.map(function(e, index){
+                $scope.countyObj = [];  
+                countyObj[index] = false;
                 $scope.location_type = 'Custom Loaction';
                 $scope.stateSection = true;
                 $scope.citySection = true;
                 $scope.zipSection = true;
             });
         }
-        $scope.contryObj = contryObj;
+        $scope.countyObj = countyObj;
     };
     
     $scope.country_type = '';
     $scope.countyCount = 0;
+    $scope.countyObj = [];
     $scope.selectCountry = function(country_code, status, index, country){
-        if (status) {
-            $scope.countyCount = $scope.countyCount + 1;
-            if (contryObj[index] == country[index]) {
-                contryObj[index] = true;
+        $scope.countyTypeObj = [];
+        $scope.checkboxCounty = false;
+        if (status) {            
+            if ($scope.countyObj[index] == country[index]) {
+                $scope.countyObj[index] = true;
             }
-        }else{
-            if ($scope.countyCount != 1) {
-                $scope.countyCount = $scope.countyCount - 1;
-            }
-            if (contryObj[index] == country[index]) {
-                contryObj[index] = false;
+        }else{            
+            if ($scope.countyObj[index] == country[index]) {
+                $scope.countyObj[index] = false;
             }
         }
 
-        if ($scope.countyCount == 1) {
-            $scope.checkboxCounty = false;
-            $scope.stateSection = true;
-            $scope.citySection = true;
-            $scope.zipSection = true;
-            $scope.country_type = $scope.country_type  + country_code + ',';
-            $scope.getState(country_code);
-            $scope.location_type = 'Single City';
-        }else{
-            $scope.stateSection = false;
-            $scope.citySection = false;
-            $scope.zipSection = false;
-            $scope.location_type = 'Multipal City';
-        }
+        angular.forEach($scope.countyData, function(value, index){
+            if ($scope.countyObj[index] == true) {
+                if ($scope.countyTypeObj.length == 0) {
+                    $scope.countyTypeObj = value.country_codes;
+                    $scope.countyType = value.country_names;
+                    $scope.getState(value.country_codes);
 
-        
+                    $scope.stateSection = true;
+                    $scope.citySection = true;
+                    $scope.zipSection = true;
+                    $scope.location_type = 'Single City';
+                }else{
+                    $scope.countyTypeObj = $scope.countyTypeObj  + ',' + value.country_codes;
+                    $scope.countyType = $scope.countyType +',' + value.country_names;
+                    $scope.stateSection = false;
+                    $scope.citySection = false;
+                    $scope.zipSection = false;
+                    $scope.location_type = 'Multipal City';
+                }
+            }
+        });
+
+        $scope.country_type = $scope.countyTypeObj;
     };
 
     var stateObj = [];
     $scope.selectAllState = function(stateStatus){
+        $scope.stateCount = 0;
         $scope.state_ref_api = $scope.stateData;
-        if (stateStatus) {            
+        if (stateStatus) {
+            $scope.stateType = 'All State';
+            $scope.cityType = '';
             $scope.citySection = false;
             $scope.zipSection = false;            
             $scope.state_ref_api.map(function(e, index){  
@@ -572,11 +601,15 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 stateObj[index] = stateObj[index] || false;
             });
         }else{
+            stateDataEmpty();
             $scope.state_ref_api.map(function(e, index){  
                 stateObj[index] = false;
                 $scope.location_type = 'Custom Loaction';                
                 $scope.citySection = true;
                 $scope.zipSection = true;
+                // $scope.stateType = '';
+                // $scope.cityType = '';
+                
             });
         }
         $scope.stateObj = stateObj;
@@ -584,41 +617,49 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.state_type = '';
     $scope.stateCount = 0;
+    $scope.stateObj = [];
     $scope.selectState = function(state_type, status,index, state){
+        $scope.stateTypeObj = [];
         $scope.checkboxState = false;
         if (status) {
-            $scope.stateCount = $scope.stateCount + 1;
-            if (stateObj[index] == state[index]) {
-                stateObj[index] = true;
+            if ($scope.stateObj[index] == state[index]) {
+                $scope.stateObj[index] = true;
             }
         }else{
-            if ($scope.stateCount != 1) {
-                $scope.stateCount = $scope.stateCount - 1;
-                if (stateObj[index] == state[index]) {
-                    stateObj[index] = false;
-                }
+            if ($scope.stateObj[index] == state[index]) {
+                $scope.stateObj[index] = false;
             }
         }
 
-        if ($scope.stateCount == 1) {
-            $scope.checkboxCounty = false;
-            $scope.citySection = true;
-            $scope.zipSection = true;            
-            $scope.getCity(state_type);
-            $scope.location_type = 'Custom Loaction';
-        }else{            
-            $scope.citySection = false;
-            $scope.zipSection = false;
-            $scope.location_type = 'Custom Loaction';
-        }
-        $scope.state_type = $scope.state_type + state_type + ',';
-        
+        angular.forEach($scope.stateData, function(value, index){
+            if ($scope.stateObj[index] == true) {
+                if ($scope.stateTypeObj.length == 0) {
+                    $scope.stateTypeObj = value.state_code;
+                    $scope.stateType = value.state_names;
+                    $scope.getCity(value.state_code);
+
+                    $scope.checkboxCounty = false;
+                    $scope.citySection = true;
+                    $scope.zipSection = true;
+                    $scope.location_type = 'Custom Loaction';
+                }else{
+                    $scope.stateTypeObj = $scope.stateTypeObj  + ',' + value.state_code;
+                    $scope.stateType = $scope.stateType +','+ value.state_names;
+                    $scope.citySection = false;
+                    $scope.zipSection = false;
+                    $scope.location_type = 'Custom Loaction';
+                }
+            }
+        });
+
+        $scope.state_type = $scope.stateTypeObj;
     };
 
     var cityObj = [];
     $scope.selectAllCity = function(cityStatus){
         $scope.city_api_ref = $scope.cityData;
         if (cityStatus) { 
+            $scope.cityType = 'All City';
             $scope.zipSection = false;           
             $scope.city_api_ref.map(function(e, index){  
                 for(let i =0 ; i < $scope.city_api_ref.length; i++){
@@ -630,32 +671,95 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 }
                 cityObj[index] = cityObj[index] || false;
             });
-        }else{
+        }else{            
             $scope.city_api_ref.map(function(e, index){  
                 cityObj[index] = false;
                 $scope.location_type = 'Custom Loaction';
                 $scope.zipSection = true;
             });
+            cityDataEmpty();
         }
         $scope.cityObj = cityObj;
     };
 
     $scope.city_type = '';
-    $scope.selectCity = function(city){
+    $scope.cityObj= [];
+    $scope.selectCity = function(city, index, city_obj){
+        $scope.cityTypeObj= [];
         if (true) {
-            if (cityObj[index] == country[index]) {
+            if (cityObj[index] == city[index]) {
                 cityObj[index] = true;
             }
         }else{
-            if (cityObj[index] == country[index]) {
+            if (cityObj[index] == city[index]) {
                 cityObj[index] = true;
             }
         }
-        $scope.checkboxCity = false;
-        $scope.city_type = $scope.city_type + city + ',';
+
+        angular.forEach($scope.cityData, function(value, index){
+            if ($scope.cityObj[index] == true) {
+                if ($scope.cityTypeObj.length == 0) {
+                    $scope.cityTypeObj = value.city_id;
+                    $scope.cityType = value.city_names;
+                }else{
+                    $scope.cityTypeObj = $scope.cityTypeObj  + ',' + value.city_id;
+                    $scope.cityType = $scope.cityType +','+ value.city_names;
+                    $scope.checkboxCity = false;
+                }
+            }
+        });
+
+        $scope.city_type = $scope.cityTypeObj;
         $scope.location_type = 'Custom Loaction';
         //$scope.citySelect = city;
     };
+
+    $scope.loactionFiledsRemove = function(){
+        $scope.countyType = '';
+        $scope.stateType = '';
+        $scope.cityType = '';
+        $scope.LoactionType = '';
+        $scope.countyObj = [];
+        $scope.stateObj = [];
+        $scope.cityObj = [];
+        $scope.checkInclusion = false;
+        $scope.checkExclustion = false;
+        $scope.checkboxCounty = false;
+        $scope.checkboxState = false;
+        $scope.checkboxCity = false;
+        $scope.countySection = true;
+        $scope.stateSection = true;
+        $scope.citySection = true;
+        $scope.zipSection = true;
+    };
+
+    function countyDataEmpty(){
+        $scope.countyType = '';
+        $scope.stateType = '';
+        $scope.cityType = '';
+        $scope.LoactionType = '';
+        $scope.country_type = '';
+        $scope.state_type = '';
+        $scope.city_type = '';
+        $scope.countyObj = [];
+        $scope.stateObj = [];
+        $scope.cityObj = [];
+    }
+
+    function stateDataEmpty(){        
+        $scope.stateType = '';
+        $scope.cityType = '';        
+        $scope.state_type = '';
+        $scope.city_type = '';        
+        $scope.stateObj = [];
+        $scope.cityObj = [];
+    }
+
+    function cityDataEmpty(){
+        $scope.cityType = '';
+        $scope.city_type = '';
+        $scope.cityObj = [];
+    }
 
     $scope.selectDeviceType = function(device, deviceType){
         $scope.deviceSelect = device;

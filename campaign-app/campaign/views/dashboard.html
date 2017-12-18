@@ -864,79 +864,107 @@
                                         </div>
 
     <div id="TrafficSources" class="tabcontent">
-    <label>Country</label>                                            
-    
-    <div class="dropdown">
-        <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{countySelect}}</span>
-            <p class="pull-right"><span class="caret"></span></p>
-        </button>
-        <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation">
-                <div>
-                    <input type="checkbox" name="check" ng-model="checkboxCounty" value="All" ng-change="selectAllCountry(checkboxCounty)"><span>Select All</span>
-                </div>
-                <div class="input-group input-group-sm search-control">                
-                    <input type="text" class="form-control" placeholder="Search" ng-model="query" />
-                </div>
-            </li>
-            <li role="presentation" ng-repeat="county in countyData | filter:query">
-                <input type="checkbox" id="deld" value="contryObj[$index]" name="" ng-model="contryObj[$index]" ng-change="selectCountry(county.country_codes, contryObj[$index], $index, contryObj)">{{county.country_names}}
-            </li>
-        </ul>
-    </div>
-    <div ng-show="stateSection">
+        <div class="pull-right">
+            <input type="checkbox" name="" ng-model="checkInclusion" ng-click="selectLocationType('Inclusion')">Inclusion
+            <input type="checkbox" name="" ng-model="checkExclustion" ng-click="selectLocationType('Exclustion')">Exclustion
+        </div>
         <br>
-        <label>State</label>
+        <label>Country</label>                                            
+        
         <div class="dropdown">
-            <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{stateSelect}}</span>
+            <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{countySelect}}</span>
                 <p class="pull-right"><span class="caret"></span></p>
             </button>
             <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
                 <li role="presentation">
                     <div>
-                        <input type="checkbox" name="check" value="All" ng-model="checkboxState" ng-click="selectAllState(checkboxState)"><span>Select All</span>
+                        <input type="checkbox" name="check" ng-model="checkboxCounty" value="All" ng-change="selectAllCountry(checkboxCounty)"><span>Select All</span>
                     </div>
                     <div class="input-group input-group-sm search-control">                
                         <input type="text" class="form-control" placeholder="Search" ng-model="query" />
                     </div>
                 </li>
-                <li role="presentation" ng-repeat="state in stateData | filter:query">
-                    <input type="checkbox" name="" ng-model="stateObj[$index]" ng-change="selectState(state.state_code, stateObj[$index],$index, stateObj)">{{state.state_names}}
+                <li role="presentation" ng-repeat="county in countyData | filter:query">
+                    <input type="checkbox" id="deld" value="countyObj[$index]" name="" ng-model="countyObj[$index]" ng-change="selectCountry(county.country_codes, countyObj[$index], $index, countyObj)">{{county.country_names}}
                 </li>
             </ul>
         </div>
-    </div>
-
-    <div ng-show="citySection">
-        <br>
-        <label>City</label>
-                                            
-        <div class="dropdown">
-            <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{citySelect}}</span>
-                <p class="pull-right"><span class="caret"></span></p>
-            </button>
-            <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation">
-                    <div>
-                        <input type="checkbox" name="check" value="All" ng-model="checkboxCity" ng-change="selectAllCity(checkboxCity)"><span>Select All</span>
-                    </div>
-                    <div class="input-group input-group-sm search-control">                
-                        <input type="text" class="form-control" placeholder="Search" ng-model="query" />
-                    </div>
-                </li>
-                <li role="presentation" ng-repeat="city in cityData | filter:query">
-                    <input type="checkbox" name="" ng-model="cityObj[$index]" ng-change="selectCity(city.city_id, $index, cityObj)">{{city.city_names}}
-                </li>
-            </ul>
+        <div ng-show="stateSection">
+            <br>
+            <label>State</label>
+            <div class="dropdown">
+                <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{stateSelect}}</span>
+                    <p class="pull-right"><span class="caret"></span></p>
+                </button>
+                <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation">
+                        <div>
+                            <input type="checkbox" name="check" value="All" ng-model="checkboxState" ng-click="selectAllState(checkboxState)"><span>Select All</span>
+                        </div>
+                        <div class="input-group input-group-sm search-control">                
+                            <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+                        </div>
+                    </li>
+                    <li role="presentation" ng-repeat="state in stateData | filter:query">
+                        <input type="checkbox" name="" ng-model="stateObj[$index]" ng-change="selectState(state.state_code, stateObj[$index],$index, stateObj)">{{state.state_names}}
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <div ng-show="zipSection">
-    
-        <br>
-        <label>Zip Code</label>
-        <input type="text" class="form-control" ng-model="channel.zipcode">
-    </div>
+        <div ng-show="citySection">
+            <br>
+            <label>City</label>
+                                                
+            <div class="dropdown">
+                <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{citySelect}}</span>
+                    <p class="pull-right"><span class="caret"></span></p>
+                </button>
+                <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation">
+                        <div>
+                            <input type="checkbox" name="check" value="All" ng-model="checkboxCity" ng-change="selectAllCity(checkboxCity)"><span>Select All</span>
+                        </div>
+                        <div class="input-group input-group-sm search-control">                
+                            <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+                        </div>
+                    </li>
+                    <li role="presentation" ng-repeat="city in cityData | filter:query">
+                        <input type="checkbox" name="" ng-model="cityObj[$index]" ng-change="selectCity(city.city_id, $index, cityObj)">{{city.city_names}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div ng-show="zipSection">
+        
+            <br>
+            <label>Zip Code</label>
+            <input type="text" class="form-control" ng-model="channel.zipcode">
+        </div>
+        <div id="loactionRecords">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>County</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="countyType">
+                        <td>{{countyType}}</td>
+                        <td>{{stateType}}</td>
+                        <td>{{cityType}}</td>
+                        <td>{{LoactionType}}</td>
+                        <td>
+                            <button type="button" ng-click="loactionFiledsRemove()">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
                                     </div>
                                 </div>
