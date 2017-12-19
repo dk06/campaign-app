@@ -842,7 +842,7 @@
         </div>
     </div>
                                             <br>
-                                            <div ng-hide="deviceSelect != 'Mobile'">
+                                            <div ng-hide="deviceModel">
                                                 <label>Devioce Model</label>              
                                                 <!-- <select class="form-control" ng-options="model.Model as model.Model for model in devioceModel" ng-model="channel.Model" ng-disabled="deviceSelect != 'Mobile'">
                                                    <option value="" disabled selected>Select Model</option>
@@ -884,7 +884,7 @@
                         <input type="text" class="form-control" placeholder="Search" ng-model="query" />
                     </div>
                 </li>
-                <li role="presentation" ng-repeat="county in countyData | filter:query">
+                <li role="presentation" ng-repeat="county in countryData | filter:query">
                     <input type="checkbox" id="deld" value="countyObj[$index]" name="" ng-model="countyObj[$index]" ng-change="selectCountry(county.country_codes, countyObj[$index], $index, countyObj)">{{county.country_names}}
                 </li>
             </ul>
