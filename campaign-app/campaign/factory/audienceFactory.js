@@ -52,9 +52,38 @@
 	    	});
 	    };
 
-	    dataFactory.getPrivateReach = function(privateData){
-	    	return audienceService.getPrivateReach(privateData).then(function(response, status){
-	    		return response.data;
+	    dataFactory.getPrivateReach = function(){
+	    	return audienceService.getTargetingSummary().then(function(response, status){
+	    		var gender = '';
+                angular.forEach(response.TargetingSummary.genderobj, function(value , key){
+                    if (gender == '') {
+                        gender = value.id;
+                    }else{
+                        gender = gender + ',' + value.id;
+                    }
+                });
+
+                var ageId = '';
+                angular.forEach(response.TargetingSummary.ageobj, function(value , key){
+                    if (ageId == '') {
+                        ageId = value.id;
+                    }else{
+                        ageId = ageId + ',' + value.id;
+                    }
+                });
+
+                var incomeid = '';
+                angular.forEach(response.TargetingSummary.incomeobj, function(value , key){
+                    if (incomeid == '') {
+                        incomeid = value.id;
+                    }else{
+                        incomeid = incomeid + ',' + value.id;
+                    }
+                });
+
+	    		return audienceService.getPrivateReach(gender, ageId, incomeid ).then(function(response, status){
+		    		return response.data;
+		    	});
 	    	});
 	    };
 
@@ -70,7 +99,7 @@
 	    	});
 	    };
 
-	    dataFactory.getTargetingSummary = function(channel, channel_type){
+	    dataFactory.getTargetingSummary = function(){
 	    	// return audienceService.getTargetingSummary().then(function(response, status){
 	    	// 	return response;
 	    	// });
@@ -87,7 +116,7 @@
 	            mobiledeviceobj : [],
 	            apiResponce : []
 	        }
-            return audienceService.getTargetingSummary(channel , channel_type).then(function(response, status){            	 
+            return audienceService.getTargetingSummary().then(function(response, status){            	 
             	privateFormData.apiResponce = response.TargetingSummary;
 	            angular.forEach( response.TargetingSummary.ageobj, function(value, key){                
                     privateFormData.ageGroup.push({
@@ -146,18 +175,18 @@
 	    	});
 	    };
 
-	    dataFactory.getChannelPortedCategories = function(portedCategories){
-	    	var PortedCategoriesData = {}
-	    	return audienceService.getChannelPortedCategories(portedCategories).then(function(response, status){
-	    		angular.forEach(response, function(value, key){
-	    			PortedCategoriesData.push({'segments' : value.segments});
-	    		});
-	    		return PortedCategoriesData;
-	    	});
-	    };
+	    // dataFactory.getChannelPortedCategories = function(portedCategories){
+	    // 	var PortedCategoriesData = {}
+	    // 	return audienceService.getChannelPortedCategories(portedCategories).then(function(response, status){
+	    // 		angular.forEach(response, function(value, key){
+	    // 			PortedCategoriesData.push({'segments' : value.segments});
+	    // 		});
+	    // 		return PortedCategoriesData;
+	    // 	});
+	    // };
 
-	    dataFactory.getChannelPortedCategories = function(segementList, seg_Id, categoryType, categoryType){
-	    	return audienceService.getChannelPortedCategories(segementList, seg_Id, categoryType).then(function(response, status){
+	    dataFactory.getChannelPortedCategories = function(segement_type, categoryType, seg_Id){
+	    	return audienceService.getChannelPortedCategories(segement_type, categoryType, seg_Id).then(function(response, status){
 	    		return response.data;
 	    	});
 	    };

@@ -530,7 +530,7 @@
                                         <button class="btn btn-primary cancel-btn cancel-audience-group-btn">Cancel</button>
                                     </div>
                                     <div class="col-6 right-align">
-                                        <button class="btn btn-primary continue-audience-group-btn">Continue</button>
+                                        <button class="btn btn-primary continue-audience-group-btn" ng-click="setSegmentFields()">Continue</button>
                                     </div>
                                 </div>
                             </div>
@@ -756,14 +756,14 @@
 
     <div id="TrafficSources" class="tabcontent">
         <div class="pull-right">
-            <input type="checkbox" name="" ng-model="checkInclusion" ng-click="selectLocationType('Inclusion')">Inclusion
-            <input type="checkbox" name="" ng-model="checkExclustion" ng-click="selectLocationType('Exclustion')">Exclustion
+            <input type="radio" name="Location" ng-click="selectLocationType('Inclusion')">Inclusion
+            <input type="radio" name="Location" ng-click="selectLocationType('Exclustion')">Exclustion
         </div>
         <br>
         <label>Country</label>                                            
         
         <div class="dropdown">
-            <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{countySelect}}</span>
+            <button ng-disabled="loactionSectionDisable" class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{countySelect}}</span>
                 <p class="pull-right"><span class="caret"></span></p>
             </button>
             <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -776,7 +776,7 @@
                     </div>
                 </li>
                 <li role="presentation" ng-repeat="county in countryData | filter:query">
-                    <input type="checkbox" id="deld" value="countyObj[$index]" name="" ng-model="countyObj[$index]" ng-change="selectCountry(county.country_codes, countyObj[$index], $index, countyObj)">{{county.country_names}}
+                    <input type="checkbox" id="deld" value="countryObj[$index]" name="" ng-model="countryObj[$index]" ng-change="selectCountry(county.country_codes, countryObj[$index], $index, countryObj)">{{county.country_names}}
                 </li>
             </ul>
         </div>
@@ -784,7 +784,7 @@
             <br>
             <label>State</label>
             <div class="dropdown">
-                <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{stateSelect}}</span>
+                <button ng-disabled="loactionSectionDisable" class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{stateSelect}}</span>
                     <p class="pull-right"><span class="caret"></span></p>
                 </button>
                 <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -808,7 +808,7 @@
             <label>City</label>
                                                 
             <div class="dropdown">
-                <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{citySelect}}</span>
+                <button ng-disabled="loactionSectionDisable" class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">{{citySelect}}</span>
                     <p class="pull-right"><span class="caret"></span></p>
                 </button>
                 <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -844,8 +844,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-if="countyType">
-                        <td>{{countyType}}</td>
+                    <tr ng-if="countryType">
+                        <td>{{countryType}}</td>
                         <td>{{stateType}}</td>
                         <td>{{cityType}}</td>
                         <td>{{LoactionType}}</td>
