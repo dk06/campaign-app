@@ -40,10 +40,32 @@
 	    	});
 	    };
 
-	    dataFactory.updateSegementType= function(updateSegment, segementId){			
-			return audienceService.updateSegementType(updateSegment, segementId).then(function(response) {
-				return response.data;
-			})
+	    dataFactory.updateSegementType= function(segement, updateSegment, segementId){
+	    	var segmentsMarketData = [];
+	    	var segmentsAffinityData = [];
+	    	var seg_Id = '';
+	    	var segement_type = updateSegment;
+	    	var segId_split = segement.IAB.split(',');
+	    	angular.forEach(segId_split, function(value){
+	    		if(seg_Id == ''){
+	    			seg_Id = value;
+	    		}else{
+	    			seg_Id = seg_Id + ',' + value;
+	    		}
+	    	});
+	    	var categoryType = 'market';
+	    	return audienceService.getCustomSegementChanges(segement_type, categoryType, seg_Id).then(function(response, status){
+	    		segmentsMarketData = response;
+	    		var categoryType = 'affinity';
+	    		return audienceService.getCustomSegementChanges(segement_type, categoryType, seg_Id).then(function(response, status){
+		    		segmentsAffinityData = response;
+		    		if(segmentsMarketData.length != 0 && segmentsAffinityData.length != 0) {
+		    			return audienceService.updateSegementType(updateSegment, segementId, segmentsMarketData, segmentsAffinityData).then(function(response) {
+							return response.data;
+						});
+		    		}
+		    	});
+	    	});
 		};
 
 	    dataFactory.getCustomReach = function(segment){
@@ -81,7 +103,16 @@
                     }
                 });
 
-	    		return audienceService.getPrivateReach(gender, ageId, incomeid ).then(function(response, status){
+                var deviceId = '';
+                angular.forEach(response.TargetingSummary.deviceObject, function(value , key){
+                    if (deviceId == '') {
+                        deviceId = value.id;
+                    }else{
+                        deviceId = deviceId + ',' + value.id;
+                    }
+                });
+
+	    		return audienceService.getPrivateReach(gender, ageId, incomeid, deviceId ).then(function(response, status){
 		    		return response.data;
 		    	});
 	    	});
@@ -93,8 +124,8 @@
 	    	});
 	    };
 
-	    dataFactory.getCustomSegementChanges = function(segementList, seg_Id, categoryType){
-	    	return audienceService.getCustomSegementChanges(segementList, seg_Id, categoryType).then(function(response, status){
+	    dataFactory.getCustomSegementChanges = function(segement_type, categoryType, seg_Id){
+	    	return audienceService.getCustomSegementChanges(segement_type, categoryType, seg_Id).then(function(response, status){
 	    		return response;
 	    	});
 	    };

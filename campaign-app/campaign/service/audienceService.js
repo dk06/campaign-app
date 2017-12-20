@@ -51,10 +51,32 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
             return promise;
         };
 
-    this.updateSegementType = function(updateSegment, segementId){
+    this.updateSegementType = function(updateSegment, segementId, segmentsMarketData, segmentsAffinityData){
+        var market_segment = '';
+        var affinity_catagery = '';
+        var marketdata = segmentsMarketData;
+        angular.forEach(marketdata, function(value){
+            if (market_segment == '') {
+                market_segment = value.id;
+            }else{
+                market_segment = market_segment + ',' + value.id;
+            }
+        });
+
+        angular.forEach(segmentsAffinityData, function(value){
+            if (affinity_catagery == '') {
+                affinity_catagery = value;
+            }else{
+                affinity_catagery = affinity_catagery + ',' + value;
+            }
+        });
+
         params.acess = shareBaseUrl.BaseUrl();
         params.segment_type = updateSegment;
         params.segementId = segementId;
+        params.market_segment = market_segment;
+        params.affinity_catagery = affinity_catagery;
+        params.IAB = '';
         var promise = $http.post(params.BaseUrl + 'updateSegementType', {params} ).then(function(response) {
                 return response.data;
             });
@@ -64,15 +86,15 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
     //http://205.147.101.67:8080/marketingv1/getReach?siteId=&gender=1&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=
     this.getCustomReach = function(segementData){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : segementData.gender_type, agegroup : segementData.age_type , incomelevel : '', device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
+        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : segementData.gender_type, agegroup : segementData.age_type , incomelevel : segementData.income, device : segementData.device_type ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
                 return response.data;
             });
     };
 
     //http://205.147.101.67:8080/marketingv1/getReach?siteId=1&gender=&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=
-    this.getPrivateReach = function(gender, ageId, incomeid){
+    this.getPrivateReach = function(gender, ageId, incomeid, deviceId){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : gender, agegroup : ageId , incomelevel : incomeid, device : '' ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
+        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : gender, agegroup : ageId , incomelevel : incomeid, device : deviceId ,city : '', state: '',country : '', subcategory: ''  }} ).then(function(response) {
             return response.data;
         });
     };
