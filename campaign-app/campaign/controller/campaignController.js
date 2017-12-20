@@ -696,22 +696,32 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     };
 
     $scope.loactionFiledsRemove = function(){
-        $scope.countryType = '';
-        $scope.stateType = '';
-        $scope.cityType = '';
-        $scope.LoactionType = '';
-        $scope.countryObj = [];
-        $scope.stateObj = [];
-        $scope.cityObj = [];
-        $scope.checkInclusion = false;
-        $scope.checkExclustion = false;
-        $scope.checkboxCounty = false;
-        $scope.checkboxState = false;
-        $scope.checkboxCity = false;
-        $scope.countySection = true;
-        $scope.stateSection = true;
-        $scope.citySection = true;
-        $scope.zipSection = true;
+        if ($scope.privateSection == false) {
+            $scope.countryType = '';
+            $scope.stateType = '';
+            $scope.cityType = '';
+            $scope.LoactionType = '';
+            $scope.countryObj = [];
+            $scope.stateObj = [];
+            $scope.cityObj = [];
+            $scope.checkInclusion = false;
+            $scope.checkExclustion = false;
+            $scope.checkboxCounty = false;
+            $scope.checkboxState = false;
+            $scope.checkboxCity = false;
+            $scope.countySection = true;
+            $scope.stateSection = true;
+            $scope.citySection = true;
+            $scope.zipSection = true;
+        }else if ($scope.privateSection == true){
+            $scope.countryType = '';
+            $scope.stateType = '';
+            $scope.cityType = '';
+        }else if ($scope.customSection == true) {
+            $scope.countryType = '';
+            $scope.stateType = '';
+            $scope.cityType = '';
+        }
     };
 
     function countryDataEmpty(){
@@ -1458,11 +1468,15 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.segmentListData = segementList;
     };
 
+    $scope.customSection == false;
+    $scope.privateSection == false;
     $scope.setSegmentFields = function(){
         if ($scope.customSegment) {
+            $scope.customSection == true;
             $scope.customSegementSet($scope.segmentListData);
         }else if ($scope.privateSection){
             $scope.getTargetingSummary();
+            $scope.privateSection == true;
         }else{
             $scope.getDemographic();
         }
