@@ -595,7 +595,8 @@
     </button>
     <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation" ng-repeat='lang in customSegementForm.language'> 
-            <input type="checkbox" name="" ng-model="languageObj[$index]" ng-change="languageChangedValue(languageObj, $index, languageObj[$index])">{{lang.language}}
+            <input type="checkbox" name="" ng-model="languageObj[$index]" ng-change="languageChangedValue(languageObj, $index, languageObj[$index])">
+            {{lang.language}}
         </li>
     </ul>
 </div>
@@ -638,7 +639,7 @@
     </button>
     <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
-            <div class="input-group input-group-sm search-control">                
+            <div class="search-control">                
                 <input type="text" class="form-control" placeholder="Search" ng-model="query" />
             </div>
         </li>
@@ -663,7 +664,7 @@
     </button>
     <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
-            <div class="input-group input-group-sm search-control">                
+            <div class="search-control">                
                 <input type="text" class="form-control" placeholder="Search" ng-model="query" />
             </div>
         </li>
@@ -688,7 +689,7 @@
     </button>
     <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation">
-            <div class="input-group input-group-sm search-control">                
+            <div class="search-control">                
                 <input type="text" class="form-control" placeholder="Search" ng-model="query" />
             </div>
         </li>
@@ -1190,9 +1191,15 @@
 <script src="scripts/js/customs.js"></script>
 <style type="text/css">
     .scrollable-menu {
-    height: auto;
-    width: 100%;
-    max-height: 200px;
-    overflow-x: hidden;
-}
+        height: auto;
+        width: 128%;
+        max-height: 200px;
+        overflow-x: hidden;
+    }
+    .scrollable-menu li {
+        padding: 5px;
+    }
+    .scrollable-menu li input[type="checkbox"] {
+        margin-right: 5px;
+    }
 </style>
