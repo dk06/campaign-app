@@ -38,7 +38,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 $scope.swap_horiz = response.converstion[0].icons_tag;
                 $scope.shopping_cart = response.converstion[1].icons_tag;
                 $scope.store_mall_directory = response.converstion[2].icons_tag;
-                loaderDeactivate();
+                //loaderDeactivate();
             });
             // $scope.getCustomReach();
             // $scope.getPrivateAudienceMarketplaceList();
@@ -90,6 +90,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     };
 
     $scope.createNewChannel = function(selectType){
+        $scope.SelectChannelName = selectType;
+        $scope.accessTocken = '';
         swal({
           title: 'Link '+ selectType + ' with Cuberoot account ',
           //text: "Can You add new Channel!",
@@ -99,15 +101,13 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
           confirmButtonText: 'Yes'
         }).then(function (result) {
           if (result.value) {
-            $scope.SelectChannelName = '';
-            $scope.accessTocken = '';
+            $scope.SelectChannelName = selectType;
             $scope.newTabeOpen(selectType);
           }
         })
     };
 
     $scope.newTabeOpen = function(selectType){
-        $scope.SelectChannelName = selectType;
         switch(selectType){
         case 'Facebook':
             $window.open('https://www.facebook.com');
@@ -378,6 +378,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 $scope.deviceObj[index] = false;
             }
         }
+        $scope.device_type_get = '';
+        var device_apiRef = $scope.technologyData;
+        angular.forEach(device_apiRef, function(value, key){
+            if ($scope.deviceObj[key] == true) {
+                if ($scope.device_type_get == '') {
+                    $scope.device_type_get = value.device_type;
+                }else{
+                    $scope.device_type_get = $scope.device_type_get +','+ value.device_type;
+                }
+            }
+        });
 
         if ($scope.deviceObj[1] == true) {
             $scope.getDeviceModel(select_type);
@@ -401,6 +412,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.deviceModelObj[index] = false;
                 }
             }
+            $scope.device_model_get = '';
+            var device_model_apiRef = $scope.devioceModel;
+            angular.forEach(device_model_apiRef, function(value, key){
+            if ($scope.deviceModelObj[key] == true) {
+                if ($scope.device_model_get == '') {
+                    $scope.device_model_get = value.Model;
+                }else{
+                    $scope.device_model_get = $scope.device_model_get +','+ value.Model;
+                }
+            }
+        });
         };
     }
 
@@ -480,7 +502,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.citySection = true;
     $scope.zipSection = true;
     $scope.loactionSectionDisable = true;
-
+    $scope.LoactionType = '';
     $scope.selectLocationType = function(selectType){
         $scope.loactionSectionDisable = false;
         $scope.LoactionType = selectType;
@@ -496,7 +518,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     var countryObj = [];
     $scope.selectAllCountry = function(countryStatus){ 
         $scope.country_api_ref = $scope.countryData;
-        $scope.countyCount = 0;
+        $scope.stateData = [];
+        $scope.cityData = [];
         if (countryStatus) {
             $scope.countryType = 'All County';
             $scope.country_type = 'All County';
@@ -535,6 +558,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.selectCountry = function(country_code, status, index, country){
         $scope.countryTypeObj = [];
         $scope.checkboxCounty = false;
+        $scope.stateData = [];
+        $scope.cityData = [];
         if (status) {            
             if ($scope.countryObj[index] == country[index]) {
                 $scope.countryObj[index] = true;
@@ -562,7 +587,14 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.stateSection = false;
                     $scope.citySection = false;
                     $scope.zipSection = false;
+                    $scope.stateData = [];
                     $scope.location_type = 'Multipal City';
+                }
+            }else{
+                if ($scope.countryTypeObj.length == 0) {
+                    $scope.countryType = '';
+                    $scope.stateType = '';
+                    $scope.cityType = '';
                 }
             }
         });
@@ -572,7 +604,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     var stateObj = [];
     $scope.selectAllState = function(stateStatus){
-        $scope.stateCount = 0;
+        $scope.cityData = [];
         $scope.state_ref_api = $scope.stateData;
         if (stateStatus) {
             $scope.stateType = 'All State';
@@ -607,6 +639,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.stateObj = [];
     $scope.selectState = function(state_type, status,index, state){
         $scope.stateTypeObj = [];
+        $scope.cityData = [];
         $scope.checkboxState = false;
         if (status) {
             if ($scope.stateObj[index] == state[index]) {
@@ -635,6 +668,11 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.citySection = false;
                     $scope.zipSection = false;
                     $scope.location_type = 'Custom Loaction';
+                }
+            }else{
+                if ($scope.stateTypeObj.length == 0) {
+                    $scope.stateType = '';
+                    $scope.cityType = '';
                 }
             }
         });
@@ -672,15 +710,15 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.city_type = '';
     $scope.cityObj= [];
-    $scope.selectCity = function(city, index, city_obj){
+    $scope.selectCity = function(city, index, city_obj, cityStatus){
         $scope.cityTypeObj= [];
-        if (true) {
+        if (cityStatus) {
             if (cityObj[index] == city[index]) {
                 cityObj[index] = true;
             }
         }else{
             if (cityObj[index] == city[index]) {
-                cityObj[index] = true;
+                cityObj[index] = false;
             }
         }
 
@@ -693,6 +731,10 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.cityTypeObj = $scope.cityTypeObj  + ',' + value.city_id;
                     $scope.cityType = $scope.cityType +','+ value.city_names;
                     $scope.checkboxCity = false;
+                }
+            }else{
+                if ($scope.cityTypeObj.length == 0) {
+                    $scope.cityType = '';
                 }
             }
         });
@@ -759,7 +801,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     }
 
     $scope.selectDeviceType = function(device, deviceType){
-        $scope.deviceSelect = device;
+        //$scope.deviceSelect = device;
         $scope.device_type = device;
         if (device == 'Mobile') {
             $scope.getDeviceModel(deviceType);
@@ -900,7 +942,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     };
 
     function newSegmentFormValidation(count, segment){
-        if (count >= 6 && $scope.country_type != '' && $scope.device != '' && $scope.gender_type != '' &&  $scope.age_type != '' && $scope.language != '' && $scope.income != '' ) {
+        if (count >= 6 && $scope.LoactionType != '' && $scope.country_type != '' && $scope.device != '' && $scope.gender_type != '' &&  $scope.age_type != '' && $scope.language != '' && $scope.income != '' ) {
             //$scope.savedAudienceSegementFields(segment, $scope.chanelId);
             if ($scope.countryObj.length <= 1) {
                 if ($scope.state_type != '') {
@@ -987,7 +1029,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 segementData.country_type = $scope.country_type;
                 segementData.state_type = $scope.state_type;
                 segementData.city_type = $scope.city_type;
-                segementData.location_type = $scope.location_type;
+                segementData.location_type = $scope.LoactionType;
                 $scope.segmentDataList = segementData;
             return audienceFactory.postAudienceSegement(segementData).then(function(response, status){
                 $scope.newSegementCreateForm = false;
@@ -1003,6 +1045,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                   confirmButtonText: 'Create new segement!'
                 }).then(function (result) {
                   if (result.value) {
+                    $scope.getAudienceSegement();
                     $('.audience-section').removeClass('content-active');
                     $('.database-marketplace-options').removeClass('content-showcase');
                     $('.set-audience-parameters').removeClass('content-active');
@@ -1139,7 +1182,6 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
    
     $scope.getDeviceModel = function(deviceType){
         if (deviceType == 'Mobile') {
-            $scope.deviceSelect = 'Mobile';
             loaderActivate();
             return campaignFactory.getDeviceModel().then(function(response,status){
                     $scope.devioceModel = response;
@@ -1492,12 +1534,37 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.setSegmentFields = function(){
         if ($scope.customSegment) {
             $scope.customSection = true;
-            $scope.customSegementSet($scope.segmentListData);
+            //$scope.customSegementSet($scope.segmentListData);
+            checke_custome_Api_respomce();
         }else if ($scope.privateSection){
             $scope.getTargetingSummary();
             $scope.privateSection = true;
         }else{
             $scope.getDemographic();
+        }
+    };
+
+    function checke_custome_Api_respomce(){
+        if ($scope.type == 'Adwords' || $scope.type == 'DBM') {
+            if($scope.customSegem && $scope.technologyData && $scope.devioceModel) {
+                $scope.customSegementSet($scope.segmentListData);
+                loaderDeactivate();
+            }else{
+                $timeout(function(){
+                    loaderActivate();
+                    checke_custome_Api_respomce();
+                }, 500);
+            }
+        }else{
+            if($scope.customSegem && $scope.technologyData && $scope.devioceModel) {
+                $scope.customSegementSet($scope.segmentListData);
+                loaderDeactivate();
+            }else{
+                $timeout(function(){
+                    loaderActivate();
+                    checke_custome_Api_respomce();
+                }, 500);
+            }
         }
     };
 
@@ -1669,17 +1736,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         });
         
         $scope.device = '';
-        $scope.deviceSelect = '';
+        $scope.deviceSelectName = '';
         $scope.device_ref.map(function(e, index){
             for(let i =0 ; i < device_split.length; i++){
                 if(device_split[i] == e.device_id){
                     deviceObj[index] = true;
                     if ($scope.device == '') {
                         $scope.device = e.device_id;
-                        $scope.deviceSelect = e.device_type;
+                        $scope.deviceSelectName = e.device_type;
                     }else{
                         $scope.device = $scope.device + ',' + e.device_id;
-                        $scope.deviceSelect = $scope.deviceSelect + ',' + e.device_type;    
+                        $scope.deviceSelectName = $scope.deviceSelectName + ',' + e.device_type;    
                     }
                     break;
                 }
@@ -1688,16 +1755,19 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         });
 
         $scope.deviceModel = '';
+        $scope.device_type_get = '';
         if (segementList.Model) {
             $scope.deviceModel = false;
             $scope.device_model_ref.map(function(e, index){
-                for(let i =0 ; i < devicr_model_split.length; i++){
+                for(let i =0 ; i < device_model_split.length; i++){
                     if(income_split[i] == e.Id){
                         deviceModelObj[index] = true;
                         if ($scope.deviceModel == '') {
                             $scope.deviceModel = e.Id;
+                            $scope.device_type_get = e.device_type;
                         }else{
-                            $scope.deviceModel = $scope.deviceModel + ',' + e.Id; 
+                            $scope.deviceModel = $scope.deviceModel + ',' + e.Id;
+                            $scope.device_type_get = $scope.device_type_get + ',' + e.device_type; 
                         }
                         break;
                     }
@@ -1763,260 +1833,299 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             }
 
             $scope.api_responce = response;
-
-            $timeout(function(){
-                $scope.ageGroup_ref = $scope.customSegem.ageGroup;
-
-                $scope.genderGroup_ref = $scope.customSegem.gender;
-
-                $scope.language_ref = $scope.customSegem.language;
-
-                $scope.income_ref = $scope.customSegem.incomeDetails; 
-
-                $scope.affinity_ref = $scope.marketDataList;
-
-                $scope.marketSeg_ref = $scope.marketDataList;
-
-                $scope.country_ref = $scope.countryData;
-
-                $scope.state_ref = $scope.stateData;
-
-                $scope.city_ref = $scope.cityData;
-
-                $scope.device_ref = $scope.technologyData;
-
-                $scope.device_model_ref = $scope.devioceModel;
-
-                if (channel_type == 'Lightning') {
-                    $scope.IAB_ref = $scope.customSegem.IAB;
-                }
-
-                if ($scope.api_responce.locations.length == 0) {
-                    var stateCode = $scope.api_responce.locations[0].state_code;
-                    $scope.getState(stateCode);
-                    $scope.getCity(cityId);
-                }
-
-                $scope.ageGroup_ref.map(function(e, index){  
-                    for(let i =0 ; i < $scope.api_responce.ageGroup.length; i++){
-                        if($scope.api_responce.ageGroup[i].age == e.age){
-                            ageGroup[index] = true;
-                            break;
-                        }
-                    }
-
-                    ageGroup[index] = ageGroup[index] || false;
-                });
-
-                $scope.genderGroup_ref.map(function(e, index){  
-                    for(let i =0 ; i < $scope.api_responce.gender.length; i++){
-                        if($scope.api_responce.gender[i].gender == e.gender){
-                            genderGroup[index] = true;
-                            break;
-                        }
-                    }
-                    genderGroup[index] = genderGroup[index] || false;
-                });
-                $scope.language_name = '';
-                $scope.language_ref.map(function(e, index){ 
-                    for(let i =0 ; i < $scope.api_responce.language.length; i++){
-                        if($scope.api_responce.language[i].language == e.language){
-                            languageObj[index] = true;
-                            if ($scope.language_name == '') {
-                                $scope.language_name = e.language;
-                            }else{
-                                $scope.language_name = $scope.language_name + ',' + e.language;
-                            }
-                            break;
-                        }
-                    }
-                    languageObj[index] = languageObj[index] || false;
-                });
-                $scope.income_Type = '';
-                $scope.income_ref.map(function(e, index){
-                    for(let i =0 ; i < $scope.api_responce.incomeDetails.length; i++){
-                        if($scope.api_responce.incomeDetails[i].income_name == e.income_name){
-                            incomeObj[index] = true;
-                            if ($scope.income_Type == '') {
-                                $scope.income_Type = e.income_name;
-                            }else{
-                                $scope.income_Type = $scope.income_Type + ',' + e.income_name;
-                            }
-                            
-                            break;
-                        }
-                    }
-                    incomeObj[index] = incomeObj[index] || false;
-                });
-
-                if (channel_type == 'Lightning') {
-                    $scope.IAB_Name_type = '';
-                    $scope.IAB_ref.map(function(e, index){
-                        for(let i =0 ; i < $scope.api_responce.IAB.length; i++){
-                            if($scope.api_responce.IAB[i].category_name == e.category_name){
-                                IAB_Obj[index] = true;
-                                $scope.IAB = '';
-                                if ($scope.IAB_Name_type == '') {
-                                    $scope.IAB = e.seg_id
-                                    $scope.IAB_Name_type = e.category_name;
-                                }else{
-                                    $scope.IAB = $scope.IAB + ',' + e.seg_id;
-
-                                    $scope.IAB_Name_type = $scope.IAB_Name_type + ',' + e.category_name;
-                                }
-                                
-                                break;
-                            }
-                        }
-                        IAB_Obj[index] = IAB_Obj[index] || false;
-                    });
-                }
-
-                if (channel_type == 'Adwords' || channel_type == 'DBM') {
-                    $scope.market_segment_type = '';
-                    $scope.marketSeg_ref.map(function(e, index){ 
-                        for(let i =0 ; i < $scope.marketDataList.length; i++){
-                            if($scope.marketDataList[i].id == e.Seg_category_id){
-                                marketSegmentObj[index] = true;
-                                if ($scope.market_segment_type == '') {
-                                    $scope.market_segment_type = e.seg_category_name;
-                                }else{
-                                    $scope.market_segment_type = $scope.market_segment_type + ',' + e.seg_category_name;
-                                }
-                                break;
-                            }
-                        }
-                        marketSegmentObj[index] = marketSegmentObj[index] || false;
-                    });
-
-                    $scope.affinity_catagery_type = '';
-                    $scope.affinity_ref.map(function(e, index){
-                        for(let i =0 ; i < $scope.affinityDataLlist.length; i++){
-                            if($scope.affinityDataLlist[i].id == e.Seg_category_id){
-                                affinityObj[index] = true;
-                                if ($scope.affinity_catagery_type == '') {
-                                    $scope.affinity_catagery_type = e.category_name;
-                                }else{
-                                    $scope.affinity_catagery_type = $scope.affinity_catagery_type + ',' + e.category_name;
-                                }
-                                break;
-                            }
-                        }
-                        affinityObj[index] = affinityObj[index] || false;
-                    });
-                }
-
-                $scope.countryTypeObj = '';
-                $scope.countryType = '';
-                $scope.country_ref.map(function(e, index){  
-                    for(let i =0 ; i < $scope.api_responce.locations.length; i++){
-                        if($scope.api_responce.locations[i].country_codes == e.country_codes){
-                            countryObj[index] = true;
-                            if ($scope.countryTypeObj == '') {
-                                $scope.countryTypeObj = e.country_codes;
-                                $scope.countryType = e.country_names;
-                            }else{
-                                $scope.countryTypeObj = $scope.countryTypeObj  + ',' + e.country_code;
-                                $scope.countryType = $scope.countryType +','+ e.country_names;
-                            }
-
-                            break;
-                        }
-                    }
-
-                    countryObj[index] = countryObj[index] || false;
-                });
-
-                // if ($scope.api_responce.locations.length == 0) {
-                //     $scope.stateTypeObj = '';
-                //     $scope.stateType = '';
-                //     $scope.state_ref.map(function(e, index){  
-                //         for(let i =0 ; i < $scope.api_responce.locations.length; i++){
-                //             if($scope.api_responce.locations[i].state_code == e.state_code){
-                //                 stateObj[index] = true;
-                //                 if ($scope.stateTypeObj == '') {
-                //                     $scope.stateTypeObj =  e.state_code;
-                //                     $scope.stateType = e.state_names;
-                //                 }else{
-                //                     $scope.stateTypeObj = $scope.stateTypeObj  + ',' + e.state_code;
-                //                     $scope.stateType = $scope.stateType +','+ e.state_names;
-                //                 }
-                //                 break;
-                //             }
-                //         }
-
-                //         stateObj[index] = stateObj[index] || false;
-                //     });
-
-                //     $scope.city_ref.map(function(e, index){  
-                //         for(let i =0 ; i < $scope.api_responce.locations.length; i++){
-                //             if($scope.api_responce.locations[i].city_id == e.city_id){
-                //                 cityObj[index] = true;
-                //                 if ($scope.cityTypeObj == '') {
-                //                     $scope.cityTypeObj = e.city_id;
-                //                     $scope.cityType = e.city_names;
-                //                 }else{
-                //                     $scope.cityTypeObj = $scope.cityTypeObj  + ',' + e.city_id;
-                //                     $scope.cityType = $scope.cityType +','+ e.city_names;
-                //                 }
-                //                 break;
-                //             }
-                //         }
-
-                //         cityObj[index] = cityObj[index] || false;
-                //     });
-                // }
-                $scope.stateType = '';
-                $scope.cityType = '';
-                angular.forEach($scope.api_responce.locations,function(value){
-                    if ($scope.stateType == '') {
-                        $scope.stateType = value.state_names;
-                        $scope.cityType = value.city_names;
-                    }else{
-                        $scope.stateType = $scope.stateType + ',' + value.state_names;
-                        $scope.cityType = $scope.cityType + ',' + value.city_names;
-                    }
-                })
-
-                $scope.device_ref.map(function(e, index){  
-                    for(let i =0 ; i < $scope.api_responce.technologyData.length; i++){
-                        if($scope.api_responce.technologyData[i].device_Id == e.device_id){
-                            deviceObj[index] = true;
-                            break;
-                        }
-                    }
-
-                    deviceObj[index] = deviceObj[index] || false;
-                });
-
-                $scope.device_model_ref.map(function(e, index){  
-                    for(let i =0 ; i < $scope.api_responce.mobiledeviceobj.length; i++){
-                        if($scope.api_responce.mobiledeviceobj[i].model_Id == e.city_id){
-                            deviceModelObj[index] = true;
-                            break;
-                        }
-                    }
-
-                    deviceModelObj[index] = deviceModelObj[index] || false;
-                });
-
-                $scope.ageGroup = ageGroup;
-                $scope.genderGroup = genderGroup;
-                $scope.languageObj = languageObj;
-                $scope.incomeObj = incomeObj;
-                $scope.affinityObj = affinityObj;
-                $scope.marketSegmentObj = marketSegmentObj;
-                $scope.IAB_Obj = IAB_Obj;
-                $scope.countryObj = countryObj;
-                $scope.stateObj = stateObj;
-                $scope.cityObj = cityObj;
-                $scope.deviceObj = deviceObj;
-                $scope.deviceModelObj = deviceModelObj;
-
-            }, 500);
-            
-            loaderDeactivate();
+            $scope.type = channel_type;
+            checke_Api_respomce();            
         });
+    };
+
+    function checke_Api_respomce(){
+        if ($scope.type == 'Adwords' || $scope.type == 'DBM') {
+            if($scope.marketDataList && $scope.customSegem && $scope.technologyData && $scope.devioceModel && $scope.countryData) {
+                setPrivateFields();
+                loaderDeactivate();
+            }else{
+                $timeout(function(){
+                    loaderActivate();
+                    checke_Api_respomce();
+                }, 500);
+            }
+        }else{
+            if($scope.customSegem && $scope.technologyData && $scope.devioceModel && $scope.countryData) {
+                setPrivateFields();
+                loaderDeactivate();
+            }else{
+                $timeout(function(){
+                    loaderActivate();
+                    checke_Api_respomce();
+                }, 500);
+            }
+        }
+    };
+
+    function setPrivateFields(){
+        $scope.ageGroup_ref = $scope.customSegem.ageGroup;
+
+        $scope.genderGroup_ref = $scope.customSegem.gender;
+
+        $scope.language_ref = $scope.customSegem.language;
+
+        $scope.income_ref = $scope.customSegem.incomeDetails; 
+
+        $scope.affinity_ref = $scope.marketDataList;
+
+        $scope.marketSeg_ref = $scope.marketDataList;
+
+        $scope.country_ref = $scope.countryData;
+
+        $scope.state_ref = $scope.stateData;
+
+        $scope.city_ref = $scope.cityData;
+
+        $scope.device_ref = $scope.technologyData;
+
+        $scope.device_model_ref = $scope.devioceModel;
+
+        if ($scope.type == 'Lightning') {
+            $scope.IAB_ref = $scope.customSegem.IAB;
+        }
+
+        if ($scope.api_responce.locations.length == 0) {
+            var stateCode = $scope.api_responce.locations[0].state_code;
+            $scope.getState(stateCode);
+            $scope.getCity(cityId);
+        }
+
+        $scope.ageGroup_ref.map(function(e, index){  
+            for(let i =0 ; i < $scope.api_responce.ageGroup.length; i++){
+                if($scope.api_responce.ageGroup[i].age == e.age){
+                    ageGroup[index] = true;
+                    break;
+                }
+            }
+
+            ageGroup[index] = ageGroup[index] || false;
+        });
+
+        $scope.genderGroup_ref.map(function(e, index){  
+            for(let i =0 ; i < $scope.api_responce.gender.length; i++){
+                if($scope.api_responce.gender[i].gender == e.gender){
+                    genderGroup[index] = true;
+                    break;
+                }
+            }
+            genderGroup[index] = genderGroup[index] || false;
+        });
+        $scope.language_name = '';
+        $scope.language_ref.map(function(e, index){ 
+            for(let i =0 ; i < $scope.api_responce.language.length; i++){
+                if($scope.api_responce.language[i].language == e.language){
+                    languageObj[index] = true;
+                    if ($scope.language_name == '') {
+                        $scope.language_name = e.language;
+                    }else{
+                        $scope.language_name = $scope.language_name + ',' + e.language;
+                    }
+                    break;
+                }
+            }
+            languageObj[index] = languageObj[index] || false;
+        });
+        $scope.income_Type = '';
+        $scope.income_ref.map(function(e, index){
+            for(let i =0 ; i < $scope.api_responce.incomeDetails.length; i++){
+                if($scope.api_responce.incomeDetails[i].income_name == e.income_name){
+                    incomeObj[index] = true;
+                    if ($scope.income_Type == '') {
+                        $scope.income_Type = e.income_name;
+                    }else{
+                        $scope.income_Type = $scope.income_Type + ',' + e.income_name;
+                    }
+                    
+                    break;
+                }
+            }
+            incomeObj[index] = incomeObj[index] || false;
+        });
+
+        if ($scope.type == 'Lightning') {
+            $scope.IAB_Name_type = '';
+            $scope.IAB_ref.map(function(e, index){
+                for(let i =0 ; i < $scope.api_responce.IAB.length; i++){
+                    if($scope.api_responce.IAB[i].category_name == e.category_name){
+                        IAB_Obj[index] = true;
+                        $scope.IAB = '';
+                        if ($scope.IAB_Name_type == '') {
+                            $scope.IAB = e.seg_id
+                            $scope.IAB_Name_type = e.category_name;
+                        }else{
+                            $scope.IAB = $scope.IAB + ',' + e.seg_id;
+
+                            $scope.IAB_Name_type = $scope.IAB_Name_type + ',' + e.category_name;
+                        }
+                        
+                        break;
+                    }
+                }
+                IAB_Obj[index] = IAB_Obj[index] || false;
+            });
+        }
+
+        if ($scope.type == 'Adwords' || $scope.type == 'DBM') {
+            $scope.market_segment_type = '';
+            $scope.marketSeg_ref.map(function(e, index){ 
+                for(let i =0 ; i < $scope.marketDataList.length; i++){
+                    if($scope.marketDataList[i].id == e.Seg_category_id){
+                        marketSegmentObj[index] = true;
+                        if ($scope.market_segment_type == '') {
+                            $scope.market_segment_type = e.seg_category_name;
+                        }else{
+                            $scope.market_segment_type = $scope.market_segment_type + ',' + e.seg_category_name;
+                        }
+                        break;
+                    }
+                }
+                marketSegmentObj[index] = marketSegmentObj[index] || false;
+            });
+
+            $scope.affinity_catagery_type = '';
+            $scope.affinity_ref.map(function(e, index){
+                for(let i =0 ; i < $scope.affinityDataLlist.length; i++){
+                    if($scope.affinityDataLlist[i].id == e.Seg_category_id){
+                        affinityObj[index] = true;
+                        if ($scope.affinity_catagery_type == '') {
+                            $scope.affinity_catagery_type = e.category_name;
+                        }else{
+                            $scope.affinity_catagery_type = $scope.affinity_catagery_type + ',' + e.category_name;
+                        }
+                        break;
+                    }
+                }
+                affinityObj[index] = affinityObj[index] || false;
+            });
+        }
+
+        $scope.countryTypeObj = '';
+        $scope.countryType = '';
+        $scope.country_ref.map(function(e, index){  
+            for(let i =0 ; i < $scope.api_responce.locations.length; i++){
+                if($scope.api_responce.locations[i].country_codes == e.country_codes){
+                    countryObj[index] = true;
+                    if ($scope.countryTypeObj == '') {
+                        $scope.countryTypeObj = e.country_codes;
+                        $scope.countryType = e.country_names;
+                    }else{
+                        $scope.countryTypeObj = $scope.countryTypeObj  + ',' + e.country_code;
+                        $scope.countryType = $scope.countryType +','+ e.country_names;
+                    }
+
+                    break;
+                }
+            }
+
+            countryObj[index] = countryObj[index] || false;
+        });
+
+        // if ($scope.api_responce.locations.length == 0) {
+        //     $scope.stateTypeObj = '';
+        //     $scope.stateType = '';
+        //     $scope.state_ref.map(function(e, index){  
+        //         for(let i =0 ; i < $scope.api_responce.locations.length; i++){
+        //             if($scope.api_responce.locations[i].state_code == e.state_code){
+        //                 stateObj[index] = true;
+        //                 if ($scope.stateTypeObj == '') {
+        //                     $scope.stateTypeObj =  e.state_code;
+        //                     $scope.stateType = e.state_names;
+        //                 }else{
+        //                     $scope.stateTypeObj = $scope.stateTypeObj  + ',' + e.state_code;
+        //                     $scope.stateType = $scope.stateType +','+ e.state_names;
+        //                 }
+        //                 break;
+        //             }
+        //         }
+
+        //         stateObj[index] = stateObj[index] || false;
+        //     });
+
+        //     $scope.city_ref.map(function(e, index){  
+        //         for(let i =0 ; i < $scope.api_responce.locations.length; i++){
+        //             if($scope.api_responce.locations[i].city_id == e.city_id){
+        //                 cityObj[index] = true;
+        //                 if ($scope.cityTypeObj == '') {
+        //                     $scope.cityTypeObj = e.city_id;
+        //                     $scope.cityType = e.city_names;
+        //                 }else{
+        //                     $scope.cityTypeObj = $scope.cityTypeObj  + ',' + e.city_id;
+        //                     $scope.cityType = $scope.cityType +','+ e.city_names;
+        //                 }
+        //                 break;
+        //             }
+        //         }
+
+        //         cityObj[index] = cityObj[index] || false;
+        //     });
+        // }
+        $scope.stateType = '';
+        $scope.cityType = '';
+        angular.forEach($scope.api_responce.locations,function(value){
+            if ($scope.stateType == '') {
+                $scope.stateType = value.state_names;
+                $scope.cityType = value.city_names;
+            }else{
+                $scope.stateType = $scope.stateType + ',' + value.state_names;
+                $scope.cityType = $scope.cityType + ',' + value.city_names;
+            }
+        })
+        $scope.device_type_get = '';
+        $scope.device_ref.map(function(e, index){  
+            for(let i =0 ; i < $scope.api_responce.technologyData.length; i++){
+                if($scope.api_responce.technologyData[i].device_Id == e.device_id){
+                    deviceObj[index] = true;
+                    if ($scope.device_type_get == '') {
+                        $scope.device_type_get = e.device_type;
+                    }else{
+                        $scope.device_type_get = $scope.device_type_get + ',' + e.device_type;
+                    }
+                    break;
+                }
+            }
+
+            deviceObj[index] = deviceObj[index] || false;
+        });
+
+        $scope.device_model_get = '';
+        if ($scope.api_responce.mobiledeviceobj.length != 0) {
+            $scope.deviceModel = false;
+            $scope.device_model_ref.map(function(e, index){  
+                for(let i =0 ; i < $scope.api_responce.mobiledeviceobj.length; i++){
+                    if($scope.api_responce.mobiledeviceobj[i].model_Id == e.Id){
+                        deviceModelObj[index] = true;
+                        if ($scope.device_model_get == '') {
+                            $scope.device_model_get = e.Model;
+                        }else{
+                            $scope.device_model_get = $scope.device_model_get + ',' + e.Model;
+                        }
+                        break;
+                    }
+                }
+
+                deviceModelObj[index] = deviceModelObj[index] || false;
+            });
+        }
+
+        $scope.ageGroup = ageGroup;
+        $scope.genderGroup = genderGroup;
+        $scope.languageObj = languageObj;
+        $scope.incomeObj = incomeObj;
+        $scope.affinityObj = affinityObj;
+        $scope.marketSegmentObj = marketSegmentObj;
+        $scope.IAB_Obj = IAB_Obj;
+        $scope.countryObj = countryObj;
+        $scope.stateObj = stateObj;
+        $scope.cityObj = cityObj;
+        $scope.deviceObj = deviceObj;
+        $scope.deviceModelObj = deviceModelObj;
+
+        loaderDeactivate();
     };
 
     function getMarket(channel, channel_type, response){        
@@ -2035,8 +2144,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
         var categoryType = 'market';
         return audienceFactory.getChannelPortedCategories(channel_type, categoryType, $scope.marketData).then(function(response, status) {
-                $scope.marketDataList = response;
-                loaderDeactivate();
+                $scope.marketDataList = response;                
             });
     };
 
@@ -2055,13 +2163,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         });
         var categoryType = 'affinity';
         return audienceFactory.getChannelPortedCategories(channel_type, categoryType, $scope.affinityDataLlist).then(function(response, status) {
-                $scope.affinityDataLlist = response;
-                loaderDeactivate();
+                $scope.affinityDataLlist = response;                
             });
     };
 
     $scope.slideChange = function(select){
 
+    };
+
+    $scope.cancelCreateNewSegment = function(){
+        $('.create-audience-section').removeClass('content-active');
+        $('.audience-section').addClass('content-active');
     };
 
 

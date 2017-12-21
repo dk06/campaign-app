@@ -167,13 +167,30 @@
                         'income_name' : value.income
                     })
 	            });
-	            var category  = response.PortedIABCategories;
-	            angular.forEach(category , function(value, key){                
-                    privateFormData.IAB.push({
+	            var category  = response.TargetingSummary.audiencesegmentobj;
+	            angular.forEach(category, function(value, key){
+		            privateFormData.IAB.push({
                         'seg_id' : value.id,
-                        'category_name' : value.segments ? value.subcategory : value.subcategory
-                    })
-	            });
+                        'category_name' : value.audienceSegment
+                    });
+		        });
+
+		        angular.forEach(category, function(value, key){
+		            angular.forEach(value.subcategory, function(value, key){
+		                privateFormData.IAB.push({
+                        'seg_id' : value.id,
+                        'category_name' : value.audienceSegment ? value.subcategory : value.subcategory
+                    	})
+		            });
+		        });
+
+
+	            // angular.forEach(category , function(value, key){                
+             //        privateFormData.IAB.push({
+             //            'seg_id' : value.id,
+             //            'category_name' : value.segments ? value.subcategory : value.subcategory
+             //        })
+	            // });
 	            angular.forEach(response.TargetingSummary.deviceObject , function(value, key){                
                     privateFormData.technologyData.push({
                         'device_Id' : value.id,

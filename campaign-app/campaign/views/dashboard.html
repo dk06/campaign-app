@@ -253,9 +253,9 @@
                                 <i class="material-icons overlay-close-icon">cancel</i><br /><br />
                                 <div class="channel-modal-content">
                                      <label>Channel Type :- </label>
-                                    <input type="text" class="form-control" ng-model="SelectChannelName" readonly>
+                                    <input type="text" id="ds" class="form-control" ng-model="SelectChannelName" readonly>
                                     <br>
-                                    <input type="text" class="form-control" ng-model="accessTocken" placeholder="Access tocken*">
+                                    <input type="text" id="dd" class="form-control" ng-model="accessTocken" placeholder="Access tocken*">
                                     <br>
                                     
                                     <button class="select-channel-btn" ng-hide="accessTocken">Continue</button>
@@ -527,7 +527,7 @@
                                 <hr />
                                 <div class="row">
                                     <div class="col-6 left-align">
-                                        <button class="btn btn-primary cancel-btn cancel-audience-group-btn">Cancel</button>
+                                        <button class="btn btn-primary cancel-btn cancel-audience-group-btn" ng-click="cancelCreateNewSegment()">Cancel</button>
                                     </div>
                                     <div class="col-6 right-align">
                                         <button class="btn btn-primary continue-audience-group-btn" ng-click="setSegmentFields()">Continue</button>
@@ -733,6 +733,8 @@
             </ul>
         </div>
     </div>
+    <br>
+    <input type="text" name="" class="form-control"  ng-model="device_type_get" readonly>
                                             <br>
                                             <div ng-hide="deviceModel">
                                                 <label>Devioce Model</label>              
@@ -752,6 +754,8 @@
             </ul>
         </div>
     </div>
+    <br>
+    <input type="text" name="" class="form-control"  ng-model="device_model_get" readonly>
                                             </div>
                                         </div>
 
@@ -772,11 +776,11 @@
                     <div>
                         <input type="checkbox" name="check" ng-model="checkboxCounty" value="All" ng-change="selectAllCountry(checkboxCounty)"><span>Select All</span>
                     </div>
-                    <div class="input-group input-group-sm search-control">                
-                        <input type="text" class="form-control" placeholder="Search" ng-model="query" />
-                    </div>
+                    <!-- <div class="input-group input-group-sm search-control">                
+                        <input type="text" class="form-control" placeholder="Search" ng-model="CountryFilter" />
+                    </div> -->
                 </li>
-                <li role="presentation" ng-repeat="county in countryData | filter:query">
+                <li role="presentation" ng-repeat="county in countryData | filter:CountryFilter">
                     <input type="checkbox" id="deld" value="countryObj[$index]" name="" ng-model="countryObj[$index]" ng-change="selectCountry(county.country_codes, countryObj[$index], $index, countryObj)">{{county.country_names}}
                 </li>
             </ul>
@@ -793,11 +797,11 @@
                         <div>
                             <input type="checkbox" name="check" value="All" ng-model="checkboxState" ng-click="selectAllState(checkboxState)"><span>Select All</span>
                         </div>
-                        <div class="input-group input-group-sm search-control">                
-                            <input type="text" class="form-control" placeholder="Search" ng-model="query" />
-                        </div>
+                        <!-- <div class="input-group input-group-sm search-control">                
+                            <input type="text" class="form-control" placeholder="Search" ng-model="stateFilter" />
+                        </div> -->
                     </li>
-                    <li role="presentation" ng-repeat="state in stateData | filter:query">
+                    <li role="presentation" ng-repeat="state in stateData | filter:stateFilter">
                         <input type="checkbox" name="" ng-model="stateObj[$index]" ng-change="selectState(state.state_code, stateObj[$index],$index, stateObj)">{{state.state_names}}
                     </li>
                 </ul>
@@ -817,12 +821,12 @@
                         <div>
                             <input type="checkbox" name="check" value="All" ng-model="checkboxCity" ng-change="selectAllCity(checkboxCity)"><span>Select All</span>
                         </div>
-                        <div class="input-group input-group-sm search-control">                
-                            <input type="text" class="form-control" placeholder="Search" ng-model="query" />
-                        </div>
+                        <!-- <div class="input-group input-group-sm search-control">                
+                            <input type="text" class="form-control" placeholder="Search" ng-model="cityFilter" />
+                        </div> -->
                     </li>
-                    <li role="presentation" ng-repeat="city in cityData | filter:query">
-                        <input type="checkbox" name="" ng-model="cityObj[$index]" ng-change="selectCity(city.city_id, $index, cityObj)">{{city.city_names}}
+                    <li role="presentation" ng-repeat="city in cityData | filter:cityFilter">
+                        <input type="checkbox" name="" ng-model="cityObj[$index]" ng-change="selectCity(city.city_id, $index, cityObj, cityObj[$index])">{{city.city_names}}
                     </li>
                 </ul>
             </div>
