@@ -2006,6 +2006,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
         $scope.countryTypeObj = '';
         $scope.countryType = '';
+        $scope.country_type = '';
         $scope.country_ref.map(function(e, index){  
             for(let i =0 ; i < $scope.api_responce.locations.length; i++){
                 if($scope.api_responce.locations[i].country_codes == e.country_codes){
@@ -2013,9 +2014,11 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     if ($scope.countryTypeObj == '') {
                         $scope.countryTypeObj = e.country_codes;
                         $scope.countryType = e.country_names;
+                        $scope.country_type = e.country_codes;
                     }else{
                         $scope.countryTypeObj = $scope.countryTypeObj  + ',' + e.country_code;
                         $scope.countryType = $scope.countryType +','+ e.country_names;
+                        $scope.country_type =  $scope.country_type + ',' + e.country_code;
                     }
 
                     break;
@@ -2064,15 +2067,22 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         //         cityObj[index] = cityObj[index] || false;
         //     });
         // }
+        $scope.LoactionType = 'Inclusion';
         $scope.stateType = '';
         $scope.cityType = '';
+        $scope.city_type = '';
+        $scope.state_type = '';
         angular.forEach($scope.api_responce.locations,function(value){
             if ($scope.stateType == '') {
                 $scope.stateType = value.state_names;
                 $scope.cityType = value.city_names;
+                $scope.city_type = value.cityId;
+                $scope.state_type = value.stateId;
             }else{
                 $scope.stateType = $scope.stateType + ',' + value.state_names;
                 $scope.cityType = $scope.cityType + ',' + value.city_names;
+                $scope.city_type = $scope.city_type + ','+ value.cityId;
+                $scope.state_type = $scope.state_type +','+ value.stateId;
             }
         })
         $scope.device_type_get = '';
