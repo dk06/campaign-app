@@ -1316,7 +1316,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         }     
     };
 
-    $scope.savedCampaignChannel = function(){
+    $scope.savedCampaignChannel = function(){        
         if ($scope.channelData.channel == '')
         {
             if($scope.scriptTag && $scope.channelList)
@@ -1329,18 +1329,25 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             {
                 $scope.channelScriptTag = true;
                 $scope.getAudienceSegement();
+                $scope.channelScope = $scope.selectChan;
             }
             else
             {
                 swal('Select channel');
             }
        }else{
-            $scope.finalCampaignList();
-            $('.configure-channels-block').removeClass('active');
-            $('.configure-channels-section').removeClass('content-active');
-            $('.audience-section').removeClass('content-active');
-            $('.activate-campaign-section').addClass('content-active');
-            $('.activate-campaign-block').addClass('active');
+            if ($scope.channelScope == $scope.selectChan) {
+                $scope.finalCampaignList();
+                $('.configure-channels-block').removeClass('active');
+                $('.configure-channels-section').removeClass('content-active');
+                $('.audience-section').removeClass('content-active');
+                $('.activate-campaign-section').addClass('content-active');
+                $('.activate-campaign-block').addClass('active');
+            }else{
+                $scope.channelScriptTag = true;
+                $scope.getAudienceSegement();
+                $scope.channelScope = $scope.selectChan;
+            }
        }   
     };
 
