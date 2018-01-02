@@ -1909,7 +1909,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     operatingSysObj[index] = true;
                     if ($scope.operatingSys_Name_type == '') {
                         $scope.operatingSys_Name_type = e.os_version;
-                        $scope.operating_sys_id = value.operating_sys_id;
+                        $scope.operating_sys_id = e.operating_sys_id;
                     }else{
                         $scope.operatingSys_Name_type = $scope.operatingSys_Name_type + ',' + e.os_version;    
                         $scope.operating_sys_id = $scope.operating_sys_id + ',' + e.operating_sys_id;    
@@ -1921,14 +1921,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         });
 
         $scope.screen_Name_type = '';
+        $scope.screen_resoluton_id = '';
         $scope.screenRes_ref.map(function(e, index){
             for(let i =0 ; i < screenRes_split.length; i++){
                 if(screenRes_split[i] == e.screen_resoluton_id){
                     screenResObj[index] = true;
                     if ($scope.screen_Name_type == '') {
                         $scope.screen_Name_type = e.screen_id;
+                        $scope.screen_resoluton_id = e.screen_id;
                     }else{
                         $scope.screen_Name_type = $scope.screen_Name_type + ',' + e.screen_id;                        
+                        $scope.screen_resoluton_id = $scope.screen_resoluton_id + ',' + e.screen_id;                        
                     }
                     break;
                 }
