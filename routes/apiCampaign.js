@@ -120,7 +120,7 @@ router.get('/getDemographic', function(req,res,next){
                                                 {
                                                     var IABData = rows[0]
                                                     var incomeDetailsParam = 'incomeDetails';
-                                                     apiControllerRequest.getCustomFormData(incomeDetailsParam, function(err,rows){
+                                                    apiControllerRequest.getCustomFormData(incomeDetailsParam, function(err,rows){
                                                         if(!rows[0])
                                                         {
                                                             res.json({
@@ -130,23 +130,37 @@ router.get('/getDemographic', function(req,res,next){
                                                                     message: "API Not Successful"});
                                                         }
                                                         else
-                                                        {
-                                                            var jsnData = {
-                                                                ageGroup : ageGroupData,
-                                                                gender : genderData,
-                                                                language : languageData,
-                                                                affinityCategory : affinityCategoryData,
-                                                                marketSegment : marketSegmentData,
-                                                                IAB : IABData,
-                                                                incomeDetails : rows[0]
-
-
-                                                            }
-                                                            res.json({
-                                                                data : jsnData,
-                                                                code: 200,
-                                                                status: "Success",
-                                                                message: "API Successful"});
+                                                        {                                                           
+                                                            var incomeDetailsData = rows[0]
+                                                            var facebookDetailsParam = 'facebook';
+                                                            apiControllerRequest.getCustomFormData(facebookDetailsParam, function(err,rows){
+                                                                if(!rows[0])
+                                                                {
+                                                                    res.json({
+                                                                            data : [],
+                                                                            code: 500,
+                                                                            status: false,
+                                                                            message: "API Not Successful"});
+                                                                }
+                                                                else
+                                                                {
+                                                                    var jsnData = {
+                                                                        ageGroup : ageGroupData,
+                                                                        gender : genderData,
+                                                                        language : languageData,
+                                                                        affinityCategory : affinityCategoryData,
+                                                                        marketSegment : marketSegmentData,
+                                                                        IAB : IABData,
+                                                                        incomeDetails : incomeDetailsData,
+                                                                        facebookData : rows[0]
+                                                                    }
+                                                                    res.json({
+                                                                        data : jsnData,
+                                                                        code: 200,
+                                                                        status: "Success",
+                                                                        message: "API Successful"});
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                 }
@@ -176,11 +190,47 @@ router.get('/getTechnology', function(req,res,next){
         }
         else
         {
-            res.json({
-                    data : rows[0],
-                    code: 200,
-                    status: "Success",
-                    message: "API Successful"});
+            var deviceTypeData = rows[0];
+            var operatingSystemParam = 'operatingSystem';
+            apiControllerRequest.getCustomFormData(operatingSystemParam, function(err, rows){
+                if(!rows[0])
+                {
+                    res.json({
+                        data : [],
+                        code: 500,
+                        status: false,
+                        message: "API Not Successful"});
+                }
+                else
+                {
+                    var operatingSystemData = rows[0];
+                    var screenResolutonParam = 'screenResoluton';
+                    apiControllerRequest.getCustomFormData(screenResolutonParam, function(err, rows){
+                        if(!rows[0])
+                        {
+                            res.json({
+                                data : [],
+                                code: 500,
+                                status: false,
+                                message: "API Not Successful"});
+                        }
+                        else
+                        {
+                            var jsnData = {
+                                deviceType : deviceTypeData,
+                                operatingSystem : operatingSystemData,
+                                screenResoluton : rows[0]
+                            }
+                            res.json({
+                                    data : jsnData,
+                                    code: 200,
+                                    status: "Success",
+                                    message: "API Successful"});                    
+                        }
+                    });                    
+                }
+            });
+
             // var deviceTypeData = rows[0]
             
             // var deviceModelParam = 'deviceModelName';

@@ -42,7 +42,8 @@
                 affinityCategory : [],
                 marketSegment : [],
                 IAB : [],
-                incomeDetails : []
+                incomeDetails : [],
+                facebookDetails : []
             }
         return campaignService.getDemographic(params).then(function(response, status){
                 angular.forEach( response.data.ageGroup, function(value, key){
@@ -91,6 +92,13 @@
                     customNewSegments.incomeDetails.push({
                             'income_id' : value.income_id,
                             'income_name' : value.income
+                        })
+                });
+                angular.forEach(response.data.facebookData , function(value, key){
+                    customNewSegments.facebookDetails.push({
+                            'fb_id' : value.fb_id,
+                            'fb_category_name' : value.fb_category_name,
+                            'fb_code': value.fb_code
                         })
                 });
                 return customNewSegments;

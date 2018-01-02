@@ -135,7 +135,7 @@
                         </div><br>                        
 
                         <button type="button" class="create-campaign-btn btn btn-primary" ng-show="campaign" ng-click="campaignCreate(campaign)">Continue</button>
-                        <button type="button" class="btn btn-primary" style="width: 50%;" ng-hide="campaign">Continue</button>
+                        <button type="button" class="btn btn-primary" style="width: 50%;" ng-hide="campaign" ng-click="selectCampaignObject(campaign)">Continue</button>
                     </div>
                 </section>
             </section>
@@ -701,20 +701,69 @@
                                                         <input type="text" class="other-input" ng-model="IAB_Name_type" style="margin-top: 8px;" readonly>
                                                     </div>
                                                 </div>
+
+<div class="row" ng-show="selectChan == 'Facebook'">
+    <div class="col-4">
+        <label class="input-label" for="other">Facebook</label>
+        <i class="material-icons">help_outline</i>
+    </div>
+    <div class="col-8">
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pull-left">Facbook Select</span>
+            <p class="pull-right"><span class="caret"></span></p>
+        </button>
+        <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation">
+                <div class="search-control">                
+                    <input type="text" class="form-control" placeholder="Search" ng-model="query" />
+                </div>
+            </li>
+            <li role="presentation" ng-repeat='facebook in customSegementForm.facebookDetails | filter:query'>
+                <input type="checkbox" name="" ng-model="facebook_Obj[$index]" ng-change="facebookChangedValue(facebook_Obj,$index, facebook_Obj[$index])">{{facebook.fb_category_name}}
+            </li>
+        </ul>
+    </div>
+        <input type="text" class="other-input" ng-model="facebook_Name_type" style="margin-top: 8px;" readonly>
+    </div>
+</div>
                                             </div>
                                         </div>
 
                                         <div id="Technology" class="tabcontent">
                                             <label>Technology</label>
-                                            <input type="text" class="form-control" name="" ng-model="channel.operating_system" placeholder="Operating System">
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Operating System
+        </button>
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul style="list-style-type:none">
+                <li role="presentation" ng-repeat="operating in technologyData.operatingSystem">
+                    <input type="checkbox" name="" ng-model="operatingSysObj[$index]" ng-change="operatingSysChangedValue(operatingSysObj, $index , operatingSysObj[$index], operating.operating_system_name)">{{operating.operating_system_name}}
+                </li>
+            </ul>
+        </div>
+    </div>
                                             <br>
-                                            <input type="text" name="" ng-model="channel.operating_sys_version" class="form-control" placeholder="Operating System Version">
+                                            <input type="text" name="" ng-model="operatingSys_Name_type" class="form-control text-center" placeholder="Operating System Version" readonly>
                                             <br>
-                                            <input type="text" name="" class="form-control" ng-model="channel.browser" placeholder="Browser">
+                                            <input type="text" name="" class="form-control text-center" ng-model="channel.browser" placeholder="Browser">
                                             <br>
-                                            <input type="text" name="" class="form-control"  ng-model="channel.browser_version" placeholder="Browser Version">
+                                            <input type="text" name="" class="form-control text-center"  ng-model="channel.browser_version" placeholder="Browser Version">
                                             <br>
-                                            <input type="text" name="" class="form-control"  ng-model="channel.screen_resulation" placeholder="Screen Resoluton">
+    <div class="dropdown">
+        <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Screen Resoluton
+        </button>
+        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
+            <ul style="list-style-type:none">
+                <li role="presentation" ng-repeat="screen in technologyData.screenResoluton">
+                    <input type="checkbox" name="" ng-model="screenResObj[$index]" ng-change="screenResChangedValue(screenResObj, $index , screenResObj[$index], screen.screen_id)">{{screen.screen_id}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+                                            <input type="text" name="" class="form-control text-center"  ng-model="screen_Name_type" placeholder="Screen Resoluton" readonly="">
                                             <br>
                                             <label>Device Type</label>
                                             <!-- <select class="form-control" ng-options="deviceType.device_type as deviceType.device_type for deviceType in technologyData" ng-model="channel.device_type"                     ng-change="getDeviceModel(channel.device_type)">
@@ -727,14 +776,14 @@
         <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
             <ul style="list-style-type:none">
                 <!-- <li class="dropdown"><a href="javascript:void(0)" ng-click="selectDeviceType(deviceType.device_type, deviceType.device_type)">{{deviceType.device_type}}</a></li> -->
-                <li role="presentation" ng-repeat="deviceType in technologyData">
+                <li role="presentation" ng-repeat="deviceType in technologyData.deviceType">
                     <input type="checkbox" name="" ng-model="deviceObj[$index]" ng-change="deviceChangedValue(deviceObj, $index , deviceObj[$index], deviceType.device_type)">{{deviceType.device_type}}
                 </li>
             </ul>
         </div>
     </div>
     <br>
-    <input type="text" name="" class="form-control"  ng-model="device_type_get" readonly>
+    <input type="text" name="" class="form-control text-center"  ng-model="device_type_get" placeholder="Device Types" readonly>
                                             <br>
                                             <div ng-hide="deviceModel">
                                                 <label>Devioce Model</label>              
@@ -755,7 +804,7 @@
         </div>
     </div>
     <br>
-    <input type="text" name="" class="form-control"  ng-model="device_model_get" readonly>
+    <input type="text" name="" class="form-control text-center"  ng-model="device_model_get" placeholder="Device models" readonly>
                                             </div>
                                         </div>
 

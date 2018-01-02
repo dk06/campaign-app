@@ -64,6 +64,13 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.campaignId = id;
         $scope.campaignSelectValid = true;
     };
+
+    $scope.selectCampaignObject = function(campaign){
+        if (!campaign) {
+            swal('Please Enter Campaign Name!');
+        }
+    };
+
     $scope.campaignCreate = function(campaign){
         if ($scope.channelData.campaignObject == '') {
             $scope.campaignName = campaign;    
@@ -416,7 +423,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             }
         }
         $scope.device_type_get = '';
-        var device_apiRef = $scope.technologyData;
+        var device_apiRef = $scope.technologyData.deviceType;
         angular.forEach(device_apiRef, function(value, key){
             if ($scope.deviceObj[key] == true) {
                 if ($scope.device_type_get == '') {
@@ -530,6 +537,87 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     $scope.IAB_Name_type = value.category_name;
                 }else{
                     $scope.IAB_Name_type = $scope.IAB_Name_type + ',' + value.category_name;
+                }
+            }
+         });
+    };
+
+    $scope.operatingSysObj = [];
+    $scope.operatingSysChangedValue = function(operatingSys,index, operatingSysStatus){
+        if (operatingSysStatus) {
+            if ($scope.operatingSysObj[index] == operatingSys[index]) {
+                $scope.operatingSysObj[index] = true;
+            }
+        }else{
+            if ($scope.operatingSysObj[index] == operatingSys[index]) {
+                $scope.operatingSysObj[index] = false;
+            }
+        }
+        var operatingSys_apiRef = $scope.technologyData.operatingSystem;;
+        $scope.operatingSys_Name_type = '';
+        $scope.operating_sys_id = '';
+        angular.forEach(operatingSys_apiRef, function(value, key){
+            if ($scope.operatingSysObj[key] == true) {
+                if ($scope.operatingSys_Name_type == '') {
+                    $scope.operatingSys_Name_type = value.os_version;
+                    $scope.operating_sys_id = value.operating_sys_id;
+                }else{
+                    $scope.operatingSys_Name_type = $scope.operatingSys_Name_type + ',' + value.os_version;
+                    $scope.operating_sys_id = $scope.operating_sys_id + ',' + value.operating_sys_id;
+                }
+            }
+         });
+    };
+
+    $scope.screenResObj = [];
+    $scope.screenResChangedValue = function(screen,index, screenStatus){
+        if (screenStatus) {
+            if ($scope.screenResObj[index] == screen[index]) {
+                $scope.screenResObj[index] = true;
+            }
+        }else{
+            if ($scope.screenResObj[index] == screen[index]) {
+                $scope.screenResObj[index] = false;
+            }
+        }
+        var screen_apiRef = $scope.technologyData.screenResoluton;;
+        $scope.screen_Name_type = '';
+        $scope.screen_resoluton_id = '';
+        angular.forEach(screen_apiRef, function(value, key){
+            if ($scope.screenResObj[key] == true) {
+                if ($scope.screen_Name_type == '') {
+                    $scope.screen_Name_type = value.screen_id;
+                    $scope.screen_resoluton_id = value.screen_resoluton_id;
+                }else{
+                    $scope.screen_Name_type = $scope.screen_Name_type + ',' + value.screen_id;
+                    $scope.screen_resoluton_id = $scope.screen_resoluton_id + ',' + value.screen_resoluton_id;
+                }
+            }
+         });
+    };
+
+    $scope.facebook_Obj = [];
+    $scope.facebookChangedValue = function(operatingSys,index, operatingSysStatus){
+        if (operatingSysStatus) {
+            if ($scope.facebook_Obj[index] == operatingSys[index]) {
+                $scope.facebook_Obj[index] = true;
+            }
+        }else{
+            if ($scope.facebook_Obj[index] == operatingSys[index]) {
+                $scope.facebook_Obj[index] = false;
+            }
+        }
+        var facebook_apiRef = $scope.customSegementForm.facebookDetails;;
+        $scope.facebook_Name_type = '';
+        $scope.fb_code = '';
+        angular.forEach(facebook_apiRef, function(value, key){
+            if ($scope.facebook_Obj[key] == true) {
+                if ($scope.facebook_Name_type == '') {
+                    $scope.facebook_Name_type = value.fb_category_name;
+                    $scope.fb_code = value.fb_code;
+                }else{
+                    $scope.facebook_Name_type = $scope.facebook_Name_type + ',' + value.fb_category_name;
+                    $scope.fb_code = $scope.fb_code + ',' + value.fb_code;
                 }
             }
          });
@@ -852,134 +940,139 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
     $scope.savedAudience = function(segment){
         var count = Object.keys(segment).length;
-        var age_apiRef = $scope.customSegementForm.ageGroup;
-        $scope.age_type = '';
-         angular.forEach(age_apiRef, function(value, key){
-            if ($scope.ageGroup[key] == true) {
-                if ($scope.age_type == '') {
-                    $scope.age_type = value.age_id;
-                }else{
-                     $scope.age_type = $scope.age_type + ',' + value.age_id;
-                }
-            }
-         });
 
-        var gender_apiRef = $scope.customSegementForm.gender;
-        $scope.gender_type = '';
-         angular.forEach(gender_apiRef, function(value, key){
-            if ($scope.genderGroup[key] == true) {
-                if ($scope.gender_type == '') {
-                    $scope.gender_type = value.gender_id;
-                }else{
-                    $scope.gender_type = $scope.gender_type + ',' + value.gender_id;
-                }
-            }
-         });
-
-        var language_apiRef = $scope.customSegementForm.language;
-        $scope.language = '';
-        angular.forEach(language_apiRef, function(value, key){
-            if ($scope.languageObj[key] == true) {
-                if ($scope.language == '') {
-                    $scope.language = value.lag_id
-                }else{
-                    $scope.language = $scope.language + ',' + value.lag_id;
-                }
-            }
-         });
-
-        var income_apiRef = $scope.customSegementForm.incomeDetails;
-        $scope.income = '';
-        angular.forEach(income_apiRef, function(value, key){
-            if ($scope.incomeObj[key] == true) {
-                if ($scope.income == '') {
-                    $scope.income = value.income_id;
-                }else{
-                    $scope.income = $scope.income + ',' + value.income_id;
-                }
-            }
-         });
-
-        var device_apiRef = $scope.technologyData;
-        $scope.device = '';
-        angular.forEach(device_apiRef, function(value, key){
-            if ($scope.deviceObj[key] == true) {
-                if ($scope.device == '') {
-                    $scope.device = value.device_id;
-                }else{
-                    $scope.device = $scope.device + ',' + value.device_id;
-                }
-            }
-         });
-
-        var deviceModel_apiRef = $scope.devioceModel;
-        if ($scope.deviceModel == true) {
-            $scope.deviceModel = '';
-            angular.forEach(deviceModel_apiRef, function(value, key){
-                if ($scope.deviceModelObj[key] == true) {
-                    if ( $scope.deviceModel == '') {
-                         $scope.deviceModel = value.Id;
+        if (count >= 3) {
+            var age_apiRef = $scope.customSegementForm.ageGroup;
+            $scope.age_type = '';
+             angular.forEach(age_apiRef, function(value, key){
+                if ($scope.ageGroup[key] == true) {
+                    if ($scope.age_type == '') {
+                        $scope.age_type = value.age_id;
                     }else{
-                        $scope.deviceModel = $scope.deviceModel + ',' + value.Id;
+                         $scope.age_type = $scope.age_type + ',' + value.age_id;
                     }
                 }
              });
+
+            var gender_apiRef = $scope.customSegementForm.gender;
+            $scope.gender_type = '';
+             angular.forEach(gender_apiRef, function(value, key){
+                if ($scope.genderGroup[key] == true) {
+                    if ($scope.gender_type == '') {
+                        $scope.gender_type = value.gender_id;
+                    }else{
+                        $scope.gender_type = $scope.gender_type + ',' + value.gender_id;
+                    }
+                }
+             });
+
+            var language_apiRef = $scope.customSegementForm.language;
+            $scope.language = '';
+            angular.forEach(language_apiRef, function(value, key){
+                if ($scope.languageObj[key] == true) {
+                    if ($scope.language == '') {
+                        $scope.language = value.lag_id
+                    }else{
+                        $scope.language = $scope.language + ',' + value.lag_id;
+                    }
+                }
+             });
+
+            var income_apiRef = $scope.customSegementForm.incomeDetails;
+            $scope.income = '';
+            angular.forEach(income_apiRef, function(value, key){
+                if ($scope.incomeObj[key] == true) {
+                    if ($scope.income == '') {
+                        $scope.income = value.income_id;
+                    }else{
+                        $scope.income = $scope.income + ',' + value.income_id;
+                    }
+                }
+             });
+
+            var device_apiRef = $scope.technologyData.deviceType;
+            $scope.device = '';
+            angular.forEach(device_apiRef, function(value, key){
+                if ($scope.deviceObj[key] == true) {
+                    if ($scope.device == '') {
+                        $scope.device = value.device_id;
+                    }else{
+                        $scope.device = $scope.device + ',' + value.device_id;
+                    }
+                }
+             });
+
+            var deviceModel_apiRef = $scope.devioceModel;
+            if ($scope.deviceModel == true) {
+                $scope.deviceModel = '';
+                angular.forEach(deviceModel_apiRef, function(value, key){
+                    if ($scope.deviceModelObj[key] == true) {
+                        if ( $scope.deviceModel == '') {
+                             $scope.deviceModel = value.Id;
+                        }else{
+                            $scope.deviceModel = $scope.deviceModel + ',' + value.Id;
+                        }
+                    }
+                 });
+            }else{
+                $scope.deviceModel = false;
+            }
+
+            if ($scope.selectChan === 'Adwords' || $scope.selectChan === 'DBM') {
+                var affinity_catagery_apiRef = $scope.customSegementForm.affinityCategory;
+                $scope.affinity_catagery = '';
+                angular.forEach(affinity_catagery_apiRef, function(value, key){
+                    if ($scope.affinityObj[key] == true) {
+                        if ($scope.affinity_catagery == '') {
+                            $scope.affinity_catagery = value.Seg_category_id;;
+                        }else{
+                            $scope.affinity_catagery = $scope.affinity_catagery + ',' + value.Seg_category_id;
+                        }
+                    }
+                 });
+
+                if (true) {}
+                var market_segment_apiRef = $scope.customSegementForm.marketSegment;
+                $scope.market_segment = '';
+                angular.forEach(market_segment_apiRef, function(value, key){
+                    if ($scope.marketSegmentObj[key] == true) {
+                        if ($scope.market_segment == '') {
+                            $scope.market_segment = value.Seg_category_id;
+                        }else{
+                            $scope.market_segment = $scope.market_segment + ',' + value.Seg_category_id;
+                        }
+                        
+                    }
+                 });
+            }else{
+                $scope.affinity_catagery = '';
+                $scope.market_segment = '';
+            }
+
+            if ($scope.selectChan == 'Lightning') {
+                var IAB_apiRef = $scope.customSegementForm.IAB;
+                $scope.IAB = '';
+                angular.forEach(IAB_apiRef, function(value, key){
+                    if ($scope.IAB_Obj[key] == true) {
+                        if ($scope.IAB == '') {
+                            $scope.IAB = value.seg_id;
+                        }else{
+                            $scope.IAB = $scope.IAB + ',' + value.seg_id;
+                        }
+                    }
+                 });
+            }else{
+                $scope.IAB = '';
+            }
+
+            newSegmentFormValidation(count, segment);
         }else{
-            $scope.deviceModel = false;
+            validationAlert();
         }
-
-        if ($scope.selectChan === 'Adwords' || $scope.selectChan === 'DBM') {
-            var affinity_catagery_apiRef = $scope.customSegementForm.affinityCategory;
-            $scope.affinity_catagery = '';
-            angular.forEach(affinity_catagery_apiRef, function(value, key){
-                if ($scope.affinityObj[key] == true) {
-                    if ($scope.affinity_catagery == '') {
-                        $scope.affinity_catagery = value.Seg_category_id;;
-                    }else{
-                        $scope.affinity_catagery = $scope.affinity_catagery + ',' + value.Seg_category_id;
-                    }
-                }
-             });
-
-            if (true) {}
-            var market_segment_apiRef = $scope.customSegementForm.marketSegment;
-            $scope.market_segment = '';
-            angular.forEach(market_segment_apiRef, function(value, key){
-                if ($scope.marketSegmentObj[key] == true) {
-                    if ($scope.market_segment == '') {
-                        $scope.market_segment = value.Seg_category_id;
-                    }else{
-                        $scope.market_segment = $scope.market_segment + ',' + value.Seg_category_id;
-                    }
-                    
-                }
-             });
-        }else{
-            $scope.affinity_catagery = '';
-            $scope.market_segment = '';
-        }
-
-        if ($scope.selectChan == 'Lightning') {
-            var IAB_apiRef = $scope.customSegementForm.IAB;
-            $scope.IAB = '';
-            angular.forEach(IAB_apiRef, function(value, key){
-                if ($scope.IAB_Obj[key] == true) {
-                    if ($scope.IAB == '') {
-                        $scope.IAB = value.seg_id;
-                    }else{
-                        $scope.IAB = $scope.IAB + ',' + value.seg_id;
-                    }
-                }
-             });
-        }else{
-            $scope.IAB = '';
-        }
-
-        newSegmentFormValidation(count, segment);
     };
 
     function newSegmentFormValidation(count, segment){
-        if (count >= 6 && $scope.LoactionType != '' && $scope.country_type != '' && $scope.device != '' && $scope.gender_type != '' &&  $scope.age_type != '' && $scope.language != '' && $scope.income != '' ) {
+        if (count >= 3 && $scope.LoactionType != '' && $scope.country_type != '' && $scope.device != '' && $scope.gender_type != '' &&  $scope.age_type != '' && $scope.language != '' && $scope.income != '' && $scope.screen_Name_type != '' && $scope.operatingSys_Name_type != '' ) {
             //$scope.savedAudienceSegementFields(segment, $scope.chanelId);
             if ($scope.countryObj.length <= 1) {
                 if ($scope.state_type != '') {
@@ -1020,7 +1113,15 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             }
 
             if ($scope.selectChan == 'Lightning') {
-                if ($scope.IAB_Name_type != '') {
+                if ($scope.IAB_Name_type == '') {
+                    validationAlert();
+                }else{
+                    var marketSection = 'OK';
+                }
+            }
+
+            if ($scope.selectChan == 'Facebook') {
+                if ($scope.fb_code == '') {
                     validationAlert();
                 }else{
                     var marketSection = 'OK';
@@ -1044,7 +1145,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.savedAudienceSegementFields = function(segment, chanelId){
         loaderActivate();
         var count = Object.keys(segment).length;
-        if (count >= 6 && $scope.country_type != '' && $scope.device != '' && $scope.gender_type != '' &&  $scope.age_type != '' && $scope.language != '' && $scope.income != '' ) {
+        if (count >= 3 && $scope.LoactionType != '' && $scope.country_type != '' && $scope.device != '' && $scope.gender_type != '' &&  $scope.age_type != '' && $scope.language != '' && $scope.income != '' && $scope.screen_Name_type != '' && $scope.operatingSys_Name_type != '' ) {
             if($scope.chanelId){
                 var chanelId = $scope.chanelId;
             }else{
@@ -1067,6 +1168,9 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 segementData.state_type = $scope.state_type;
                 segementData.city_type = $scope.city_type;
                 segementData.location_type = $scope.LoactionType;
+                segementData.operating_sys_version = $scope.operating_sys_id;
+                segementData.screen_resulation = $scope.screen_resoluton_id;
+                segementData.fb_code = $scope.fb_code;
                 $scope.segmentDataList = segementData;
             return audienceFactory.postAudienceSegement(segementData).then(function(response, status){
                 $scope.newSegementCreateForm = false;
@@ -1134,15 +1238,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.countryType = '';
         $scope.stateType = '';
         $scope.cityType = '';
+        $scope.operatingSys_Name_type = '';
+        $scope.screen_Name_type = '';
         $scope.citySelect = 'Select City';
         $scope.stateSelect = 'Select State';
         $scope.countySelect = 'Select Country';
         $scope.channel = [];
         $scope.IAB_Obj = [];
-        $scope.languageObj[$index] = false;
-        $scope.affinityObj = [$index] = false;
-        $scope.incomeObj = [$index] = false;
-        $scope.marketSegmentObj = [$index] = false;
+        $scope.languageObj = [];
+        $scope.affinityObj = [];
+        $scope.incomeObj = [];
+        $scope.marketSegmentObj = [];
     };
 
     $scope.editAudienceSegement = function(chenel){
@@ -1328,7 +1434,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 title: 'Please copy this script',
                 text: $scope.channelScriptTag.tag,
                 confirmButtonColor: '#3085d6',            
-                confirmButtonText: 'Ok'
+                confirmButtonText: 'Copy to Clipboard'
             }).then(function (result) {
               if (result.value) {
                 //$scope.chanelId = channel.channel_id;
@@ -1342,7 +1448,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 title: 'Please copy this script',
                 text: channel.scriptTag,
                 confirmButtonColor: '#3085d6',            
-                confirmButtonText: 'Ok'
+                confirmButtonText: 'Copy to Clipboard'
             }).then(function (result) {
               if (result.value) {
                 $scope.chanelId = channel.channel_id;
@@ -1528,6 +1634,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     var affinityObj = [];
     var marketSegmentObj = [];
     var IAB_Obj = [];
+    var operatingSysObj = [];
+    var screenResObj = [];
 
     $scope.customSegment = false;
     $scope.selectCustomSegement = function(segementList){
@@ -1664,6 +1772,9 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         var language_split = segementList.language.split(',');
         var income_split = segementList.income.split(',');
         var device_split = segementList.device_type.split(',');
+        var operatingSys_split = segementList.operating_sys_version.split(',');
+        var screenRes_split = segementList.screen_resulation.split(',');
+
         if (segementList.Model) {
             var device_model_split = segementList.Model.split(',');
         }
@@ -1678,8 +1789,11 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.genderGroup_ref = $scope.customSegem.gender;
         $scope.language_ref = $scope.customSegem.language;
         $scope.income_ref = $scope.customSegem.incomeDetails;
-        $scope.device_ref = $scope.technologyData;
+        $scope.device_ref = $scope.technologyData.deviceType;
         $scope.device_model_ref = $scope.devioceModel;
+        $scope.operatingSys_ref = $scope.technologyData.operatingSystem;
+        $scope.screenRes_ref = $scope.technologyData.screenResoluton;
+   
 
         $scope.ageGroup_ref.map(function(e, index){  
             for(let i =0 ; i < age_split.length; i++){
@@ -1787,6 +1901,42 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             $scope.deviceModel = true;
         }
 
+        $scope.operatingSys_Name_type = '';
+        $scope.operating_sys_id = '';
+        $scope.operatingSys_ref.map(function(e, index){
+            for(let i =0 ; i < operatingSys_split.length; i++){
+                if(operatingSys_split[i] == e.operating_sys_id){
+                    operatingSysObj[index] = true;
+                    if ($scope.operatingSys_Name_type == '') {
+                        $scope.operatingSys_Name_type = e.os_version;
+                        $scope.operating_sys_id = value.operating_sys_id;
+                    }else{
+                        $scope.operatingSys_Name_type = $scope.operatingSys_Name_type + ',' + e.os_version;    
+                        $scope.operating_sys_id = $scope.operating_sys_id + ',' + e.operating_sys_id;    
+                    }
+                    break;
+                }
+            }
+            operatingSysObj[index] = operatingSysObj[index] || false;
+        });
+
+        $scope.screen_Name_type = '';
+        $scope.screenRes_ref.map(function(e, index){
+            for(let i =0 ; i < screenRes_split.length; i++){
+                if(screenRes_split[i] == e.screen_resoluton_id){
+                    screenResObj[index] = true;
+                    if ($scope.screen_Name_type == '') {
+                        $scope.screen_Name_type = e.screen_id;
+                    }else{
+                        $scope.screen_Name_type = $scope.screen_Name_type + ',' + e.screen_id;                        
+                    }
+                    break;
+                }
+            }
+            screenResObj[index] = screenResObj[index] || false;
+        });
+
+
         $scope.stateType = '';
         $scope.cityType = '';
         $scope.countryType = segementList.country_type;
@@ -1819,6 +1969,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.IAB_Obj = IAB_Obj;
         $scope.deviceObj = deviceObj;
         $scope.deviceModelObj = deviceModelObj;
+        $scope.screenResObj = screenResObj;
+        $scope.operatingSysObj = operatingSysObj;
         loaderDeactivate();
     };
 
@@ -1890,9 +2042,13 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
 
         $scope.city_ref = $scope.cityData;
 
-        $scope.device_ref = $scope.technologyData;
+        $scope.device_ref = $scope.technologyData.deviceType;
 
         $scope.device_model_ref = $scope.devioceModel;
+
+        $scope.operatingSys_ref = $scope.technologyData.operatingSystem;
+
+        $scope.screenRes_ref = $scope.technologyData.screenResoluton;
 
         if ($scope.type == 'Lightning') {
             $scope.IAB_ref = $scope.customSegem.IAB;
@@ -2131,6 +2287,46 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             });
         }
 
+        // $scope.screen_Name_type = '';
+        // $scope.$scope.screen_resoluton_id = '';
+        // $scope.screenRes_ref.map(function(e, index){  
+        //     for(let i =0 ; i < $scope.api_responce.technologyData.length; i++){
+        //         if($scope.api_responce.technologyData[i].device_Id == e.device_id){
+        //             screenResObj[index] = true;
+        //             if ($scope.screen_Name_type == '') {
+        //                 $scope.screen_Name_type = e.screen_id;
+        //                 $scope.screen_resoluton_id = e.screen_resoluton_id;
+        //             }else{
+        //                 $scope.screen_Name_type = $scope.screen_Name_type + ',' + e.screen_id;
+        //                 $scope.screen_resoluton_id = $scope.screen_resoluton_id + ',' + e.screen_resoluton_id;
+        //             }
+        //             break;
+        //         }
+        //     }
+
+        //     screenResObj[index] = screenResObj[index] || false;
+        // });
+
+        $scope.operatingSys_Name_type = '';
+        $scope.operating_sys_id = '';
+        $scope.operatingSys_ref.map(function(e, index){  
+            for(let i =0 ; i < $scope.api_responce.operatingsystem.length; i++){
+                if($scope.api_responce.operatingsystem[i].operating_sys_id == e.operating_sys_id){
+                    operatingSysObj[index] = true;
+                    if ($scope.operatingSys_Name_type == '') {
+                        $scope.operatingSys_Name_type = e.os_version;
+                        $scope.operating_sys_id = e.operating_sys_id;
+                    }else{
+                        $scope.operatingSys_Name_type = $scope.operatingSys_Name_type + ',' + e.os_version;
+                        $scope.operating_sys_id = $scope.operating_sys_id + ',' + e.operating_sys_id;
+                    }
+                    break;
+                }
+            }
+
+            operatingSysObj[index] = operatingSysObj[index] || false;
+        });
+
         $scope.ageGroup = ageGroup;
         $scope.genderGroup = genderGroup;
         $scope.languageObj = languageObj;
@@ -2143,6 +2339,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         $scope.cityObj = cityObj;
         $scope.deviceObj = deviceObj;
         $scope.deviceModelObj = deviceModelObj;
+        $scope.screenResObj = screenResObj;
+        $scope.operatingSysObj = operatingSysObj;
 
         loaderDeactivate();
     };

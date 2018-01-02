@@ -145,7 +145,8 @@
 	            technologyData : [],
 	            locations : [],
 	            mobiledeviceobj : [],
-	            apiResponce : []
+	            apiResponce : [],
+	            operatingsystem : []
 	        }
             return audienceService.getTargetingSummary().then(function(response, status){            	 
             	privateFormData.apiResponce = response.TargetingSummary;
@@ -217,6 +218,13 @@
                         'state_code' : value.stateId,
                         'city_names' : value.city,
                         'cityId': value.cityId
+                    })
+	            });
+
+	            angular.forEach(response.TargetingSummary.operatingsystem , function(value, key){                
+                    privateFormData.operatingsystem.push({
+                        'operating_sys_id' : value.id,
+                        'os_version' : value.os
                     })
 	            });
 	    		return privateFormData;
