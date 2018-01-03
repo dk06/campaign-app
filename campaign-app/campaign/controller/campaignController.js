@@ -18,7 +18,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.age_type = '';
     $scope.income_Type = '';
     $scope.device_type_get = '';
-    $scop.deviceId = '';
+    $scope.deviceId = '';
    
 
     init();
@@ -463,13 +463,13 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             }
         }
         $scope.device_type_get = '';
-        $scop.deviceId = '';
+        $scope.deviceId = '';
         var device_apiRef = $scope.technologyData.deviceType;
         angular.forEach(device_apiRef, function(value, key){
             if ($scope.deviceObj[key] == true) {
                 if ($scope.device_type_get == '') {
                     $scope.device_type_get = value.device_type;
-                    $scop.deviceId = value.device_Id;
+                    $scope.deviceId = value.device_Id;
                 }else{
                     $scope.device_type_get = $scope.device_type_get +','+ value.device_type;
                     $scope.deviceId = $scope.deviceId +','+ value.device_Id;
@@ -1081,7 +1081,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                 }
              });
 
-            $scop.deviceId = $scope.device;
+            $scope.deviceId = $scope.device;
 
             var deviceModel_apiRef = $scope.devioceModel;
             if ($scope.deviceModel == true) {
