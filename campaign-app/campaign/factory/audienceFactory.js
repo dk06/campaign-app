@@ -252,6 +252,12 @@
 	    		return response.data;
 	    	});
 	    };
+
+	    dataFactory.getAudienceSegementByID= function(seg_id){			
+			return audienceService.getAudienceSegementByID(seg_id).then(function(response) {
+				return response.data;
+			})
+		};
 		
 		return dataFactory;
  }]);

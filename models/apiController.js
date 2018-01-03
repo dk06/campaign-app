@@ -133,7 +133,7 @@ var APIsData={
         getAudienceSegementData:function(callback){
             dbConnect.getConnection(function(err, connection){
                 if (!err) {
-                    connection.query("select * from new_segement",callback);
+                    connection.query("select * from new_segement where isAction=?", [1], callback);
                     connection.release();
                 }else{
                     callback(true, err); 
@@ -154,10 +154,10 @@ var APIsData={
             });
         },
 
-        getAudienceSegementById:function(id, callback){
+        getAudienceSegmentById:function(id, callback){
             dbConnect.getConnection(function(err, connection){
                 if (!err) {
-                    connection.query("select * from new_segement where seg_id=?",[id],callback);
+                    connection.query("select * from new_segement where seg_id=? and isAction=?",[id, 1],callback);
                     connection.release();
                 }else{
                     callback(true, err); 
@@ -176,10 +176,10 @@ var APIsData={
                 }
             });
         },
-        deleteAudienceSegementData:function(id, callback){
+        deleteAudienceSegementData:function(paramsData, callback){
             dbConnect.getConnection(function(err, connection){
                 if (!err) {
-                    connection.query("delete from new_segement where seg_id=?", [id], callback);
+                    connection.query("update new_segement set ? where seg_id=?",[paramsData , paramsData.seg_id], callback);
                     connection.release();
                 }else{
                     callback(true, err); 

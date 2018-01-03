@@ -136,4 +136,13 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
         });
     };
 
+    this.getAudienceSegementByID = function (seg_id) {
+        params = shareBaseUrl.BaseUrl();
+        params.seg_id = seg_id;
+        var promise = $http.get(params.BaseUrl + 'getAudienceSegementByID', {params} ).then(function(response) {
+            return response.data;
+        });
+        return promise;
+    };
+
 });

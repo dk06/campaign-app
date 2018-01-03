@@ -417,7 +417,7 @@
                                         <td>Segment Last Refreshed</td>
                                         <td>Total Profile Count</td>
                                         <!-- <td>Segment Status</td> -->
-                                        <!-- <td>Actions</td> -->
+                                        <td>Actions</td>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="segementData in audienceSegementData">
@@ -434,43 +434,43 @@
                                                     <span class="slider round"></span>
                                                 </label>
                                             </td> -->
-                                            <!-- <td>
+                                            <td>
                                                 <div class="tooltip">
                                                     <i class="material-icons">toc</i>
                                                     <ul class="tooltiptext">
                                                         <li>
-                                                            <a href="#">
+                                                            <a href="#" ng-click="actionsActivity('View Details', segementData)" data-toggle="modal" data-target="#modelSegment">
                                                                 <i class="material-icons">remove_red_eye</i>
                                                                 View Details
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">
+                                                            <a href="#" ng-click="actionsActivity('Refresh Audiences', segementData)">
                                                                 <i class="material-icons">refresh</i>
                                                                 Refresh Audiences
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" ng-click="editAudienceSegement(segementData)">
+                                                            <a href="#" ng-click="actionsActivity('Edit Segment', segementData)" data-toggle="modal" data-target="#modelSegment">
                                                                 <i class="material-icons">mode_edit</i>
                                                                 Edit Segment
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#">
+                                                            <a href="#" ng-click="actionsActivity('Duplicate Segment', segementData)">
                                                                 <i class="material-icons">content_copy</i>
                                                                 Duplicate Segment
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" ng-click="deleteAudienceSegement(segementData)">
+                                                            <a href="#" ng-click="actionsActivity('Delete Segment', segementData)">
                                                                 <i class="material-icons">delete_forever</i>
                                                                 Delete Segment
                                                             </a>
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            </td> -->
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -484,6 +484,66 @@
                                 <button class="select-audience-btn btn btn-primary" ng-show="segementId" ng-click="savedAudienceSegement()">Continue</button>
                             </div>
                         </div>
+
+                        <!-- Model Segment Section start -->
+                        <div class="modal fade" id="modelSegment" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">{{segmentName}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div ng-if="segmentName == 'View Details'">
+                                            <table class="audience-segment-table">
+                                                <thead>
+                                                    <td>Segment Name</td>
+                                                    <td>Segment type</td>
+                                                    <td>Date Degment Created</td>
+                                                    <td>Segment Last Refreshed</td>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>           
+                                                        <td>{{getSegementData.segement_name}}</td>
+                                                        <td>{{getSegementData.segment_type}}</td>
+                                                        <td>{{getSegementData.create_date}}</td>
+                                                        <td>{{getSegementData.update_date}}</td>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div ng-if="segmentName == 'Edit Segment'">
+                                            <table class="audience-segment-table">
+                                                <thead>
+                                                    <td>Segment Name</td>
+                                                    <td>Segment type</td>
+                                                    <td>Date Degment Created</td>
+                                                    <td>Segment Last Refreshed</td>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>           
+                                                        <td>
+                                                            <input type="text" class="form-control" ng-model="getSegementData.segement_name">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" ng-model="getSegementData.segment_type" readonly="">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" ng-model="getSegementData.create_date" readonly="">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" ng-model="getSegementData.update_date" readonly="">
+                                                        </td>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editAudienceSegement(getSegementData)">Update</button>
+                                        </div>
+                                    </div>
+                              </div>
+                            </div>
+                        </div>
+
+                        <!-- Model Segment Section End -->
                     </div>
                 </section>
             </section>
@@ -738,7 +798,7 @@
         <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >            
             <ul style="list-style-type:none">
                 <li role="presentation" ng-repeat="operating in technologyData.operatingSystem">
-                    <input type="checkbox" name="" ng-model="operatingSysObj[$index]" ng-change="operatingSysChangedValue(operatingSysObj, $index , operatingSysObj[$index], operating.operating_system_name)">{{operating.operating_system_name}}
+                    <input type="checkbox" name="" ng-model="operatingSysObj[$index]" ng-change="operatingSysChangedValue(operatingSysObj, $index , operatingSysObj[$index], operating.operating_system_name)">{{operating.operating_system_name}} - {{operating.os_version}}
                 </li>
             </ul>
         </div>
@@ -746,9 +806,21 @@
                                             <br>
                                             <input type="text" name="" ng-model="operatingSys_Name_type" class="form-control text-center" placeholder="Operating System Version" readonly>
                                             <br>
-                                            <input type="text" name="" class="form-control text-center" ng-model="channel.browser" placeholder="Browser">
-                                            <br>
-                                            <input type="text" name="" class="form-control text-center"  ng-model="channel.browser_version" placeholder="Browser Version">
+                                            <!-- <input type="text" name="" class="form-control text-center" ng-model="channel.browser" placeholder="Browser">
+                                            <br> -->
+<div class="dropdown">
+    <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Browser
+    </button>
+    <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" >
+        <ul style="list-style-type:none">
+            <li role="presentation" ng-repeat="browser in technologyData.browserData">
+                <input type="checkbox" name="" ng-model="browserSysObj[$index]" ng-change="browserSysChangedValue(browserSysObj, $index , browserSysObj[$index], browser.browser_name)">{{browser.browser_name}}
+            </li>
+        </ul>
+    </div>
+</div>
+
                                             <br>
     <div class="dropdown">
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

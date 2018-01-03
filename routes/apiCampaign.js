@@ -216,134 +216,36 @@ router.get('/getTechnology', function(req,res,next){
                         }
                         else
                         {
-                            var jsnData = {
-                                deviceType : deviceTypeData,
-                                operatingSystem : operatingSystemData,
-                                screenResoluton : rows[0]
-                            }
-                            res.json({
-                                    data : jsnData,
-                                    code: 200,
-                                    status: "Success",
-                                    message: "API Successful"});                    
+                            var screenResolutonData = rows[0];
+                            var browserParam = 'browser';
+                            apiControllerRequest.getCustomFormData(browserParam, function(err, rows){
+                                if(!rows[0])
+                                {
+                                    res.json({
+                                        data : [],
+                                        code: 500,
+                                        status: false,
+                                        message: "API Not Successful"});
+                                }
+                                else
+                                {
+                                    var jsnData = {
+                                        deviceType : deviceTypeData,
+                                        operatingSystem : operatingSystemData,
+                                        screenResoluton : screenResolutonData,
+                                        browserData : rows[0]
+                                    }
+                                    res.json({
+                                        data : jsnData,
+                                        code: 200,
+                                        status: "Success",
+                                        message: "API Successful"});                    
+                                }
+                            });                    
                         }
                     });                    
                 }
             });
-
-            // var deviceTypeData = rows[0]
-            
-            // var deviceModelParam = 'deviceModelName';
-            // apiControllerRequest.getCustomFormData(deviceModelParam, function(err, rows){
-            //     if(!rows[0])
-            //     {
-            //         res.json({
-            //             data : [],
-            //             code: 500,
-            //             status: false,
-            //             message: "API Not Successful"});
-            //     }
-            //     else
-            //     {
-            //         var jsnData = {
-            //                 deviceType : deviceTypeData,
-            //                 deviceMode : rows[0]
-            //             }
-            //             res.json({
-            //                     data : jsnData,
-            //                     code: 200,
-            //                     status: "Success",
-            //                     message: "API Successful"});
-            //         var operatingSystemParam = 'operatingSystem';
-            //         apiControllerRequest.getCustomFormData(operatingSystemParam, function(err, rows){
-            //             if(!rows[0])
-            //             {
-            //                 res.json({
-            //                     data : [],
-            //                     code: 500,
-            //                     status: false,
-            //                     message: "API Not Successful"});
-            //             }
-            //             else
-            //             {
-            //                 var operatingSystemData = rows[0];
-            //                 var operatingSystemVersionParam = 'operatingSystemVersion';
-            //                 apiControllerRequest.getCustomFormData(operatingSystemVersionParam, function(err, rows){
-            //                     if(!rows[0])
-            //                     {
-            //                         res.json({
-            //                             data : [],
-            //                             code: 500,
-            //                             status: false,
-            //                             message: "API Not Successful"});
-            //                     }
-            //                     else
-            //                     {
-            //                         var operatingSystemVersionData = rows[0];
-            //                         var browserParam = 'browser';
-            //                         apiControllerRequest.getCustomFormData(browserParam, function(err, rows){
-            //                             if(!rows[0])
-            //                             {
-            //                                 res.json({
-            //                                     data : [],
-            //                                     code: 500,
-            //                                     status: false,
-            //                                     message: "API Not Successful"});
-            //                             }
-            //                             else
-            //                             {
-            //                                 var browserData = rows[0];
-            //                                 var browserVersionParam = 'browserVersion';                
-            //                                 apiControllerRequest.getCustomFormData(browserVersionParam, function(err, rows){
-            //                                     if(!rows[0])
-            //                                     {
-            //                                         res.json({
-            //                                             data : [],
-            //                                             code: 500,
-            //                                             status: false,
-            //                                             message: "API Not Successful"});
-            //                                     }
-            //                                     else
-            //                                     {
-            //                                         var browserVersionData = rows[0];
-            //                                         var screenResolutonParam = 'screenResoluton';
-            //                                         apiControllerRequest.getCustomFormData(screenResolutonParam, function(err, rows){
-            //                                             if(!rows[0])
-            //                                             {
-            //                                                 res.json({
-            //                                                     data : [],
-            //                                                     code: 500,
-            //                                                     status: false,
-            //                                                     message: "API Not Successful"});
-            //                                             }
-            //                                             else
-            //                                             {
-            //                                                 var jsnData = {
-            //                                                             deviceType : deviceTypeData,
-            //                                                             deviceMode : deviceModelData,
-            //                                                             operatingSystem : operatingSystemData,
-            //                                                             operatingSystemVersion : operatingSystemVersionData,
-            //                                                             browser: browserData,
-            //                                                             browserVersion : browserVersionData,
-            //                                                             screenResoluton : rows[0]
-            //                                                         }
-            //                                                         res.json({
-            //                                                                 data : jsnData,
-            //                                                                 code: 200,
-            //                                                                 status: "Success",
-            //                                                                 message: "API Successful"});                    
-            //                                             }
-            //                                         });               
-            //                                     }
-            //                                 });
-            //                             }
-            //                         });                   
-            //                     }
-            //                 });                    
-            //             }
-            //         });
-            //     }
-            // });
         }
     });
 });
