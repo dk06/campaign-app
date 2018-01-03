@@ -18,6 +18,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
     $scope.age_type = '';
     $scope.income_Type = '';
     $scope.device_type_get = '';
+    $scop.deviceId = '';
    
 
     init();
@@ -462,13 +463,16 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             }
         }
         $scope.device_type_get = '';
+        $scop.deviceId = '';
         var device_apiRef = $scope.technologyData.deviceType;
         angular.forEach(device_apiRef, function(value, key){
             if ($scope.deviceObj[key] == true) {
                 if ($scope.device_type_get == '') {
                     $scope.device_type_get = value.device_type;
+                    $scop.deviceId = value.device_Id;
                 }else{
                     $scope.device_type_get = $scope.device_type_get +','+ value.device_type;
+                    $scope.deviceId = $scope.deviceId +','+ value.device_Id;
                 }
             }
         });
@@ -487,7 +491,7 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
         if ($scope.selectChan == 'Lightning') {
             var reach = [];
             loaderActivate();
-            return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.device_type_get).then(function(response, status) {
+            return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.deviceId).then(function(response, status) {
                 reach.push(response[0].reach);
                 $scope.privateReach = response[0].reach;
                 loaderDeactivate();
@@ -1076,6 +1080,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
                     }
                 }
              });
+
+            $scop.deviceId = $scope.device;
 
             var deviceModel_apiRef = $scope.devioceModel;
             if ($scope.deviceModel == true) {
@@ -1940,6 +1946,8 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             deviceObj[index] = deviceObj[index] || false;
         });
 
+        $scope.deviceId = $scope.device;
+
         $scope.deviceModel = '';
         $scope.device_type_get = '';
         if (segementList.Model) {
@@ -2343,14 +2351,17 @@ app.controller('CampaignController',['$scope','$q','campaignFactory','campaignCh
             }
         })
         $scope.device_type_get = '';
+        $scope.deviceId = '';
         $scope.device_ref.map(function(e, index){  
             for(let i =0 ; i < $scope.api_responce.technologyData.length; i++){
                 if($scope.api_responce.technologyData[i].device_Id == e.device_id){
                     deviceObj[index] = true;
                     if ($scope.device_type_get == '') {
                         $scope.device_type_get = e.device_type;
+                        $scope.deviceId =  e.device_id
                     }else{
                         $scope.device_type_get = $scope.device_type_get + ',' + e.device_type;
+                        $scope.deviceId = $scope.deviceId + ',' + e.device_id;
                     }
                     break;
                 }
