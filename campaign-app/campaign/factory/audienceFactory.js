@@ -118,6 +118,12 @@
 	    	});
 	    };
 
+	    dataFactory.getPrivateReachSpecific = function(gender, ageId, incomeid, deviceId){
+	    	return audienceService.getPrivateReach(gender, ageId, incomeid, deviceId ).then(function(response, status){
+	    		return response.data;
+	    	});
+	    };
+
 	    dataFactory.getPrivateAudienceMarketplaceList = function(){
 	    	return audienceService.getPrivateAudienceMarketplaceList().then(function(response, status){
 	    		return response;

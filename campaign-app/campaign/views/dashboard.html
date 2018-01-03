@@ -567,7 +567,7 @@
                                                     </div>
                                                     <div class="col-sm-9">
                                                         <span ng-repeat="ageField in customSegementForm.ageGroup">
-                                                            <input type="checkbox" value="{{ageField.age}}" ng-model="ageGroup[$index]" ng-change="ageGroupChangedValue(ageGroup)" >{{ageField.age}}
+                                                            <input type="checkbox" value="{{ageField.age}}" ng-model="ageGroup[$index]" ng-change="ageGroupChangedValue(ageGroup, $index, ageGroup[$index])" >{{ageField.age}}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -579,7 +579,7 @@
 
                                                     <div class="col-sm-9">
                                                         <span ng-repeat="genderField in customSegementForm.gender">
-                                                            <input type="checkbox" value="{{genderField.gender}}" ng-model="genderGroup[$index]" ng-change="genderChangedValue(genderGroup)">{{genderField.gender}}
+                                                            <input type="checkbox" value="{{genderField.gender}}" ng-model="genderGroup[$index]" ng-change="genderChangedValue(genderGroup, $index, genderGroup[$index])">{{genderField.gender}}
                                                         </span>
                                                     </div>
                                                 </div>
