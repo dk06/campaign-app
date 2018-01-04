@@ -255,6 +255,42 @@ var APIsData={
                 }
             });
         },
+
+        saveFinalCampaignObj: function(paramsData, callback){
+            dbConnect.getConnection(function(err, connection){
+                if (!err) {
+                    connection.query("insert into final_campaign_list set?", paramsData, callback);
+                    connection.release();
+                }else{
+                    callback(true, err); 
+                    return;
+                }
+            });
+        },
+
+        getFinalCampaign : function(paramsData, callback){
+            dbConnect.getConnection(function(err, connection){
+                if (!err) {
+                    connection.query("select * from final_campaign_list f join channel c on f.channel_id = c.channel_id where c.user_id=? and isAction=?",[paramsData, 1], callback);
+                    connection.release();
+                }else{
+                    callback(true, err); 
+                    return;
+                }
+            });
+        },
+
+        deleteCampaignBySelectId : function(paramsData, callback){
+            dbConnect.getConnection(function(err, connection){
+                if (!err) {
+                    connection.query("update final_campaign_list set? where campaign_id=?",[paramsData, paramsData.campaign_id], callback);
+                    connection.release();
+                }else{
+                    callback(true, err); 
+                    return;
+                }
+            });
+        },
         // cpmpaign audience segement section release
 };
 module.exports= APIsData;1

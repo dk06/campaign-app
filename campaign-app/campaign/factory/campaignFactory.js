@@ -133,6 +133,24 @@
                 return response.data;
             });
         };
+
+        dataFactory.saveFinalCampaign = function(finalObj){
+            return campaignService.postSaveFinalCampaign(finalObj).then(function(response, status){
+                return response;
+            });
+        };
+
+        dataFactory.getFinalCampaignList = function(){
+            return campaignService.getFinalCampaignList().then(function(response, status){
+                return response.data;
+            });
+        };
+
+        dataFactory.deleteSelectCampaign = function(campaign_id){
+            return campaignService.deleteSelectCampaign(campaign_id).then(function(response, status){
+                return response.data;
+            });
+        };
 		
 		return dataFactory;
  }]);

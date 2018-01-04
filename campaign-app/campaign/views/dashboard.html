@@ -1,17 +1,5 @@
 <div class="container-fluid">
 <main>
-    <!-- <div ng-dropdown-multiselect="" options="example9data" selected-model="example9model" extra-settings="example9settings"></div> -->
-   <!-- <h2>Select Baselines</h2>
-    <div ng-dropdown-multiselect="" 
-         options="resultsWithInfo" 
-         selected-model="selected_baselines"
-         extra-settings="selected_baseline_settings"
-         translation-texts="selected_baselines_customTexts"></div>
-
-    {{ selected_baselines }}
-
-  </div> -->
-    
     <div class="row">
         <section class="col-md-3">
             <div class="card section-title-card">
@@ -46,99 +34,102 @@
             </div>
         </section>
     </div>
+    
     <div class="row">
         <div class="col-12">
             <!-- ********************** SET OBJECTIVE CARD ************************* -->
-            <section class="campaign-section content-showcase content-active">
-                <section class="card content-card heading-card">
-                    <p class="card-title">1. Chose your Campaign Objectives</p>
-                </section>
-                <section class="card content-card campaign-section-card">
-                    <div class="card-content">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <h4>Awareness</h4>
-                                <ul class="campaign-objective-options awareness-campaign-options" >
-                                    <li class="">
-                                        <i class="material-icons">{{volume_up}}</i>
-                                        <span>{{obj.awarnes[0].awarnes}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{accessibility}}</i>
-                                        <span>{{obj.awarnes[1].awarnes}}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <h4>Consideration</h4>
-                                <ul class="campaign-objective-options consideration-campaign-options">
-                                    <li class="">
-                                        <i class="material-icons">{{traffic}}</i>
-                                        <span>{{obj.consdrition[0].consdrition}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{compare_arrows}}</i>
-                                        <span>{{obj.consdrition[1].consdrition}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{get_app}}</i>
-                                        <span>{{obj.consdrition[2].consdrition}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{videocam}}</i>
-                                        <span>{{obj.consdrition[3].consdrition}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{filter_list}}</i>
-                                        <span>{{obj.consdrition[4].consdrition}}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <h4>Conversion</h4>
-                                <ul class="campaign-objective-options conversion-campaign-options">
-                                    <li class="">
-                                        <i class="material-icons">{{swap_horiz}}</i>
-                                        <span>{{obj.converstion[0].converstion}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{shopping_cart}}</i>
-                                        <span>{{obj.converstion[1].converstion}}</span>
-                                    </li>
-                                    <li class="">
-                                        <i class="material-icons">{{store_mall_directory}}</i>
-                                        <span>{{obj.converstion[2].converstion}}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="campaign-details">
-                        <i class="material-icons">videocam</i>
-                        <span class="selected-campaign" id="getCampaignObj">Video Views</span><br>
-                        <div class="row">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-6">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                    Donec sed sollicitudin nulla. Nullam varius faucibus massa, 
-                                    quis luctus ex feugiat nec. Interdum et malesuada fames ac 
-                                    ante ipsum primis in faucibus. Fusce pulvinar orci eu pretium 
-                                    pretium. Sed at ultrices ligula. Maecenas tortor nisl, eleifend 
-                                    at urna sit amet, commodo pretium turpis.
-                                </p>
-                                <div class="group">      
-                                    <input class="campaign-name-input" type="text" ng-model="campaign" placeholder="Campaign Name">
+            <div ng-show="newCampaignObjectSection">
+                <section class="campaign-section content-showcase content-active">
+                    <section class="card content-card heading-card">
+                        <p class="card-title">1. Chose your Campaign Objectives</p>
+                    </section>
+                    <section class="card content-card campaign-section-card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <h4>Awareness</h4>
+                                    <ul class="campaign-objective-options awareness-campaign-options" >
+                                        <li class="">
+                                            <i class="material-icons">{{volume_up}}</i>
+                                            <span>{{obj.awarnes[0].awarnes}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{accessibility}}</i>
+                                            <span>{{obj.awarnes[1].awarnes}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <h4>Consideration</h4>
+                                    <ul class="campaign-objective-options consideration-campaign-options">
+                                        <li class="">
+                                            <i class="material-icons">{{traffic}}</i>
+                                            <span>{{obj.consdrition[0].consdrition}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{compare_arrows}}</i>
+                                            <span>{{obj.consdrition[1].consdrition}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{get_app}}</i>
+                                            <span>{{obj.consdrition[2].consdrition}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{videocam}}</i>
+                                            <span>{{obj.consdrition[3].consdrition}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{filter_list}}</i>
+                                            <span>{{obj.consdrition[4].consdrition}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <h4>Conversion</h4>
+                                    <ul class="campaign-objective-options conversion-campaign-options">
+                                        <li class="">
+                                            <i class="material-icons">{{swap_horiz}}</i>
+                                            <span>{{obj.converstion[0].converstion}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{shopping_cart}}</i>
+                                            <span>{{obj.converstion[1].converstion}}</span>
+                                        </li>
+                                        <li class="">
+                                            <i class="material-icons">{{store_mall_directory}}</i>
+                                            <span>{{obj.converstion[2].converstion}}</span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-3"></div>
-                        </div><br>                        
+                        </div>
+                        <div class="campaign-details">
+                            <i class="material-icons">videocam</i>
+                            <span class="selected-campaign" id="getCampaignObj">Video Views</span><br>
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6">
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                                        Donec sed sollicitudin nulla. Nullam varius faucibus massa, 
+                                        quis luctus ex feugiat nec. Interdum et malesuada fames ac 
+                                        ante ipsum primis in faucibus. Fusce pulvinar orci eu pretium 
+                                        pretium. Sed at ultrices ligula. Maecenas tortor nisl, eleifend 
+                                        at urna sit amet, commodo pretium turpis.
+                                    </p>
+                                    <div class="group">      
+                                        <input class="campaign-name-input" type="text" ng-model="campaign" placeholder="Campaign Name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div><br>                        
 
-                        <button type="button" class="create-campaign-btn btn btn-primary" ng-show="campaign" ng-click="campaignCreate(campaign)">Continue</button>
-                        <button type="button" class="btn btn-primary" style="width: 50%;" ng-hide="campaign" ng-click="selectCampaignObject(campaign)">Continue</button>
-                    </div>
+                            <button type="button" class="create-campaign-btn btn btn-primary" ng-show="campaign" ng-click="campaignCreate(campaign)">Continue</button>
+                            <button type="button" class="btn btn-primary" style="width: 50%;" ng-hide="campaign" ng-click="selectCampaignObject(campaign)">Continue</button>
+                        </div>
+                    </section>
                 </section>
-            </section>
+            </div>
 
             <!-- ********************** CONFIGURE CHANNELS SEGMENT CARD ************************* -->
             <section class="configure-channels-section content-showcase" ng-init="getChannelType()">
@@ -1254,7 +1245,7 @@
                                     <button class="btn btn-primary cancel-btn cancel-review-btn">Cancel</button>
                                 </div>
                                 <div class="col-6 right-align">
-                                    <button class="btn btn-primary continue-review-btn">Continue</button>
+                                    <button class="btn btn-primary continue-review-btn" ng-click="saveFinalCampaign()">Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1282,7 +1273,7 @@
                     </p>
                     <div class="row">
                         <div class="col-6 right-align">
-                            <button class="btn btn-primary dashboard-btn">Back to Dashboard</button>
+                            <button class="btn btn-primary" ng-click="goToDashboard()">Back to Dashboard</button>
                         </div>
                         <div class="col-6 left-align">
                             <button class="btn btn-primary new-campaign-btn" ng-click="createNewCompaign()">Create New Campaign</button>

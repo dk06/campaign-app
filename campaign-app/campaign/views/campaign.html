@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <main>
+        <!-- <div class="row">
+            <section class="col-md-3">
+                <div class="card section-title-card">
+                    <div class="card-block set-objective-block active" id="set-objective-card">
+                        1. Set Objective
+                        <i class="material-icons">check_circle</i>
+                    </div>
+                </div>
+            </section>        
+            <section class="col-md-3">
+                <div class="card section-title-card">
+                    <div class="card-block configure-channels-block" id="configure-channels-card">
+                        2. Configure Channels
+                        <i class="material-icons">check_circle</i>
+                    </div>
+                </div>
+            </section>
+            <section class="col-md-3">
+                <div class="card section-title-card">
+                    <div class="card-block select-audience-block" id="select-audience-card">
+                        3. Select Audience
+                        <i class="material-icons">check_circle</i>
+                    </div>
+                </div>
+            </section>
+            <section class="col-md-3">
+                <div class="card section-title-card">
+                    <div class="card-block activate-campaign-block" id="activate-campaign-card">
+                        4. Activate Campaign
+                        <i class="material-icons">check_circle</i>
+                    </div>
+                </div>
+            </section>
+        </div> -->
+        
+        <section class="card content-card heading-card">
+            <p class="card-title">Activate Campaign</p>
+        </section>
+                
+        <div class="card content-card">
+            
+            <table class="table">
+                <thead>
+                    <tr style="font-weight: bold">
+                        <td>Campaign No</td>
+                        <td>Campaign Name</td>
+                        <td>Channel Type</td>
+                        <td>Segment Name</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="campaign in campaignList">
+                        <td>{{campaign.campaign_id}}</td>
+                        <td>{{campaign.campaign_name}}</td>
+                        <td>{{campaign.channel_type}}</td>
+                        <td>{{campaign.campaign_object}}</td>
+                        <td>
+                            <a href="#" ng-click="editSelectCampaign(campaign)">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                            <a href="#">
+                                <i class="material-icons" ng-click="deleteSelectCampaign(campaign.campaign_id)">delete_forever</i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-primary" ng-click="goToChangeUrl()">Create New Campaign</button>
+        </div>
+    </main>
+</div>

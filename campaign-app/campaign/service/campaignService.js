@@ -63,4 +63,31 @@ app.service('campaignService', function ($rootScope, $http, shareBaseUrl,$window
             });
             return promise;
         };
+
+    this.postSaveFinalCampaign = function(finalObj){
+        params.acess = shareBaseUrl.BaseUrl();
+        params.finalObj = finalObj;
+        params.user_id = params.acess.userId;
+        var promise = $http.post(params.acess.BaseUrl + 'saveFinalCampaign', {params}).then(function(response){
+            return response;
+        });
+        return promise;
+    };
+
+    this.getFinalCampaignList = function(){
+        params = shareBaseUrl.BaseUrl();
+        var promise = $http.get(params.BaseUrl + 'getFinalCampaignObj', {params}).then(function(response){
+            return response.data;
+        });
+        return promise;
+    };
+
+    this.deleteSelectCampaign = function(campaign_id){
+        params.acess = shareBaseUrl.BaseUrl();
+        params.campaign_id = campaign_id;
+        var promise = $http.post(params.acess.BaseUrl + 'deleteCampaignById', {params}).then(function(response){
+            return response.data;
+        });
+        return promise;
+    };
 });

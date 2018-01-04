@@ -370,6 +370,67 @@ router.get('/getZipcode', function(req,res){
     });
 });
 
+router.post('/saveFinalCampaign', function(req,res){
+    var finalCampaign = {}
+    finalCampaign = req.body.params.finalObj;
+    finalCampaign.user_id = req.body.params.user_id;
+    apiControllerRequest.saveFinalCampaignObj(finalCampaign, function(err,rows){
+        if(err)
+        {
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
+        }
+        else
+        {
+        res.json(rows);
+        }
+    })
+});
+
+router.get('/getFinalCampaignObj', function(req,res){
+    apiControllerRequest.getFinalCampaign(req.query.userId, function(err,rows){
+        if(err)
+        {
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
+        }
+        else
+        {
+        res.json({
+            data : rows,
+            code: 200,
+            status: "Success",
+            message: "API Successful"});
+        }
+    })
+});
+
+router.post('/deleteCampaignById', function(req,res){
+    var campaign = {}
+    campaign.campaign_id = req.body.params.campaign_id;
+    campaign.isAction = false;
+    apiControllerRequest.deleteCampaignBySelectId(campaign, function(err,rows){
+        if(err)
+        {
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
+        }
+        else
+        {
+        res.json(rows);
+        }
+    })
+});
+
 
 
 module.exports = router;

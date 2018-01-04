@@ -87,12 +87,12 @@ $(document).ready(function(){
         $('.audience-section').addClass('content-active');
     })
 
-    $('.continue-review-btn').click(function () {
-        $('.activate-campaign-section').removeClass('content-active');
-        $('.activate-campaign-block').removeClass('active');
-        $('.activate-campaign-block').addClass('done');
-        $('.activated-campaign-section').addClass('content-active');
-    })
+    // $('.continue-review-btn').click(function () {
+    //     $('.activate-campaign-section').removeClass('content-active');
+    //     $('.activate-campaign-block').removeClass('active');
+    //     $('.activate-campaign-block').addClass('done');
+    //     $('.activated-campaign-section').addClass('content-active');
+    // })
 
     $('.new-campaign-btn').click(function () {
         $('.activated-campaign-section').removeClass('content-active');

@@ -9,9 +9,13 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
 		    controller: 'LoginController'
 		  })
 		  .when('/campaign', {
-		    templateUrl: 'campaign/views/dashboard.html',
-		    controller: 'CampaignController'
+		    templateUrl: 'campaign/views/campaign.html',
+		    controller: 'compaignChanelController'
 		  })
+          .when('/new_campaign', {
+            templateUrl: 'campaign/views/dashboard.html',
+            controller: 'CampaignController'
+          })
 		  .otherwise({
 		    redirectTo: '/login'
 		  });
@@ -19,19 +23,19 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
 
         var allowedView = ["/login"];
-
+        var currentUrl = window.location.href;
+        var split_url = currentUrl.split('/');
         if ($window.localStorage.accessToken)
         {
         	$rootScope.pageActive = true;
         	$rootScope.currentUser = $window.localStorage.email_id;
-           	$location.path("/campaign");
+            if (split_url[3] == "login" || split_url[3] == "") {
+                $location.path("/campaign");
+            }
         } 
-        else
-        {
-			$location.path("/login");
+        else{
+            $location.path("/login");
         }
-
-
     });
 });
 
