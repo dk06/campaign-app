@@ -443,7 +443,7 @@
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="#" ng-click="actionsActivity('Edit Segment', segementData)" data-toggle="modal" data-target="#modelSegment">
+                                                            <a href="#" ng-click="actionsActivity('Edit Segment', segementData)" data-toggle="modal">
                                                                 <i class="material-icons">mode_edit</i>
                                                                 Edit Segment
                                                             </a>
@@ -479,15 +479,15 @@
 
                         <!-- Model Segment Section start -->
                         <div class="modal fade" id="modelSegment" role="dialog">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
+                            <div class="modal-dialog modal-sm" style="width: 467px;">
+                                <div class="modal-content" style="width: 526px;">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">{{segmentName}}</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div ng-if="segmentName == 'View Details'">
-                                            <table class="audience-segment-table">
+                                            <!-- <table class="audience-segment-table">
                                                 <thead>
                                                     <td>Segment Name</td>
                                                     <td>Segment type</td>
@@ -501,7 +501,29 @@
                                                         <td>{{getSegementData.create_date}}</td>
                                                         <td>{{getSegementData.update_date}}</td>
                                                 </tbody>
-                                            </table>
+                                            </table> -->
+                                            <ol>
+                                                
+                                                <li>
+                                                    <label>Segment Name :- </label>
+                                                    <input type="text" class="form-control" ng-model="getSegementData.segement_name" readonly="">
+                                                </li>
+                                                
+                                                <li>
+                                                    <label>Segment type :- </label>
+                                                    <input type="text" class="form-control" ng-model="getSegementData.segment_type" readonly="">
+                                                </li>
+                                                
+                                                <li>
+                                                    <label>Date Degment Created :- </label>
+                                                    <input type="text" class="form-control" ng-model="getSegementData.create_date" readonly="">
+                                                </li>
+                                                
+                                                <li>
+                                                    <label>Segment Last Refreshed :- </label>
+                                                    <input type="text" class="form-control" ng-model="getSegementData.update_date" readonly="">
+                                                </li>
+                                            </ol>
                                         </div>
 
                                         <div ng-if="segmentName == 'Edit Segment'">
