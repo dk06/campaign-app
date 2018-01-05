@@ -173,7 +173,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         // $scope.channel.channelNameUpdate = channel.channel_name;
         // $scope.channel.accessTockenUpdate = channel.channelAccessToken;
         $scope.campaignViewChennel = channel;
-        $scope.getChannelType();
+        //$scope.getChannelType();
     };
 
     $scope.getCampaignNameAndId = function(accessTocken){
