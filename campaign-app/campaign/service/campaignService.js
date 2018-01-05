@@ -74,6 +74,16 @@ app.service('campaignService', function ($rootScope, $http, shareBaseUrl,$window
         return promise;
     };
 
+    this.updateFinalCampaign = function(finalObj){
+        params.acess = shareBaseUrl.BaseUrl();
+        params.finalObj = finalObj;
+        params.user_id = params.acess.userId;
+        var promise = $http.post(params.acess.BaseUrl + 'updateFinalCampaignObj', {params}).then(function(response){
+            return response;
+        });
+        return promise;
+    };
+
     this.getFinalCampaignList = function(){
         params = shareBaseUrl.BaseUrl();
         var promise = $http.get(params.BaseUrl + 'getFinalCampaignObj', {params}).then(function(response){

@@ -268,6 +268,18 @@ var APIsData={
             });
         },
 
+        updateFinalCampaign: function(paramsData, callback){
+            dbConnect.getConnection(function(err, connection){
+                if (!err) {
+                    connection.query("update final_campaign_list set? where campaign_id=?", [paramsData, paramsData.campaign_id], callback);
+                    connection.release();
+                }else{
+                    callback(true, err); 
+                    return;
+                }
+            });
+        },
+
         getFinalCampaign : function(paramsData, callback){
             dbConnect.getConnection(function(err, connection){
                 if (!err) {

@@ -431,6 +431,26 @@ router.post('/deleteCampaignById', function(req,res){
     })
 });
 
+router.post('/updateFinalCampaignObj', function(req,res){
+    var finalCampaign = {}
+    finalCampaign = req.body.params.finalObj;
+    finalCampaign.user_id = req.body.params.user_id;
+    apiControllerRequest.updateFinalCampaign(finalCampaign, function(err,rows){
+        if(err)
+        {
+        res.json({
+            data : [],
+            code: 500,
+            status: false,
+            message: "API Not Successful"});
+        }
+        else
+        {
+        res.json(rows);
+        }
+    })
+});
+
 
 
 module.exports = router;

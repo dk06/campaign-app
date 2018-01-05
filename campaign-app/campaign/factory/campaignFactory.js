@@ -140,6 +140,12 @@
             });
         };
 
+        dataFactory.updateFinalCampaign = function(finalObj){
+            return campaignService.updateFinalCampaign(finalObj).then(function(response, status){
+                return response;
+            });
+        };
+
         dataFactory.getFinalCampaignList = function(){
             return campaignService.getFinalCampaignList().then(function(response, status){
                 return response.data;
