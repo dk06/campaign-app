@@ -508,7 +508,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     };
 
     function getPrivateSpecificReach(){
-        if ($scope.selectChan == 'Lightning') {
+        if ($scope.privateSection) {
             var reach = [];
             loaderEvent.loaderActivate();
             return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.deviceId).then(function(response, status) {
