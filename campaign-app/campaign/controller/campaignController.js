@@ -38,6 +38,11 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     $scope.screen_Name_type = '';
     $scope.device_model_get = '';
 
+    $scope.cityTypeObj = '';
+    $scope.stateTypeObj = '';
+    $scope.countryTypeObj = '';
+    $scope.language = '';
+
     init();
     function init() {
         if ($window.localStorage.accessToken) {
@@ -454,7 +459,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     $scope.languageObj = [];
     $scope.languageChangedValue = function(language, index, languageStatus){
         $scope.language_name = '';
-        $scope.language_name = '';
+        $scope.language = ''
         var language_apiRef = $scope.customSegementForm.language;
         if (languageStatus) {
             if ($scope.languageObj[index] == language[index]) {
@@ -469,11 +474,14 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             if ($scope.languageObj[key] == true) {
                 if ($scope.language_name == '') {
                     $scope.language_name = value.language;
+                    $scope.language = value.lang_id;
                 }else{
                     $scope.language_name = $scope.language_name +','+ value.language;
+                    $scope.language = $scope.language + ',' + value.lag_id;
                 }
             }
         });
+        getPrivateSpecificReach();
         
     };
 
@@ -542,7 +550,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         if ($scope.privateSection) {
             var reach = [];
             loaderEvent.loaderActivate();
-            return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.deviceId).then(function(response, status) {
+            return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.deviceId,$scope.cityTypeObj ,$scope.stateTypeObj ,$scope.countryTypeObj, $scope.language).then(function(response, status) {
                 reach.push(response[0].reach);
                 $scope.privateReach = response[0].reach;
                 loaderEvent.loaderDeactivate();
@@ -565,14 +573,15 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             $scope.device_model_get = '';
             var device_model_apiRef = $scope.devioceModel;
             angular.forEach(device_model_apiRef, function(value, key){
-            if ($scope.deviceModelObj[key] == true) {
-                if ($scope.device_model_get == '') {
-                    $scope.device_model_get = value.Model;
-                }else{
-                    $scope.device_model_get = $scope.device_model_get +','+ value.Model;
+                if ($scope.deviceModelObj[key] == true) {
+                    if ($scope.device_model_get == '') {
+                        $scope.device_model_get = value.Model;
+                    }else{
+                        $scope.device_model_get = $scope.device_model_get +','+ value.Model;
+                    }
                 }
-            }
-        });
+            });
+            getPrivateSpecificReach();
         };
     }
 
@@ -673,6 +682,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 }
             }
          });
+        getPrivateSpecificReach();
     };
 
     $scope.screenResObj = [];
@@ -700,6 +710,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 }
             }
          });
+        getPrivateSpecificReach();
     };
 
     $scope.facebook_Obj = [];
@@ -754,6 +765,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 }
             }
          });
+        getPrivateSpecificReach();
     };
 
     $scope.stateSection = true;
@@ -834,6 +846,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                     $scope.countryTypeObj = value.country_codes;
                     $scope.countryType = value.country_names;
                     $scope.getState(value.country_codes);
+                    getPrivateSpecificReach();
 
                     $scope.stateSection = true;
                     $scope.citySection = true;
@@ -915,7 +928,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                     $scope.stateTypeObj = value.state_code;
                     $scope.stateType = value.state_names;
                     $scope.getCity(value.state_code);
-
+                    getPrivateSpecificReach();
                     $scope.checkboxCounty = false;
                     $scope.citySection = true;
                     $scope.zipSection = true;
@@ -996,6 +1009,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 }
             }
         });
+        getPrivateSpecificReach();
 
         $scope.city_type = $scope.cityTypeObj;
         $scope.location_type = 'Custom Loaction';

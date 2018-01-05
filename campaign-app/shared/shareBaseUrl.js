@@ -5,8 +5,8 @@ app.service('shareBaseUrl', function ($window) {
             var params = {};
                 params.token = $window.localStorage.accessToken;
                 params.userId = $window.localStorage.userId;
-                //params.BaseUrl = window.location.origin + /api/;
-                params.BaseUrl = "http://campaign-apps.herokuapp.com/api/";
+                params.BaseUrl = window.location.origin + /api/;
+                //params.BaseUrl = "http://campaign-apps.herokuapp.com/api/";
                 params.cuberootBaseUrl = "http://205.147.101.67:8080/marketingv1/";
             return params;
         }
