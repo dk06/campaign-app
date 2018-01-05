@@ -266,7 +266,7 @@
                                     <td>Actions</td>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="chennel in campaignChennel">
+                                    <tr ng-repeat="chennel in campaignChennel | orderBy:'-status'">
                                         <td style="cursor: pointer" ng-click="selectChannel(chennel)"><i class="material-icons">face</i></td>
                                         <!-- <td>{{chennel.channel_name}}</td>
                                         <td>{{chennel.adverType}}</td>                  
@@ -410,7 +410,7 @@
                                         <td>Actions</td>
                                     </thead>
                                     <tbody>
-                                        <tr ng-repeat="segementData in audienceSegementData">
+                                        <tr ng-repeat="segementData in audienceSegementData | orderBy:'-isAction'">
                                             <td class="check-active"><i class="material-icons check-active-icon active">check_circle</i></td>
                                             <td class="segment-name active" ng-click="selectAudienceSeg(segementData)">{{segementData.segement_name}}</td>
                                             <td>{{segementData.segment_type}}</td>
@@ -479,51 +479,63 @@
 
                         <!-- Model Segment Section start -->
                         <div class="modal fade" id="modelSegment" role="dialog">
-                            <div class="modal-dialog modal-sm" style="width: 467px;">
-                                <div class="modal-content" style="width: 526px;">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">{{segmentName}}</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <div ng-if="segmentName == 'View Details'">
-                                            <!-- <table class="audience-segment-table">
+                                        <div ng-if="segmentName == 'View Details'" style="overflow-x:auto;">
+                                            <table class="audience-segment-table scrollmenu">
                                                 <thead>
+                                                    <td>Segment No</td>
                                                     <td>Segment Name</td>
                                                     <td>Segment type</td>
                                                     <td>Date Degment Created</td>
                                                     <td>Segment Last Refreshed</td>
+                                                    <td>Age</td>
+                                                    <td>Gender</td>
+                                                    <td>Language</td>
+                                                    <td>Device</td>
+                                                    <td>Country</td>
+                                                    <td>State</td>
+                                                    <td>City</td>
+                                                    <td>Income</td>
+                                                    <td>Affinity Catagery</td>
+                                                    <td>Market Segment</td>
+                                                    <td>IAB</td>
+                                                    <td>Facebook</td>
+                                                    <td>Operating System</td>
+                                                    <td>Browser</td>
+                                                    <td>Screen Resulation</td>
+                                                    <td>Device Model</td>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>           
+                                                    <tr>
+                                                        <td>{{getSegementData.seg_id}}</td>           
                                                         <td>{{getSegementData.segement_name}}</td>
                                                         <td>{{getSegementData.segment_type}}</td>
                                                         <td>{{getSegementData.create_date}}</td>
                                                         <td>{{getSegementData.update_date}}</td>
+                                                        <td>{{getSegementData.age_name}}</td>
+                                                        <td>{{getSegementData.gender_name}}</td>
+                                                        <td>{{getSegementData.language_name}}</td>
+                                                        <td>{{getSegementData.device_name}}</td>
+                                                        <td>{{getSegementData.country_name}}</td>
+                                                        <td>{{getSegementData.state_name}}</td>
+                                                        <td>{{getSegementData.city_name}}</td>
+                                                        <td>{{getSegementData.income_name}}</td>
+                                                        <td>{{getSegementData.affinity_catagery_type}}</td>
+                                                        <td>{{getSegementData.market_segment_type}}</td>
+                                                        <td>{{getSegementData.IAB_Name_type}}</td>
+                                                        <td>{{getSegementData.facebook_Name_type}}</td>
+                                                        <td>{{getSegementData.operatingSys_Name_type}}</td>
+                                                        <td>{{getSegementData.browser_name_type}}</td>
+                                                        <td>{{getSegementData.screen_Name_type}}</td>
+                                                        <td>{{getSegementData.device_model_get}}</td>
                                                 </tbody>
-                                            </table> -->
-                                            <ol>
-                                                
-                                                <li>
-                                                    <label>Segment Name :- </label>
-                                                    <input type="text" class="form-control" ng-model="getSegementData.segement_name" readonly="">
-                                                </li>
-                                                
-                                                <li>
-                                                    <label>Segment type :- </label>
-                                                    <input type="text" class="form-control" ng-model="getSegementData.segment_type" readonly="">
-                                                </li>
-                                                
-                                                <li>
-                                                    <label>Date Degment Created :- </label>
-                                                    <input type="text" class="form-control" ng-model="getSegementData.create_date" readonly="">
-                                                </li>
-                                                
-                                                <li>
-                                                    <label>Segment Last Refreshed :- </label>
-                                                    <input type="text" class="form-control" ng-model="getSegementData.update_date" readonly="">
-                                                </li>
-                                            </ol>
+                                            </table>   
                                         </div>
 
                                         <div ng-if="segmentName == 'Edit Segment'">

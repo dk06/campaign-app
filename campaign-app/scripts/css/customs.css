@@ -793,3 +793,10 @@ main .campaign-channels-card .select-channel-overlay-btn {
     min-height: 40px;
     outline: none;
 }
+
+table.scrollmenu {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    white-space: nowrap;
+}

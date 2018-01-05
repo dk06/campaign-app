@@ -18,7 +18,25 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     $scope.age_type = '';
     $scope.income_Type = '';
     $scope.device_type_get = '';
-    $scope.deviceId = ''; 
+    $scope.deviceId = '';
+    $scope.editCheck = false;
+
+    $scope.age_name = '';
+    $scope.gender_name = '';
+    $scope.language_name = '';
+    $scope.device_type_get = '';
+    $scope.countryType = '';
+    $scope.stateType = '';
+    $scope.cityType = '';
+    $scope.income_Type = '';                
+    $scope.affinity_catagery_type = '';
+    $scope.market_segment_type = '';
+    $scope.IAB_Name_type = '';
+    $scope.facebook_Name_type = '';
+    $scope.operatingSys_Name_type = '';
+    $scope.browser_name_type = '';
+    $scope.screen_Name_type = '';
+    $scope.device_model_get = '';
 
     init();
     function init() {
@@ -392,12 +410,15 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         }
         var age_apiRef = $scope.customSegementForm.ageGroup;
         $scope.age_type = '';
+        $scope.age_name = '';
          angular.forEach(age_apiRef, function(value, key){
             if ($scope.ageGroup[key] == true) {
                 if ($scope.age_type == '') {
                     $scope.age_type = value.age_id;
+                    $scope.age_name = value.age;
                 }else{
                      $scope.age_type = $scope.age_type + ',' + value.age_id;
+                     $scope.age_name = $scope.age_name + ',' + value.age;
                 }
             }
          });
@@ -415,12 +436,15 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         }
         var gender_apiRef = $scope.customSegementForm.gender;
             $scope.gender_type = '';
+            $scope.gender_name = '';
              angular.forEach(gender_apiRef, function(value, key){
                 if ($scope.genderGroup[key] == true) {
                     if ($scope.gender_type == '') {
                         $scope.gender_type = value.gender_id;
+                        $scope.gender_name = value.gender;
                     }else{
                         $scope.gender_type = $scope.gender_type + ',' + value.gender_id;
+                        $scope.gender_name = $scope.gender_name + ',' + value.gender;
                     }
                 }
              });
@@ -429,6 +453,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
 
     $scope.languageObj = [];
     $scope.languageChangedValue = function(language, index, languageStatus){
+        $scope.language_name = '';
         $scope.language_name = '';
         var language_apiRef = $scope.customSegementForm.language;
         if (languageStatus) {
@@ -1050,29 +1075,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         var count = Object.keys(segment).length;
 
         if (count >= 1) {
-            var age_apiRef = $scope.customSegementForm.ageGroup;
-            //$scope.age_type = '';
-            //  angular.forEach(age_apiRef, function(value, key){
-            //     if ($scope.ageGroup[key] == true) {
-            //         if ($scope.age_type == '') {
-            //             $scope.age_type = value.age_id;
-            //         }else{
-            //              $scope.age_type = $scope.age_type + ',' + value.age_id;
-            //         }
-            //     }
-            //  });
-
-            // var gender_apiRef = $scope.customSegementForm.gender;
-            // $scope.gender_type = '';
-            //  angular.forEach(gender_apiRef, function(value, key){
-            //     if ($scope.genderGroup[key] == true) {
-            //         if ($scope.gender_type == '') {
-            //             $scope.gender_type = value.gender_id;
-            //         }else{
-            //             $scope.gender_type = $scope.gender_type + ',' + value.gender_id;
-            //         }
-            //     }
-            //  });
+            var age_apiRef = $scope.customSegementForm.ageGroup;            
 
             var language_apiRef = $scope.customSegementForm.language;
             $scope.language = '';
@@ -1282,61 +1285,103 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 segementData.screen_resulation = $scope.screen_resoluton_id;
                 segementData.fb_code = $scope.fb_code;
                 segementData.browser_version = $scope.browser_version;
+                segementData.channel_id = $scope.chanelId;
                 segementData.isAction = true;
+                segementData.age_name = $scope.age_name;
+                segementData.gender_name = $scope.gender_name;
+                segementData.language_name = $scope.language_name;
+                segementData.device_name = $scope.device_type_get;
+                segementData.country_name = $scope.countryType;
+                segementData.state_name = $scope.stateType;
+                segementData.city_name = $scope.cityType;
+                segementData.income_name = $scope.income_Type;                
+                segementData.affinity_catagery_type = $scope.affinity_catagery_type;
+                segementData.market_segment_type = $scope.market_segment_type;
+                segementData.IAB_Name_type = $scope.IAB_Name_type;
+                segementData.facebook_Name_type = $scope.facebook_Name_type;
+                segementData.operatingSys_Name_type = $scope.operatingSys_Name_type;
+                segementData.browser_name_type = $scope.browser_name_type;
+                segementData.screen_Name_type = $scope.screen_Name_type;
+                segementData.device_model_get = $scope.device_model_get;
+
                 $scope.segmentDataList = segementData;
-            return audienceFactory.postAudienceSegement(segementData).then(function(response, status){
-                $scope.newSegementCreateForm = false;
-                $scope.audienceSegementSection = false;
-                loaderEvent.loaderDeactivate();
-                $scope.channel = {}
-                swal({
-                  title: 'Can you create new segement?',
-                  type: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Create new segement!'
-                }).then(function (result) {
-                  if (result.value) {
-                    $scope.getAudienceSegement();
-                    $('.audience-section').removeClass('content-active');
-                    $('.database-marketplace-options').removeClass('content-showcase');
-                    $('.set-audience-parameters').removeClass('content-active');
-                    $('.create-audience-section').addClass('content-active');
-                    document.getElementById("defaultOpen").click();
-                    $scope.countySelect = 'Select County';
-                    $scope.stateSelect = 'Select State';
-                    $scope.citySelect = 'Select City';
-                    $scope.deviceSelect = 'Select Device';
-                    $scope.deviceModelSelect = 'Select Model';
-                    $scope.country_type = '';
-                    $scope.city_type = '';
-                    $scope.state_type = '';
-                    $scope.device_type = '';
-                    $scope.Model = '';
-                    $scope.ageGroup = [];
-                    $scope. genderGroup = [];
-                    //$('.create-audience-section').addClass('content-showcase');
-                  }
-                  else{
-                    $('.create-audience-section').removeClass('content-active');
-                    $('.audience-section').addClass('content-active');
-                    $scope.getAudienceSegement();
-                    $scope.countySelect = 'Select County';
-                    $scope.stateSelect = 'Select State';
-                    $scope.citySelect = 'Select City';
-                    $scope.deviceSelect = 'Select Device';
-                    $scope.deviceModelSelect = 'Select Model';
-                    $scope.country_type = '';
-                    $scope.city_type = '';
-                    $scope.state_type = '';
-                    $scope.device_type = '';
-                    $scope.Model = '';
-                    $scope.ageGroup = [];
-                    $scope. genderGroup = [];
-                  }
-                })
-            });
+                if (!$scope.editCheck) {
+                    return audienceFactory.postAudienceSegement(segementData).then(function(response, status){
+                        $scope.newSegementCreateForm = false;
+                        $scope.audienceSegementSection = false;
+                        loaderEvent.loaderDeactivate();
+                        $scope.channel = {}
+                        swal({
+                          title: 'Can you create new segement?',
+                          type: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Create new segement!'
+                        }).then(function (result) {
+                          if (result.value) {
+                            $scope.getAudienceSegement();
+                            $('.audience-section').removeClass('content-active');
+                            $('.database-marketplace-options').removeClass('content-showcase');
+                            $('.set-audience-parameters').removeClass('content-active');
+                            $('.create-audience-section').addClass('content-active');
+                            document.getElementById("defaultOpen").click();
+                            $scope.countySelect = 'Select County';
+                            $scope.stateSelect = 'Select State';
+                            $scope.citySelect = 'Select City';
+                            $scope.deviceSelect = 'Select Device';
+                            $scope.deviceModelSelect = 'Select Model';
+                            $scope.country_type = '';
+                            $scope.city_type = '';
+                            $scope.state_type = '';
+                            $scope.device_type = '';
+                            $scope.Model = '';
+                            $scope.ageGroup = [];
+                            $scope. genderGroup = [];
+                            //$('.create-audience-section').addClass('content-showcase');
+                          }
+                          else{
+                            $('.create-audience-section').removeClass('content-active');
+                            $('.audience-section').addClass('content-active');
+                            $scope.getAudienceSegement();
+                            $scope.countySelect = 'Select County';
+                            $scope.stateSelect = 'Select State';
+                            $scope.citySelect = 'Select City';
+                            $scope.deviceSelect = 'Select Device';
+                            $scope.deviceModelSelect = 'Select Model';
+                            $scope.country_type = '';
+                            $scope.city_type = '';
+                            $scope.state_type = '';
+                            $scope.device_type = '';
+                            $scope.Model = '';
+                            $scope.ageGroup = [];
+                            $scope. genderGroup = [];
+                          }
+                        })
+                    });
+                }else if ($scope.editCheck) {
+                    return audienceFactory.editAudienceSegement(segementData).then(function(response, status){
+                        $scope.newSegementCreateForm = false;
+                        $scope.audienceSegementSection = false;
+                        loaderEvent.loaderDeactivate();
+                        $scope.channel = {}
+                        $('.create-audience-section').removeClass('content-active');
+                        $('.audience-section').addClass('content-active');
+                        $scope.getAudienceSegement();
+                        $scope.countySelect = 'Select County';
+                        $scope.stateSelect = 'Select State';
+                        $scope.citySelect = 'Select City';
+                        $scope.deviceSelect = 'Select Device';
+                        $scope.deviceModelSelect = 'Select Model';
+                        $scope.country_type = '';
+                        $scope.city_type = '';
+                        $scope.state_type = '';
+                        $scope.device_type = '';
+                        $scope.Model = '';
+                        $scope.ageGroup = [];
+                        $scope. genderGroup = [];
+                    });
+                }
         }
     };
 
@@ -1477,7 +1522,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         loaderEvent.loaderActivate();
         return campaignFactory.getCity(stateCode).then(function(response,status){
             $scope.cityData = response;
-            loaderDeactivate()
+            loaderEvent.loaderDeactivate()
         });
     };
 
@@ -1598,75 +1643,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             $scope.savedAudience(ChannelObj, $scope.chanelId);
         }
     };
-    
-
-    $scope.finalCampaignList = function(){
-        var objectName = document.getElementById('getCampaignObj').innerText;
-        $scope.privateSection = false;
-        $scope.channelData = {
-            campaignName: $scope.campaignName,
-            campaignObject:  objectName ? objectName : $scope.campaign_object,
-            segementName: $scope.segementName,
-            audienceName: '',
-            channel : $scope.channelList
-        }
-    };
-
-    $scope.saveFinalCampaign = function(){
-        if ($rootScope.newCampaignObjectSection) {
-            var date = $filter('date')(new Date(), 'dd/MM/yyyy');
-            var params = {};
-                params.campaign_name = $scope.channelData.campaignName;
-                params.campaign_object =$scope.channelData.campaignObject;
-                params.segment_name = $scope.channelData.segementName;
-                params.channel_id = $scope.channelData.channel.channel_id;
-                params.channel_type = $scope.channelData.channel.channel_name;
-                params.segment_id = $scope.segementId;
-                params.create_date = date;
-                params.modified_date = date;
-                params.isAction = true;
-            return campaignFactory.saveFinalCampaign(params).then(function(response, status){
-                if (response.status == 200) {
-                    $scope.createNewCompaign();
-                    $scope.getFinalCampaignList();
-                    $('.activate-campaign-section').removeClass('content-active');
-                    $('.activate-campaign-block').removeClass('active');
-                    $('.activate-campaign-block').addClass('done');
-                    $('.activated-campaign-section').addClass('content-active');
-                }else{
-                    swal('Please try Again!');
-                }
-            });
-        }else if (!$rootScope.newCampaignObjectSection) {
-            var params = {};
-                params.campaign_name = $scope.channelData.campaignName;
-                params.campaign_object =$scope.channelData.campaignObject;
-                params.segment_name = $scope.channelData.segementName;
-                params.channel_id = $scope.channelData.channel.channel_id;
-                params.channel_type = $scope.channelData.channel.channelType;
-                params.segment_id = $scope.segementId;
-                params.campaign_id = $rootScope.channelScopeSet.campaign_id;
-                params.isAction = true;
-
-            return campaignFactory.updateFinalCampaign(params).then(function(response, status){
-                if (response.status == 200) {
-                    $scope.createNewCompaign();
-                    $scope.getFinalCampaignList();
-                    $('.activate-campaign-section').removeClass('content-active');
-                    $('.activate-campaign-block').removeClass('active');
-                    $location.path("/campaign");
-                }else{
-                    swal('Please try Again!');
-                }
-            });
-        }
-    };
-
-    $scope.getFinalCampaignList = function(){
-        return campaignFactory.getFinalCampaignList().then(function(response, status){
-            $scope.campaignList = response;
-        });
-    };
+       
 
     $scope.editClick = function(select){
         switch(select){
@@ -2564,6 +2541,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
 
     $scope.actionsActivity = function(filterType, segementData){
         $scope.segmentName = filterType;
+        $scope.segementData = segementData;
         switch(filterType){
             case 'View Details':
                 $scope.getAudienceSegementByID(segementData.seg_id);
@@ -2572,24 +2550,44 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 $scope.getAudienceSegement();
                 break;
             case 'Edit Segment':
-                $scope.getAudienceSegementByID(segementData.seg_id);
+                $scope.editCheck = true;
+                segmentEditAndCopy();
                 break;
             case 'Duplicate Segment':
-                $scope.type = $scope.selectChan;
-                $scope.segmentListData = segementData;
-                $scope.getCustomSegmentsFields();
-                $scope.getDemographic();
-                $scope.getTechnology();
-                $scope.getDeviceModel('Mobile');
-                $('.audience-section').removeClass('content-active');
-                $('.create-audience-section').addClass('content-active');
-                $('.database-marketplace-options').hide();
-                $('.set-audience-parameters').show();
-                checke_custome_Api_respomce();
+                $scope.editCheck = false;
+                segmentEditAndCopy();
                 break;
             case 'Delete Segment':
                 $scope.deleteAudienceSegement(segementData);
                 break;
+        }
+    };
+
+    function segmentEditAndCopy(){
+        var segementData = $scope.segementData;
+        if ($scope.segmentName == 'Edit Segment'|| $scope.segmentName == 'Duplicate Segment') {
+            $scope.getAudienceSegementByID(segementData.seg_id);
+            $scope.type = $scope.selectChan;
+            $scope.segmentListData = segementData;
+            $scope.getCustomSegmentsFields();
+            $scope.getDemographic();
+            $scope.getTechnology();
+            $scope.getDeviceModel('Mobile');
+            $('.audience-section').removeClass('content-active');
+            $('.create-audience-section').addClass('content-active');
+            $('.database-marketplace-options').hide();
+            $('.set-audience-parameters').show();
+            if ($scope.editCheck) {
+                if ($scope.getSegementData) {
+                    checke_custome_Api_respomce();
+                }else{
+                    $timeout(function() {
+                        segmentEditAndCopy();
+                    }, 500);
+                }
+            }else{
+                checke_custome_Api_respomce();
+            }
         }
     };
 
@@ -2632,6 +2630,80 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             });
           }
         })
+    };
+
+    $scope.finalCampaignList = function(){
+        var objectName = '';
+        if ($scope.campaign_object) {
+            objectName = $scope.campaign_object
+        }else{
+            objectName = document.getElementById('getCampaignObj').innerText;
+        }
+        
+        $scope.privateSection = false;
+        $scope.channelData = {
+            campaignName: $scope.campaignName,
+            campaignObject:  objectName,
+            segementName: $scope.segementName,
+            audienceName: '',
+            channel : $scope.channelList
+        }
+    };
+
+    $scope.saveFinalCampaign = function(){
+        if ($rootScope.newCampaignObjectSection) {
+            var date = $filter('date')(new Date(), 'dd/MM/yyyy');
+            var params = {};
+                params.campaign_name = $scope.channelData.campaignName;
+                params.campaign_object =$scope.channelData.campaignObject;
+                params.segment_name = $scope.channelData.segementName;
+                params.channel_id = $scope.channelData.channel.channel_id;
+                params.channel_type = $scope.channelData.channel.channel_name;
+                params.segment_id = $scope.segementId;
+                params.create_date = date;
+                params.modified_date = date;
+                params.isAction = true;
+            return campaignFactory.saveFinalCampaign(params).then(function(response, status){
+                if (response.status == 200) {
+                    $scope.createNewCompaign();
+                    $scope.getFinalCampaignList();
+                    $('.activate-campaign-section').removeClass('content-active');
+                    $('.activate-campaign-block').removeClass('active');
+                    $('.activate-campaign-block').addClass('done');
+                    $('.activated-campaign-section').addClass('content-active');
+                }else{
+                    swal('Please try Again!');
+                }
+            });
+        }else if (!$rootScope.newCampaignObjectSection) {
+            var params = {};
+                params.campaign_name = $scope.channelData.campaignName;
+                params.campaign_object =$scope.channelData.campaignObject;
+                params.segment_name = $scope.channelData.segementName;
+                params.channel_id = $scope.channelData.channel.channel_id;
+                params.channel_type = $scope.channelData.channel.channelType;
+                params.segment_id = $scope.segementId;
+                params.campaign_id = $rootScope.channelScopeSet.campaign_id;
+                params.isAction = true;
+
+            return campaignFactory.updateFinalCampaign(params).then(function(response, status){
+                if (response.status == 200) {
+                    $scope.createNewCompaign();
+                    $scope.getFinalCampaignList();
+                    $('.activate-campaign-section').removeClass('content-active');
+                    $('.activate-campaign-block').removeClass('active');
+                    $location.path("/campaign");
+                }else{
+                    swal('Please try Again!');
+                }
+            });
+        }
+    };
+
+    $scope.getFinalCampaignList = function(){
+        return campaignFactory.getFinalCampaignList().then(function(response, status){
+            $scope.campaignList = response;
+        });
     };
 
     $scope.goToDashboard = function(){
