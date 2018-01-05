@@ -115,17 +115,6 @@ var APIsData={
                 }
             });
         },
-        deleteChanel: function(paramsData, callback){
-            dbConnect.getConnection(function(err, connection){
-                if (!err) {
-                    connection.query("delete from channel where channel_id=?", [paramsData.channel_id], callback);
-                    connection.release();
-                }else{
-                    callback(true, err); 
-                    return;
-                }
-            });
-        },
         // cpmpaign chanel section release
 
 
@@ -133,7 +122,7 @@ var APIsData={
         getAudienceSegementData:function(callback){
             dbConnect.getConnection(function(err, connection){
                 if (!err) {
-                    connection.query("select * from new_segement where isAction=?", [1], callback);
+                    connection.query("select * from new_segement", callback);
                     connection.release();
                 }else{
                     callback(true, err); 

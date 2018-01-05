@@ -172,70 +172,63 @@
                         </div>
                       </div> -->
 
-                  <!--model open edit-->
-                    <div class="modal fade" id="editModal" role="dialog">
-                        <div class="modal-dialog modal-sm">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Update Channel</h4>
-                            </div>
-                            <div class="modal-body">
-                              <select class="form-control" ng-options="channel.channel_type_name as channel.channel_type_name for channel in channelType" 
-                                    ng-model="channel.channelNameUpdate" required>
-                                      <!-- <option value="" disabled selected>{{channelName}}</option> -->
-                                    </select>
-                              <br>
-                              <input type="text" class="form-control" ng-model="channel.accessTockenUpdate" placeholder="Access tocken*" required>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" ng-hide="channel.channelNameUpdate && channel.accessTockenUpdate">Update</button>
-                              <button type="button" class="btn btn-primary" ng-show="channel.channelNameUpdate && channel.accessTockenUpdate" data-dismiss="modal" ng-click="updateChannel(channel)">Update</button>
-                              <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+                  <!--model open edit-->                   
 
                     <!-- model open view channel -->
                     <div class="modal fade" id="viewChannel" role="dialog">
                         <div class="modal-dialog modal-lg">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Channel Detail</h4>
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">{{selectScope}}</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                              <th>Chanel Name</th>
+                                              <th>Adver Type</th>                
+                                              <th>Start Date</th>
+                                              <th>End Date</th>
+                                              <th>KPI</th>
+                                              <th>Target</th>
+                                              <th>Bid Min/Max</th>
+                                              <th>Channel Budget</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody ng-show="selectScope == 'View Details'">
+                                          <tr ng-repeat="chennel in campaignViewChennel">
+                                              <td>{{chennel.channel_name}}</td>
+                                              <td>{{chennel.adverType}}</td>                  
+                                              <td>{{chennel.create_date}}</td>
+                                              <td>{{chennel.update_date}}</td>
+                                              <td>{{chennel.kpi}}</td>
+                                              <td>{{chennel.target}}</td>
+                                              <td>{{chennel.bid_min}}/{{chennel.bid_Max}}</td>
+                                              <td>{{chennel.channel_Budget}}</td>
+                                          </tr>
+                                        </tbody>
+
+                                        <tbody ng-show="selectScope == 'Edit Channel'">
+                                          <tr>
+                                              <td><input type="text" class="form-control" ng-model="campaignViewChennel.advertType"></td>
+                                              <td>{{campaignViewChennel.advertType}}</td>                  
+                                              <td>{{campaignViewChennel.startDate}}</td>
+                                              <td>{{campaignViewChennel.endDate}}</td>
+                                              <td>{{campaignViewChennel.kpi}}</td>
+                                              <td>{{campaignViewChennel.target}}</td>
+                                              <td>{{campaignViewChennel.bidmin}}/{{campaignViewChennel.bidmax}}</td>
+                                              <td>{{campaignViewChennel.channelBudget}}</td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                    <div ng-show="selectScope == 'Edit Channel'">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                          <th>Chanel Name</th>
-                                          <th>Adver Type</th>                
-                                          <th>Start Date</th>
-                                          <th>End Date</th>
-                                          <th>KPI</th>
-                                          <th>Target</th>
-                                          <th>Bid Min/Max</th>
-                                          <th>Channel Budget</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                      <tr ng-repeat="chennel in campaignViewChennel">
-                                          <td>{{chennel.channel_name}}</td>
-                                          <td>{{chennel.adverType}}</td>                  
-                                          <td>{{chennel.create_date}}</td>
-                                          <td>{{chennel.update_date}}</td>
-                                          <td>{{chennel.kpi}}</td>
-                                          <td>{{chennel.target}}</td>
-                                          <td>{{chennel.bid_min}}/{{chennel.bid_Max}}</td>
-                                          <td>{{chennel.channel_Budget}}</td>
-                                      </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                          </div>
                         </div>
-                      </div>
+                    </div>
 
                     <!-- script tag Model open -->
                     <div class="wrapper">
@@ -269,8 +262,8 @@
                                     <td>End Date</td>
                                     <td>Bid Min/Max</td>
                                     <td>Channel Budget</td>
-                                    <!-- <td>Channel Status</td> -->
-                                    <!-- <td>Actions</td> -->
+                                    <td>Channel Status</td>
+                                    <td>Actions</td>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="chennel in campaignChennel">
@@ -290,9 +283,15 @@
                                         <td>{{chennel.endDate}}</td>
                                         <td>{{chennel.bidmin}}/{{chennel.bidmax}}</td>
                                         <td>{{chennel.channelBudget}}</td>
-
-                                        <!-- <td>
-                                            <div class="row">
+                                        {{chennel.status}}
+                                        <td>
+                                            <div ng-if="chennel.status == 'true'">
+                                                <label class="check-label active-check-label selected" for="active-check" onclick="">Active</label>
+                                            </div>
+                                            <div ng-if="chennel.status == 'false'">
+                                                <label class="check-label active-check-label selected" for="active-check" onclick="">Deactive</label>
+                                            </div>
+                                            <!-- <div class="row">
                                                 <div class="switch-3-toggle">
                                                     <input id="active-check" name="state-d" type="radio">
                                                     <label if="chennel.status == true" class="check-label active-check-label selected" for="active-check" onclick="">Active</label>
@@ -303,36 +302,36 @@
                                                     <input id="reject-check" name="state-d" type="radio">
                                                     <label if="chennel.status == false" class="check-label reject-check-label" for="reject-check" onclick="">Rejected</label>
                                                 </div>
-                                            </div>
-                                        </td> -->
-                                        <!-- <td>
+                                            </div> -->
+                                        </td>
+                                        <td>
                                             <div class="tooltip">
                                                 <i class="material-icons">toc</i>
                                                 <ul class="tooltiptext">
                                                     <li>
-                                                        <a href="#" data-toggle="modal" ng-click="viewChannel(chennel.channel_id)" data-target="#viewChannel">
+                                                        <a href="#" data-toggle="modal" ng-click="viewChannel(chennel.channel_id, 'View Details')" data-target="#viewChannel">
                                                             <i class="material-icons">remove_red_eye</i>
                                                             View Details
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                   <!--  <li>
                                                         <a href="#">
                                                             <i class="material-icons">find_in_page</i>
                                                            Preview
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                     <li>
-                                                        <a href="#" data-toggle="modal" ng-click="editSelectChennelId(chennel)" data-target="#editModal">
+                                                        <a href="#" data-toggle="modal" ng-click="editSelectChennelId(chennel,'Edit Channel')" data-target="#viewChannel">
                                                             <i class="material-icons">mode_edit</i>
-                                                            Edit
+                                                            Edit Channel
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                    <!-- <li>
                                                         <a href="#">
                                                             <i class="material-icons">content_copy</i>
                                                             Duplicate
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                     <li>
                                                         <a href="#" ng-click="deleteCampaignChennel(chennel)">
                                                             <i class="material-icons">delete_forever</i>
@@ -341,7 +340,7 @@
                                                     </li>
                                                 </ul>
                                             </div>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -407,7 +406,7 @@
                                         <td>Date Degment Created</td>
                                         <td>Segment Last Refreshed</td>
                                         <td>Total Profile Count</td>
-                                        <!-- <td>Segment Status</td> -->
+                                        <td>Segment Status</td>
                                         <td>Actions</td>
                                     </thead>
                                     <tbody>
@@ -419,12 +418,14 @@
                                             <td>{{segementData.create_date}}</td>
                                             <td>{{segementData.update_date}}</td>
                                             <td>-</td>
-                                            <!-- <td>
-                                                <label class="switch">
-                                                    <input type="checkbox" checked>
-                                                    <span class="slider round"></span>
-                                                </label>
-                                            </td> -->
+                                            <td>
+                                                <div ng-if="segementData.isAction == '1'">
+                                                    <label class="check-label active-check-label selected" for="active-check" onclick="">Active</label>
+                                                </div>
+                                                <div ng-if="segementData.isAction == '0'">
+                                                    <label class="check-label active-check-label selected" for="active-check" onclick="">Deactive</label>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="tooltip">
                                                     <i class="material-icons">toc</i>
@@ -811,7 +812,8 @@
         </ul>
     </div>
 </div>
-
+<br>
+<input type="text" name="" class="form-control text-center"  ng-model="browser_name_type" placeholder="Browser Names" readonly="">
                                             <br>
     <div class="dropdown">
         <button class="form-control dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

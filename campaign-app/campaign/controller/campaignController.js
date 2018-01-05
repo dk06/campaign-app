@@ -167,10 +167,12 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $('.overlay').css('display', 'block');
     };
 
-    $scope.editSelectChennelId = function(channel){
-        $scope.editChanelId = channel.channel_id;
-        $scope.channel.channelNameUpdate = channel.channel_name;
-        $scope.channel.accessTockenUpdate = channel.channelAccessToken;
+    $scope.editSelectChennelId = function(channel, channelName){
+        $scope.selectScope = channelName;
+        // $scope.editChanelId = channel.channel_id;
+        // $scope.channel.channelNameUpdate = channel.channel_name;
+        // $scope.channel.accessTockenUpdate = channel.channelAccessToken;
+        $scope.campaignViewChennel = channel;
         $scope.getChannelType();
     };
 
@@ -239,7 +241,8 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         });
     };
 
-    $scope.viewChannel = function(params){
+    $scope.viewChannel = function(params , channelName){
+        $scope.selectScope = channelName;
         loaderEvent.loaderActivate();
         return campaignChannelFactory.viewCampaignChanel(params).then(function(response, status) {
             $scope.campaignViewChennel = response;
@@ -259,7 +262,10 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         }).then(function (result) {
           if (result.value) {
             loaderEvent.loaderActivate();
-            return campaignChannelFactory.deleteCampaignChennel(Channel).then(function(response,status){
+            var channelObj = {};
+                channelObj.channel_id = Channel.channel_id;
+                channelObj.status = 'false';
+            return campaignChannelFactory.deleteCampaignChennel(channelObj).then(function(response,status){
                 swal(
                   'Deleted!',
                   'Your file has been deleted.',
@@ -711,12 +717,15 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         }
         var browser_apiRef = $scope.technologyData.browserData;
         $scope.browser_version = '';
+        $scope.browser_name_type = '';
         angular.forEach(browser_apiRef, function(value, key){
             if ($scope.browserSysObj[key] == true) {
                 if ($scope.browser_version == '') {
                     $scope.browser_version = value.browser_code;
+                    $scope.browser_name_type = value.browser_name;
                 }else{
-                    $scope.browser_version = $scope.browser_version + ',' + value.browser_code;                    
+                    $scope.browser_version = $scope.browser_version + ',' + value.browser_code;
+                    $scope.browser_name_type = $scope.browser_name_type + ',' + value.browser_name;
                 }
             }
          });

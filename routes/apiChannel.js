@@ -166,7 +166,7 @@ router.post('/editCampaignChannel', function(req,res){
 
 router.post('/deleteCampaignChannel',function(req,res){
     //var chanelID = req.body.params.channel_id;
-    apiControllerRequest.deleteChanel(req.body.params ,function(err, rows){
+    apiControllerRequest.editChanel(req.body.params ,function(err, rows){
         if(err)
         {
         res.json({

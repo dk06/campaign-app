@@ -14,7 +14,8 @@
                             'bidmax' : value.bid_Max,
                             'channelBudget' : value.channel_Budget,
                             'scriptTag' :  value.scriptTag,
-                            'channel_id' : value.channel_id
+                            'channel_id' : value.channel_id,
+                            'status' :  value.status
                         })
                 });
 				return channelList;
