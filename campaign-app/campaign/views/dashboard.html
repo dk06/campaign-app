@@ -1,5 +1,6 @@
 <div class="container-fluid">
-<main>
+<main>              
+
     <div class="row">
         <section class="col-md-3">
             <div class="card section-title-card">
@@ -459,6 +460,13 @@
                                                                 <i class="material-icons">delete_forever</i>
                                                                 Delete Segment
                                                             </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:void(0)" ng-csv="audienceSegementData" csv-header="csvHeader" filename="audience_segement.csv"><i class="material-icons">import_contacts</i>CSV Export</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#" ng-click="exportData(audienceSegementData)">
+                                                                <i class="material-icons">import_contacts</i>XLS Export</a>
                                                         </li>
                                                     </ul>
                                                 </div>

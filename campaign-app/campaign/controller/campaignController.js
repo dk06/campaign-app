@@ -2720,6 +2720,57 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         });
     };
 
+    $scope.exportData = function(sectionContentData) {
+        alasql('SELECT seg_id AS Segement_No, user_id AS User_Id, segement_name AS Segement_Name, create_date AS Create_Date, update_date AS Update_Date, age_type AS Age_Type, gender_type AS Gender_Type, language AS Language_Type, affinity_catagery AS Affinity_Category, operating_system AS Operating_System, operating_sys_version AS Operating_Version, browser AS Browser, browser_version AS Browser_Version, screen_resulation AS Screen_Resulation, device_type AS Device_Type, country_type AS Country, state_type AS State, city_type AS City, zipcode AS Zipcode, market_segment AS Market_Segement, Model AS Model, segment_type AS Segement_Type, IAB AS IAB, income AS Income, loaction AS Loaction_Type, fb_code AS Facebook_Code, isAction AS Status, age_name AS Age, gender_name AS Gende, language_name AS Language, device_name AS Device, country_name AS Country, state_name AS State, city_name AS City, income_name AS Income, affinity_catagery_type AS Affinity_Catagery, market_segment_type AS Market_Segment_Type, IAB_Name_type AS IAB_Name, facebook_Name_type AS Facebook, operatingSys_Name_type AS Operating_System, browser_name_type AS Browser_Name, screen_Name_type AS Screen, device_model_get AS Device_Mode, channel_id AS Channel_Id INTO XLSX("audience_segement.xlsx",{headers:true}) FROM ?', [sectionContentData]);
+    };
+
+    $scope.csvHeader = [
+        "Segement No", 
+        "User Id", 
+        "Segement Name", 
+        "Create Date",
+        "Update Date", 
+        "Age Type",
+        "Gender Type",
+        "Language Type",
+        "Affinity Aategory",
+        "Operating System",
+        "Operating version",
+        "browser",
+        "browser Version",
+        "Screen resulation",
+        "Device Type",
+        "Country",
+        "State",
+        "City",
+        "zipcode",
+        "Market Segement",
+        "Model",
+        "Segement Type",
+        "IAB",
+        "Income",
+        "Loaction Type",
+        "Facebook Code",
+        "status",
+        "Age",
+        "Gender",
+        "Language",
+        "Device",
+        "Country",
+        "state",
+        "City",
+        "income",
+        "affinity_catagery",
+        "market_segment_type",
+        "IAB_Name",
+        "facebook",
+        "operating_system",
+        "browser_Name",
+        "screen",
+        "Device_mode",
+        "Channel_id"
+    ];
+
     $scope.goToDashboard = function(){
         $location.path("/campaign");
     };
