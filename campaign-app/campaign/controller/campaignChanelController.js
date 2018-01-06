@@ -3,7 +3,7 @@ app.controller('compaignChanelController',['$scope','$rootScope','campaignFactor
 	init();
     function init() {
         if ($window.localStorage.accessToken) {
-            loaderEvent.loaderActivate();
+            //loaderEvent.loaderActivate();
 
             return campaignFactory.getFinalCampaignList().then(function(response, status){
                 $scope.campaignList = response;

@@ -46,7 +46,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     init();
     function init() {
         if ($window.localStorage.accessToken) {
-            loaderEvent.loaderActivate();
+            //loaderEvent.loaderActivate();
 
            return campaignFactory.getCategories().then(function(response, status) {
                 $scope.obj = response;               
@@ -114,7 +114,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     };
 
     $scope.getChannelType = function(){
-        loaderEvent.loaderActivate();                
+        //loaderEvent.loaderActivate();                
         return campaignChannelFactory.getChannelType().then(function(response, status) {
             $scope.channelType = response;
             loaderEvent.loaderDeactivate();

@@ -19,7 +19,7 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
 		  .otherwise({
 		    redirectTo: '/login'
 		  });
-  }]).run(function ($rootScope, $location, $window) {
+  }]).run(function ($rootScope, $location, $window, loaderEvent) {
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
 
         var allowedView = ["/login"];
@@ -31,6 +31,7 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
         	$rootScope.currentUser = $window.localStorage.email_id;
             if (split_url[3] == "login" || split_url[3] == "") {
                 $location.path("/campaign");
+                loaderEvent.loaderActivate();
             }
         } 
         else{
