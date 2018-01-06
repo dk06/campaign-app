@@ -1807,7 +1807,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         if ($scope.type == 'Adwords' || $scope.type == 'DBM') {
             if($scope.customSegem && $scope.technologyData && $scope.devioceModel) {
                 $scope.customSegementSet($scope.segmentListData);
-                loaderEvent.loaderDeactivate();
+                //loaderEvent.loaderDeactivate();
             }else{
                 $timeout(function(){
                     loaderEvent.loaderActivate();
@@ -1817,7 +1817,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         }else{
             if($scope.customSegem && $scope.technologyData && $scope.devioceModel) {
                 $scope.customSegementSet($scope.segmentListData);
-                loaderEvent.loaderDeactivate();
+                //loaderEvent.loaderDeactivate();
             }else{
                 $timeout(function(){
                     loaderEvent.loaderActivate();
@@ -2316,12 +2316,12 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             $scope.market_segment_type = '';
             $scope.marketSeg_ref.map(function(e, index){ 
                 for(let i =0 ; i < $scope.marketDataList.length; i++){
-                    if($scope.marketDataList[i].id == e.Seg_category_id){
+                    if($scope.marketDataList[i].id == e.id){
                         marketSegmentObj[index] = true;
                         if ($scope.market_segment_type == '') {
-                            $scope.market_segment_type = e.seg_category_name;
+                            $scope.market_segment_type = e.segments;
                         }else{
-                            $scope.market_segment_type = $scope.market_segment_type + ',' + e.seg_category_name;
+                            $scope.market_segment_type = $scope.market_segment_type + ',' + e.segments;
                         }
                         break;
                     }
@@ -2332,12 +2332,12 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             $scope.affinity_catagery_type = '';
             $scope.affinity_ref.map(function(e, index){
                 for(let i =0 ; i < $scope.affinityDataLlist.length; i++){
-                    if($scope.affinityDataLlist[i].id == e.Seg_category_id){
+                    if($scope.affinityDataLlist[i].id == e.id){
                         affinityObj[index] = true;
                         if ($scope.affinity_catagery_type == '') {
-                            $scope.affinity_catagery_type = e.category_name;
+                            $scope.affinity_catagery_type = e.segments;
                         }else{
-                            $scope.affinity_catagery_type = $scope.affinity_catagery_type + ',' + e.category_name;
+                            $scope.affinity_catagery_type = $scope.affinity_catagery_type + ',' + e.segments;
                         }
                         break;
                     }
@@ -2510,12 +2510,16 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $scope.marketData = '';
         var response_data = response.audiencesegmentobj;
         angular.forEach(response_data, function(value){
-            $scope.marketData = $scope.marketData + value.id + ',';
+            if ($scope.marketData == '') {
+                $scope.marketData = value.id;
+            }else{
+                $scope.marketData = $scope.marketData + ';'+ value.id;
+            }
         });
 
         angular.forEach(response_data, function(value){
             angular.forEach(value.subcategory, function(value){
-                $scope.marketData = $scope.marketData + value.id + ',';
+                $scope.marketData = $scope.marketData +';'+ value.id;
             });
         });
 
@@ -2530,12 +2534,16 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $scope.affinityDataLlist = '';
         var response_data = response.audiencesegmentobj;
         angular.forEach(response_data, function(value, key){
-            $scope.affinityDataLlist = $scope.affinityDataLlist + value.id + ',';            
+            if ($scope.affinityDataLlist == '') {
+                $scope.affinityDataLlist  = value.id;
+            }else{
+                $scope.affinityDataLlist  = $scope.affinityDataLlist +';'+ $scope.affinityDataLlist + value.id;
+            }
         });
 
         angular.forEach(response_data, function(value, key){
             angular.forEach(value.subcategory, function(value, key){
-               $scope.affinityDataLlist = $scope.affinityDataLlist + value.id + ',';
+               $scope.affinityDataLlist = $scope.affinityDataLlist +';'+ value.id;
             });
         });
         var categoryType = 'affinity';
@@ -2671,7 +2679,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 params.campaign_name = $scope.channelData.campaignName;
                 params.campaign_object =$scope.channelData.campaignObject;
                 params.segment_name = $scope.channelData.segementName;
-                params.channel_id = $scope.channelData.channel.channel_id;
+                params.channel_id = $scope.channelData.channel.channel_id ? $scope.channelData.channel.channel_id : $scope.chanelId;
                 params.channel_type = $scope.channelData.channel.channel_name;
                 params.segment_id = $scope.segementId;
                 params.create_date = date;
