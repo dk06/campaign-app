@@ -48,7 +48,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         if ($window.localStorage.accessToken) {
             //loaderEvent.loaderActivate();
 
-           return campaignFactory.getCategories().then(function(response, status) {
+            campaignFactory.getCategories().then(function(response, status) {
                 $scope.obj = response;               
 
                 //Awareness section icons set
@@ -67,7 +67,17 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 $scope.shopping_cart = response.converstion[1].icons_tag;
                 $scope.store_mall_directory = response.converstion[2].icons_tag;
                 loaderEvent.loaderDeactivate();
-            });         
+            });
+            campaignFactory.getDemographic().then(function(response, status){                
+                $scope.customSegementForm = response;
+                $scope.customSegem = response;
+            });
+            campaignFactory.getTechnology().then(function(response,status){            
+               $scope.technologyData = response;
+            });
+            campaignFactory.getCountry().then(function(response,status){
+                $scope.countryData = response;
+            });
         }
     };
 
@@ -158,6 +168,8 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
           if (result.value) {
             $scope.SelectChannelName = selectType;
             $scope.newTabeOpen(selectType);
+          }else{
+            $scope.channel.segment_type = '';
           }
         })
     };
@@ -1085,7 +1097,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $scope.Model = model;
     };
 
-    $scope.savedAudience = function(segment){
+    $scope.savedAudience = function(segment){        
         var count = Object.keys(segment).length;
 
         if (count >= 1) {
@@ -1401,6 +1413,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
 
     $scope.cancelAudienceSegement = function(){
         $scope.privateSection = false;
+        $scope.reachSection = true;
         $('.set-audience-parameters').hide();
         $('.database-marketplace-options').show();
         $scope.getAudienceSegement();
@@ -1449,7 +1462,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             case 'Demographics' :
                 if ($scope.privateSection) {
                     // $scope.getDemographic();
-                    $scope.getTargetingSummary();
+                    //$scope.getTargetingSummary();
                 }else{
                     $scope.getDemographic();
                 }
@@ -1457,7 +1470,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             case 'Technology' :
                 if ($scope.privateSection) {
                     // $scope.getTechnology();
-                    $scope.getTargetingSummary();
+                    //$scope.getTargetingSummary();
                 }else{
                     $scope.getTechnology();
                 }
@@ -1465,7 +1478,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             case 'Location sidebar' :
                 if ($scope.privateSection) {
                     // $scope.getCountry();
-                    $scope.getTargetingSummary();
+                    //$scope.getTargetingSummary();
                 }else{
                     $scope.getCountry();
                 }
@@ -1477,25 +1490,27 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $scope.technology = false;
         $scope.loaction = false;
         $scope.newChanele = false;
-        loaderEvent.loaderActivate();
-        return campaignFactory.getDemographic().then(function(response, status){
-            $scope.demographic = true;
-            $scope.customSegementForm = response;
-            $scope.customSegem = response;
-            loaderEvent.loaderDeactivate();
-        });
+        $scope.demographic = true;
+        // loaderEvent.loaderActivate();
+        // return campaignFactory.getDemographic().then(function(response, status){
+        //     $scope.demographic = true;
+        //     $scope.customSegementForm = response;
+        //     $scope.customSegem = response;
+        //     loaderEvent.loaderDeactivate();
+        // });
     };
 
     $scope.getTechnology = function(){
         $scope.demographic = false;
         $scope.loaction = false;
         $scope.newChanele = false;
-        loaderEvent.loaderActivate();
-        return campaignFactory.getTechnology().then(function(response,status){
-            $scope.technology = true;
-            $scope.technologyData = response;
-            loaderEvent.loaderDeactivate();
-        });
+        $scope.technology = true;
+        // loaderEvent.loaderActivate();
+        // return campaignFactory.getTechnology().then(function(response,status){
+        //     $scope.technology = true;
+        //     $scope.technologyData = response;
+        //     loaderEvent.loaderDeactivate();
+        // });
     };
    
     $scope.getDeviceModel = function(deviceType){
@@ -1516,7 +1531,8 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $scope.newChanele = false;
         $scope.technology = false;
         $scope.demographic = false;
-        loaderEvent.loaderActivate();
+        $scope.loaction = true;
+        //loaderEvent.loaderActivate();
         return campaignFactory.getCountry().then(function(response,status){
             $scope.loaction = true;
             $scope.countryData = response;
@@ -1753,15 +1769,16 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
 
     $scope.selectPrivateSegement =function(){
         $scope.getPrivateReach();
-        $scope.getDemographic();
-        $scope.getCountry();
-        $scope.getTechnology();
+        // $scope.getDemographic();
+        // $scope.getCountry();
+        // $scope.getTechnology();
         $scope.getDeviceModel('Mobile');
         // $timeout(function () {
         //     $scope.getTargetingSummary();
         // }, 500);
         
-        $scope.privateSection = true;        
+        $scope.privateSection = true;
+        $scope.reachSection = true;        
     };
 
     var ageGroup = [];
@@ -1779,8 +1796,8 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
 
     $scope.customSegment = false;
     $scope.selectCustomSegement = function(segementList){
-        $scope.getDemographic();
-        $scope.getTechnology();
+        // $scope.getDemographic();
+        // $scope.getTechnology();
         $scope.getDeviceModel('Mobile');
         $scope.customSegment = true;
         $scope.segmentListData = segementList;
@@ -1788,17 +1805,21 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
 
     $scope.customSection = false;
     $scope.privateSection = false;
-    $scope.setSegmentFields = function(){
+    $scope.reachSection = true;
+    $scope.setSegmentFields = function(){        
         $(".database-marketplace-options").hide();
         $(".set-audience-parameters").show();
         if ($scope.customSegment) {
             $scope.customSection = true;
+            $scope.reachSection = false;
             //$scope.customSegementSet($scope.segmentListData);
             checke_custome_Api_respomce();
         }else if ($scope.privateSection){
             $scope.getTargetingSummary();
             $scope.privateSection = true;
+            $scope.reachSection = true;
         }else{
+            $scope.reachSection = false;
             $scope.getDemographic();
         }
     };
@@ -2125,6 +2146,12 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         $scope.countySelect = segementList.country_type;
         $scope.stateSelect = segementList.state_type;
         $scope.citySelect = segementList.city_type;
+
+        if (segementList.location_type == 'Inclusion') {
+            $scope.checkInclusion = true;
+        }else{
+            $scope.checkExclustion= true;
+        }
 
         $scope.ageGroup = ageGroup;
         $scope.genderGroup = genderGroup;
@@ -2592,8 +2619,8 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             $scope.type = $scope.selectChan;
             $scope.segmentListData = segementData;
             $scope.getCustomSegmentsFields();
-            $scope.getDemographic();
-            $scope.getTechnology();
+            // $scope.getDemographic();
+            // $scope.getTechnology();
             $scope.getDeviceModel('Mobile');
             $('.audience-section').removeClass('content-active');
             $('.create-audience-section').addClass('content-active');

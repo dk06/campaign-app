@@ -321,12 +321,12 @@
                                                            Preview
                                                         </a>
                                                     </li> -->
-                                                    <li>
+                                                    <!-- <li>
                                                         <a href="#" data-toggle="modal" ng-click="editSelectChennelId(chennel,'Edit Channel')">
                                                             <i class="material-icons">mode_edit</i>
                                                             Edit Channel
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                     <!-- <li>
                                                         <a href="#">
                                                             <i class="material-icons">content_copy</i>
@@ -917,8 +917,8 @@
 
     <div id="TrafficSources" class="tabcontent">
         <div class="pull-right">
-            <input type="radio" name="Location" ng-click="selectLocationType('Inclusion')">Inclusion
-            <input type="radio" name="Location" ng-click="selectLocationType('Exclustion')">Exclustion
+            <input type="radio" name="Location" ng-click="selectLocationType('Inclusion')" ng-checked="checkInclusion">Inclusion
+            <input type="radio" name="Location" ng-click="selectLocationType('Exclustion')" ng-checked="checkExclustion">Exclustion
         </div>
         <br>
         <label>Country</label>                                            
@@ -1125,17 +1125,19 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div class="row" ng-repeat="privateFields in privateAudienceMarketplaceList">
-                                    <div class="col-8 left-align">
-                                        <i class="material-icons">face</i>
-                                        {{privateFields.privatemarketplacename}}
-                                    </div>
-                                    <div class="col-4 right-align">
-                                        {{privateReach | number}}
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: {{privateReach}}%">
+                                <div ng-if="reachSection">
+                                    <div class="row" ng-repeat="privateFields in privateAudienceMarketplaceList">
+                                        <div class="col-8 left-align">
+                                            <i class="material-icons">face</i>
+                                            {{privateFields.privatemarketplacename}}
+                                        </div>
+                                        <div class="col-4 right-align">
+                                            {{privateReach | number}}
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: {{privateReach}}%">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1271,11 +1273,7 @@
                                         <option vlaue="cpc">CPC</option>
                                         <option value="ctr">CTR</option>
                                     </select><br />
-                                    <input type="text" value="500,000">
-                                    <input type="text" value="Set Lorem Ipsum">
-                                    <textarea class="review-comment" rows="5" cols="45">
-                                        Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
-                                    </textarea>
+                                    <textarea class="review-comment" rows="5" cols="45"></textarea>
                                 </div>
                             </div>
                         </div>
