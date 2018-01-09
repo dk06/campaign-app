@@ -20,6 +20,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     $scope.device_type_get = '';
     $scope.deviceId = '';
     $scope.editCheck = false;
+    $rootScope.companyDropDownEvent = false;
 
     $scope.age_name = '';
     $scope.gender_name = '';

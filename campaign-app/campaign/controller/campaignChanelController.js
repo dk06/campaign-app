@@ -1,14 +1,21 @@
-app.controller('compaignChanelController',['$scope','$rootScope','campaignFactory','$window','$location','loaderEvent', function($scope, $rootScope, campaignFactory, $window, $location, loaderEvent) {
+app.controller('compaignChanelController',['$scope','$rootScope','campaignFactory','$window','$location','loaderEvent','overviewFactory','sharedMain', function($scope, $rootScope, campaignFactory, $window, $location, loaderEvent, overviewFactory, sharedMain) {
 
 	init();
     function init() {
+        $rootScope.companyDropDownEvent = false;
         if ($window.localStorage.accessToken) {
-            //loaderEvent.loaderActivate();
 
-            return campaignFactory.getFinalCampaignList().then(function(response, status){
+            campaignFactory.getFinalCampaignList().then(function(response, status){
                 $scope.campaignList = response;
-                loaderEvent.loaderDeactivate();
-            });          
+            });
+
+            var param = {};
+                param.dateRange = '2016-01-01,2017-01-31';
+            overviewFactory.getCompanyList(param).then(function(response, status){                
+                $rootScope.companyList = response;
+                sharedMain.campaign_id = response[0].campaign_id;
+            });
+            loaderEvent.loaderDeactivate();
         }
     };
 

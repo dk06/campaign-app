@@ -1,0 +1,95 @@
+ <div>
+        <h5 class="text-bold head-heading">Referral Sources</h5>
+    
+    <div class="row">
+    <div class="col-lg-12">
+       <div id="traffic" class="" style="min-height: 300px;">
+        <div class="panel-heading sources-card">
+            <h5 class="text-bold title-border-bottom card-heading">
+            {{pageTamplate.referrerType.display}}
+            </h5>
+            <div class="col-lg-3">
+                <nvd3 ng-click="goToOtherPages('source')" style="cursor: pointer;" options="refferalTypeData.chartOptions" data="refferalTypeData.chartData"></nvd3>
+            </div>
+            <h1></h1>
+            <div class="col-lg-9">
+                <table class="table datatable-fixed-left" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="table-card-heading" style="font-weight: bold;">Channels</th>
+                        <th class="text-right table-card-heading" style="font-weight: bold;">{{ selectMatricLabel }}</th>
+                        <th class="text-right col-lg-4"></th>
+                    </tr>
+                    </thead>
+                    <div ng-if="refferalTypeData.data !=0">
+                        <tbody>
+                            <tr ng-repeat="source in refferalTypeData.data">
+                                <td ng-click="goToOtherPages('source', source.referrerTypeId, source.type)" style="cursor: pointer;"><span class="color-span pull-left" style="margin-right: 5px;margin-top: 3px; margin-left: 5px; border-color: {{source.color}}"></span>{{source.type}}</td>
+                                <td class="text-right text-bold">{{source.count}}</td>
+                                <td class="col-lg-4">
+                                    <div class="progress age-group-progressbar" style="width: 100%" data-toggle="tooltip" data-placement="top" tooltip="{{source.share ? source.share :0}}%">
+                                        <div class="progress-bar" style="width:{{source.scaledShare}}%">
+                                            <span class="sr-only"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
+                <div ng-if="refferalTypeData.data == 0" ng-repeat="message in refferalTypeData.messageStatus">
+                    <p class="text-center" style="color: #64c1ac; margin-top: 60px; font-size: 20px;">{{message}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div id="domain" class="panel-heading">
+                    <h5 class="text-bold title-border-bottom card-heading">
+                    {{pageTamplate.reforiginal.display}}
+                     
+                    </h5>
+                        <table id="example-domain-advanced" class="table treetable">
+                            <thead>
+                                <tr>
+                                   <th class="table-card-heading" style="font-weight: bold;">Domain</th>
+                                    <th class="text-right table-card-heading" style="font-weight: bold;">Links</th>
+                                    <th class="text-right table-card-heading" style="font-weight: bold;">{{ selectMatricLabel }}</th>
+                                   <th class=" text-right col-lg-4" style="width: 100px;"></th>
+                                </tr>
+                            </thead>
+                                <div ng-if="topRefferalData.responseData !=0">
+                                    <tbody id="treeBody">
+                                       
+                                    </tbody>
+                                </div>
+                        </table>
+                        <div ng-if="topRefferalData.responseData == 0 || topRefferalData.responseData == null" ng-repeat="message in topRefferalData.messageStatus">
+                            <p class="text-center" style="color: #64c1ac; margin-top: 60px; font-size: 20px;">{{message}}</p>
+                        </div>
+                    
+                        <div ng-if="topRefferalData.data.length > 10">                  
+                            <div class="col-lg-12 text-right" style="margin-bottom: 2%">
+                                <pagination 
+                                      ng-model="topRefferalData.currentPage"
+                                      total-items="topRefferalData.data.length"
+                                      max-size="5"  
+                                      boundary-links="true"
+                                      boundary-link-numbers="true"
+                                      previous-text="&lsaquo;"
+                                      next-text="&rsaquo;"
+                                      first-text="&laquo;"
+                                      last-text="&raquo;"
+                                      ng-change="topRefferalPaging()">
+                                </pagination>                       
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

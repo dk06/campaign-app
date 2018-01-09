@@ -1,0 +1,44 @@
+<div class="">
+    <div id="audience-interest" class="panel panel-flat">
+        <div class="">
+            <div>
+                <table id="example-advanced" class="table treetable" style="margin-top: 30px;">
+                    <thead>
+                    <tr>
+                        <th class="table-card-heading" style="font-weight: bold;">Interest Segment</th>
+                        <th class=" text-right table-card-heading" style="font-weight: bold;">Conversion</th>
+                        <th class=" text-right table-card-heading" style="font-weight: bold;">Action</th>
+                        <th class=" text-right table-card-heading" style="font-weight: bold;">Impressions</th>
+                        <th class=" text-right table-card-heading" style="font-weight: bold;">Reach</th>
+                        <th class=" text-right col-lg-4" style="width: 100px;"></th>
+                    </tr>
+                    </thead>
+                    <div ng-if="vm.audienceSegment.responseData !=0">
+                        <tbody id="treeBody">
+                       
+                        </tbody>
+                    </div>
+                </table>
+                <div ng-if="vm.audienceSegment.responseData == 0" ng-repeat="message in vm.audienceSegment.messageStatus">
+                    <p class="text-center" style="color: #64c1ac; margin-top: 60px; font-size: 20px;">{{message}}</p>
+                </div>
+            </div>
+                <div ng-if="vm.audienceSegment.responseData.length > 10">
+                    <div class="col-lg-12 text-right" style="margin-bottom: 2%">
+                        <pagination 
+                              ng-model="vm.audienceSegment.currentPage"
+                              total-items="vm.audienceSegment.responseData.length"
+                              max-size="5"  
+                              boundary-links="true"
+                              boundary-link-numbers="true"
+                              previous-text="&lsaquo;"
+                              next-text="&rsaquo;"
+                              first-text="&laquo;"
+                              last-text="&raquo;"
+                              ng-change="audienceSegmentPaging()">
+                        </pagination>
+                    </div>                    
+                </div>
+        </div>
+    </div>
+</div>

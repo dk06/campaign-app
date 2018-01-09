@@ -7,6 +7,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "angular-nvd3": "^1.0.9",
     "angularjs-dropdown-multiselect": "^2.0.0-beta.10",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",

@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <main>
+        <div>
+            <section class="card content-card heading-card">
+                <p class="card-title">Campaign Performance</p>
+                <p class="pull-right">Campaign Objectvie:
+                {{campaignObject}}
+                <span class="caret"></span></p>
+            </section>
+
+            <div>
+                <div class="card content-card">
+                   <cr-campaign-performance-first-section-dir></cr-campaign-performance-first-section-dir>
+                </div>
+                <div class="card content-card">
+                   <cr-campaign-performance-secand-section-dir></cr-campaign-performance-secand-section-dir>
+                </div>
+            </div>
+
+            <section class="card content-card heading-card">
+                <p class="card-title">Channel Performance</p>
+            </section>
+            <div>
+                <div class="card content-card">
+                   <cr-channel-performance-dir></cr-channel-performance-dir>
+                </div>
+            </div>
+
+            <div>
+                <section class="card content-card heading-card">
+                    <p class="card-title">Audience Interest Segment</p>
+                </section>
+                <div class="card content-card">
+                     <cr-audience-interest-dir></cr-audience-interest-dir>
+                </div>
+            </div>
+            
+            <div>
+                <section class="card content-card heading-card">
+                    <p class="card-title">Audience Profile</p>
+                </section>
+                <div class="card content-card">
+                   <cr-audience-profile-dir></cr-audience-profile-dir>
+                </div>
+            </div>
+
+            <div>
+                <section class="card content-card heading-card">
+                    <p class="card-title">Loactionwise Campaign Performance</p>
+                </section>
+                <div class="card content-card">
+                   <cr-location-driving-traffic-dir></cr-location-driving-traffic-dir>
+                </div>
+            </div>
+            
+            <div>
+                <section class="card content-card heading-card">
+                    <p class="card-title">Campaign Performance Device and Brand</p>
+                </section>
+                <div class="card content-card">
+                    <cr-device-and-brand-dir></cr-device-and-brand-dir>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<style>
+#chartdiv {
+    width       : 100%;
+    height      : 500px;
+    font-size   : 11px;
+}                           
+</style>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+<!-- Chart code -->
+<!-- <script>
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "dataProvider": [ {
+    "title": "New",
+    "value": 4852
+  }, {
+    "title": "Returning",
+    "value": 9899
+  } ],
+  "titleField": "title",
+  "valueField": "value",
+  "labelRadius": 5,
+
+  "radius": "42%",
+  "innerRadius": "60%",
+  "labelText": "[[title]]"
+  // "export": {
+  //   "enabled": true
+  // }
+} );
+</script>
+<div id="chartdiv"></div> -->

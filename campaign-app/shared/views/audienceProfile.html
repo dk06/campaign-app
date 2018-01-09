@@ -1,0 +1,100 @@
+<div class="">
+    <div class="row">
+        <div class="col-md-4">
+            <div width="480" height="320" class="panel panel-flat overview-audience-profile-card">
+                <div class="panel-heading">
+                    <h5 class="text-bold title-border-bottom card-heading">Gender Level
+                    </h5>
+                </div>
+                <div class="">
+                    <nvd3 ng-click="goToOtherPages('genderTraffic')" style="cursor: pointer;" options="genderData.chartOptions" data="genderData.chartData"></nvd3>
+                    <table class="table datatable-fixed-left" width="1000%">
+                        <thead>
+                            <tr>
+                                <th class="table-card-heading">Gender</th>
+                                <th class="table-card-heading">Reach</th>
+                                <th class="table-card-heading">Conversion</th>
+                            </tr>
+                        </thead>
+                        <div ng-if="genderData.data !=0">
+                            <tbody>
+                                <tr ng-repeat="gender in genderData.data">
+                                    <td class=" text-left  capitalize-text" style="cursor: pointer;"><span class="color-span pull-left" style="margin-right: 5px;margin-top: 3px; margin-left: 5px; border-color: {{gender.color}}"></span>{{gender.type}}</td>
+                                    <td class="text-bold">{{gender.reach }}</td>
+                                    <td class="text-bold">{{gender.conversions}}</td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                    <div ng-if="genderData.data == 0" ng-repeat="message in genderData.messageStatus">
+                        <p class="text-center" style="color: #64c1ac; margin-top: 60px; font-size: 20px;">{{message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div width="480" height="320" class="panel panel-flat overview-audience-profile-card">
+                <div class="panel-heading">
+                    <h5 class="text-bold title-border-bottom card-heading">Age Level
+                    </h5>
+                </div>
+                <div class="">
+                    <nvd3 ng-click="goToOtherPages('genderTraffic')" style="cursor: pointer;" options="ageGroupData.chartOptions" data="ageGroupData.chartData"></nvd3>
+                    <table class="table datatable-fixed-left" width="1000%">
+                        <thead>
+                            <tr>
+                                <th class="table-card-heading">Age</th>
+                                <th class="table-card-heading">Reach</th>
+                                <th class="table-card-heading">Conversion</th>
+                            </tr>
+                        </thead>
+                        <div ng-if="ageData.data !=0">
+                            <tbody>
+                                <tr ng-repeat="ageGroup in ageGroupData.data">
+                                    <td class=" text-left  capitalize-text" ng-click="goToOtherPages('ageGroupProfile', ageGroup.ageGroupId)" style="cursor: pointer;"><span class="color-span pull-left" style="margin-right: 5px;margin-top: 3px; margin-left: 5px; border-color: {{ageGroup.color}}"></span>{{ageGroup.type}}</td>
+                                    <td class="text-bold">{{ageGroup.reach }}</td>
+                                    <td class="text-bold">{{ageGroup.conversions}}</td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                    <div ng-if="ageGroupData.data == 0" ng-repeat="message in ageGroupData.messageStatus">
+                        <p class="text-center" style="color: #64c1ac; margin-top: 60px; font-size: 20px;">{{message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div width="480" height="320" class="panel panel-flat overview-audience-profile-card">
+                <div class="panel-heading">
+                    <h5 class="text-bold title-border-bottom card-heading">Income Level
+                    </h5>
+                </div>
+                <div class="">
+                    <nvd3 ng-click="goToOtherPages('genderTraffic')" style="cursor: pointer;" options="incomeData.chartOptions" data="incomeData.chartData"></nvd3>
+                    <table class="table datatable-fixed-left" width="1000%">
+                        <thead>
+                            <tr>
+                                <th class="table-card-heading">Income</th>
+                                <th class="table-card-heading">Reach</th>
+                                <th class="table-card-heading">Conversion</th>
+                            </tr>
+                        </thead>
+                        <div ng-if="incomeData.data !=0">
+                            <tbody>
+                                <tr ng-repeat="income in incomeData.data">
+                                    <td class=" text-left  capitalize-text" style="cursor: pointer;"><span class="color-span pull-left" style="margin-right: 5px;margin-top: 3px; margin-left: 5px; border-color: {{income.color}}"></span>{{income.type}}</td>
+                                    <td class="text-bold">{{income.reach }}</td>
+                                    <td class="text-bold">{{income.conversions}}</td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                    <div ng-if="incomeData.data == 0" ng-repeat="message in incomeData.messageStatus">
+                        <p class="text-center" style="color: #64c1ac; margin-top: 60px; font-size: 20px;">{{message}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
 	var dataFactory = {};
 
 		dataFactory.getCampaignChanel= function(){
-		var channelList = []
+			var channelList = []
 			return campaignChannelService.getChanel().then(function(response) {
 				angular.forEach( response.data, function(value, key){
                     channelList.push({

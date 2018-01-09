@@ -1,0 +1,66 @@
+<div>
+    <div class="row">
+        <div class="table-responsive col-md-5">
+            <div class="panel-heading ">
+                <h5 class="text-bold title-border-bottom card-heading">Device Type
+                </h5>
+            </div>
+            <nvd3 options="deviceData.chartOptions" data="deviceData.chartData"></nvd3>
+            <table class="table text-nowrap">
+                <thead>
+                    <tr>
+                        <th class="text-bold table-card-heading">Device</th>
+                        <th class="text-bold table-card-heading">Reach</th>
+                        <th class="text-bold table-card-heading">Conversion</th>
+                    </tr>
+                </thead>
+                <div ng-if="deviceData.data != 0">
+                    <tbody>
+                        <tr ng-repeat="device in deviceData.data" ng-click="goToOtherPages('visitorType')" style="cursor: pointer">
+                            <td>{{device.type}}</td>
+                            <td>{{device.reach}}</td>
+                            <td>{{device.conversions}}</td>
+                        </tr>
+                    </tbody>    
+                </div>
+            </table>
+            <div ng-if="deviceData.data == 0" ng-repeat="message in deviceData.messageStatus">
+                <p class="text-center" style="color: #64c1ac; margin-top: 85px;font-size: 20px;">{{message}}</p>
+            </div>
+        </div>        
+        <div class="col-md-7">
+            <div class="panel-heading ">
+                <div class="col-md-4">
+                    <h5 class="text-bold card-heading">Device {{brandName}}
+                </h5>
+                </div>
+                <div class="col-md-8">
+                    <button type="button" ng-click="selectBrandType('Brand')">Brand</button>
+                    <button type="button" ng-click="selectBrandType('Service Provider')">Service Provider</button>
+                    <button type="button" ng-click="selectBrandType('Operating System')">Operating System</button>
+                    <button type="button" ng-click="selectBrandType('Screen Size')">Screen Size</button>
+                </div>
+            </div>
+            <table class="table text-nowrap">
+                <thead>
+                    <tr>
+                        <th class="text-bold table-card-heading">{{brandName}}</th>
+                        <th class="text-bold table-card-heading">Action</th>
+                        <th class="text-bold table-card-heading">Conversion</th>
+                        <th class="text-bold table-card-heading">Reach</th>
+                    </tr>
+                </thead>
+                <div>
+                    <tbody>
+                        <tr ng-repeat="brand in deviceSectionData" ng-click="goToOtherPages('visitorType')" style="cursor: pointer">
+                            <td>{{brand.device_type}}</td>
+                            <td>-</td>
+                            <td>{{brand.conversions}}</td>
+                            <td>{{brand.reach}}</td>
+                        </tr>
+                    </tbody>    
+                </div>
+            </table>
+        </div>
+    </div>    
+</div>

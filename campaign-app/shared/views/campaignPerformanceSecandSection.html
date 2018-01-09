@@ -1,0 +1,53 @@
+<div class="">
+    <div class="row">
+        <div class="col-md-4">
+            <h5 class="text-bold title-border-bottom card-heading">
+                Campaign Progress
+            </h5>
+            <div class="media-left col-md-6 no-padding">
+                <p class="text-center">Cost vs Budget</p>
+                <nvd3 options="costVsBudgetData.chartOptions" data="costVsBudgetData.chartData"></nvd3>
+                <label class="text-center" style="font-size: 25px;">356,000</label>
+                <p class="text-center">Campaign Budget</p>
+                <p class="text-center">INR 500,000</p>
+            </div>
+            <div class="media-right col-md-6 no-padding">
+                <p class="text-center">Duration vs Schedule</p>
+                <nvd3 options="campaignDurationData.chartOptions" data="campaignDurationData.chartData"></nvd3>
+                <label class="text-center" style="font-size: 25px;">9 days</label>
+                <p class="text-center">Campaign Shedulr</p>
+                <p class="text-center">30 Days</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <div class="panel-heading">
+                    <h5 class="text-bold title-border-bottom card-heading">Campaign performance Funnel
+                    </h5>
+                </div>
+                <div class="">
+                    <ul ng-repeat="performanceFunnel in channelData">
+                        <label>impressions</label>
+                        <li>{{performanceFunnel.impressions}}</li><!-- 
+                        <li>{{performanceFunnel.reach}}</li>
+                        <li>-</li>
+                        <li>{{performanceFunnel.conversions}}</li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <div class="panel-heading">
+                    <h5 class="text-bold title-border-bottom card-heading">Code Performance Funnel
+                    </h5>
+                </div>
+                <div class="">
+                    <ul>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

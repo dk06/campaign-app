@@ -2,15 +2,7 @@
 <html lang="en" ng-app="MyApp" ng-clock>
     <head>
         <base href="/">
-    <!--     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Test Demo</title>
         <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
-        <link href="stylesheets/style.css" rel="stylesheet">
-        <link href="scripts/css/custom.css" rel="stylesheet"> -->
-        <!-- <link href="scripts/css/custom.css" rel="stylesheet"> -->
-         <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
         <link rel="stylesheet" type="text/css" href="scripts/css/daterangepicker.css" />
 
         <meta charset="utf-8" />
@@ -29,6 +21,8 @@
         <script src="scripts/sweetalert/js/sweetalert2.all.min.js"></script>        
         <script src="scripts/sweetalert/js/sweetalert2.min.js"></script>
         <link rel="stylesheet" href="scripts/sweetalert/css/sweetalert2.min.css">
+
+
                
     </head>
     <body class="containerBlock">
@@ -44,6 +38,7 @@
           <script src="scripts/moment.min.js"></script>
           <script src="scripts/daterangepicker.js"></script>
           <script src="scripts/js/waitMe.js"></script>
+          <script src="scripts/vendors/js/bootstrap.min.js" type="text/javascript"></script>
 
           <script src="app.js"></script>
           
@@ -52,11 +47,11 @@
 
           <script src="scripts/js/xls/alasql.min.js"></script>
           <script src="scripts/js/xls/xlsx.core.min.js"></script>
-
           
           <script src="shared/shareBaseUrl.js"></script>
           <script src="shared/loaderEvent.js"></script>
-          <script src="shared/cuberootService.js"></script>          
+          <script src="shared/cuberootService.js"></script> 
+          <script src="shared/main.js"></script>         
           <script src="campaign/controller/campaignController.js"></script>
           <script src="campaign/controller/campaignChanelController.js"></script>
           <script src="campaign/factory/campaignFactory.js"></script>
@@ -67,15 +62,66 @@
           <script src="login/service/loginService.js"></script>
           <script src="campaign/factory/audienceFactory.js"></script>
           <script src="campaign/service/audienceService.js"></script>
+          <script src="overview/controller/overviewController.js"></script>
+          <script src="overview/factory/overviewFactory.js"></script>
+          <script src="overview/service/overviewService.js"></script>
         
+          <!--directive Section start-->
+          <script src="shared/directives/deviceAndBrandDir.js"></script>
+          <script src="shared/directives/trafficSourcesDir.js"></script>
+          <script src="shared/directives/trafficDistributionDir.js"></script>
+          <script src="shared/directives/topContent.js"></script>
+          <script src="shared/directives/locationDrivingTrafficDir.js"></script>
+          <script src="shared/directives/audienceProfileDir.js"></script>
+          <script src="shared/directives/audienceLevelDir.js"></script>
+          <script src="shared/directives/audienceInterestDir.js"></script>
+          <script src="shared/directives/audienceHeader.js"></script>
+          <script src="shared/directives/channelPerformanceDir.js"></script>
+          <script src="shared/directives/campaignPerformanceSecandSectionDir.js"></script>
+          <script src="shared/directives/campaignPerformanceFirstSectionDir.js"></script>
+          <script src="shared/directives/amChart/bulletChart.js"></script>
+          <script src="shared/directives/amChart/durationOnValueAxisChart.js"></script>
+          <script src="shared/directives/amChart/amCityMap.js"></script>
+          <script src="shared/directives/amChart/amMap.js"></script>
+          
 
+          <!--directive Section end-->
+
+
+          <!-- chart js start -->
+          <link rel="stylesheet" href="scripts/css/nv.d3.min.css"/>
+
+          <script src="scripts/amChartjs/amcharts.js"></script>
+          <script src="scripts/amChartjs/ammap.js"></script>
+          <script src="scripts/amChartjs/worldLow.js"></script>
+          <script src="scripts/amChartjs/serial.js"></script>
+          <script src="scripts/amChartjs/light.js"></script>
+          <script src="scripts/amChartjs/d3.min.js" charset="utf-8"></script>
+          <script src="scripts/amChartjs/nv.d3.min.js"></script>
+          <script src="scripts/amChartjs/angular-nvd3.js"></script>
+          <script src="scripts/amChartjs/3.5.6d3.min.js" charset="utf-8"></script>
+          
+          
+        <!-- chart js end -->
 
 
           <div ng-if="pageActive">
               <nav class="navbar navbar-toggleable-md fixed-top bg-inverse navbar-fixed-top" id="header">
                   <a class="navbar-brand" href="#">
                       <img src="scripts/assets/img/cr_insights-logo.png" alt="_cuberoot" title="Cuberoot" />
-                  </a>                  
+                  </a>
+
+                  <div ng-if="companyDropDownEvent" class="dropdown nav navbar-nav" style="margin-left: 45px; margin-top: 10px;">
+                      <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span class="pull-left">Select Company</span>
+                        <p class="pull-right"><span class="caret"></span></p>
+                      </button>
+                      <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">                
+                          <li role="presentation" ng-repeat="company in companyList" style="cursor: pointer;" ng-click="changeCampaignId(company.campaign_id)">{{company.campaign_name}}
+                          </li>
+                      </ul>
+                  </div>
+
                   <ul class="nav navbar-nav pull-right" ng-if="currentUser" ng-controller="LoginController">
                       <li class="navbar-text" style="color: white" ng-bind="currentUser"></li>
                       <li>
@@ -87,10 +133,10 @@
                       <nav class="col-sm-3 col-md-2 hidden-xs-down sidebar">
                               <ul class="nav nav-pills flex-column">
                                   <li class="nav-item">
-                                      <!-- <a class="nav-link active" href="#">
+                                      <a class="nav-link active" href="/overview">
                                           <i class="material-icons">dashboard</i>
                                           <span>Overview</span>
-                                      </a> -->
+                                      </a>
                                   </li>
                                   <li class="nav-item">
                                       <!-- <a class="nav-link" href="#">
