@@ -41,7 +41,31 @@
                               "gridAlpha": 0
                             } ],
                             "startDuration": 1,
-                            "graphs": chartData,
+                            "graphs": [ {
+                              "valueField": "full",
+                              "showBalloon": false,
+                              "type": "column",
+                              "lineAlpha": 0,
+                              "fillAlphas": 0.8,
+                              "fillColors": [ "#19d228", "#f6d32b", "#fb2316" ],
+                              "gradientOrientation": "horizontal",
+                            }, {
+                              "clustered": false,
+                              "columnWidth": 0.3,
+                              "fillAlphas": 1,
+                              "lineColor": "#000000",
+                              "stackable": false,
+                              "type": "column",
+                              "valueField": "bullet"
+                            }, {
+                              "columnWidth": 0.5,
+                              "lineColor": "#000000",
+                              "lineThickness": 3,
+                              "noStepRisers": true,
+                              "stackable": false,
+                              "type": "step",
+                              "valueField": "limit"
+                            } ],
                             "columnWidth": 1,
                             "categoryField": "category",
                             "categoryAxis": {
@@ -51,7 +75,7 @@
                         });
                     };
                     scope.$on("bulletChart", function (data,en ) {
-                        initChart(en.data);
+                        initChart(en.data[0].bullet);
                     });
 
                 }//end watch

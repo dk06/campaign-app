@@ -223,6 +223,37 @@
                 return campaighDurationData;
             });
         };
+
+        dataFactory.getDurationOnValueAxisChart = function(param) {
+            var MetricData= {
+                data : []
+            }
+            return overviewService.getMetricDataDatewise(param).then(function(response) {
+                angular.forEach(response.data, function(value, key) {
+                    MetricData.data.push({ 'date' : value.date,'distance' : value.impressions ,'townName' : value.channel,'townSize' : value.clicks,'latitude' : '30.35','duration' : value.cost });
+                });
+                return MetricData.data;
+            });
+        };
+
+        dataFactory.getbulletChartData = function(param) {
+            var MetricData= {
+                data : []
+            }
+            return overviewService.getBulletChartData(param).then(function(response) {
+                angular.forEach(response.data, function(value, key) {
+                    MetricData.data.push({ 'bullet' : parseInt(value.reach),'reach' : value.reach ,'conversions' : value.conversions,'impressions' : value.impressions,'cpconversion' : value.cpconversion,'cost' : value.cost,'clicks' : value.clicks,'cpm' :  value.cpm, 'cpc' : value.cpc, 'cpconversion' : value.cpconversion,'cpp' : value.cpp,'cuberootcampaignId' : value.cuberootcampaignId });
+                });
+                return MetricData.data;
+            });
+        };
+
+        dataFactory.getAudienceSegement = function(param) {            
+            return overviewService.getAudienceSegementList(param).then(function(response) {
+                return response.data;
+            });
+        };
+
 		
 		return dataFactory;
  }]);

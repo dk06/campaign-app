@@ -1,21 +1,44 @@
-app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$window','$location','sharedMain','loaderEvent', function($scope, $rootScope, overviewFactory, $window,$location, sharedMain, loaderEvent) {
+app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$window','$location','sharedMain','loaderEvent','$filter','$timeout', function($scope, $rootScope, overviewFactory, $window,$location, sharedMain, loaderEvent, $filter,$timeout) {
 
     $scope.loactionType = 'City';
     $rootScope.companyDropDownEvent = true;
-    $scope.campaignObject = 'Adwords';
+    $scope.campaignObject = 'All Channels';
+    $scope.dateSet = '01/01/2016 - 31/01/2017';
+    $scope.companyObject = 'All Channels';
+
+    $scope.campaignObjectList = [{'dropdown' : 'All'},{'dropdown' : 'Adwords'},{'dropdown' : 'Facebook'},{'dropdown' : 'DBM'}]
 
     var param = {};
-        param.dateRange = '2016-01-01_2017-01-31';
-        param.campaign_id = sharedMain.campaign_id;
+        param.dateRange =  sharedMain.dateRange ? sharedMain.dateRange : '2016-01-01_2017-01-31';
+        param.campaign_id = sharedMain.campaign_id ? sharedMain.campaign_id : 'all';
         param.aggregated = true;
-        param.channel = 'Adwords';
+        param.channel = sharedMain.channel ? sharedMain.channel : 'all';
         param.channelAll = 'all';
         param.metric = 'impression';
+   
+
+    $scope.setDateRange = function(){
+        var datadate = document.getElementById("daterange").value;
+        var dateRangeArray = datadate.split('-');
+
+        var startDate = $filter('date')(new Date(dateRangeArray[0]), 'yyyy-MM-dd');
+        var endDate = $filter('date')(new Date(dateRangeArray[1]), 'yyyy-MM-dd');
+
+        sharedMain.dateRange = startDate + '_' + endDate;
+        param.dateRange = startDate + '_' + endDate;
+        init();
+    };
 
 	init();
     function init() {
         if ($window.localStorage.accessToken) {
-            loaderEvent.loaderActivate();            
+            loaderEvent.loaderActivate();
+
+            var dateRange = '2016-01-01,2017-01-31';
+            overviewFactory.getCompanyList(dateRange).then(function(response, status){                
+                $rootScope.companyList = response;
+                sharedMain.campaign_id = response[0].campaign_id;
+            });
 
             overviewFactory.getChannelsData(param).then(function(data, status) {
                 $scope.channelData = data;
@@ -26,7 +49,8 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             });
 
             overviewFactory.getbulletChartData(param).then(function(data, status) {                
-                $scope.$broadcast('bulletChart', { data: $scope.bulletChartValue });
+                $scope.bulletChartData =  data;
+                $scope.$broadcast('bulletChart', { data: data });
             });
 
             overviewFactory.getDeviceData(param).then(function(data, status) {
@@ -85,10 +109,24 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             });
 
             overviewFactory.cityData(param).then(function(data, status) {
-                    $scope.cityData = data;
-                    $scope.loactionType = 'City';
-                    $scope.$broadcast('cityViewMap', { data: data });
+                $scope.cityData = data;
+                $scope.loactionType = 'City';
+                $scope.$broadcast('cityViewMap', { data: data });
+            });
+
+            overviewFactory.getAudienceSegement(param).then(function(data, status) {
+                $scope.audienceSegment = data;
+                expandTable();
+                if ($scope.audienceSegment && $scope.audienceSegment) {
+                    removedTablesRow($scope.audienceSegment);
+                }
+                //$scope.audienceSegment = data;
+                var filterData = _.filter($scope.audienceSegment, function (item, index) {
+                    return 0 <= index && 9 >= index;
                 });
+                manageTableData(filterData);
+            });
+
             loaderEvent.loaderDeactivate();
         }
     };
@@ -143,10 +181,171 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
         });
     };
 
-    $rootScope.changeCampaignId = function(campaignId){
-        sharedMain.campaign_id = campaignId;
+     $scope.campaignObjectFitler = function(filter){
+        $scope.campaignObject = filter;
+        sharedMain.channel = filter;
+        param.channel = filter;
         init();
     };
+
+    $rootScope.changeCampaignId = function(campaignId,campaign_name){
+        sharedMain.campaign_id = campaignId;
+        param.campaign_id = campaignId;
+        $scope.companyObject = campaign_name;
+        sharedMain.campaign_name = campaign_name;
+        init();
+    };
+
+
+    function expandTable() {
+            $("#example-advanced").treetable({ expandable: true });
+        }
+
+        function removedTablesRow(list) {
+            var len = list.length;
+            // Clear the table data.
+            for (var i = 0; i < len; i++) {
+                var node = $("#example-advanced").treetable("node", i + 1);
+                if (undefined != node) {
+                    $("#example-advanced").treetable("removeNode", (i + 1)); // Remove the node and it's children.
+                }
+            }
+        }
+
+        function manageTableData(responseData) {
+            var totalParentCountSum = _.reduce(_.pluck(responseData, 'count'), function(memo, num) {
+                return parseInt(memo) + parseInt(num);
+            }, 0);
+            _.each(responseData, function(parentItem, index) {
+                var data1 = manageAudienceSegmentData(parentItem, totalParentCountSum);
+                data1.id = (index + 1).toString();
+                data1.parentData = true;
+                if (parentItem.audience_segment_data != undefined) {
+                    if (parentItem.audience_segment_data.length == 0) {
+                        data1.endData = true;
+                    }
+                }
+                manageAudienceSegmentHtml(data1, data1.id);
+                if (parentItem.audience_segment_data != undefined) {
+                    if (parentItem.audience_segment_data.length > 0) {
+                        var totalChildCountSum = _.reduce(_.pluck(parentItem.audience_segment_data, 'count'), function(memo, num) {
+                            return parseInt(memo) + parseInt(num);
+                        }, 0);
+                        _.each(parentItem.audience_segment_data, function(firstChild, index1) {
+                            var data2 = manageAudienceSegmentData(firstChild, totalChildCountSum);
+                            data2.id = (index + 1).toString() + '-' + (index1 + 1).toString();
+                            data2.parentId = (index + 1).toString();
+                            if (firstChild.audience_segment_data != undefined) {
+                                if (firstChild.audience_segment_data.length == 0) {
+                                    data2.endData = true;
+                                    data2.padding = 30;
+                                }
+                            }
+                            manageAudienceSegmentHtml(data2, data2.parentId);
+                            if (firstChild.audience_segment_data != undefined) {
+                                if (firstChild.audience_segment_data.length > 0) {
+                                    var totalSecondChildCountSum = _.reduce(_.pluck(firstChild.audience_segment_data, 'count'), function(memo, num) {
+                                        return parseInt(memo) + parseInt(num);
+                                    }, 0);
+                                    _.each(firstChild.audience_segment_data, function(secondChild, index2) {
+                                        var data3 = manageAudienceSegmentData(secondChild, totalSecondChildCountSum);
+                                        data3.id = (index + 1).toString() + '-' + (index1 + 1).toString() + '-' + (index2 + 1).toString();
+                                        data3.parentId = (index + 1).toString() + '-' + (index1 + 1).toString();
+                                        if (secondChild.audience_segment_data != undefined) {
+                                            if (secondChild.audience_segment_data.length == 0) {
+                                                data3.endData = true;
+                                                data3.padding = 35;
+                                            }
+                                        }
+                                        manageAudienceSegmentHtml(data3, data3.parentId);
+                                        if (secondChild.audience_segment_data != undefined) {
+                                            if (secondChild.audience_segment_data.length > 0) {
+                                                var totalThirdChildCountSum = _.reduce(_.pluck(secondChild.audience_segment_data, 'count'), function(memo, num) {
+                                                    return parseInt(memo) + parseInt(num);
+                                                }, 0);
+                                                _.each(secondChild.audience_segment_data, function(thirdChild, index3) {
+                                                    var data4 = manageAudienceSegmentData(thirdChild, totalThirdChildCountSum);
+                                                    data4.id = (index + 1).toString() + '-' + (index1 + 1).toString() + '-' + (index2 + 1).toString() + '-' + (index3 + 1).toString();
+                                                    data4.parentId = (index + 1).toString() + '-' + (index1 + 1).toString() + '-' + (index2 + 1).toString();
+                                                    if (thirdChild.audience_segment_data != undefined) {
+                                                        if (thirdChild.audience_segment_data.length == 0) {
+                                                            data4.endData = true;
+                                                            data4.padding = 40;
+                                                        }
+                                                    }
+                                                    manageAudienceSegmentHtml(data4, data4.parentId);
+                                                    if (thirdChild.audience_segment_data != undefined) {
+                                                        if (thirdChild.audience_segment_data.length > 0) {
+                                                            var totalFourthChildCountSum = _.reduce(_.pluck(thirdChild.audience_segment_data, 'count'), function(memo, num) {
+                                                                return parseInt(memo) + parseInt(num);
+                                                            }, 0);
+                                                            _.each(thirdChild.audience_segment_data, function(fourthChild, index4) {
+                                                                var data5 = manageAudienceSegmentData(fourthChild, totalFourthChildCountSum);
+                                                                data5.id = (index + 1).toString() + '-' + (index1 + 1).toString() + '-' + (index2 + 1).toString() + '-' + (index3 + 1).toString() + '-' + (index4 + 1).toString();
+                                                                data5.parentId = (index + 1).toString() + '-' + (index1 + 1).toString() + '-' + (index2 + 1).toString() + '-' + (index3 + 1).toString();
+                                                                if (fourthChild.audience_segment_data != undefined) {
+                                                                    if (fourthChild.audience_segment_data.length == 0) {
+                                                                        data5.endData = true;
+                                                                        data5.padding = 45;
+                                                                    }
+                                                                }
+                                                                manageAudienceSegmentHtml(data5, data5.parentId);
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+
+                $("#example-advanced").treetable("collapseAll");
+
+            });
+        }
+
+        function manageAudienceSegmentData(data, totalCount) {
+            return {
+                'type': data.audience_segment,
+                'conversions' : data.conversions,
+                'actions': '-',
+                'impressions' : data.impressions,
+                'count': data.reach,
+                'share': data.reach,
+                'scaledShare' : data.reach,
+                'audienceSegmentCode' : data.cuberootcampaignId
+            };
+        }
+
+        function audienceSegmentTree(event) {
+            var type = 'segmentDetails';
+            $scope.goToOtherPages(type, event);
+        }
+        function manageAudienceSegmentHtml(dataItem, index) {
+            var node = $("#example-advanced").treetable("node", index);
+            var tabId = 'treeSpan' + dataItem.id;
+            if (dataItem.parentData) {
+                $("#example-advanced").treetable("loadBranch", node,
+                    '<tr data-tt-id="' + dataItem.id + '" class="leaf collapsed odd text-left"><td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'">' + dataItem.type + '</span></td> <td class=" text-right text-bold">' + dataItem.conversions + '</td><td class=" text-right text-bold">' + dataItem.actions + '</td> <td class=" text-right text-bold">' + dataItem.impressions + '</td><td class=" text-right text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>'
+                );
+            } else if (dataItem.endData) {
+                $("#example-advanced").treetable("loadBranch", node, '<tr data-tt-id="' + dataItem.id + '" data-tt-parent-id="' + dataItem.parentId + '" class="branch collapsed odd text-left " style="display: none; color:#777676;"> <td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'" style="padding-left:' + dataItem.padding + 'px;">' + dataItem.type + '</span></td> <td class=" text-right text-bold">' + dataItem.conversions + '</td><td class=" text-right text-bold">' + dataItem.actions + '</td><td class=" text-right text-bold">' + dataItem.impressions + '</td><td class=" text-right text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>');
+            } else {
+                $("#example-advanced").treetable("loadBranch", node, '<tr data-tt-id="' + dataItem.id + '" data-tt-parent-id="' + dataItem.parentId + '" class="branch collapsed odd text-left" style="display: none; color:#777676;"> <td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'" style="margin-left : 20px;">' + dataItem.type + '</span></td> <td class=" text-right text-bold">' + dataItem.conversions + '</td><td class=" text-right text-bold">' + dataItem.actions + '</td><td class=" text-right text-bold">' + dataItem.impressions + '</td><td class=" text-right text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>');
+            }
+            // $timeout(function() {
+            //     $('[data-toggle="tooltip"]').tooltip();
+            //     $('#'+tabId).bind("click",
+            //         dataItem,
+            //         audienceSegmentTree);
+            // }, 500);
+        }
+
+
 
     function chartOptions(title, count) {
             var chartOptions = {
@@ -206,7 +405,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
         var chartOptions = {
             chart: {
                 type: 'pieChart',
-                height: 280,
+                height: 167,
                 donut: true,
                 x: function(d){return d.key;},
                 y: function(d){return d.y;},
@@ -342,29 +541,15 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 }];
 
     $scope.bulletChartValue = [ {
-                  "valueField": "full",
-                  "showBalloon": false,
-                  "type": "column",
-                  "lineAlpha": 0,
-                  "fillAlphas": 0.8,
-                  "fillColors": [ "#19d228", "#f6d32b", "#fb2316" ],
-                  "gradientOrientation": "horizontal",
-                }, {
-                  "clustered": false,
-                  "columnWidth": 0.3,
-                  "fillAlphas": 1,
-                  "lineColor": "#000000",
-                  "stackable": false,
-                  "type": "column",
-                  "valueField": "bullet"
-                }, {
-                  "columnWidth": 0.5,
-                  "lineColor": "#000000",
-                  "lineThickness": 3,
-                  "noStepRisers": true,
-                  "stackable": false,
-                  "type": "step",
-                  "valueField": "limit"
-                } ];
+                              "category": "",
+                              "excelent": 20,
+                              "good": 20,
+                              "average": 20,
+                              "poor": 20,
+                              "bad": 20,
+                              "limit": 78,
+                              "full": 100,
+                              "bullet": 65
+                            } ];
 
 }]);

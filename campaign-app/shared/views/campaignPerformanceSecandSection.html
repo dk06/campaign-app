@@ -1,37 +1,46 @@
 <div class="">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <h5 class="text-bold title-border-bottom card-heading">
                 Campaign Progress
             </h5>
             <div class="media-left col-md-6 no-padding">
                 <p class="text-center">Cost vs Budget</p>
                 <nvd3 options="costVsBudgetData.chartOptions" data="costVsBudgetData.chartData"></nvd3>
-                <label class="text-center" style="font-size: 25px;">356,000</label>
+                <label class="text-center" style="font-size: 25px;">{{bulletChartData[0].cost | number}}</label>
                 <p class="text-center">Campaign Budget</p>
                 <p class="text-center">INR 500,000</p>
             </div>
             <div class="media-right col-md-6 no-padding">
                 <p class="text-center">Duration vs Schedule</p>
                 <nvd3 options="campaignDurationData.chartOptions" data="campaignDurationData.chartData"></nvd3>
-                <label class="text-center" style="font-size: 25px;">9 days</label>
+                <label class="text-center" style="font-size: 25px; margin-left: 50px;">9 days</label>
                 <p class="text-center">Campaign Shedulr</p>
                 <p class="text-center">30 Days</p>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div>
                 <div class="panel-heading">
                     <h5 class="text-bold title-border-bottom card-heading">Campaign performance Funnel
                     </h5>
                 </div>
                 <div class="">
-                    <ul ng-repeat="performanceFunnel in channelData">
+                    <ul class="list-group" style="list-style-type: none;">
                         <label>impressions</label>
-                        <li>{{performanceFunnel.impressions}}</li><!-- 
-                        <li>{{performanceFunnel.reach}}</li>
-                        <li>-</li>
-                        <li>{{performanceFunnel.conversions}}</li> -->
+                        <li>
+                            <div class="pull-left">{{bulletChartData[0].impressions}}</div>
+                            <div class="pull-right">{{bulletChartData[0].impressions}}</div>
+                        </li>
+                        <hr>
+                        <label>Reach</label>
+                        <li>{{bulletChartData[0].reach}}</li>
+                        <hr>
+                        <label>Actions</label>
+                        <li>{{bulletChartData[0].clicks}}</li>
+                        <hr>
+                        <label>Conversions</label>
+                        <li>{{bulletChartData[0].conversions}}</li>
                     </ul>
                 </div>
             </div>
@@ -43,8 +52,18 @@
                     </h5>
                 </div>
                 <div class="">
-                    <ul>
-                        <li></li>
+                     <ul class="table" style="list-style-type: none;">
+                        <label>CPM</label>
+                        <li>{{bulletChartData[0].cpm}}</li>
+                        <hr>
+                        <label>Cost per Reach</label>
+                        <li>{{bulletChartData[0].cpp}}</li>
+                        <hr>
+                        <label>Cost per Actions</label>
+                        <li>{{bulletChartData[0].clicks}}</li>
+                        <hr>
+                        <label>Cost per Conversion</label>
+                        <li>{{bulletChartData[0].cpconversion}}</li>
                     </ul>
                 </div>
             </div>

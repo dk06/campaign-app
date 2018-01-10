@@ -5,7 +5,9 @@ angular.module('MyApp').factory('sharedMain', [
         var sharedMain = { 
             startDate: '',
             endDate: '',
-            campaign_id : '',           
+            campaign_id : '',
+            dateRange : '',
+            campaign_name : '',
             colors: [
                 "#04b1fb",
                 "#ee4035",

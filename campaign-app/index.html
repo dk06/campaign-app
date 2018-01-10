@@ -16,6 +16,7 @@
         <link href="scripts/vendors/css/font-awesome.min.css" rel="stylesheet">
         <link href='scripts/vendors/css/material-icons.css' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="scripts/css/waitMe.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-tree/2.22.6/angular-ui-tree.min.css">
         
         <!--alert section -->
         <script src="scripts/sweetalert/js/sweetalert2.all.min.js"></script>        
@@ -87,6 +88,12 @@
 
           <!--directive Section end-->
 
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/css/jquery.treetable.min.css">
+          <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/jquery.treetable.js"></script>
+
+          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-tree/2.22.6/angular-ui-tree.min.js"></script>
+
 
           <!-- chart js start -->
           <link rel="stylesheet" href="scripts/css/nv.d3.min.css"/>
@@ -111,7 +118,7 @@
                       <img src="scripts/assets/img/cr_insights-logo.png" alt="_cuberoot" title="Cuberoot" />
                   </a>
 
-                  <div ng-if="companyDropDownEvent" class="dropdown nav navbar-nav" style="margin-left: 45px; margin-top: 10px;">
+                  <!-- <div ng-if="companyDropDownEvent" class="dropdown nav navbar-nav" style="margin-left: 45px; margin-top: 10px;">
                       <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                         <span class="pull-left">Select Company</span>
                         <p class="pull-right"><span class="caret"></span></p>
@@ -120,7 +127,7 @@
                           <li role="presentation" ng-repeat="company in companyList" style="cursor: pointer;" ng-click="changeCampaignId(company.campaign_id)">{{company.campaign_name}}
                           </li>
                       </ul>
-                  </div>
+                  </div> -->
 
                   <ul class="nav navbar-nav pull-right" ng-if="currentUser" ng-controller="LoginController">
                       <li class="navbar-text" style="color: white" ng-bind="currentUser"></li>

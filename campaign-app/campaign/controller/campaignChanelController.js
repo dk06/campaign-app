@@ -8,13 +8,7 @@ app.controller('compaignChanelController',['$scope','$rootScope','campaignFactor
             campaignFactory.getFinalCampaignList().then(function(response, status){
                 $scope.campaignList = response;
             });
-
-            var param = {};
-                param.dateRange = '2016-01-01,2017-01-31';
-            overviewFactory.getCompanyList(param).then(function(response, status){                
-                $rootScope.companyList = response;
-                sharedMain.campaign_id = response[0].campaign_id;
-            });
+            
             loaderEvent.loaderDeactivate();
         }
     };
