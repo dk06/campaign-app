@@ -3,10 +3,7 @@
     <head>
         <base href="/">
         <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
-        <link rel="stylesheet" type="text/css" href="scripts/css/daterangepicker.css" />
-
         <meta charset="utf-8" />
-        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> -->
         <title>Campaign</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,13 +12,23 @@
         <link href="scripts/css/customs.css" rel="stylesheet" />
         <link href="scripts/vendors/css/font-awesome.min.css" rel="stylesheet">
         <link href='scripts/vendors/css/material-icons.css' rel='stylesheet' type='text/css'>
-        <link type="text/css" rel="stylesheet" href="scripts/css/waitMe.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-tree/2.22.6/angular-ui-tree.min.css">
+        <link rel="stylesheet" href="scripts/css/waitMe.css">
+        <link rel="stylesheet" href="scripts/css/angular-ui-tree.min.css">
         
         <!--alert section -->
         <script src="scripts/sweetalert/js/sweetalert2.all.min.js"></script>        
         <script src="scripts/sweetalert/js/sweetalert2.min.js"></script>
         <link rel="stylesheet" href="scripts/sweetalert/css/sweetalert2.min.css">
+
+        <!--alert section end -->
+
+        <!--tree table section -->
+        <link rel="stylesheet" href="scripts/css/daterangepicker.css" />
+        <link rel="stylesheet" href="scripts/css/jquery.treetable.min.css">
+
+        <!--tree table section end -->
+
+        <link rel="stylesheet" href="scripts/css/nv.d3.min.css"/>
 
 
                
@@ -39,7 +46,7 @@
           <script src="scripts/moment.min.js"></script>
           <script src="scripts/daterangepicker.js"></script>
           <script src="scripts/js/waitMe.js"></script>
-          <script src="scripts/vendors/js/bootstrap.min.js" type="text/javascript"></script>
+          <script src="scripts/vendors/js/bootstrap.min.js"></script>
 
           <script src="app.js"></script>
           
@@ -88,15 +95,15 @@
 
           <!--directive Section end-->
 
-          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/css/jquery.treetable.min.css">
-          <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
-          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-treetable/3.2.0/jquery.treetable.js"></script>
+          <!--tree js Section start-->
+          <script src="scripts/js/treeTable/lodash.min.js"></script>
+          <script src="scripts/js/treeTable/jquery.treetable.js"></script>
+          <script src="scripts/js/treeTable/angular-ui-tree.min.js"></script>
 
-          <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-tree/2.22.6/angular-ui-tree.min.js"></script>
+          <!--tree js Section end-->
 
 
-          <!-- chart js start -->
-          <link rel="stylesheet" href="scripts/css/nv.d3.min.css"/>
+          <!-- chart js start -->          
 
           <script src="scripts/amChartjs/amcharts.js"></script>
           <script src="scripts/amChartjs/ammap.js"></script>
@@ -107,10 +114,11 @@
           <script src="scripts/amChartjs/nv.d3.min.js"></script>
           <script src="scripts/amChartjs/angular-nvd3.js"></script>
           <script src="scripts/amChartjs/3.5.6d3.min.js" charset="utf-8"></script>
+          <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
+          <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
           
           
         <!-- chart js end -->
-
 
           <div ng-if="pageActive">
               <nav class="navbar navbar-toggleable-md fixed-top bg-inverse navbar-fixed-top" id="header">

@@ -13,118 +13,68 @@
 
                     var chart = false;
                     var initChart = function(chartData) {
+
                         if (chart) chart.destroy();
                         var config = scope.config || {};
                         var chart = AmCharts.makeChart("chartdiv", {
-                            "type": "serial",
+                            "pathToImages": "http://www.amcharts.com/lib/3/images/",
+                            "type": "stock",
                             "theme": "light",
-                            "legend": {
-                                "equalWidths": false,
-                                "useGraphSettings": true,
-                                "valueAlign": "left",
-                                "valueWidth": 120
-                            },
-                            "dataProvider": chartData,
-                            "valueAxes": [{
-                                "id": "distanceAxis",
-                                "axisAlpha": 0,
-                                "gridAlpha": 0,
-                                "position": "left",
-                                "title": "distance"
-                            }, {
-                                "id": "latitudeAxis",
-                                "axisAlpha": 0,
-                                "gridAlpha": 0,
-                                "labelsEnabled": false,
-                                "position": "right"
-                            }, {
-                                "id": "durationAxis",
-                                "duration": "mm",
-                                "durationUnits": {
-                                    "hh": "h ",
-                                    "mm": "min"
-                                },
-                                "axisAlpha": 0,
-                                "gridAlpha": 0,
-                                "inside": true,
-                                "position": "right",
-                                "title": "duration"
-                            }],
-                            "graphs": [{
-                                "alphaField": "alpha",
-                                "balloonText": "[[value]] miles",
-                                "dashLengthField": "dashLength",
-                                "fillAlphas": 0.7,
-                                "legendPeriodValueText": "total: [[value.sum]] mi",
-                                "legendValueText": "[[value]] mi",
-                                "title": "distance",
-                                "type": "column",
-                                "valueField": "distance",
-                                "valueAxis": "distanceAxis"
-                            }, {
-                                "balloonText": "latitude:[[value]]",
-                                "bullet": "round",
-                                "bulletBorderAlpha": 1,
-                                "useLineColorForBulletBorder": true,
-                                "bulletColor": "#FFFFFF",
-                                "bulletSizeField": "townSize",
-                                "dashLengthField": "dashLength",
-                                "descriptionField": "townName",
-                                "labelPosition": "right",
-                                "labelText": "[[townName2]]",
-                                "legendValueText": "[[value]]/[[description]]",
-                                "title": "latitude/city",
-                                "fillAlphas": 0,
-                                "valueField": "latitude",
-                                "valueAxis": "latitudeAxis"
-                            }, {
-                                "bullet": "square",
-                                "bulletBorderAlpha": 1,
-                                "bulletBorderThickness": 1,
-                                "dashLengthField": "dashLength",
-                                "legendValueText": "[[value]]",
-                                "title": "duration",
-                                "fillAlphas": 0,
-                                "valueField": "duration",
-                                "valueAxis": "durationAxis"
-                            }],
-                            "chartCursor": {
-                                "categoryBalloonDateFormat": "DD",
+                            "colors": sharedMain.colors,
+                            "dataSets": [ {
+                                  "title": "Performance",
+                                  "fieldMappings": [ {
+                                    "fromField": "value",
+                                    "toField": "value"
+                                  }, {
+                                    "fromField": "volume",
+                                    "toField": "volume"
+                                  } ],
+                                  "dataProvider": chartData,
+                                  "categoryField": "date"
+                                }
+                              ],
+
+                                "panels": [ {
+                                "showCategoryAxis": false,
+                                "title": "Value",
+                                "percentHeight": 90,
+                                "stockGraphs": [ {
+                                  "id": "g1",
+                                  "valueField": "value",
+                                  "comparable": false,
+                                  "compareField": "value",
+                                  "balloonText": "[[title]]:<b>[[value]]</b>",
+                                  "compareGraphBalloonText": "[[title]]:<b>[[value]]</b>"
+                                } ],
+                                "stockLegend": {
+                                  "periodValueTextComparing": " [[percents.value.close]]%",
+                                  "periodValueTextRegular": "[[value.close]]"
+                                }
+                              }, {
+                                
+                                "stockGraphs": [ {
+                                  "valueField": "volume",
+                                  "type": "column",
+                                  "showBalloon": false,
+                                  "fillAlphas": 1
+                                } ]
+                              } ],
+
+                              "chartCursorSettings": {
+                                "valueBalloonsEnabled": true,
+                                "fullWidth": true,
                                 "cursorAlpha": 0.1,
-                                "cursorColor":"#000000",
-                                 "fullWidth":true,
-                                "valueBalloonsEnabled": false,
-                                "zoomable": false
-                            },
-                            "dataDateFormat": "YYYY-MM-DD",
-                            "categoryField": "date",
-                            "categoryAxis": {
-                                "dateFormats": [{
-                                    "period": "DD",
-                                    "format": "DD"
-                                }, {
-                                    "period": "WW",
-                                    "format": "MMM DD"
-                                }, {
-                                    "period": "MM",
-                                    "format": "MMM"
-                                }, {
-                                    "period": "YYYY",
-                                    "format": "YYYY"
-                                }],
-                                "parseDates": true,
-                                "autoGridCount": false,
-                                "axisColor": "#555555",
-                                "gridAlpha": 0.1,
-                                "gridColor": "#FFFFFF",
-                                "gridCount": 50
-                            },
-                            "export": {
-                              "enabled": true
-                             }
+                                "valueLineBalloonEnabled": true,
+                                "valueLineEnabled": true,
+                                "valueLineAlpha": 0.5
+                              },
+                              "export": {
+                                "enabled": true
+                              }
                         });
                     };
-                    scope.$on("durationOnValueAxisChart", function (data,en ) {
+                    scope.$on("durationOnValueAxisChart", function (data,en ) {                       
                         initChart(en.data);
                     });
 

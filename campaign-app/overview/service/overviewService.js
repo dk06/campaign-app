@@ -11,27 +11,20 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
     return promise;
     },
 
-    //http://205.147.101.67:8080/marketingreports/report/metricdata?dateRange=2016-01-01_2017-01-31&campaign_id=12721&aggregated=truea
+    //http://205.147.101.67:8080/marketingreports/report/metricdata?dateRange=2016-01-01_2017-01-31&campaign_id=12721&aggregated=false&channel=all
     this.getChannelsData = function (param) {    
-    var promise = $http.get(params.cuberootMarketBaseUrl + 'metricdata' ,{params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated}} ).then(function(response) {
+    var promise = $http.get(params.cuberootMarketBaseUrl + 'metricdata' ,{params: {dateRange : param.dateRange, campaign_id : param.campaign_id, channel : param.channel, aggregated : false}} ).then(function(response) {
             return response;
         });
     return promise;
     },
 
-    this.getDurationOnValueAxisChart = function (param) {    
-    var promise = $http.get(params.cuberootMarketBaseUrl + 'metricdata' ,{params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated}} ).then(function(response) {
-            return response;
-        });
-    return promise;
-    },
-
-    this.getbulletChartData = function (param) {    
-    var promise = $http.get(params.cuberootMarketBaseUrl + 'metricdata' ,{params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated}} ).then(function(response) {
-            return response;
-        });
-    return promise;
-    },
+    // this.getDurationOnValueAxisChart = function (param) {    
+    // var promise = $http.get(params.cuberootMarketBaseUrl + 'metricdata' ,{params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated}} ).then(function(response) {
+    //         return response;
+    //     });
+    // return promise;
+    // },
 
     //http://205.147.101.67:8080/marketingreports/report/device?dateRange=2016-01-01_2017-01-31&metric=impression&campaign_id=12721&channel=all&aggregated=true
     this.getDeviceData = function (param) {    
@@ -119,17 +112,17 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
         return promise;
     },
 
-    //http://205.147.101.67:8080/marketingreports/report/metricdatadatewise?dateRange=2016-01-01_2017-01-31&campaign_id=all&aggregated=false
-    this.getMetricDataDatewise = function(param) {        
-        var promise = $http.get(params.cuberootMarketBaseUrl +'metricdatadatewise', { params: {dateRange : param.dateRange, campaign_id : 'all',aggregated : false} }).then(function(response) {
+    //http://205.147.101.67:8080/marketingreports/report/metricdatadatewise?dateRange=2016-01-01_2017-01-31&campaign_id=12721&aggregated=true&channel=Adwords
+    this.getDurationOnValueAxisChart = function(param) {        
+        var promise = $http.get(params.cuberootMarketBaseUrl +'metricdatadatewise', { params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated, channel : param.channel} }).then(function(response) {
             return response;
         });
         return promise;
     },
 
-    //http://205.147.101.67:8080/marketingreports/report/metricdata?dateRange=2016-01-01_2017-01-31&campaign_id=all&aggregated=false
+    //http://205.147.101.67:8080/marketingreports/report/metricdata?dateRange=2016-01-01_2017-01-31&campaign_id=12721&aggregated=true&channel=Adwords
     this.getBulletChartData = function(param) {        
-        var promise = $http.get(params.cuberootMarketBaseUrl +'metricdata', { params: {dateRange : param.dateRange, campaign_id : 'all',aggregated : false} }).then(function(response) {
+        var promise = $http.get(params.cuberootMarketBaseUrl +'metricdata', { params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : false, channel : param.channel} }).then(function(response) {
             return response;
         });
         return promise;

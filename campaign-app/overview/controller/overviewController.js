@@ -45,12 +45,12 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             });
 
             overviewFactory.getDurationOnValueAxisChart(param).then(function(data, status) {                
-                $scope.$broadcast('durationOnValueAxisChart', { data: $scope.durationValue });
+                $scope.$broadcast('durationOnValueAxisChart', { data: data });
             });
 
             overviewFactory.getbulletChartData(param).then(function(data, status) {                
                 $scope.bulletChartData =  data;
-                $scope.$broadcast('bulletChart', { data: data });
+                $scope.$broadcast('bulletChart', { data: data[0] });
             });
 
             overviewFactory.getDeviceData(param).then(function(data, status) {
@@ -330,12 +330,12 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             var tabId = 'treeSpan' + dataItem.id;
             if (dataItem.parentData) {
                 $("#example-advanced").treetable("loadBranch", node,
-                    '<tr data-tt-id="' + dataItem.id + '" class="leaf collapsed odd text-left"><td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'">' + dataItem.type + '</span></td> <td class=" text-right text-bold">' + dataItem.conversions + '</td><td class=" text-right text-bold">' + dataItem.actions + '</td> <td class=" text-right text-bold">' + dataItem.impressions + '</td><td class=" text-right text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>'
+                    '<tr data-tt-id="' + dataItem.id + '" class="leaf collapsed odd text-left"><td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'">' + dataItem.type + '</span></td> <td class=" text-bold">' + dataItem.conversions + '</td><td class=" text-bold">' + dataItem.actions + '</td> <td class=" text-bold">' + dataItem.impressions + '</td><td class=" text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>'
                 );
             } else if (dataItem.endData) {
-                $("#example-advanced").treetable("loadBranch", node, '<tr data-tt-id="' + dataItem.id + '" data-tt-parent-id="' + dataItem.parentId + '" class="branch collapsed odd text-left " style="display: none; color:#777676;"> <td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'" style="padding-left:' + dataItem.padding + 'px;">' + dataItem.type + '</span></td> <td class=" text-right text-bold">' + dataItem.conversions + '</td><td class=" text-right text-bold">' + dataItem.actions + '</td><td class=" text-right text-bold">' + dataItem.impressions + '</td><td class=" text-right text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>');
+                $("#example-advanced").treetable("loadBranch", node, '<tr data-tt-id="' + dataItem.id + '" data-tt-parent-id="' + dataItem.parentId + '" class="branch collapsed odd text-left " style="display: none; color:#777676;"> <td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'" style="padding-left:' + dataItem.padding + 'px;">' + dataItem.type + '</span></td> <td class=" text-bold">' + dataItem.conversions + '</td><td class=" text-bold">' + dataItem.actions + '</td><td class=" text-bold">' + dataItem.impressions + '</td><td class=" text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>');
             } else {
-                $("#example-advanced").treetable("loadBranch", node, '<tr data-tt-id="' + dataItem.id + '" data-tt-parent-id="' + dataItem.parentId + '" class="branch collapsed odd text-left" style="display: none; color:#777676;"> <td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'" style="margin-left : 20px;">' + dataItem.type + '</span></td> <td class=" text-right text-bold">' + dataItem.conversions + '</td><td class=" text-right text-bold">' + dataItem.actions + '</td><td class=" text-right text-bold">' + dataItem.impressions + '</td><td class=" text-right text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>');
+                $("#example-advanced").treetable("loadBranch", node, '<tr data-tt-id="' + dataItem.id + '" data-tt-parent-id="' + dataItem.parentId + '" class="branch collapsed odd text-left" style="display: none; color:#777676;"> <td style="cursor: pointer;"><span class="indenter" style="padding-left: 0px;"></span><span id="'+tabId +'" style="margin-left : 20px;">' + dataItem.type + '</span></td> <td class=" text-bold">' + dataItem.conversions + '</td><td class=" text-bold">' + dataItem.actions + '</td><td class=" text-bold">' + dataItem.impressions + '</td><td class=" text-bold">' + dataItem.count + '</td><td class="col-lg-3" style="width:100px;"><div class="progress" data-toggle="tooltip" data-placement="top" title="' + dataItem.share + '%"><div class="progress-bar" style="width: ' + dataItem.scaledShare + '%;"><span class="sr-only"></span></div></div></td></tr>');
             }
             // $timeout(function() {
             //     $('[data-toggle="tooltip"]').tooltip();
@@ -424,132 +424,93 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
         return chartOptions;
     };
 
-        $scope.durationValue = [
-                {
-                    "date": "2012-01-01",
-                    "distance": 227,
-                    "townName": "New York",
-                    "townName2": "New York",
-                    "townSize": 25,
-                    "latitude": 40.71,
-                    "duration": 408
-                }, {
-                    "date": "2012-01-02",
-                    "distance": 371,
-                    "townName": "Washington",
-                    "townSize": 14,
-                    "latitude": 38.89,
-                    "duration": 482
-                }, {
-                    "date": "2012-01-03",
-                    "distance": 433,
-                    "townName": "Wilmington",
-                    "townSize": 6,
-                    "latitude": 34.22,
-                    "duration": 562
-                }, {
-                    "date": "2012-01-04",
-                    "distance": 345,
-                    "townName": "Jacksonville",
-                    "townSize": 7,
-                    "latitude": 30.35,
-                    "duration": 379
-                }, {
-                    "date": "2012-01-05",
-                    "distance": 480,
-                    "townName": "Miami",
-                    "townName2": "Miami",
-                    "townSize": 10,
-                    "latitude": 25.83,
-                    "duration": 501
-                }, {
-                    "date": "2012-01-06",
-                    "distance": 386,
-                    "townName": "Tallahassee",
-                    "townSize": 7,
-                    "latitude": 30.46,
-                    "duration": 443
-                }, {
-                    "date": "2012-01-07",
-                    "distance": 348,
-                    "townName": "New Orleans",
-                    "townSize": 10,
-                    "latitude": 29.94,
-                    "duration": 405
-                }, {
-                    "date": "2012-01-08",
-                    "distance": 238,
-                    "townName": "Houston",
-                    "townName2": "Houston",
-                    "townSize": 16,
-                    "latitude": 29.76,
-                    "duration": 309
-                }, {
-                    "date": "2012-01-09",
-                    "distance": 218,
-                    "townName": "Dalas",
-                    "townSize": 17,
-                    "latitude": 32.8,
-                    "duration": 287
-                }, {
-                    "date": "2012-01-10",
-                    "distance": 349,
-                    "townName": "Oklahoma City",
-                    "townSize": 11,
-                    "latitude": 35.49,
-                    "duration": 485
-                }, {
-                    "date": "2012-01-11",
-                    "distance": 603,
-                    "townName": "Kansas City",
-                    "townSize": 10,
-                    "latitude": 39.1,
-                    "duration": 890
-                }, {
-                    "date": "2012-01-12",
-                    "distance": 534,
-                    "townName": "Denver",
-                    "townName2": "Denver",
-                    "townSize": 18,
-                    "latitude": 39.74,
-                    "duration": 810
-                }, {
-                    "date": "2012-01-13",
-                    "townName": "Salt Lake City",
-                    "townSize": 12,
-                    "distance": 425,
-                    "duration": 670,
-                    "latitude": 40.75,
-                    "dashLength": 8,
-                    "alpha": 0.4
-                }, {
-                    "date": "2012-01-14",
-                    "latitude": 36.1,
-                    "duration": 470,
-                    "townName": "Las Vegas",
-                    "townName2": "Las Vegas"
-                }, {
-                    "date": "2012-01-15"
-                }, {
-                    "date": "2012-01-16"
-                }, {
-                    "date": "2012-01-17"
-                }, {
-                    "date": "2012-01-18"
-                }, {
-                    "date": "2012-01-19"
-                }];
 
-    $scope.bulletChartValue = [ {
-                              "category": "",
-                              "excelent": 20,
-                              "good": 20,
-                              "average": 20,
-                              "poor": 20,
-                              "bad": 20,
-                              "limit": 78,
-                              "full": 100,
-                              "bullet": 65
-                            } ];
+    $scope.channelViewButton = function(){
+        param.aggregated = false;
+        loaderEvent.loaderActivate();
+        overviewFactory.getChannelsData(param).then(function(data, status) {
+            $scope.channelData = data;
+            loaderEvent.loaderDeactivate();
+        });
+
+    };
+
+    $scope.segmentViewButton = function(){
+        param.aggregated = false;
+        loaderEvent.loaderActivate();
+        overviewFactory.getAudienceSegement(param).then(function(data, status) {
+            $scope.audienceSegment = data;
+            expandTable();
+            if ($scope.audienceSegment && $scope.audienceSegment) {
+                removedTablesRow($scope.audienceSegment);
+            }
+            //$scope.audienceSegment = data;
+            var filterData = _.filter($scope.audienceSegment, function (item, index) {
+                return 0 <= index && 9 >= index;
+            });
+            manageTableData(filterData);
+            loaderEvent.loaderDeactivate();
+        });
+
+    };
+
+    $scope.audienceProfileViewButton = function(){
+        param.aggregated = false;
+        loaderEvent.loaderActivate();
+        overviewFactory.getGenderData(param).then(function(data, status) {
+            $scope.genderData = data;
+            if (data.chartData.length == 0) {
+                $scope.genderData.chartData.push({ key: '', y: 100 });
+                $scope.genderData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.genderData.chartOptions = chartOptions('Gender', data.chartData.length);
+            }
+        });
+
+        overviewFactory.ageGroupData(param).then(function(data, status) {
+            $scope.ageGroupData = data;
+            if (data.chartData.length == 0) {
+                $scope.ageGroupData.chartData.push({ key: '', y: 100 });
+                $scope.ageGroupData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.ageGroupData.chartOptions = chartOptions('  Age ', data.chartData.length);
+            }
+        });
+
+        overviewFactory.incomeLevelData(param).then(function(data, status) {
+            $scope.incomeData = data;
+            if (data.chartData.length == 0) {
+                $scope.incomeData.chartData.push({ key: '', y: 100 });
+                $scope.incomeData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.incomeData.chartOptions = chartOptions('Income',data.chartData.length);
+            }
+            loaderEvent.loaderDeactivate();
+        });
+
+
+    };
+
+    $scope.loactionWiseViewButton = function(){
+        param.aggregated = false;
+        loaderEvent.loaderActivate();
+        overviewFactory.cityData(param).then(function(data, status) {
+            $scope.cityData = data;
+            $scope.loactionType = 'City';
+            $scope.$broadcast('cityViewMap', { data: data });
+            loaderEvent.loaderDeactivate();
+        });
+
+    };
+
+    $scope.deviceAndBrandViewButton = function(){
+        param.aggregated = false;
+        loaderEvent.loaderActivate();
+        overviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
+            $scope.brandName = 'Brand';
+            $scope.deviceSectionData = data;
+            loaderEvent.loaderDeactivate();
+        });
+    };
 
 }]);

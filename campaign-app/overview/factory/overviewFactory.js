@@ -13,17 +13,11 @@
             });
         };
 
-        dataFactory.getDurationOnValueAxisChart = function(param) {            
-            return overviewService.getDurationOnValueAxisChart(param).then(function(response) {
-                return response.data;
-            });
-        };
-
-        dataFactory.getbulletChartData = function(param) {            
-            return overviewService.getbulletChartData(param).then(function(response) {
-                return response.data;
-            });
-        };
+        // dataFactory.getDurationOnValueAxisChart = function(param) {            
+        //     return overviewService.getDurationOnValueAxisChart(param).then(function(response) {
+        //         return response.data;
+        //     });
+        // };
 
         dataFactory.getDeviceData = function(param) {
             var deviceData = {
@@ -228,9 +222,10 @@
             var MetricData= {
                 data : []
             }
-            return overviewService.getMetricDataDatewise(param).then(function(response) {
+            return overviewService.getDurationOnValueAxisChart(param).then(function(response) {
                 angular.forEach(response.data, function(value, key) {
-                    MetricData.data.push({ 'date' : value.date,'distance' : value.impressions ,'townName' : value.channel,'townSize' : value.clicks,'latitude' : '30.35','duration' : value.cost });
+
+                    MetricData.data.push({ 'date' : value.date,'value' : parseInt(value.clicks),'volume' : parseInt(value.impressions),'sales1' : parseInt(value.cost),'sales2' : parseInt(value.cost) });
                 });
                 return MetricData.data;
             });

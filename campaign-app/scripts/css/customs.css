@@ -812,3 +812,8 @@ table.scrollmenu {
 
 .success {background-color: #4CAF50 !important;} /* Green */
 .success:hover {background-color: #46a049 !important;}
+
+main .section-heading {
+    font-weight: bold;
+    height: 62px;
+}

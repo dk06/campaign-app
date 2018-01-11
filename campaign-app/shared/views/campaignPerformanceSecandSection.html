@@ -30,7 +30,12 @@
                         <label>impressions</label>
                         <li>
                             <div class="pull-left">{{bulletChartData[0].impressions}}</div>
-                            <div class="pull-right">{{bulletChartData[0].impressions}}</div>
+                            <div class="pull-right">
+                                <div class="progress">
+                                    <div class="progress-bar" style="width:{{ bulletChartData[0].impressions}}%;"><span class="sr-only"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                         <hr>
                         <label>Reach</label>

@@ -56,8 +56,9 @@
                 </div>
             </div>
 
-            <section class="card content-card heading-card">
-                <p class="card-title">Channel Performance</p>
+            <section class="card content-card section-heading">
+                <p class="pull-left">Channel Performance</p>
+                <button type="button" class="pull-right" ng-click="channelViewButton()">View Details</button>
             </section>
             <div>
                 <div class="card content-card">
@@ -66,17 +67,19 @@
             </div>
 
             <div>
-                <section class="card content-card heading-card">
-                    <p class="card-title">Audience Interest Segment</p>
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Audience Interest Segment</p>
+                    <button type="button" class="pull-right" ng-click="segmentViewButton()">View Details</button>
                 </section>
                 <div class="card content-card">
                      <cr-audience-interest-dir></cr-audience-interest-dir>
                 </div>
             </div>
             
-            <div>
-                <section class="card content-card heading-card">
-                    <p class="card-title">Audience Profile</p>
+            <div>                
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Audience Profile</p>
+                    <button type="button" class="pull-right" ng-click="audienceProfileViewButton()">View Details</button>
                 </section>
                 <div class="card content-card">
                    <cr-audience-profile-dir></cr-audience-profile-dir>
@@ -84,8 +87,9 @@
             </div>
 
             <div>
-                <section class="card content-card heading-card">
-                    <p class="card-title">Loactionwise Campaign Performance</p>
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Loactionwise Campaign Performance</p>
+                    <button type="button" class="pull-right" ng-click="loactionWiseViewButton()">View Details</button>
                 </section>
                 <div class="card content-card">
                    <cr-location-driving-traffic-dir></cr-location-driving-traffic-dir>
@@ -93,8 +97,9 @@
             </div>
             
             <div>
-                <section class="card content-card heading-card">
-                    <p class="card-title">Campaign Performance Device and Brand</p>
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Campaign Performance Device and Brand</p>
+                    <button type="button" class="pull-right" ng-click="deviceAndBrandViewButton()">View Details</button>
                 </section>
                 <div class="card content-card">
                     <cr-device-and-brand-dir></cr-device-and-brand-dir>
