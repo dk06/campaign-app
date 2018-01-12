@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MyApp" ng-clock>
+<html lang="en" ng-app="MyApp" ng-clock id="scrollTop">
     <head>
         <base href="/">
         <link rel="icon" type="image/png" href="http://eg.com/favicon.png"/>
@@ -31,11 +31,14 @@
         <link rel="stylesheet" href="scripts/css/nv.d3.min.css"/>
 
 
+
+
                
     </head>
     <body class="containerBlock">
 
           <script src="scripts/jquery.min.js"></script>
+          <script src="scripts/vendors/js/bootstrap.min.js"></script>
           <script src="scripts/angular.min.js"></script>
           <script src="scripts/angular-strap.js"></script>
           <script src="scripts/angular-strap.tpl.js"></script>
@@ -46,7 +49,6 @@
           <script src="scripts/moment.min.js"></script>
           <script src="scripts/daterangepicker.js"></script>
           <script src="scripts/js/waitMe.js"></script>
-          <script src="scripts/vendors/js/bootstrap.min.js"></script>
 
           <script src="app.js"></script>
           
@@ -70,9 +72,12 @@
           <script src="login/service/loginService.js"></script>
           <script src="campaign/factory/audienceFactory.js"></script>
           <script src="campaign/service/audienceService.js"></script>
-          <script src="overview/controller/overviewController.js"></script>
-          <script src="overview/factory/overviewFactory.js"></script>
-          <script src="overview/service/overviewService.js"></script>
+          <script src="campaignOverview/controller/overviewController.js"></script>
+          <script src="campaignOverview/factory/overviewFactory.js"></script>
+          <script src="campaignOverview/service/overviewService.js"></script>
+          <script src="allCampaignOverview/controller/allOverviewController.js"></script>
+          <script src="allCampaignOverview/factory/allOverviewFactory.js"></script>
+          <script src="allCampaignOverview/service/allOverviewService.js"></script>
         
           <!--directive Section start-->
           <script src="shared/directives/deviceAndBrandDir.js"></script>
@@ -110,10 +115,10 @@
           <script src="scripts/amChartjs/worldLow.js"></script>
           <script src="scripts/amChartjs/serial.js"></script>
           <script src="scripts/amChartjs/light.js"></script>
-          <script src="scripts/amChartjs/d3.min.js" charset="utf-8"></script>
+          <script src="scripts/amChartjs/d3.min.js"></script>
           <script src="scripts/amChartjs/nv.d3.min.js"></script>
           <script src="scripts/amChartjs/angular-nvd3.js"></script>
-          <script src="scripts/amChartjs/3.5.6d3.min.js" charset="utf-8"></script>
+          <script src="scripts/amChartjs/3.5.6d3.min.js"></script>
           <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
           <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
           
@@ -145,44 +150,50 @@
                   </ul>
               </nav>
               <div class="row">
-                      <nav class="col-sm-3 col-md-2 hidden-xs-down sidebar">
-                              <ul class="nav nav-pills flex-column">
-                                  <li class="nav-item">
-                                      <a class="nav-link active" href="/overview">
-                                          <i class="material-icons">dashboard</i>
-                                          <span>Overview</span>
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <!-- <a class="nav-link" href="#">
-                                          <i class="material-icons">share</i>
-                                          <span>Channels</span>
-                                      </a> -->
-                                  </li>
-                                  <li class="nav-item">
-                                     <!--  <a class="nav-link" href="#">
-                                          <i class="material-icons">face</i>
-                                          <span>Audience</span>
-                                      </a> -->
-                                  </li>
-                                  <li class="nav-item">
-                                      <!-- <a class="nav-link" href="#">
-                                          <i class="material-icons">group_work</i>
-                                          <span>Acquisitions</span>
-                                      </a> -->
-                                  </li>
-                                  <li class="nav-item">
-                                      <!-- <a class="nav-link" href="#">
-                                          <i class="material-icons">swap_horiz</i>
-                                          <span>Conversions</span>
-                                      </a> -->
-                                  </li>
-                              </ul>
-                          </nav>
-                          <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-                              <div ng-view></div>
-                          </div>
+                  <nav class="col-sm-3 col-md-2 hidden-xs-down sidebar">
+                      <ul class="nav nav-pills flex-column">
+                          <li class="nav-item">
+                              <a class="nav-link active" href="/campaign">
+                                  <i class="material-icons">create</i>
+                                  <span>New Campaign</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active" href="/all_campaign_overview">
+                                  <i class="material-icons">dashboard</i>
+                                  <span>All Campaign Overview</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="/campaign_overview">
+                                  <i class="material-icons">dashboard</i>
+                                  <span>Campaign Overview</span>
+                              </a>
+                          </li>
+                          <li class="nav-item">
+                             <!--  <a class="nav-link" href="#">
+                                  <i class="material-icons">face</i>
+                                  <span>Audience</span>
+                              </a> -->
+                          </li>
+                          <li class="nav-item">
+                              <!-- <a class="nav-link" href="#">
+                                  <i class="material-icons">group_work</i>
+                                  <span>Acquisitions</span>
+                              </a> -->
+                          </li>
+                          <li class="nav-item">
+                              <!-- <a class="nav-link" href="#">
+                                  <i class="material-icons">swap_horiz</i>
+                                  <span>Conversions</span>
+                              </a> -->
+                          </li>
+                      </ul>
+                  </nav>
+                  <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+                      <div ng-view></div>
                   </div>
+              </div>
           </div>
 
           <div ng-if="!pageActive">

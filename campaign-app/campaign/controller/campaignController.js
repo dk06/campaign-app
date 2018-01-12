@@ -44,6 +44,8 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
     $scope.countryTypeObj = '';
     $scope.language = '';
 
+    $window.scrollTo(0, angular.element(document.getElementById('scrollTop')).offsetTop);
+
     init();
     function init() {
         if ($window.localStorage.accessToken) {
@@ -66,8 +68,7 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 //Conversion section icons set
                 $scope.swap_horiz = response.converstion[0].icons_tag;
                 $scope.shopping_cart = response.converstion[1].icons_tag;
-                $scope.store_mall_directory = response.converstion[2].icons_tag;
-                loaderEvent.loaderDeactivate();
+                $scope.store_mall_directory = response.converstion[2].icons_tag;                
             });
             campaignFactory.getDemographic().then(function(response, status){                
                 $scope.customSegementForm = response;
@@ -79,6 +80,10 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
             campaignFactory.getCountry().then(function(response,status){
                 $scope.countryData = response;
             });
+
+            $timeout(function(){
+                loaderEvent.loaderDeactivate();
+            },500);
         }
     };
 

@@ -1,7 +1,7 @@
 var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngRoute', 'mgcrea.ngStrap','ngCsv','nvd3', 'ui.tree']);
 
-   app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-    $locationProvider.html5Mode(true);
+      app.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+      $locationProvider.html5Mode(true);
 
 	    $routeProvider	  
 		  .when('/login', {
@@ -12,14 +12,18 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
 		    templateUrl: 'campaign/views/campaign.html',
 		    controller: 'compaignChanelController'
 		  })
-          .when('/new_campaign', {
-            templateUrl: 'campaign/views/dashboard.html',
-            controller: 'CampaignController'
-          })
-          .when('/overview', {
-            templateUrl: 'overview/views/overview.html',
-            controller: 'overviewController'
-          })
+      .when('/new_campaign', {
+        templateUrl: 'campaign/views/dashboard.html',
+        controller: 'CampaignController'
+      })
+      .when('/all_campaign_overview', {
+        templateUrl: 'allCampaignOverview/views/allCampaignOverview.html',
+        controller: 'overviewController'
+      })
+      .when('/campaign_overview', {
+        templateUrl: 'campaignOverview/views/overview.html',
+        controller: 'overviewController'
+      })
 		  .otherwise({
 		    redirectTo: '/login'
 		  });

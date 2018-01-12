@@ -105,8 +105,9 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
         return promise;
     },
 
+    //http://205.147.101.67:8080/marketingreports/report/metricdata?dateRange=2016-01-01_2017-01-31&campaign_id=12721&aggregated=true&channel=Adwords
     this.getCostVsBudget = function(param) {        
-        var promise = $http.get(params.cuberootMarketBaseUrl +'duration', { params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated} }).then(function(response) {
+        var promise = $http.get(params.cuberootMarketBaseUrl +'metricdata', { params: {dateRange : param.dateRange, campaign_id : param.campaign_id,aggregated : param.aggregated, channel : param.channel} }).then(function(response) {
             return response;
         });
         return promise;
@@ -134,6 +135,14 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
             return response;
         });
         return promise;
+    },
+
+    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams?dateRange=2016-01-01_2017-01-01&metric=CVR&campaign_id=6043097399059
+    this.bestPerformingTargetSum = function (param) {    
+    var promise = $http.get('http://205.147.101.67:8080/marketingIdealParam/report/' + 'idealtargetingparams' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id }} ).then(function(response) {
+            return response;
+        });
+    return promise;
     }
 
 });

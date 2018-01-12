@@ -1,10 +1,8 @@
 <div>
     <div class="row">
         <div class="table-responsive col-md-5">
-            <div class="panel-heading ">
-                <h5 class="text-bold title-border-bottom card-heading">Device Type
-                </h5>
-            </div>
+            <h4 class="title-content">Device Type
+                </h4>
             <nvd3 options="deviceData.chartOptions" data="deviceData.chartData"></nvd3>
             <table class="table text-nowrap">
                 <thead>
@@ -29,17 +27,12 @@
             </div>
         </div>        
         <div class="col-md-7">
-            <div class="panel-heading ">
-                <div class="col-md-4">
-                    <h5 class="text-bold card-heading">Device {{brandName}}
-                </h5>
-                </div>
-                <div class="col-md-8">
-                    <button type="button" ng-click="selectBrandType('Brand')">Brand</button>
-                    <button type="button" ng-click="selectBrandType('Service Provider')">Service Provider</button>
-                    <button type="button" ng-click="selectBrandType('Operating System')">Operating System</button>
-                    <button type="button" ng-click="selectBrandType('Screen Size')">Screen Size</button>
-                </div>
+            <h4 class="title-content">Device {{brandName}}</h4>
+            <div class="pull-right">                    
+                <button type="button" ng-click="selectBrandType('Brand')">Brand</button>
+                <button type="button" ng-click="selectBrandType('Service Provider')">Service Provider</button>
+                <button type="button" ng-click="selectBrandType('Operating System')">Operating System</button>
+                <button type="button" ng-click="selectBrandType('Screen Size')">Screen Size</button>
             </div>
             <table class="table text-nowrap">
                 <thead>
@@ -48,6 +41,7 @@
                         <th class="text-bold table-card-heading">Action</th>
                         <th class="text-bold table-card-heading">Conversion</th>
                         <th class="text-bold table-card-heading">Reach</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <div>
@@ -57,6 +51,13 @@
                             <td>-</td>
                             <td>{{brand.conversions}}</td>
                             <td>{{brand.reach}}</td>
+                            <td style="width: 100px;">
+                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{brand.reach}}%">
+                                    <div class="progress-bar" style="width:{{brand.reach}}%">
+                                        <span class="sr-only"></span>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>    
                 </div>

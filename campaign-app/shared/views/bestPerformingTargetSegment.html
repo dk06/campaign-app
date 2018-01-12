@@ -1,0 +1,45 @@
+<div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h4 class="title-content">Audience Demographics</h4>
+            <ul class="list-group" style="list-style-type: none;">
+                <li>
+                    <label>Gender</label>
+                    <div class="pull-right">
+                        {{bestPerformingTargetSumData.gender[0].gender}}
+                    </div>
+                </li>
+                <li>
+                    <label>Age Group</label>
+                    <div class="pull-right">
+                        {{bestPerformingTargetSumData.ageGroup[0].age}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <h4 class="title-content">Segment</h4>
+            <ul class="list-group" style="list-style-type: none;">
+                <li ng-repeat="audience in bestPerformingTargetSumData.audienceSegmentData">
+                   {{audience.audience_segment}}
+                </li>                
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <h4 class="title-content">Device Properties</h4>
+            <ul class="list-group" style="list-style-type: none;">
+                <li ng-repeat="device in bestPerformingTargetSumData.devicetypeData">
+                   {{device.devicetype}}
+                </li>                
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <h4 class="title-content">Loaction</h4>
+            <ul class="list-group" style="list-style-type: none;">
+                <li ng-repeat="cityObj in bestPerformingTargetSumData.city">
+                   {{cityObj.city}}
+                </li>                
+            </ul>
+        </div>
+    </div>
+</div>

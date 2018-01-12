@@ -13,12 +13,6 @@
             });
         };
 
-        // dataFactory.getDurationOnValueAxisChart = function(param) {            
-        //     return overviewService.getDurationOnValueAxisChart(param).then(function(response) {
-        //         return response.data;
-        //     });
-        // };
-
         dataFactory.getDeviceData = function(param) {
             var deviceData = {
                     data: [],
@@ -210,7 +204,7 @@
             return overviewService.getCostVsBudget(param).then(function(response) {
                 campaighDurationData.messageStatus.push(response.message);                
                 angular.forEach(response.data, function(value, key) {
-                    campaighDurationData.data.push({ 'type': '', 'share': value.duration, 'color': colorList[colorIndex] });
+                    campaighDurationData.data.push({ 'type': '', 'share': value.clicks, 'cost' : value.cost, 'color': colorList[colorIndex] });
                     colorIndex = colorIndex < colorList.length - 1 ? colorIndex + 1 : 0;
                 });
                 campaighDurationData.chartData = dataFactory.visitorDataChart(campaighDurationData.data);
@@ -246,6 +240,37 @@
         dataFactory.getAudienceSegement = function(param) {            
             return overviewService.getAudienceSegementList(param).then(function(response) {
                 return response.data;
+            });
+        };
+
+        dataFactory.bestPerformingTargetSum = function(param) {
+        var targetData = {
+            gender: [],
+            ageGroup: [],
+            city: [],
+            devicetypeData : [],
+            audienceSegmentData : [],
+            odData : [],
+            responseData : []
+        }
+            return overviewService.bestPerformingTargetSum(param).then(function(response) {
+                targetData.responseData = response.data;
+                angular.forEach(response.data, function(value){
+                    if (value.age) {
+                        targetData.ageGroup.push(value);
+                    }else if (value.gender) {
+                        targetData.gender.push(value);
+                    }else if (value.city) {
+                        targetData.city.push(value);
+                    }else if (value.devicetype) {
+                        targetData.devicetypeData.push(value);
+                    }else if (value.os) {
+                        targetData.odData.push(value);
+                    }else if (value.audience_segment) {
+                        targetData.audienceSegmentData.push(value);
+                    }
+                });
+                return targetData;
             });
         };
 

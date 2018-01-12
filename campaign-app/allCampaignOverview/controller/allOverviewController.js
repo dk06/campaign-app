@@ -1,4 +1,4 @@
-app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$window','$location','sharedMain','loaderEvent','$filter','$timeout', function($scope, $rootScope, overviewFactory, $window,$location, sharedMain, loaderEvent, $filter,$timeout) {
+app.controller('allOverviewController',['$scope','$rootScope','allOverviewFactory', '$window','$location','sharedMain','loaderEvent','$filter','$timeout', function($scope, $rootScope, allOverviewFactory, $window,$location, sharedMain, loaderEvent, $filter,$timeout) {
 
     $scope.loactionType = 'City';
     $rootScope.companyDropDownEvent = true;
@@ -29,31 +29,33 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
         init();
     };
 
+    $window.scrollTo(0, angular.element(document.getElementById('scrollTop')).offsetTop);
+
 	init();
     function init() {
         if ($window.localStorage.accessToken) {
             loaderEvent.loaderActivate();
 
             var dateRange = '2016-01-01,2017-01-31';
-            overviewFactory.getCompanyList(dateRange).then(function(response, status){                
+            allOverviewFactory.getCompanyList(dateRange).then(function(response, status){                
                 $rootScope.companyList = response;
                 sharedMain.campaign_id = response[0].campaign_id;
             });
 
-            overviewFactory.getChannelsData(param).then(function(data, status) {
+            allOverviewFactory.getChannelsData(param).then(function(data, status) {
                 $scope.channelData = data;
             });
 
-            overviewFactory.getDurationOnValueAxisChart(param).then(function(data, status) {                
+            allOverviewFactory.getDurationOnValueAxisChart(param).then(function(data, status) {                
                 $scope.$broadcast('durationOnValueAxisChart', { data: data });
             });
 
-            overviewFactory.getbulletChartData(param).then(function(data, status) {                
+            allOverviewFactory.getbulletChartData(param).then(function(data, status) {                
                 $scope.bulletChartData =  data;
                 $scope.$broadcast('bulletChart', { data: data[0] });
             });
 
-            overviewFactory.getDeviceData(param).then(function(data, status) {
+            allOverviewFactory.getDeviceData(param).then(function(data, status) {
                 $scope.deviceData = data;
                 if (data.chartData.length == 0) {
                     $scope.deviceData.chartData.push({ key: '', y: 100 });
@@ -63,12 +65,12 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 }
             });
 
-            overviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
+            allOverviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
                 $scope.brandName = 'Brand';
                 $scope.deviceSectionData = data;
             });
 
-            overviewFactory.getGenderData(param).then(function(data, status) {
+            allOverviewFactory.getGenderData(param).then(function(data, status) {
                 $scope.genderData = data;
                 if (data.chartData.length == 0) {
                     $scope.genderData.chartData.push({ key: '', y: 100 });
@@ -78,7 +80,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 }
             });
 
-            overviewFactory.ageGroupData(param).then(function(data, status) {
+            allOverviewFactory.ageGroupData(param).then(function(data, status) {
                 $scope.ageGroupData = data;
                 if (data.chartData.length == 0) {
                     $scope.ageGroupData.chartData.push({ key: '', y: 100 });
@@ -88,7 +90,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 }
             });
 
-            overviewFactory.incomeLevelData(param).then(function(data, status) {
+            allOverviewFactory.incomeLevelData(param).then(function(data, status) {
                 $scope.incomeData = data;
                 if (data.chartData.length == 0) {
                     $scope.incomeData.chartData.push({ key: '', y: 100 });
@@ -98,23 +100,23 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 }
             });
 
-            overviewFactory.campaignDuration(param).then(function(data, status) {
+            allOverviewFactory.campaignDuration(param).then(function(data, status) {
                 $scope.campaignDurationData = data;
                 $scope.campaignDurationData.chartOptions = campaignDurationChartOptions(data.chartData.length);
             });
 
-            overviewFactory.getCostVsBudget(param).then(function(data, status) {
+            allOverviewFactory.getCostVsBudget(param).then(function(data, status) {
                 $scope.costVsBudgetData = data;
                 $scope.costVsBudgetData.chartOptions = campaignDurationChartOptions(data.chartData.length);
             });
 
-            overviewFactory.cityData(param).then(function(data, status) {
+            allOverviewFactory.cityData(param).then(function(data, status) {
                 $scope.cityData = data;
                 $scope.loactionType = 'City';
                 $scope.$broadcast('cityViewMap', { data: data });
             });
 
-            overviewFactory.getAudienceSegement(param).then(function(data, status) {
+            allOverviewFactory.getAudienceSegement(param).then(function(data, status) {
                 $scope.audienceSegment = data;
                 expandTable();
                 if ($scope.audienceSegment && $scope.audienceSegment) {
@@ -127,7 +129,10 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 manageTableData(filterData);
             });
 
-            loaderEvent.loaderDeactivate();
+            $timeout(function(){
+                //$('[data-toggle="tooltip"]').tooltip();
+                loaderEvent.loaderDeactivate();
+            },500);
         }
     };
 
@@ -151,7 +156,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
 
     function brancdGet(){
         loaderEvent.loaderActivate();
-        overviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
+        allOverviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
             $scope.deviceSectionData = data;
             loaderEvent.loaderDeactivate();
         });
@@ -159,7 +164,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
 
     function serviceGet(){
         loaderEvent.loaderActivate();
-        overviewFactory.getDeviceServiceDataData(param).then(function(data, status) {
+        allOverviewFactory.getDeviceServiceDataData(param).then(function(data, status) {
             $scope.deviceSectionData = data;
             loaderEvent.loaderDeactivate();
         });
@@ -167,7 +172,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
 
     function opSystemGet(){
         loaderEvent.loaderActivate();
-        overviewFactory.getDeviceOpSystemDataData(param).then(function(data, status) {
+        allOverviewFactory.getDeviceOpSystemDataData(param).then(function(data, status) {
             $scope.deviceSectionData = data;
             loaderEvent.loaderDeactivate();
         });
@@ -175,7 +180,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
 
     function deviceScreenGet(){
         loaderEvent.loaderActivate();
-        overviewFactory.getDeviceScreenSizeDataData(param).then(function(data, status) {
+        allOverviewFactory.getDeviceScreenSizeDataData(param).then(function(data, status) {
             $scope.deviceSectionData = data;
             loaderEvent.loaderDeactivate();
         });
@@ -315,8 +320,8 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 'actions': '-',
                 'impressions' : data.impressions,
                 'count': data.reach,
-                'share': data.reach,
-                'scaledShare' : data.reach,
+                'share': parseInt(data.impressions),
+                'scaledShare' : parseInt(data.impressions),
                 'audienceSegmentCode' : data.cuberootcampaignId
             };
         }
@@ -428,7 +433,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     $scope.channelViewButton = function(){
         param.aggregated = false;
         loaderEvent.loaderActivate();
-        overviewFactory.getChannelsData(param).then(function(data, status) {
+        allOverviewFactory.getChannelsData(param).then(function(data, status) {
             $scope.channelData = data;
             loaderEvent.loaderDeactivate();
         });
@@ -438,7 +443,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     $scope.segmentViewButton = function(){
         param.aggregated = false;
         loaderEvent.loaderActivate();
-        overviewFactory.getAudienceSegement(param).then(function(data, status) {
+        allOverviewFactory.getAudienceSegement(param).then(function(data, status) {
             $scope.audienceSegment = data;
             expandTable();
             if ($scope.audienceSegment && $scope.audienceSegment) {
@@ -457,7 +462,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     $scope.audienceProfileViewButton = function(){
         param.aggregated = false;
         loaderEvent.loaderActivate();
-        overviewFactory.getGenderData(param).then(function(data, status) {
+        allOverviewFactory.getGenderData(param).then(function(data, status) {
             $scope.genderData = data;
             if (data.chartData.length == 0) {
                 $scope.genderData.chartData.push({ key: '', y: 100 });
@@ -467,7 +472,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             }
         });
 
-        overviewFactory.ageGroupData(param).then(function(data, status) {
+        allOverviewFactory.ageGroupData(param).then(function(data, status) {
             $scope.ageGroupData = data;
             if (data.chartData.length == 0) {
                 $scope.ageGroupData.chartData.push({ key: '', y: 100 });
@@ -477,7 +482,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             }
         });
 
-        overviewFactory.incomeLevelData(param).then(function(data, status) {
+        allOverviewFactory.incomeLevelData(param).then(function(data, status) {
             $scope.incomeData = data;
             if (data.chartData.length == 0) {
                 $scope.incomeData.chartData.push({ key: '', y: 100 });
@@ -494,7 +499,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     $scope.loactionWiseViewButton = function(){
         param.aggregated = false;
         loaderEvent.loaderActivate();
-        overviewFactory.cityData(param).then(function(data, status) {
+        allOverviewFactory.cityData(param).then(function(data, status) {
             $scope.cityData = data;
             $scope.loactionType = 'City';
             $scope.$broadcast('cityViewMap', { data: data });
@@ -506,7 +511,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     $scope.deviceAndBrandViewButton = function(){
         param.aggregated = false;
         loaderEvent.loaderActivate();
-        overviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
+        allOverviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
             $scope.brandName = 'Brand';
             $scope.deviceSectionData = data;
             loaderEvent.loaderDeactivate();

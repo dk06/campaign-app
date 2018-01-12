@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <main>
+        <div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="dropdown nav navbar-nav">
+                        <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                            <span class="pull-left">{{companyObject}}</span>
+                            <p class="pull-right"><span class="caret"></span></p>
+                        </button>
+                        <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">                
+                            <li role="presentation" ng-repeat="company in companyList" style="cursor: pointer;" ng-click="changeCampaignId(company.campaign_id, company.campaign_name)">{{company.campaign_name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="startDate" id="daterange" ng-model="dateSet"/>
+                </div>
+                <div>
+                    <button class="btnApply btnApply-success" type="button" ng-click="setDateRange()">Apply</button>
+                </div>
+            </div>
+
+            <section class="card content-card heading-card">
+                <!-- <p class="pull-right card-title">Campaign Objectvie:
+                {{campaignObject}}
+                <span class="caret"></span></p> -->
+                <ul style="list-style-type: none;">
+                    <li class="pull-right pageview-section">
+                    <label>Campaign Objectvie: </label> {{campaignObject}}
+                    <ul class="pull-right">
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle drop-down-icon-fix" style="background-color: transparent"><b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li ng-repeat="value in campaignObjectList">
+                                    <a href="javascript:void(0)" ng-click="campaignObjectFitler(value.dropdown)">{{value.dropdown}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                </ul>
+                <p class=" card-title">Campaign Performance</p>
+                
+            </section>
+
+
+            <div>
+                <div class="card content-card">
+                   <cr-campaign-performance-first-section-dir></cr-campaign-performance-first-section-dir>
+                </div>
+                <div class="card content-card">
+                   <cr-campaign-performance-secand-section-dir></cr-campaign-performance-secand-section-dir>
+                </div>
+            </div>
+
+            <section class="card content-card section-heading">
+                <p class="pull-left">Channel Performance</p>
+                <button type="button" class="pull-right" ng-click="channelViewButton()">View Details</button>
+            </section>
+            <div>
+                <div class="card content-card">
+                   <cr-channel-performance-dir></cr-channel-performance-dir>
+                </div>
+            </div>
+
+            <section class="card content-card section-heading">
+                <p class="col-sm-8">Best Performing Target Segment</p>
+                <div class="col-sm-2 dropdown">
+                    <button class="dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        <span class="pull-left">{{targetSegment}}</span>
+                        <p class="pull-right"><span class="caret"></span></p>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">                
+                        <li role="presentation" ng-repeat="target in targetSegmentData" style="cursor: pointer;" ng-click="targetSegmentChange(target.targetName)"><a>{{target.targetName}}</a>
+                        </li>
+                    </ul>
+              </div>
+                <button type="button" class="col-sm-2" ng-click="targetSegmentViewButton()">View Details</button>
+            </section>
+            <div>
+                <div class="card content-card" ng-include="'shared/views/bestPerformingTargetSegment.html'">
+                </div>
+            </div>
+
+            <div>
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Audience Interest Segment</p>
+                    <button type="button" class="pull-right" ng-click="segmentViewButton()">View Details</button>
+                </section>
+                <div class="card content-card">
+                     <cr-audience-interest-dir></cr-audience-interest-dir>
+                </div>
+            </div>
+            
+            <div>                
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Audience Profile</p>
+                    <button type="button" class="pull-right" ng-click="audienceProfileViewButton()">View Details</button>
+                </section>
+                <div class="card content-card">
+                   <cr-audience-profile-dir></cr-audience-profile-dir>
+                </div>
+            </div>
+
+            <div>
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Loactionwise Campaign Performance</p>
+                    <button type="button" class="pull-right" ng-click="loactionWiseViewButton()">View Details</button>
+                </section>
+                <div class="card content-card">
+                   <cr-location-driving-traffic-dir></cr-location-driving-traffic-dir>
+                </div>
+            </div>
+            
+            <div>
+                <section class="card content-card section-heading">
+                    <p class="pull-left">Campaign Performance Device and Brand</p>
+                    <button type="button" class="pull-right" ng-click="deviceAndBrandViewButton()">View Details</button>
+                </section>
+                <div class="card content-card">
+                    <cr-device-and-brand-dir></cr-device-and-brand-dir>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript">
+   $(function() {
+        $('#daterange').daterangepicker({ dateFormat: 'dd-mm-yy' }).val();
+    });
+</script>

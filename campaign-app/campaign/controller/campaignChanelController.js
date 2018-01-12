@@ -1,4 +1,7 @@
-app.controller('compaignChanelController',['$scope','$rootScope','campaignFactory','$window','$location','loaderEvent','overviewFactory','sharedMain', function($scope, $rootScope, campaignFactory, $window, $location, loaderEvent, overviewFactory, sharedMain) {
+app.controller('compaignChanelController',['$scope','$rootScope','campaignFactory','$window','$location','loaderEvent','overviewFactory','sharedMain','$timeout', function($scope, $rootScope, campaignFactory, $window, $location, loaderEvent, overviewFactory, sharedMain,$timeout) {
+
+
+  $window.scrollTo(0, angular.element(document.getElementById('scrollTop')).offsetTop);
 
 	init();
     function init() {
@@ -9,7 +12,9 @@ app.controller('compaignChanelController',['$scope','$rootScope','campaignFactor
                 $scope.campaignList = response;
             });
             
-            loaderEvent.loaderDeactivate();
+            $timeout(function(){
+                loaderEvent.loaderDeactivate();
+            },500);
         }
     };
 

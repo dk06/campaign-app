@@ -23,6 +23,8 @@ app.use(express.static(path.join(__dirname, 'campaign-app')));
 
 app.use(function (req, res, next) {
 
+    res.append('Access-Control-Allow-Origin', ['*']);
+
     let reqUrl = req.originalUrl;
     reqUrl = reqUrl.split("?")[0];
 

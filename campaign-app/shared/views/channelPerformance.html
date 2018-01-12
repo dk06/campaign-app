@@ -1,32 +1,30 @@
 <div class="">
-    <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Channel Name</th>
-                    <th>Impressions</th>
-                    <th>Action</th>
-                    <th>Conversions</th>
-                    <th>Spend</th>
-                    <th>Cost/Unit</th>
-                    <th>Cost/Canversions</th>
-                    <th>Status</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="channel in channelData">
-                    <td>{{channel.channel}}</td>
-                    <td>{{channel.impressions}}</td>
-                    <td>-</td>
-                    <td>{{channel.conversions}}</td>
-                    <td>-</td>
-                    <td>{{channel.cost}}/{{channel.reach}}</td>
-                    <td>{{channel.cost}}/{{channel.conversions}}</td>
-                    <td>-</td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <table class="table text-nowrap">
+        <thead>
+            <tr>
+                <th>Channel Name</th>
+                <th>Impressions</th>
+                <th>Action</th>
+                <th>Conversions</th>
+                <th>Spend</th>
+                <th>Cost/Unit</th>
+                <th>Cost/Canversions</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="channel in channelData">
+                <td>{{channel.channel}}</td>
+                <td>{{channel.impressions}}</td>
+                <td>-</td>
+                <td>{{channel.conversions}}</td>
+                <td>-</td>
+                <td>{{channel.cost}}/{{channel.reach}}</td>
+                <td>{{channel.cost}}/{{channel.conversions}}</td>
+                <td>-</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
