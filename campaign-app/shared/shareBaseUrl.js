@@ -15,6 +15,7 @@ app.service('shareBaseUrl', function ($window) {
                 }
                 params.cuberootBaseUrl = "http://205.147.101.67:8080/marketingv1/";
                 params.cuberootMarketBaseUrl = "http://205.147.101.67:8080/marketingreports/report/";
+                params.cuberootMarketIdealParamBaseUrl = "http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/";
             return params;
         }
     };

@@ -243,34 +243,64 @@
             });
         };
 
-        dataFactory.bestPerformingTargetSum = function(param) {
-        var targetData = {
-            gender: [],
-            ageGroup: [],
-            city: [],
-            devicetypeData : [],
-            audienceSegmentData : [],
-            odData : [],
-            responseData : []
-        }
-            return overviewService.bestPerformingTargetSum(param).then(function(response) {
-                targetData.responseData = response.data;
-                angular.forEach(response.data, function(value){
-                    if (value.age) {
-                        targetData.ageGroup.push(value);
-                    }else if (value.gender) {
-                        targetData.gender.push(value);
-                    }else if (value.city) {
-                        targetData.city.push(value);
-                    }else if (value.devicetype) {
-                        targetData.devicetypeData.push(value);
-                    }else if (value.os) {
-                        targetData.odData.push(value);
-                    }else if (value.audience_segment) {
-                        targetData.audienceSegmentData.push(value);
-                    }
-                });
-                return targetData;
+        // dataFactory.bestPerformingTargetSum = function(param) {
+        //     var targetData = {
+        //         gender: [],
+        //         ageGroup: [],
+        //         city: [],
+        //         devicetypeData : [],
+        //         audienceSegmentData : [],
+        //         odData : [],
+        //         responseData : []
+        //     }
+        //     return overviewService.bestPerformingTargetSum(param).then(function(response) {
+        //         targetData.responseData = response.data;
+        //         angular.forEach(response.data, function(value){
+        //             if (value.age) {
+        //                 targetData.ageGroup.push(value);
+        //             }else if (value.gender) {
+        //                 targetData.gender.push(value);
+        //             }else if (value.city) {
+        //                 targetData.city.push(value);
+        //             }else if (value.devicetype) {
+        //                 targetData.devicetypeData.push(value);
+        //             }else if (value.os) {
+        //                 targetData.odData.push(value);
+        //             }else if (value.audience_segment) {
+        //                 targetData.audienceSegmentData.push(value);
+        //             }
+        //         });
+        //         return targetData;
+        //     });
+        // };
+
+        dataFactory.bestPerformingForGender = function(param) {            
+            return overviewService.bestPerformingForGenderList(param).then(function(response) {
+                return response.data;
+            });
+        };
+
+        dataFactory.bestPerformingAgeGroup = function(param) {            
+            return overviewService.bestPerformingAgeGroupList(param).then(function(response) {
+                return response.data;
+            });
+        };
+
+        dataFactory.bestPerformingForCity = function(param) {            
+            return overviewService.bestPerformingForCityList(param).then(function(response) {
+                return response.data;
+            });
+        };
+
+        dataFactory.bestPerformingForDevice = function(param) {            
+            return overviewService.bestPerformingForDeviceList(param).then(function(response) {
+                return response.data;
+            });
+        };
+
+        dataFactory.bestPerformingSegment = function(param) {            
+            return overviewService.bestPerformingSegmentList(param).then(function(response) {
+                return response.data;
             });
         };
 

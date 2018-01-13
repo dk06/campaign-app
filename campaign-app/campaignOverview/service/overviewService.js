@@ -137,9 +137,41 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
         return promise;
     },
 
-    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams?dateRange=2016-01-01_2017-01-01&metric=CVR&campaign_id=6043097399059
-    this.bestPerformingTargetSum = function (param) {    
-    var promise = $http.get('http://205.147.101.67:8080/marketingIdealParam/report/' + 'idealtargetingparams' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id }} ).then(function(response) {
+    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/audience_segment?dateRange=2016-01-01_2017-01-31&metric=CTR&campaign_id=390878914&details=false
+    this.bestPerformingSegmentList = function (param) {    
+    var promise = $http.get(params.cuberootMarketIdealParamBaseUrl + 'audience_segment' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id , details : param.details }} ).then(function(response) {
+            return response;
+        });
+    return promise;
+    },
+
+    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/gender?dateRange=2016-01-01_2017-01-31&metric=CTR&campaign_id=390878914&details=false
+    this.bestPerformingForGenderList = function (param) {    
+    var promise = $http.get(params.cuberootMarketIdealParamBaseUrl + 'gender' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id , details : param.details }} ).then(function(response) {
+            return response;
+        });
+    return promise;
+    },
+
+    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/age?dateRange=2016-01-01_2017-01-31&metric=CTR&campaign_id=390878914&details=false
+    this.bestPerformingAgeGroupList = function (param) {    
+    var promise = $http.get(params.cuberootMarketIdealParamBaseUrl + 'age' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id , details : param.details }} ).then(function(response) {
+            return response;
+        });
+    return promise;
+    },
+
+    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/city?dateRange=2016-01-01_2017-01-31&metric=CTR&campaign_id=390878914&details=false
+    this.bestPerformingForCityList = function (param) {    
+    var promise = $http.get(params.cuberootMarketIdealParamBaseUrl + 'city' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id , details : param.details }} ).then(function(response) {
+            return response;
+        });
+    return promise;
+    },
+
+    //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/device?dateRange=2016-01-01_2017-01-31&metric=CTR&campaign_id=390878914&details=false
+    this.bestPerformingForDeviceList = function (param) {    
+    var promise = $http.get(params.cuberootMarketIdealParamBaseUrl + 'device' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id , details : param.details }} ).then(function(response) {
             return response;
         });
     return promise;

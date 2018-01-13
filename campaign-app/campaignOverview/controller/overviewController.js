@@ -20,6 +20,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
         param.metric = 'impression';
         param.targetName = 'CVR';
         param.targetCampaign_id ='6043097399059';
+        param.details = false;
    
 
     $scope.setDateRange = function(){
@@ -134,9 +135,29 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 manageTableData(filterData);
             });
 
-            overviewFactory.bestPerformingTargetSum(param).then(function(data, status) {
-                $scope.bestPerformingTargetSumData = data;
-                $scope.targetCampaign_id = data.responseData[0].campaign_id;
+            // overviewFactory.bestPerformingTargetSum(param).then(function(data, status) {
+            //     $scope.bestPerformingTargetSumData = data;
+            //     $scope.targetCampaign_id = data.responseData[0].campaign_id;
+            // });
+
+            overviewFactory.bestPerformingForGender(param).then(function(data, status) {
+                $scope.bestPerformingGenderData = data;
+            });
+
+            overviewFactory.bestPerformingAgeGroup(param).then(function(data, status) {
+                $scope.bestPerformingAgeData = data;
+            });
+
+            overviewFactory.bestPerformingForCity(param).then(function(data, status) {
+                $scope.bestPerformingCityData = data;
+            });
+
+            overviewFactory.bestPerformingForDevice(param).then(function(data, status) {
+                $scope.bestPerformingDeviceData = data;
+            });
+
+            overviewFactory.bestPerformingSegment(param).then(function(data, status) {
+                $scope.bestPerformingSegmentData = data;
             });
 
             $timeout(function(){
@@ -540,10 +561,24 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
             param.targetCampaign_id = '390878914';
         }
         
-        overviewFactory.bestPerformingTargetSum(param).then(function(data, status) {
-            $scope.bestPerformingTargetSumData = data;
-            $scope.targetCampaign_id = data.responseData[0].campaign_id;
-            loaderEvent.loaderDeactivate();
+        overviewFactory.bestPerformingForGender(param).then(function(data, status) {
+            $scope.bestPerformingGenderData = data;
+        });
+
+        overviewFactory.bestPerformingAgeGroup(param).then(function(data, status) {
+            $scope.bestPerformingAgeData = data;
+        });
+
+        overviewFactory.bestPerformingForCity(param).then(function(data, status) {
+            $scope.bestPerformingCityData = data;
+        });
+
+        overviewFactory.bestPerformingForDevice(param).then(function(data, status) {
+            $scope.bestPerformingDeviceData = data;
+        });
+
+        overviewFactory.bestPerformingSegment(param).then(function(data, status) {
+            $scope.bestPerformingSegmentData = data;
         });
     };
 
