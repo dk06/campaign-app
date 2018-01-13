@@ -2,7 +2,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
 
     $scope.loactionType = 'City';
     $rootScope.companyDropDownEvent = true;
-    $scope.campaignObject = 'All Channels';
+    $scope.campaignObject = 'All Campaigns';
     $scope.dateSet = '01/01/2016 - 31/01/2017';
     $scope.companyObject = 'All Channels';
     $scope.targetSegment = 'CVR';
