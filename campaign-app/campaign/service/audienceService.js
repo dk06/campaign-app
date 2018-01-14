@@ -93,9 +93,10 @@ app.service('audienceService', function ($rootScope, $http, shareBaseUrl,$window
 
     //http://205.147.101.67:8080/marketingv1/getReach?siteId=1&gender=&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=
     //http://205.147.101.67:8080/marketingv1/getReach?siteId=&gender=1&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=&devicetype=7&modelname=&screenname=&operating=&language=
-    this.getPrivateReach = function(gender, ageId, incomeid, deviceId, city , state,country, language){
+    //http://205.147.101.67:8080/marketingv1/getReach?siteId=1&gender=1&agegroup=&incomelevel=&device=&city=&state=&country=&subcategory=&city=geo1663&locationmechanism=false
+    this.getPrivateReach = function(gender, ageId, incomeid, deviceId, city , state,country, language, locationmechanism){
         params = shareBaseUrl.BaseUrl();
-        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : gender, agegroup : ageId , incomelevel : incomeid, device : deviceId ,city : city, state: state,country : country, subcategory: '',devicetype : '', modelname : '',screenname: '',operating: '',language: language }} ).then(function(response) {
+        return $http.get(params.cuberootBaseUrl + 'getReach', {params : {siteId : '1', gender : gender, agegroup : ageId , incomelevel : incomeid, device : deviceId ,city : city, state: state,country : country, subcategory: '',devicetype : '', modelname : '',screenname: '',operating: '',language: language , locationmechanism : locationmechanism }} ).then(function(response) {
             return response.data;
         });
     };

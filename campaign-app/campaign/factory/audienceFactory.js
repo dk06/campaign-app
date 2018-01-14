@@ -116,15 +116,16 @@
                 var state = '';
                 var country = '';
                 var language = '';
+                var locationmechanism = '';
 
-	    		return audienceService.getPrivateReach(gender, ageId, incomeid, deviceId, city , state,country, language).then(function(response, status){
+	    		return audienceService.getPrivateReach(gender, ageId, incomeid, deviceId, city , state,country, language, locationmechanism).then(function(response, status){
 		    		return response.data;
 		    	});
 	    	});
 	    };
 
-	    dataFactory.getPrivateReachSpecific = function(gender, ageId, incomeid, deviceId, city , state,country, language){
-	    	return audienceService.getPrivateReach(gender, ageId, incomeid, deviceId, city , state,country, language ).then(function(response, status){
+	    dataFactory.getPrivateReachSpecific = function(gender, ageId, incomeid, deviceId, city , state,country, language, locationmechanism){
+	    	return audienceService.getPrivateReach(gender, ageId, incomeid, deviceId, city , state,country, language, locationmechanism ).then(function(response, status){
 	    		return response.data;
 	    	});
 	    };

@@ -81,6 +81,21 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
                 $scope.countryData = response;
             });
 
+            // $scope.ageGroup = [];
+            // $scope.genderGroup = [];
+            // $scope.languageObj = [];
+            // $scope.incomeObj = [];
+            // $scope.affinityObj = [];
+            // $scope.marketSegmentObj = [];
+            // $scope.IAB_Obj = [];
+            // $scope.countryObj = [];
+            // $scope.stateObj = [];
+            // $scope.cityObj = [];
+            // $scope.deviceObj = [];
+            // $scope.deviceModelObj = [];
+            // $scope.screenResObj = [];
+            // $scope.operatingSysObj = [];
+
             $timeout(function(){
                 loaderEvent.loaderDeactivate();
             },500);
@@ -568,10 +583,12 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         if ($scope.privateSection) {
             var reach = [];
             loaderEvent.loaderActivate();
-            return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.deviceId,$scope.cityTypeObj ,$scope.stateTypeObj ,$scope.countryTypeObj, $scope.language).then(function(response, status) {
+            return audienceFactory.getPrivateReachSpecific($scope.gender_type, $scope.age_type, $scope.income_Type, $scope.deviceId,$scope.cityTypeObj ,$scope.stateTypeObj ,$scope.countryTypeObj, $scope.language, $scope.locationmechanism).then(function(response, status) {
                 reach.push(response[0].reach);
                 $scope.privateReach = response[0].reach;
-                loaderEvent.loaderDeactivate();
+                $timeout(function(){
+                    loaderEvent.loaderDeactivate();
+                },500);
             });
         }
     };
@@ -797,9 +814,11 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         if (selectType == 'Inclusion') {
             $scope.checkInclusion = true;
             $scope.checkExclustion= false;
+            $scope.locationmechanism = true;
         }else{
             $scope.checkInclusion = false;
             $scope.checkExclustion= true;
+            $scope.locationmechanism = false;
         }
     };
 
@@ -2443,6 +2462,9 @@ app.controller('CampaignController',['$scope','$rootScope','$q','campaignFactory
         //     });
         // }
         $scope.LoactionType = 'Inclusion';
+        $scope.checkInclusion = true;
+        $scope.checkExclustion= false;
+
         $scope.stateType = '';
         $scope.cityType = '';
         $scope.city_type = '';
