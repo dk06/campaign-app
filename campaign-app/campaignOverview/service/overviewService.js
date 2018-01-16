@@ -130,8 +130,9 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
     },
 
     //http://205.147.101.67:8080/marketingreports/report/audience_segment?dateRange=2016-01-01_2017-01-31&metric=reach&campaign_id=12721&channel=Adwords&aggregated=true
+    //http://205.147.101.67:8080/marketingreports/report/audience_segment?dateRange=2016-01-01_2017-01-31&metric=clicks&campaign_id=12721&channel=Adwords&aggregated=true
     this.getAudienceSegementList = function(param) {        
-        var promise = $http.get(params.cuberootMarketBaseUrl +'audience_segment', { params: {dateRange : param.dateRange,metric : 'reach', campaign_id : param.campaign_id,aggregated : param.aggregated, channel : param.channel} }).then(function(response) {
+        var promise = $http.get(params.cuberootMarketBaseUrl +'audience_segment', { params: {dateRange : param.dateRange,metric : param.metric, campaign_id : param.campaign_id,aggregated : param.aggregated, channel : param.channel} }).then(function(response) {
             return response;
         });
         return promise;
@@ -172,6 +173,14 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
     //http://205.147.101.67:8080/marketingIdealParam/report/idealtargetingparams/device?dateRange=2016-01-01_2017-01-31&metric=CTR&campaign_id=390878914&details=false
     this.bestPerformingForDeviceList = function (param) {    
     var promise = $http.get(params.cuberootMarketIdealParamBaseUrl + 'device' ,{params: {dateRange : param.dateRange,metric : param.targetName, campaign_id : param.targetCampaign_id , details : param.details }} ).then(function(response) {
+            return response;
+        });
+    return promise;
+    },
+
+    //http://205.147.101.67:8080/marketingreports/report/getCampaignIds?dateRange=2016-01-01,2017-01-01&cuberootCampaignId=12721
+    this.getCampaignIdsList = function (param) {    
+    var promise = $http.get(params.cuberootMarketBaseUrl + 'getCampaignIds' ,{params: {dateRange : '2016-01-01,2017-01-01', cuberootCampaignId : param.campaign_id}} ).then(function(response) {
             return response;
         });
     return promise;

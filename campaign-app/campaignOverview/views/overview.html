@@ -3,24 +3,14 @@
         <div>
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="dropdown nav navbar-nav">
-                        <button class="form-control dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            <span class="pull-left">{{companyObject}}</span>
-                            <p class="pull-right"><span class="caret"></span></p>
-                        </button>
-                        <ul class="dropdown-menu scrollable-menu" role="menu" aria-labelledby="dropdownMenu1">                
-                            <li role="presentation" ng-repeat="company in companyList" style="cursor: pointer;" ng-click="changeCampaignId(company.campaign_id, company.campaign_name)">{{company.campaign_name}}
-                            </li>
-                        </ul>
-                    </div>
+                    <cr-header-dir></cr-header-dir>
                 </div>
-
-                <!-- <div class="col-sm-3">
+                <div class="col-sm-3">
                     <input type="text" class="form-control" name="startDate" id="daterange" ng-model="dateSet"/>
                 </div>
                 <div>
                     <button class="btnApply btnApply-success" type="button" ng-click="setDateRange()">Apply</button>
-                </div> -->
+                </div>
             </div>
 
             <section class="card content-card heading-card">
@@ -67,18 +57,20 @@
             </div>
 
             <section class="card content-card section-heading">
-                <p class="col-sm-8">Best Performing Target Segment</p>
-                <div class="col-sm-2 dropdown">
-                    <button class="dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                        <span class="pull-left">{{targetSegment}}</span>
-                        <p class="pull-right"><span class="caret"></span></p>
-                    </button>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">                
-                        <li role="presentation" ng-repeat="target in targetSegmentData" style="cursor: pointer;" ng-click="targetSegmentChange(target.targetName)"><a>{{target.targetName}}</a>
-                        </li>
-                    </ul>
-              </div>
-                <button type="button" class="col-sm-2" ng-click="targetSegmentViewButton()">View Details</button>
+                <p class="col-sm-6">Best Performing Target Segment : <span>{{campaigntopObject}}</span></p>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-disabled="campaigntopObject == 'All Campaigns'" ng-options="camp.campaign_id as camp.campaign_name for camp in getCampaignData" ng-change="campaignChannelChange('Best Performing', camp.campaign_id)"  ng-model="camp.campaign_id" required>
+                        <option value="" disabled selected>{{channelDropdown}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-change="targetSegmentChange( target.targetName)" ng-options="target.targetName as target.targetName for target in targetSegmentData" ng-model="target.targetName" required>
+                        <option value="" disabled selected>{{targetSegment}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button"  ng-click="targetSegmentViewButton()">View Details</button>
+                </div>
             </section>
             <div>
                 <div class="card content-card" ng-include="'shared/views/bestPerformingTargetSegment.html'">
@@ -87,8 +79,20 @@
 
             <div>
                 <section class="card content-card section-heading">
-                    <p class="pull-left">Audience Interest Segment</p>
-                    <button type="button" class="pull-right" ng-click="segmentViewButton()">View Details</button>
+                    <p class="col-sm-8">Audience Interest Segment</p>
+                    <!-- <div class="col-sm-2">
+                        <select class="form-control" ng-change="campaignChannelChange('Interest Segment', company.campaign_id)" company.campaign_name)" ng-options="company.campaign_id as company.campaign_name for company in companyList" ng-model="audienceSelect" required>
+                            <option value="" disabled selected>{{channelDropdown}}</option>
+                        </select>
+                    </div> -->                    
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-change="matricChange('Interest Segment', segmentMatric)" ng-options="target.metricKey as target.metricKey for target in metricDropdown" ng-model="segmentMatric" required>
+                            <option value="" disabled selected>{{reachSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" ng-click="segmentViewButton()">View Details</button>
+                    </div>
                 </section>
                 <div class="card content-card">
                      <cr-audience-interest-dir></cr-audience-interest-dir>
@@ -97,8 +101,20 @@
             
             <div>                
                 <section class="card content-card section-heading">
-                    <p class="pull-left">Audience Profile</p>
-                    <button type="button" class="pull-right" ng-click="audienceProfileViewButton()">View Details</button>
+                    <p class="col-sm-8">Audience Profile</p>
+                    <!-- <div class="col-sm-2">
+                        <select class="form-control" ng-change="campaignChannelChange('Audience Profile', company.campaign_id)" company.campaign_name)" ng-options="company.campaign_id as company.campaign_name for company in companyList" ng-model="audienceProfileSelect" required>
+                            <option value="" disabled selected>{{channelDropdown}}</option>
+                        </select>
+                    </div>  -->                   
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-change="matricChange('Audience Profile', target.profileMatric)" ng-options="target.metricKey as target.metricKey for target in metricDropdown" ng-model="target.profileMatric" required>
+                            <option value="" disabled selected>{{reachSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" ng-click="audienceProfileViewButton()">View Details</button>
+                    </div>
                 </section>
                 <div class="card content-card">
                    <cr-audience-profile-dir></cr-audience-profile-dir>
@@ -107,8 +123,20 @@
 
             <div>
                 <section class="card content-card section-heading">
-                    <p class="pull-left">Loactionwise Campaign Performance</p>
-                    <button type="button" class="pull-right" ng-click="loactionWiseViewButton()">View Details</button>
+                    <p class="col-sm-8">Loactionwise Campaign Performance</p>
+                    <!-- <div class="col-sm-2">
+                        <select class="form-control" ng-change="campaignChannelChange('Loactionwise', company.campaign_id)" company.campaign_name)" ng-options="company.campaign_id as company.campaign_name for company in companyList" ng-model="LoactionwiseSelect" required>
+                            <option value="" disabled selected>{{channelDropdown}}</option>
+                        </select>
+                    </div> -->                    
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-change="matricChange('Loactionwise', loactionMatric)" ng-options="target.metricKey as target.metricKey for target in metricDropdown" ng-model="loactionMatric" required>
+                            <option value="" disabled selected>{{reachSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" ng-click="loactionWiseViewButton()">View Details</button>
+                    </div>
                 </section>
                 <div class="card content-card">
                    <cr-location-driving-traffic-dir></cr-location-driving-traffic-dir>
@@ -117,8 +145,20 @@
             
             <div>
                 <section class="card content-card section-heading">
-                    <p class="pull-left">Campaign Performance Device and Brand</p>
-                    <button type="button" class="pull-right" ng-click="deviceAndBrandViewButton()">View Details</button>
+                    <p class="col-sm-8">Campaign Performance Device and Brand</p>
+                    <!-- <div class="col-sm-2">
+                        <select class="form-control" ng-change="campaignChannelChange('Device', company.campaign_id)" company.campaign_name)" ng-options="company.campaign_id as company.campaign_name for company in companyList" ng-model="deviceSelect" required>
+                            <option value="" disabled selected>{{channelDropdown}}</option>
+                        </select>
+                    </div> -->                    
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-change="matricChange('Device', deviceMatric)" ng-options="target.metricKey as target.metricKey for target in metricDropdown" ng-model="deviceMatric" required>
+                            <option value="" disabled selected>{{reachSelect}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" ng-click="deviceAndBrandViewButton()">View Details</button>
+                    </div>
                 </section>
                 <div class="card content-card">
                     <cr-device-and-brand-dir></cr-device-and-brand-dir>
@@ -133,3 +173,20 @@
         $('#daterange').daterangepicker({ dateFormat: 'dd-mm-yy' }).val();
     });
 </script>
+<script src="scripts/vendors/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="scripts/vendors/js/tether.min.js" type="text/javascript"></script>
+<script src="scripts/js/customs.js"></script>
+<style type="text/css">
+    .scrollable-menu {
+        height: auto;
+        width: 128%;
+        max-height: 200px;
+        overflow-x: hidden;
+    }
+    .scrollable-menu li {
+        padding: 5px;
+    }
+    .scrollable-menu li input[type="checkbox"] {
+        margin-right: 5px;
+    }
+</style>

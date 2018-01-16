@@ -6,13 +6,13 @@
                 <li>
                     <label>Gender</label>
                     <div class="pull-right">
-                        {{bestPerformingTargetSumData.gender[0].gender}}
+                        {{bestPerformingGenderData[0].gender[0]}}
                     </div>
                 </li>
                 <li>
                     <label>Age Group</label>
                     <div class="pull-right">
-                        {{bestPerformingTargetSumData.ageGroup[0].age}}
+                        {{bestPerformingAgeData[0].age[0]}}
                     </div>
                 </li>
             </ul>
@@ -20,25 +20,28 @@
         <div class="col-sm-3">
             <h4 class="title-content">Segment</h4>
             <ul class="list-group" style="list-style-type: none;">
-                <li ng-repeat="audience in bestPerformingTargetSumData.audienceSegmentData">
+                <!-- <li ng-repeat="audience in bestPerformingSegmentData">
                    {{audience.audience_segment}}
-                </li>                
+                </li> -->
+                <li>{{bestPerformingSegmentData[0].audience_segment[0]}}</li>
             </ul>
         </div>
         <div class="col-sm-3">
             <h4 class="title-content">Device Properties</h4>
             <ul class="list-group" style="list-style-type: none;">
-                <li ng-repeat="device in bestPerformingTargetSumData.devicetypeData">
+                <!-- <li ng-repeat="device in bestPerformingTargetSumData.devicetypeData">
                    {{device.devicetype}}
-                </li>                
+                </li> -->
+                <li>{{bestPerformingDeviceData[0].devicetype[0]}}</li>
             </ul>
         </div>
         <div class="col-sm-3">
             <h4 class="title-content">Loaction</h4>
             <ul class="list-group" style="list-style-type: none;">
-                <li ng-repeat="cityObj in bestPerformingTargetSumData.city">
+                <!-- <li ng-repeat="cityObj in bestPerformingTargetSumData.city">
                    {{cityObj.city}}
-                </li>                
+                </li> -->
+                <li>{{bestPerformingCityData[0].city[0]}}</li>
             </ul>
         </div>
     </div>

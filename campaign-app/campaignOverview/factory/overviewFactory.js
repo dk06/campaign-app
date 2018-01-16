@@ -25,7 +25,7 @@
             return overviewService.getDeviceData(param).then(function(response) {
                 deviceData.messageStatus.push(response.message);                
                 angular.forEach(response.data, function(value, key) {
-                    deviceData.data.push({ 'type': value.device_type, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'deviceId': value.cuberootcampaignId, 'color': colorList[colorIndex] });
+                    deviceData.data.push({ 'type': value.device_type, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'deviceId': value.cuberootcampaignId, 'color': colorList[colorIndex] });
                     colorIndex = colorIndex < colorList.length - 1 ? colorIndex + 1 : 0;
                 });
                 deviceData.chartData = dataFactory.visitorDataChart(deviceData.data);
@@ -39,7 +39,7 @@
             }           
             return overviewService.getDeviceBrandDataData(param).then(function(response) {
                 angular.forEach(response.data, function(value, key) {
-                    devideData.data.push({ 'device_type': value.brand, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
+                    devideData.data.push({ 'device_type': value.brand, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
                 });
                 return devideData.data;
             });
@@ -51,7 +51,7 @@
             }           
             return overviewService.getDeviceServiceDataData(param).then(function(response) {
                 angular.forEach(response.data, function(value, key) {
-                    devideData.data.push({ 'device_type': value.isp, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
+                    devideData.data.push({ 'device_type': value.isp, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
                 });
                 return devideData.data;
             });
@@ -63,7 +63,7 @@
             }           
             return overviewService.getDeviceOpSystemDataData(param).then(function(response) {
                 angular.forEach(response.data, function(value, key) {
-                    devideData.data.push({ 'device_type': value.os, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
+                    devideData.data.push({ 'device_type': value.os, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
                 });
                 return devideData.data;
             });
@@ -75,7 +75,7 @@
             }           
             return overviewService.getDeviceScreenSizeDataData(param).then(function(response) {
                 angular.forEach(response.data, function(value, key) {
-                    devideData.data.push({ 'device_type': value.screensize, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
+                    devideData.data.push({ 'device_type': value.screensize, 'devicetypecode': value.devicetypecode, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
                 });
                 return devideData.data;
             });
@@ -94,7 +94,7 @@
             return overviewService.getGenderData(param).then(function(response) {
                 genderData.messageStatus.push(response.message);                
                 angular.forEach(response.data, function(value, key) {
-                    genderData.data.push({ 'type': value.gender, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'genderId': value.cuberootcampaignId, 'color': colorList[colorIndex] });
+                    genderData.data.push({ 'type': value.gender, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'genderId': value.cuberootcampaignId, 'color': colorList[colorIndex] });
                     colorIndex = colorIndex < colorList.length - 1 ? colorIndex + 1 : 0;
                 });
                 genderData.chartData = dataFactory.visitorDataChart(genderData.data);
@@ -115,7 +115,7 @@
             return overviewService.getIncomeLevelData(params).then(function(response) {
                 incomeData.messageStatus.push(response.message);                
                 angular.forEach(response.data, function(value, key) {
-                    incomeData.data.push({ 'type': value.income, 'conversions': value.conversions, 'reach': value.impressions, 'share': value.impressions,'genderId': value.cuberootcampaignId, 'color': colorList[colorIndex] });
+                    incomeData.data.push({ 'type': value.income, 'conversions': value.conversions, 'reach': value.impressions, 'share': value.share, 'scaledShare' : value.scaledshare,'genderId': value.cuberootcampaignId, 'color': colorList[colorIndex] });
                     colorIndex = colorIndex < colorList.length - 1 ? colorIndex + 1 : 0;
                 });
                 incomeData.chartData = dataFactory.visitorDataChart(incomeData.data);
@@ -138,7 +138,7 @@
                 agegroupData.messageStatus.push(response.message);                
                 angular.forEach(response.data, function(value, key) {
                     //var ageGroup = value.age && value.age.toString().toLowerCase().indexOf('y') > -1 ? value.age.toString().toLowerCase().split('y')[0] : value.age;
-                    agegroupData.data.push({ 'type': value.age, 'conversions': value.conversions, 'reach': value.impressions, 'share': value.impressions,'genderId': value.cuberootcampaignId, 'color': colorList[colorIndex] })
+                    agegroupData.data.push({ 'type': value.age, 'conversions': value.conversions, 'reach': value.impressions, 'share': value.share, 'scaledShare' : value.scaledshare,'genderId': value.cuberootcampaignId, 'color': colorList[colorIndex] })
                     colorIndex = colorIndex < colorList.length - 1 ? colorIndex + 1 : 0;
                 });
                 agegroupData.chartData = dataFactory.visitorDataChart(agegroupData.data);
@@ -165,7 +165,7 @@
                     if (trueDate != undefined) {
                         var valuesData = value.citylatlong;
                         var splitData = valuesData.split(',');
-                        cityData.data.push({ 'loaction_type': value.city,'title': value.city,"latitude": parseFloat(splitData[0]), "longitude": parseFloat(splitData[1]), 'citycode': value.citycode,'citylatlong': value.citylatlong, 'conversions': value.conversions, 'share': value.impressions, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
+                        cityData.data.push({ 'loaction_type': value.city,'title': value.city,"latitude": parseFloat(splitData[0]), "longitude": parseFloat(splitData[1]), 'citycode': value.citycode,'citylatlong': value.citylatlong, 'conversions': value.conversions, 'share': value.share, 'scaledShare' : value.scaledshare, 'reach': value.impressions,'deviceId': value.cuberootcampaignId });
                     }
                 });
                 return cityData.data;
@@ -300,6 +300,12 @@
 
         dataFactory.bestPerformingSegment = function(param) {            
             return overviewService.bestPerformingSegmentList(param).then(function(response) {
+                return response.data;
+            });
+        };
+
+         dataFactory.getCampaignIdsList = function(param){
+            return overviewService.getCampaignIdsList(param).then(function(response, status){
                 return response.data;
             });
         };

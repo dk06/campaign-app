@@ -18,7 +18,7 @@ var app = angular.module('MyApp', ['ngCookies', 'ngResource', 'ngMessages', 'ngR
       })
       .when('/all_campaign_overview', {
         templateUrl: 'allCampaignOverview/views/allCampaignOverview.html',
-        controller: 'overviewController'
+        controller: 'allOverviewController'
       })
       .when('/campaign_overview', {
         templateUrl: 'campaignOverview/views/overview.html',

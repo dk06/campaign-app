@@ -2,11 +2,17 @@ app.controller('allOverviewController',['$scope','$rootScope','allOverviewFactor
 
     $scope.loactionType = 'City';
     $rootScope.companyDropDownEvent = true;
-    $scope.campaignObject = 'All Campaigns';
+    $scope.campaigntopObject = 'All Campaigns';
     $scope.dateSet = '01/01/2016 - 31/01/2017';
     $scope.companyObject = 'All Channels';
 
+    $scope.reachSelect = 'Impression';
+
+    $scope.channelDropdown = 'All Channels';
+
     $scope.campaignObjectList = [{'dropdown' : 'All'},{'dropdown' : 'Adwords'},{'dropdown' : 'Facebook'},{'dropdown' : 'DBM'}]
+
+    $scope.metricDropdown = [{'metricKey' :  'Impression'},{'metricKey' :  'Clicks'}, {'metricKey' :  'Reach'}];
 
     var param = {};
         param.dateRange =  sharedMain.dateRange ? sharedMain.dateRange : '2016-01-01_2017-01-31';
@@ -193,11 +199,11 @@ app.controller('allOverviewController',['$scope','$rootScope','allOverviewFactor
         init();
     };
 
-    $rootScope.changeCampaignId = function(campaignId,campaign_name){
-        sharedMain.campaign_id = campaignId;
-        param.campaign_id = campaignId;
-        $scope.companyObject = campaign_name;
-        sharedMain.campaign_name = campaign_name;
+    $scope.changeCampaignId = function(campaign){
+        sharedMain.campaign_id = campaign.campaign_id;
+        param.campaign_id = sharedMain.campaign_id;
+        $scope.campaigntopObject = campaign.campaign_name;
+        sharedMain.campaign_name = campaign.campaign_name;
         init();
     };
 
@@ -320,8 +326,8 @@ app.controller('allOverviewController',['$scope','$rootScope','allOverviewFactor
                 'actions': '-',
                 'impressions' : data.impressions,
                 'count': data.reach,
-                'share': parseInt(data.impressions),
-                'scaledShare' : parseInt(data.impressions),
+                'share': parseInt(data.share),
+                'scaledShare' : parseInt(data.scaledshare),
                 'audienceSegmentCode' : data.cuberootcampaignId
             };
         }
@@ -511,6 +517,159 @@ app.controller('allOverviewController',['$scope','$rootScope','allOverviewFactor
     $scope.deviceAndBrandViewButton = function(){
         param.aggregated = false;
         loaderEvent.loaderActivate();
+        allOverviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
+            $scope.brandName = 'Brand';
+            $scope.deviceSectionData = data;
+            loaderEvent.loaderDeactivate();
+        });
+    };
+
+    $scope.targetSegmentChange = function(filterSelect){
+        param.metric = $filter('lowercase')(filterSelect);
+        bestPerforming();
+    };
+
+    function bestPerforming(){
+            loaderEvent.loaderActivate();
+            allOverviewFactory.bestPerformingForGender(param).then(function(data, status) {
+                $scope.bestPerformingGenderData = data;
+            });
+
+            allOverviewFactory.bestPerformingAgeGroup(param).then(function(data, status) {
+                $scope.bestPerformingAgeData = data;
+            });
+
+            allOverviewFactory.bestPerformingForCity(param).then(function(data, status) {
+                $scope.bestPerformingCityData = data;
+            });
+
+            allOverviewFactory.bestPerformingForDevice(param).then(function(data, status) {
+                $scope.bestPerformingDeviceData = data;
+            });
+
+            allOverviewFactory.bestPerformingSegment(param).then(function(data, status) {
+                $scope.bestPerformingSegmentData = data;
+                loaderEvent.loaderDeactivate();
+            });
+        };
+
+    $scope.matricChange = function(filterCardName, filterSelect){
+        param.metric = $filter('lowercase')(filterSelect);
+        switch(filterCardName){
+            case 'Best Performing':
+            bestPerforming();
+                break;
+            case 'Interest Segment':
+            getAudienceSegment();
+                break;
+            case 'Audience Profile':
+            getAudienceProfiles();
+                break;
+            case 'Loactionwise':
+            getLoactionBy();
+                break;
+            case 'Device':
+            getDevices();
+                break;
+        }
+    };
+
+    $scope.campaignChannelChange = function(filterCardName , campaignId ){
+        switch(filterCardName){
+            case 'Best Performing':
+            param.targetCampaign_id = campaignId;
+            bestPerforming();
+                break;
+            case 'Interest Segment':
+            getAudienceSegment();
+                break;
+            case 'Audience Profile':
+                break;
+            case 'Loactionwise':
+                break;
+            case 'Device':
+                break;
+        }
+    };
+
+    $scope.audienceCount = '';
+    function getAudienceSegment(){
+        loaderEvent.loaderActivate();
+        allOverviewFactory.getAudienceSegement(param).then(function(data, status) {
+            $scope.audienceSegment = data;
+            expandTable();
+            if ($scope.audienceSegment && $scope.audienceSegment) {
+                removedTablesRow($scope.audienceSegment);
+                $scope.audienceCount = $scope.audienceSegment;
+            }else{
+                removedTablesRow($scope.audienceCount);
+            }
+            //$scope.audienceSegment = data;
+            var filterData = _.filter($scope.audienceSegment, function (item, index) {
+                return 0 <= index && 9 >= index;
+            });
+            manageTableData(filterData);
+            loaderEvent.loaderDeactivate();
+        });
+    };
+
+    function getAudienceProfiles(){
+        loaderEvent.loaderActivate();
+        allOverviewFactory.getGenderData(param).then(function(data, status) {
+            $scope.genderData = data;
+            if (data.chartData.length == 0) {
+                $scope.genderData.chartData.push({ key: '', y: 100 });
+                $scope.genderData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.genderData.chartOptions = chartOptions('Gender', data.chartData.length);
+            }
+        });
+
+        allOverviewFactory.ageGroupData(param).then(function(data, status) {
+            $scope.ageGroupData = data;
+            if (data.chartData.length == 0) {
+                $scope.ageGroupData.chartData.push({ key: '', y: 100 });
+                $scope.ageGroupData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.ageGroupData.chartOptions = chartOptions('  Age ', data.chartData.length);
+            }
+        });
+
+        allOverviewFactory.incomeLevelData(param).then(function(data, status) {
+            $scope.incomeData = data;
+            if (data.chartData.length == 0) {
+                $scope.incomeData.chartData.push({ key: '', y: 100 });
+                $scope.incomeData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.incomeData.chartOptions = chartOptions('Income',data.chartData.length);
+            }
+            loaderEvent.loaderDeactivate();
+        });
+
+    };
+
+    function getLoactionBy(){
+        loaderEvent.loaderActivate();
+        allOverviewFactory.cityData(param).then(function(data, status) {
+            $scope.cityData = data;
+            $scope.loactionType = 'City';
+            $scope.$broadcast('cityViewMap', { data: data });
+            loaderEvent.loaderDeactivate();
+        });
+    };
+
+    function getDevices(){
+        loaderEvent.loaderActivate();
+        allOverviewFactory.getDeviceData(param).then(function(data, status) {
+            $scope.deviceData = data;
+            if (data.chartData.length == 0) {
+                $scope.deviceData.chartData.push({ key: '', y: 100 });
+                $scope.deviceData.chartOptions = chartNoDataOptions();
+            } else {
+                $scope.deviceData.chartOptions = chartOptions('Device', data.chartData.length);
+            }
+        });
+
         allOverviewFactory.getDeviceBrandDataData(param).then(function(data, status) {
             $scope.brandName = 'Brand';
             $scope.deviceSectionData = data;
