@@ -5,7 +5,7 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
 
     //http://205.147.101.67:8080/marketingreports/report/getCuberootCampaignIds?dateRange=2016-01-01,2017-01-01
     this.getCompanyList = function (param) {    
-    var promise = $http.get(params.cuberootMarketBaseUrl + 'getCuberootCampaignIds' ,{params: {dateRange : param}} ).then(function(response) {
+    var promise = $http.get(params.cuberootMarketBaseUrl + 'getCuberootCampaignIds' ,{params: {dateRange : param.dateRange}} ).then(function(response) {
             return response;
         });
     return promise;
@@ -180,7 +180,7 @@ app.service('overviewService', function ($rootScope, $http, shareBaseUrl) {
 
     //http://205.147.101.67:8080/marketingreports/report/getCampaignIds?dateRange=2016-01-01,2017-01-01&cuberootCampaignId=12721
     this.getCampaignIdsList = function (param) {    
-    var promise = $http.get(params.cuberootMarketBaseUrl + 'getCampaignIds' ,{params: {dateRange : '2016-01-01,2017-01-01', cuberootCampaignId : param.campaign_id}} ).then(function(response) {
+    var promise = $http.get(params.cuberootMarketBaseUrl + 'getCampaignIds' ,{params: {dateRange : param.dateRange, cuberootCampaignId : param.campaign_id}} ).then(function(response) {
             return response;
         });
     return promise;

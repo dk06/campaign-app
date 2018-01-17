@@ -38,7 +38,7 @@
                                 "panels": [ {
                                 "showCategoryAxis": false,
                                 "title": "Value",
-                                "percentHeight": 90,
+                                "percentHeight": 50,
                                 "stockGraphs": [ {
                                   "id": "g1",
                                   "valueField": "value",
@@ -56,7 +56,7 @@
                                 "stockGraphs": [ {
                                   "valueField": "volume",
                                   "type": "column",
-                                  "showBalloon": false,
+                                  "showBalloon": true,
                                   "fillAlphas": 1
                                 } ]
                               } ],

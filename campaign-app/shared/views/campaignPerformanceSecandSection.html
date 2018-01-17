@@ -2,10 +2,10 @@
     <div class="row">
         <div class="col-md-5">
             <h4 class="title-content">
-                Campaign Progress
+                {{cardcampaignProgres}}
             </h4>
             <div class="media-left col-md-6 no-padding">
-                <p class="text-center">Cost vs Budget</p>
+                <p class="text-center">{{cardTitleCampaignFunnel}}</p>
                 <nvd3 options="costVsBudgetData.chartOptions" data="costVsBudgetData.chartData"></nvd3>
                 <label class="text-center" style="font-size: 25px;">{{costVsBudgetData.data[0].cost | number}}</label>
                 <p class="text-center">Campaign Budget</p>
@@ -21,8 +21,8 @@
         </div>
         <div class="col-md-3">
             <div>
-                <div class="panel-heading">
-                    <h4 class="title-content" style="white-space: nowrap;">Campaign performance Funnel
+                <div class="">
+                    <h4 class="title-content" style="white-space: nowrap;">{{cardcampaignFunnel}}
                     </h4>
                 </div>
                 <div class="">
@@ -30,8 +30,8 @@
                         <label>impressions</label>
                         <li>
                             {{bulletChartData[0].impressions}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].impressions}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].impressions}}%">
+                                <div class="progress" >
                                     <div class="progress-bar" style="width:{{bulletChartData[0].impressions}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -42,8 +42,8 @@
                         <label>Reach</label>
                         <li>
                             {{bulletChartData[0].reach}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].reach}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].reach}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].reach}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -54,8 +54,8 @@
                         <label>Actions</label>
                         <li>
                             {{bulletChartData[0].clicks}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].clicks}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].clicks}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].clicks}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -66,8 +66,8 @@
                         <label>Conversions</label>
                         <li>
                             {{bulletChartData[0].conversions}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].conversions}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].conversions}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].conversions}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -80,8 +80,8 @@
         </div>
         <div class="col-md-4">
             <div>
-                <div class="panel-heading">
-                    <h4 class="title-content">Code Performance Funnel
+                <div class="">
+                    <h4 class="title-content">{{cardcostFunnel}}
                     </h4>
                 </div>
                 <div class="">
@@ -89,8 +89,8 @@
                         <label>CPM</label>
                         <li>
                             {{bulletChartData[0].cpm}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].cpm}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].cpm}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].cpm}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -101,8 +101,8 @@
                         <label>Cost per Reach</label>
                         <li>
                             {{bulletChartData[0].cpp}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].cpp}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].cpp}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].cpp}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -113,8 +113,8 @@
                         <label>Cost per Actions</label>
                         <li>
                             {{bulletChartData[0].clicks}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].clicks}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].clicks}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].clicks}}%">
                                         <span class="sr-only"></span>
                                     </div>
@@ -125,8 +125,8 @@
                         <label>Cost per Conversion</label>
                         <li>
                             {{bulletChartData[0].cpconversion}}
-                            <div class="pull-right" style="width: 100px;">
-                                <div class="progress" data-toggle="tooltip" data-placement="top" tooltip="{{bulletChartData[0].cpconversion}}%">
+                            <div class="pull-right" style="width: 100px;" data-tooltip="{{bulletChartData[0].cpconversion}}%">
+                                <div class="progress">
                                     <div class="progress-bar" style="width:{{bulletChartData[0].cpconversion}}%">
                                         <span class="sr-only"></span>
                                     </div>

@@ -16,6 +16,24 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
 
     $scope.metricDropdown = [{'metricKey' :  'Impression'},{'metricKey' :  'Clicks'}, {'metricKey' :  'Reach'}];
 
+    $scope.cardcampaignKPI = 'Campaign KPI';
+    $scope.carddaywiseCampaign = 'Daywise Campaign Performance';
+    $scope.cardcampaignProgres = 'Campaign Progress';
+    $scope.cardcampaignFunnel = 'Campaign Performance Funnel';
+    $scope.cardcostFunnel = 'Cost Performance Funnel';
+    $scope.cardchannelPerformence = 'Channel Performance';
+    $scope.cardTitleCampaignFunnel = 'Cost vs Budget';
+
+    $scope.channelAndCampaignColumn1 = 'Channel Name';
+    $scope.channelAndCampaignColumn2 = 'Impression';
+    $scope.channelAndCampaignColumn3 = 'Action';
+    $scope.channelAndCampaignColumn4 = 'Conversions';
+    $scope.channelAndCampaignColumn5 = 'Spend';
+    $scope.channelAndCampaignColumn6 = 'Cost/Unit';
+    $scope.channelAndCampaignColumn7 = 'Cost/Conversions';
+    $scope.channelAndCampaignColumn8 = 'Status';
+
+
     var param = {};
         param.dateRange =  sharedMain.dateRange ? sharedMain.dateRange : '2016-01-01_2017-01-31';
         param.campaign_id = sharedMain.campaign_id ? sharedMain.campaign_id : '12721';
@@ -46,9 +64,8 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     function init() {
         if ($window.localStorage.accessToken) {
             loaderEvent.loaderActivate();
-
-            var dateRange = '2016-01-01,2017-01-31';
-            overviewFactory.getCompanyList(dateRange).then(function(response, status){                
+            
+            overviewFactory.getCompanyList(param).then(function(response, status){                
                 $rootScope.companyList = response;
                 sharedMain.campaign_id = response[0].campaign_id;
             });
@@ -219,11 +236,13 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     };
 
     $scope.changeCampaignId = function(campaign){
-        sharedMain.campaign_id = campaign.campaign_id;
-        param.campaign_id = sharedMain.campaign_id;
-        $scope.campaigntopObject = campaign.campaign_name;
-        sharedMain.campaign_name = campaign.campaign_name;
-        init();
+        if (campaign) {
+            sharedMain.campaign_id = campaign.campaign_id;
+            param.campaign_id = sharedMain.campaign_id;
+            $scope.campaigntopObject = campaign.campaign_name;
+            sharedMain.campaign_name = campaign.campaign_name;
+            init();
+        }
     };
 
 
@@ -344,7 +363,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
                 'conversions' : data.conversions,
                 'actions': '-',
                 'impressions' : data.impressions,
-                'count': data.reach,
+                'count': '-',
                 'share': parseInt(data.share),
                 'scaledShare' : parseInt(data.scaledshare),
                 'audienceSegmentCode' : data.cuberootcampaignId

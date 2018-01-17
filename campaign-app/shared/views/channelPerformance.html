@@ -2,14 +2,14 @@
     <table class="table text-nowrap">
         <thead>
             <tr>
-                <th>Channel Name</th>
-                <th>Impressions</th>
-                <th>Action</th>
-                <th>Conversions</th>
-                <th>Spend</th>
-                <th>Cost/Unit</th>
-                <th>Cost/Canversions</th>
-                <th>Status</th>
+                <th>{{channelAndCampaignColumn1}}</th>
+                <th>{{channelAndCampaignColumn2}}</th>
+                <th>{{channelAndCampaignColumn3}}</th>
+                <th>{{channelAndCampaignColumn4}}</th>
+                <th>{{channelAndCampaignColumn5}}</th>
+                <th>{{channelAndCampaignColumn6}}</th>
+                <th ng-if="channelAndCampaignColumn7 != ''">{{channelAndCampaignColumn7}}</th>
+                <th>{{channelAndCampaignColumn8}}</th>
                 <th></th>
             </tr>
         </thead>
@@ -21,7 +21,7 @@
                 <td>{{channel.conversions}}</td>
                 <td>-</td>
                 <td>{{channel.cpm}}</td>
-                <td>{{channel.cpconversion}}</td>
+                <td ng-if="channelAndCampaignColumn7 != ''">{{channel.cpconversion}}</td>
                 <td>-</td>
                 <td></td>
             </tr>
