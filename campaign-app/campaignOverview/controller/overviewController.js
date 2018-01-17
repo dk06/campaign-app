@@ -41,7 +41,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
         param.channel = sharedMain.channel ? sharedMain.channel : 'all';
         param.channelAll = 'all';
         param.metric = 'impression';
-        param.targetName = 'CVR';
+        param.targetName = 'impression';
         param.targetCampaign_id ='6043097399059';
         param.details = false;
    
@@ -576,7 +576,7 @@ app.controller('overviewController',['$scope','$rootScope','overviewFactory', '$
     // };
 
     $scope.targetSegmentChange = function(filterSelect){
-        param.metric = $filter('lowercase')(filterSelect);
+        param.targetName = $filter('lowercase')(filterSelect);
         bestPerforming();
     };
 
